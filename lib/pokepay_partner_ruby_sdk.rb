@@ -11,12 +11,14 @@ module Pokepay
   # Your code goes here...
 end
 
-# c = Pokepay::Client.new("/home/wiz/tmp/phpsdk-test/config.ini")
-# response = c.post("/echo", {"message" => "hello"})
-# c.decode(response)
+# c = Pokepay::Client.new("~/.pokepay/config.ini")
+# res = c.post("/echo", {"message" => "hello"})
+# res.body
+# => "{\"status\":\"ok\",\"message\":\"hello\"}"
 
-# response = c.get("/transactions", {"per_page" => 1})
-# c.decode(response)
-
+# res = c.get("/transactions", {"per_page" => 1})
+# res.body
 
 # res = c.send(Pokepay::Request::SendEcho.new('hello'))
+# res.body
+# => "{\"status\":\"ok\",\"message\":\"hello\"}"

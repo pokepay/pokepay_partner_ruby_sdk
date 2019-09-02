@@ -1,14 +1,18 @@
+require "net/https"
+
 module Pokepay::Response
   class Response < Net::HTTPResponse
     def initialize(response)
+      @body = response.body
       @code = response.code
-      response_map = JSON.parse(response.body)
-      if(response_map["response_data"])
-        @crypto.decrypt(Base64.urlsafe_decode64(response_map["response_data"])).force_encoding("utf-8")
-
+      @header = response.header
+      @http_version = response.http_version
+      @message = response.message
     end
-    attr_reader :path
-    attr_reader :method
-    attr_reader :body_params
+    attr_reader :body
+    attr_reader :code
+    attr_reader :header
+    attr_reader :http_version
+    attr_reader :message
   end
 end
