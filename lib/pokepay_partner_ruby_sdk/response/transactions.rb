@@ -1,5 +1,6 @@
 require "pokepay_partner_ruby_sdk/response/response"
 require "pokepay_partner_ruby_sdk/response/transaction"
+require "pokepay_partner_ruby_sdk/response/pagination"
 
 module Pokepay::Response
   class Transactions < Response

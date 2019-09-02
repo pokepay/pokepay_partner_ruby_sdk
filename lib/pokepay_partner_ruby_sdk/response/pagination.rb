@@ -7,5 +7,10 @@ module Pokepay::Response
       @has_prev = response_map["has_prev"]
       @has_next = response_map["has_next"]
     end
+    attr_reader :current
+    attr_reader :per_page
+    attr_reader :max_page
+    attr_reader :has_prev
+    attr_reader :has_next
   end
 end
