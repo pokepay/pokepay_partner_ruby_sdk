@@ -47,12 +47,11 @@ module Pokepay
         res.body = res_map
       end
 
-      if response_class then
-        result = response_class.new(res)
+      if response_class
+        Pokepay::Response::Response.new(res, response_class.new(res.body))
       else
-        result = res.body
+        res.body
       end
-      return result
     end
 
     def get(path, body_params)
@@ -92,16 +91,6 @@ end
 # c = Pokepay::Client.new("/home/wiz/tmp/phpsdk-test/config.ini")
 
 # res = c.send(Pokepay::Request::SendEcho.new('hello'))
+# res = c.send(Pokepay::Request::ListTransactions.new({'per_page'=>1}))
 
-# response = c1.post("/echo", {"message" => "hello日本語"})
-# puts c1.decode_response(response)
-# puts response.code
-
-
-# response = c1.post("/hoge", {"message" => "hello日本語"})
-# puts c1.decode_response(response)
-# puts response.code
-
-# response = c1.post("/hoge", {"message" => "hello日本語"})
-# puts c1.decode_response(response)
-# puts response.code
+# response = c.post("/echo", {"message" => "hello日本語"})
