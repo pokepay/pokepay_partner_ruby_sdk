@@ -29,6 +29,11 @@ module Pokepay
       @crypto = Pokepay::Crypto.new(@client_secret)
     end
 
+    def is_success(res)
+      code = res.code.to_i
+      200 <= code and code < 300
+    end
+
     def request(request_class, path, body_params, response_class)
       encrypt_data = { 'request_data' => body_params,
                        'timestamp' => Time.now.iso8601(6),
@@ -47,10 +52,10 @@ module Pokepay
         res.body = res_map
       end
 
-      if response_class
+      if is_success(res) and response_class
         Pokepay::Response::Response.new(res, response_class.new(res.body))
       else
-        res.body
+        res
       end
     end
 
@@ -88,7 +93,7 @@ module Pokepay
   end
 end
 
-# c = Pokepay::Client.new("/home/wiz/tmp/phpsdk-test/config.ini")
+# c = Pokepay::Client.new("~/.pokepay/config.ini")
 
 # res = c.send(Pokepay::Request::SendEcho.new('hello'))
 # res = c.send(Pokepay::Request::ListTransactions.new({'per_page'=>1}))
