@@ -13,7 +13,12 @@ require "pokepay_partner_ruby_sdk/crypto"
 module Pokepay
   class Client
     def initialize(path_to_inifile)
-      ini = IniFile.load(File.expand_path(path_to_inifile))
+      path = File.expand_path(path_to_inifile)
+      if File.exist?(path)
+        ini = IniFile.load(path)
+      else
+        raise "init file does not exist."
+      end
       @client_id = ini['global']['CLIENT_ID']
       @client_secret = ini['global']['CLIENT_SECRET']
       @api_base_url = URI.parse(ini['global']['API_BASE_URL'])
@@ -92,10 +97,3 @@ module Pokepay
     end
   end
 end
-
-# c = Pokepay::Client.new("~/.pokepay/config.ini")
-
-# res = c.send(Pokepay::Request::SendEcho.new('hello'))
-# res = c.send(Pokepay::Request::ListTransactions.new({'per_page'=>1}))
-
-# response = c.post("/echo", {"message" => "hello日本語"})

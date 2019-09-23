@@ -1,8 +1,6 @@
 # PokepayPartnerRubySdk
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pokepay_partner_ruby_sdk`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Pokepay Partner API SDK for Ruby.
 
 ## Installation
 
@@ -22,7 +20,28 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require "pokepay_partner_ruby_sdk"
+c = Pokepay::Client.new("/path/to/config.ini")
+res = c.send(Pokepay::Request::SendEcho.new('hello'))
+res = c.send(Pokepay::Request::ListTransactions.new({'per_page'=>1}))
+
+shop_id = "8b9fbece-73fa-494d-bad5-c7fd9e52f9a0"
+customer_id = "78e56df5-dd71-4554-86e5-b0eb8d3781cb"
+private_money_id = "4b138a4c-8944-4f98-a5c4-96d3c1c415eb"
+money_amount = 100
+point_amount = 200
+description = "topup test"
+response = c.send(Pokepay::Request::CreateTransaction.new(
+                    shop_id, customer_id, private_money_id,
+                    money_amount, point_amount, description))
+```
+
+## Run test
+
+```
+$ bundle exec ruby test/pokepay_partner_ruby_sdk_test.rb
+```
 
 ## Development
 
