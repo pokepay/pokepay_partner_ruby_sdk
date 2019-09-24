@@ -155,7 +155,7 @@ response = client.send(Pokepay::Request::ListTransactions.new(
 - done_at (Time): 取引日時
 - description (String): 取引説明文
 
-`sender` と `receiver` には `Pokepay::Response::User` のオブジェクトです。 以下にプロパティを示します。
+`sender` と `receiver` は `Pokepay::Response::User` のオブジェクトです。 以下にプロパティを示します。
 
 - id (String): ユーザー (または店舗) ID
 - name (String): ユーザー (または店舗) 名
