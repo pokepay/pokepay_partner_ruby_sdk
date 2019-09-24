@@ -18,8 +18,8 @@ require "pokepay_partner_ruby_sdk"
 基本的な使い方は次のようになります。
 
 - ライブラリをロード
-- 設定ファイル(後述)から Pokepay::Client オブジェクトを作る
-- リクエストオブジェクトを作り、Pokepay::Client オブジェクトのsendメソッドに対して渡す
+- 設定ファイル(後述)から `Pokepay::Client` オブジェクトを作る
+- リクエストオブジェクトを作り、`Pokepay::Client` オブジェクトの `send` メソッドに対して渡す
 - レスポンスオブジェクトを得る
 
 ```ruby
@@ -33,22 +33,22 @@ response = client.send(request)
 
 ## Settings
 
-設定はINIファイルに記述し、 Pokepay::Client のコンストラクタにファイルパスを指定します。
+設定はINIファイルに記述し、`Pokepay::Client` のコンストラクタにファイルパスを指定します。
 
-SDKプロジェクトルートに config.ini.sample というファイルがありますのでそれを元に必要な情報を記述してください。特に以下の情報は通信の安全性のため必要な項目です。これらはパートナー契約時にお渡ししているものです。
+SDKプロジェクトルートに `config.ini.sample` というファイルがありますのでそれを元に必要な情報を記述してください。特に以下の情報は通信の安全性のため必要な項目です。これらはパートナー契約時にお渡ししているものです。
 
-- CLIENT_ID: パートナーAPI クライアントID
-- CLIENT_SECRET: パートナーAPI クライアント秘密鍵
-- SSL_KEY_FILE: SSL秘密鍵ファイルパス
-- SSL_CERT_FILE: SSL証明書ファイルパス
+- `CLIENT_ID`: パートナーAPI クライアントID
+- `CLIENT_SECRET`: パートナーAPI クライアント秘密鍵
+- `SSL_KEY_FILE`: SSL秘密鍵ファイルパス
+- `SSL_CERT_FILE`: SSL証明書ファイルパス
 
 この他に接続先のサーバURL情報が必要です。
 
-- API_BASE_URL: パートナーAPI サーバURL
+- `API_BASE_URL`: パートナーAPI サーバURL
 
 また、この設定ファイルには認証に必要な情報が含まれるため、ファイルの管理・取り扱いに十分注意してください。
 
-設定ファイル記述例(config.ini.sample)
+設定ファイル記述例(`config.ini.sample`)
 
 ```
 CLIENT_ID        = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
@@ -62,9 +62,9 @@ SSL_CERT_FILE    = /path/to/cert.pem
 
 ### APIリクエスト
 
-Partner APIへの通信はリクエストオブジェクトを作り、Pokepay::Client.send メソッドに渡すことで行われます。リクエストクラスは名前空間 Pokepay::Request 以下に定義されています。
+Partner APIへの通信はリクエストオブジェクトを作り、`Pokepay::Client.send` メソッドに渡すことで行われます。リクエストクラスは名前空間 `Pokepay::Request` 以下に定義されています。
 
-たとえば Pokepay::Request::SendEcho 送信した内容をそのまま返す処理です。
+たとえば `Pokepay::Request::SendEcho` は送信した内容をそのまま返すエンドポイントへのリクエストになります。
 
 ```ruby
 request = Pokepay::Request::SendEcho.new('hello')
@@ -89,7 +89,7 @@ response.object.message
 # => "hello"
 ```
 
-エラーの場合は Net::HTTPBadRequest などのエラーレスポンスオブジェクトが返ります。エラーレスポンスもステータスコードとレスポンスボディを持ちます。
+エラーの場合は `Net::HTTPBadRequest` などのエラーレスポンスオブジェクトが返ります。エラーレスポンスもステータスコードとレスポンスボディを持ちます。
 
 ```ruby
 request = Pokepay::Request::SendEcho.new(-1)
@@ -133,22 +133,22 @@ response = client.send(Pokepay::Request::ListTransactions.new(
                          }))
 ```
 
-成功したときは Pokepay::Response::Transaction を rows に含むページングオブジェクトを返します。
+成功したときは `Pokepay::Response::Transaction` を `rows` に含むページングオブジェクトを返します。
 取引一覧のような大量のレスポンスが返るエンドポイントでは、一度に取得する量を制限するためにページングされています。
 
 #### 取引情報
 
-取引クラスは Pokepay::Response::Transaction で定義されています。
+取引クラスは `Pokepay::Response::Transaction` で定義されています。
 
 取引オブジェクトのプロパティは以下のようになっています。
 
 - id (String): 取引ID
 - type (String): 取引種別 (チャージ=topup, 支払い=payment)
 - is_modified (真理値): 返金された取引かどうか
-- sender (Response\User): 送金者情報
-- receiver (Response\User): 受取者情報
-- sender_account (Response\Account): 送金口座情報
-- receiver_account (Response\Account): 受取口座情報
+- sender (Pokepay::Response::User): 送金者情報
+- receiver (Pokepay::Response::User): 受取者情報
+- sender_account (Pokepay::Response::Account): 送金口座情報
+- receiver_account (Pokepay::Response::Account): 受取口座情報
 - amount (Numeric): 決済総額 (マネー額 + ポイント額)
 - money_amount (Numeric): 決済マネー額
 - point_amount (Numeric): 決済ポイント額
@@ -166,7 +166,7 @@ response = client.send(Pokepay::Request::ListTransactions.new(
 - id (String): 口座ID
 - name (String): 口座名
 - is_suspended (真理値): 口座が凍結されているかどうか
-- private_money (Response\PrivateMoney): 設定マネー情報
+- private_money (Pokepay::Response::PrivateMoney): 設定マネー情報
 
 `privateMoney` は `Pokepay::Response::PrivateMoney` のオブジェクトです。以下にプロパティを示します。
 
@@ -182,7 +182,7 @@ response = client.send(Pokepay::Request::ListTransactions.new(
 
 #### ページング
 
-ページングクラスは Pokepay::Response::Pagination で定義されています。
+ページングクラスは `Pokepay::Response::Pagination` で定義されています。
 
 ページングオブジェクトのプロパティは以下のようになっています。
 
@@ -210,4 +210,4 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
                           money_amount, point_amount, description))
 ```
 
-成功したときは Pokepay::Response::Transaction を持つレスポンスオブジェクトを返します。
+成功したときは `Pokepay::Response::Transaction` を持つレスポンスオブジェクトを返します。
