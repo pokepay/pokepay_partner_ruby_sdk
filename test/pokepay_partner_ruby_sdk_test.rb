@@ -73,5 +73,6 @@ class PokepayTest < Minitest::Test
                               random_id, customer_id, private_money_id,
                               money_amount, point_amount, description))
     assert_equal response.code, "422"
+    assert_equal response.body, {"type"=>"shop_user_not_found", "message"=>"The shop user is not found"}
   end
 end
