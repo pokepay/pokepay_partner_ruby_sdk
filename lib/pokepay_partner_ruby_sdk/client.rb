@@ -3,7 +3,7 @@
 require "openssl"
 require "base64"
 require "uri"
-require "net/https"
+require "net/http"
 require "time"
 require "json"
 require "securerandom"
@@ -26,11 +26,13 @@ module Pokepay
       @ssl_cert_file = ini['global']['SSL_CERT_FILE']
       @timezone = ini['global']['TIMEZONE']
       @timeout = ini['global']['TIMEOUT']
-      @https = Net::HTTP.new(@api_base_url.host, @api_base_url.port)
-      @https.use_ssl = true
-      @https.cert = OpenSSL::X509::Certificate.new(File.read(@ssl_cert_file))
-      @https.key = OpenSSL::PKey::RSA.new(File.read(@ssl_key_file))
-      @https.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      @http = Net::HTTP.new(@api_base_url.host, @api_base_url.port)
+      if @api_base_url.scheme == 'https'
+        @http.use_ssl = true
+        @http.cert = OpenSSL::X509::Certificate.new(File.read(@ssl_cert_file))
+        @http.key = OpenSSL::PKey::RSA.new(File.read(@ssl_key_file))
+        @http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      end
       @crypto = Pokepay::Crypto.new(@client_secret)
     end
 
@@ -47,7 +49,7 @@ module Pokepay
                 "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data)))}
       req = request_class.new(path)
       req.set_form_data(params)
-      res = @https.start { @https.request(req) }
+      res = @http.start { @http.request(req) }
       res_map = JSON.parse(res.body)
       if(res_map["response_data"]) then
         res.body =
