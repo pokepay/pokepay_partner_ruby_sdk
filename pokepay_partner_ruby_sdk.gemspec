@@ -5,8 +5,8 @@ require "pokepay_partner_ruby_sdk/version"
 Gem::Specification.new do |spec|
   spec.name          = "pokepay_partner_ruby_sdk"
   spec.version       = Pokepay::VERSION
-  spec.authors       = ["Satoshi Imai"]
-  spec.email         = ["satoshi.imai@gmail.com"]
+  spec.authors       = ["Pocket Change, Inc."]
+  spec.email         = ["contact@pocket-change.jp"]
 
   spec.summary       = %q{Pokepay Partner API SDK for Ruby}
   spec.description   = %q{Pokepay Partner API SDK for Ruby}
