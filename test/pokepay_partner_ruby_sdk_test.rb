@@ -1,6 +1,8 @@
 # coding: utf-8
-require "./test_helper"
+require 'minitest/autorun'
 require "pokepay_partner_ruby_sdk"
+
+$client = Pokepay::Client.new(File.expand_path("~/.pokepay/config.ini"))
 
 class PokepayTest < Minitest::Test
 
