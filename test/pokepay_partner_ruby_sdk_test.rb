@@ -1,8 +1,10 @@
 # coding: utf-8
 require 'minitest/autorun'
 require "pokepay_partner_ruby_sdk"
+require "inifile"
 
-$client = Pokepay::Client.new(File.expand_path("~/.pokepay/config.ini"))
+$client = Pokepay::Client.new(File.expand_path("~/.pokepay/test-config.ini"))
+$inifile = IniFile.load(File.expand_path("~/.pokepay/test-config.ini"))
 
 class PokepayTest < Minitest::Test
 
@@ -44,9 +46,9 @@ class PokepayTest < Minitest::Test
   end
 
   def test_can_create_transaction
-    shop_id = "8b9fbece-73fa-494d-bad5-c7fd9e52f9a0"
-    customer_id = "78e56df5-dd71-4554-86e5-b0eb8d3781cb"
-    private_money_id = "4b138a4c-8944-4f98-a5c4-96d3c1c415eb"
+    shop_id = $inifile["testdata"]["shop_id"]
+    customer_id = $inifile["testdata"]["customer_id"]
+    private_money_id = $inifile["testdata"]["private_money_id"]
     money_amount = 100
     point_amount = 200
     description = "チャージテスト"
@@ -64,9 +66,9 @@ class PokepayTest < Minitest::Test
   end
 
   def test_can_not_create_transaction
-    shop_id = "8b9fbece-73fa-494d-bad5-c7fd9e52f9a0"
-    customer_id = "78e56df5-dd71-4554-86e5-b0eb8d3781cb"
-    private_money_id = "4b138a4c-8944-4f98-a5c4-96d3c1c415eb"
+    shop_id = $inifile["testdata"]["shop_id"]
+    customer_id = $inifile["testdata"]["customer_id"]
+    private_money_id = $inifile["testdata"]["private_money_id"]
     random_id = SecureRandom.uuid
     money_amount = 100
     point_amount = 200
