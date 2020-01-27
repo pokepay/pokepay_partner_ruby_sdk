@@ -6,7 +6,7 @@ module Pokepay::Response
       @body = response.body
       @object = object
       @code = response.code
-      @header = response.header
+      @header = response
       @http_version = response.http_version
       @message = response.message
     end
