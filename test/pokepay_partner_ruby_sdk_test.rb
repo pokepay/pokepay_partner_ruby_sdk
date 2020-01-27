@@ -66,7 +66,7 @@ class PokepayTest < Minitest::Test
   end
 
   def test_can_not_create_transaction
-    shop_id = $inifile["testdata"]["shop_id"]
+    #shop_id = $inifile["testdata"]["shop_id"]
     customer_id = $inifile["testdata"]["customer_id"]
     private_money_id = $inifile["testdata"]["private_money_id"]
     random_id = SecureRandom.uuid
