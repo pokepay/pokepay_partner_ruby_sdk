@@ -13,7 +13,7 @@ class PokepayTest < Minitest::Test
   end
 
   def test_can_send_echo
-    response = $client.send(Pokepay::Request::SendEcho.new('hello'))
+    response = $client.send(Pokepay::Request::CreateEcho.new('hello'))
     assert_equal response.class, Pokepay::Response::Response
     assert_equal response.code, "200"
     assert_equal response.object.class, Pokepay::Response::Echo
@@ -21,7 +21,7 @@ class PokepayTest < Minitest::Test
   end
 
   def test_can_not_send_echo
-    response = $client.send(Pokepay::Request::SendEcho.new(0))
+    response = $client.send(Pokepay::Request::CreateEcho.new(0))
     assert_equal response.class, Net::HTTPBadRequest
     assert_equal response.code, "400"
     assert_equal response.body, {"type"=>"invalid_parameters",
@@ -30,14 +30,14 @@ class PokepayTest < Minitest::Test
   end
 
   def test_can_get_transactions
-    response = $client.send(Pokepay::Request::ListTransactions.new({"per_page" => 1}))
+    response = $client.send(Pokepay::Request::ListTransactions.new(per_page: 1))
     assert_equal response.class, Pokepay::Response::Response
     assert_equal response.code, "200"
-    assert_equal response.object.class, Pokepay::Response::Transactions
+    assert_equal response.object.class, Pokepay::Response::PaginatedTransaction
   end
 
   def test_can_not_get_transactions
-    response = $client.send(Pokepay::Request::ListTransactions.new({"per_page" => -1}))
+    response = $client.send(Pokepay::Request::ListTransactions.new(per_page: -1))
     assert_equal response.class, Net::HTTPBadRequest
     assert_equal response.code, "400"
     assert_equal response.body, {"type"=>"invalid_parameters",
@@ -54,7 +54,7 @@ class PokepayTest < Minitest::Test
     description = "チャージテスト"
     response = $client.send(Pokepay::Request::CreateTransaction.new(
                               shop_id, customer_id, private_money_id,
-                              money_amount, point_amount, description))
+                              money_amount: money_amount, point_amount: point_amount, description: description))
     assert_equal response.code, "200"
     assert_equal response.object.class, Pokepay::Response::Transaction
     assert_equal response.object.sender.id, shop_id
@@ -75,7 +75,7 @@ class PokepayTest < Minitest::Test
     description = "チャージテスト"
     response = $client.send(Pokepay::Request::CreateTransaction.new(
                               random_id, customer_id, private_money_id,
-                              money_amount, point_amount, description))
+                              money_amount: money_amount, point_amount: point_amount, description: description))
     assert_equal response.code, "422"
     assert_equal response.body, {"type"=>"shop_user_not_found", "message"=>"The shop user is not found"}
   end
