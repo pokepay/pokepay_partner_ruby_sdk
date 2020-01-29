@@ -1,12 +1,11 @@
-require "pokepay_partner_ruby_sdk/response/transactions"
-
 module Pokepay::Request
   class ListTransactions < Request
-    def initialize(filter_args)
+    def initialize(rest_args = {})
       @path = "/transactions"
       @method = "GET"
-      @body_params = filter_args
-      @response_class = Pokepay::Response::Transactions
+      @body_params = {  }.merge(rest_args)
+      @response_class = Pokepay::Response::PaginatedTransaction
     end
+    attr_reader :response_class
   end
 end

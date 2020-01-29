@@ -1,6 +1,3 @@
-require "pokepay_partner_ruby_sdk/response/user"
-require "pokepay_partner_ruby_sdk/response/account"
-
 module Pokepay::Response
   class Transaction
     def initialize(row)
@@ -14,7 +11,7 @@ module Pokepay::Response
       @amount = row["amount"]
       @money_amount = row["money_amount"]
       @point_amount = row["point_amount"]
-      @done_at = Time.parse(row["done_at"]).localtime
+      @done_at = row["done_at"]
       @description = row["description"]
     end
     attr_reader :id

@@ -1,5 +1,3 @@
-require "pokepay_partner_ruby_sdk/response/organization"
-
 module Pokepay::Response
   class PrivateMoney
     def initialize(row)
@@ -8,6 +6,7 @@ module Pokepay::Response
       @unit = row["unit"]
       @is_exclusive = row["is_exclusive"]
       @description = row["description"]
+      @oneline_message = row["oneline_message"]
       @organization = Organization.new(row["organization"])
       @max_balance = row["max_balance"]
       @transfer_limit = row["transfer_limit"]
@@ -19,6 +18,7 @@ module Pokepay::Response
     attr_reader :unit
     attr_reader :is_exclusive
     attr_reader :description
+    attr_reader :oneline_message
     attr_reader :organization
     attr_reader :max_balance
     attr_reader :transfer_limit

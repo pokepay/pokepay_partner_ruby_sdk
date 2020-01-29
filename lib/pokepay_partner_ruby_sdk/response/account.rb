@@ -1,5 +1,3 @@
-require "pokepay_partner_ruby_sdk/response/private_money"
-
 module Pokepay::Response
   class Account
     def initialize(row)
