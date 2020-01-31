@@ -3,7 +3,6 @@
 require "pokepay_partner_ruby_sdk/version"
 require "pokepay_partner_ruby_sdk/client"
 require "pokepay_partner_ruby_sdk/request/request"
-require "pokepay_partner_ruby_sdk/response/response"
 require "pokepay_partner_ruby_sdk/request/get_private_money_organization_summaries"
 require "pokepay_partner_ruby_sdk/request/create_shop"
 require "pokepay_partner_ruby_sdk/request/create_organization"
