@@ -62,9 +62,10 @@ SSL_CERT_FILE    = /path/to/cert.pem
 
 ### APIリクエスト
 
-Partner APIへの通信はリクエストオブジェクトを作り、`Pokepay::Client.send` メソッドに渡すことで行われます。リクエストクラスは名前空間 `Pokepay::Request` 以下に定義されています。
+Partner APIへの通信はリクエストオブジェクトを作り、`Pokepay::Client.send` メソッドに渡すことで行われます。  
+リクエストクラスは名前空間 `Pokepay::Request` 以下に定義されています。
 
-たとえば `Pokepay::Request::SendEcho` は送信した内容をそのまま返すエンドポイントへのリクエストになります。
+たとえば `Pokepay::Request::SendEcho` は送信した内容をそのまま返す処理です。
 
 ```ruby
 request = Pokepay::Request::SendEcho.new('hello')
@@ -73,7 +74,8 @@ response = client.send(request)
 # => #<Pokepay::Response::Response 200 OK readbody=>
 ```
 
-通信の結果として、レスポンスオブジェクトが得られます。これはステータスコードとレスポンスボディ、各レスポンスクラスのオブジェクトをインスタンス変数に持つオブジェクトです。
+通信の結果として、レスポンスオブジェクトが得られます。  
+これはステータスコードとレスポンスボディ、各レスポンスクラスのオブジェクトをインスタンス変数に持つオブジェクトです。
 
 ```ruby
 response.code
@@ -89,21 +91,9 @@ response.object.message
 # => "hello"
 ```
 
-エラーの場合は `Net::HTTPBadRequest` などのエラーレスポンスオブジェクトが返ります。エラーレスポンスもステータスコードとレスポンスボディを持ちます。
+利用可能なAPI操作については [API Operations](#api-operations) で紹介します。
 
-```ruby
-request = Pokepay::Request::SendEcho.new(-1)
-
-response = client.send(request)
-# => #<Net::HTTPBadRequest 400 Bad Request readbody=true>
-
-response.code
-# => 400
-
-response.body
-# => {"type"=>"invalid_parameters", "message"=>"Invalid parameters", "errors"=>{"invalid"=>["message"]}}
-```
-
+<a name="paging"></a>
 ### ページング
 
 API操作によっては、大量のデータがある場合に備えてページング処理があります。
@@ -133,45 +123,38 @@ if response.object.pagination.has_next then
 end
 ```
 
+### エラーハンドリング
+
+エラーの場合は `Net::HTTPBadRequest` などのエラーレスポンスオブジェクトが返ります。  
+エラーレスポンスもステータスコードとレスポンスボディを持ちます。
+
+```ruby
+request = Pokepay::Request::SendEcho.new(-1)
+
+response = client.send(request)
+# => #<Net::HTTPBadRequest 400 Bad Request readbody=true>
+
+response.code
+# => 400
+
+response.body
+# => {"type"=>"invalid_parameters", "message"=>"Invalid parameters", "errors"=>{"invalid"=>["message"]}}
+```
+
+<a name="api-operations"></a>
 ## API Operations
 
 ### Transaction
 
-#### 取引一覧を取得する
+<a name="get-transaction"></a>
+#### 取引情報を取得する
 
 ```ruby
-response = client.send(Pokepay::Request::ListTransactions.new(
-                         {
-                           # ページング
-                           "page"     => 1,
-                           "per_page" => 50,
-
-                           # フィルタオプション (すべて任意)
-                           # 期間指定 (ISO8601形式の文字列)
-                           "from" => "2019-01-01T00:00:00+09:00",
-                           "to"   => "2019-07-30T18:13:39+09:00",
-                           # 検索オプション
-                           "customer_id"    => "xxxxxxxxxxxxxxxxx", # エンドユーザーID
-                           "customer_name"  => "福沢",           # エンドユーザー名
-                           "transaction_id" => "24bba30c......", # 取引ID
-                           "shop_id"        => "456a820b......", # 店舗ID
-                           "terminal_id"    => "d8023185......", # 端末ID
-                           "organization"   => "pocketchange",   # 組織コード
-                           "private_money"  => "9ff644fc......", # マネーID
-                           "is_modified"    => "true",           # キャンセルされた取引のみ検索するか
-                           # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
-                           "types"          => ["topup", "payment"],
-                         }))
+transaction_id = "xxxxxxxxxxxxxxxxx"  # 取引ID
+response = client.send(Pokepay::Request::GetTransaction.new(transaction_id))
 ```
 
-成功したときは `Pokepay::Response::Transaction` を `rows` に含むページングオブジェクトを返します。
-取引一覧のような大量のレスポンスが返るエンドポイントでは、一度に取得する量を制限するためにページングされています。
-
-##### 取引情報
-
-取引クラスは `Pokepay::Response::Transaction` で定義されています。
-
-取引オブジェクトのプロパティは以下のようになっています。
+成功したときは以下のプロパティを含む `Pokepay::Response::Transaction` オブジェクトをレスポンスとして返します。
 
 - id (String): 取引ID
 - type (String): 取引種別 (チャージ=topup, 支払い=payment)
@@ -219,11 +202,11 @@ customer_id      = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy" # エンドユーザ�
 private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # 送るマネーのID
 money_amount     = 1000                                   # チャージマネー額
 point_amount     = 0                                      # チャージするポイント額
-description      = "初夏のチャージキャンペーン"           # 取引履歴に表示する説明文
+description      = "初夏のチャージキャンペーン"                # 取引履歴に表示する説明文
 
-response = $client.send(Pokepay::Request::CreateTransaction.new(
-                          shop_id, customer_id, private_money_id,
-                          money_amount, point_amount, description))
+response = client.send(Pokepay::Request::CreateTransaction.new(
+                         shop_id, customer_id, private_money_id,
+                         money_amount, point_amount, description))
 ```
 
 成功したときは `Pokepay::Response::Transaction` を持つレスポンスオブジェクトを返します。
@@ -233,6 +216,34 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
 #### チャージ用QRコードを読み取ることでチャージする
 
 #### 取引履歴を取得する
+
+```ruby
+response = client.send(Pokepay::Request::ListTransactions.new(
+                         {
+                           # ページング
+                           "page"     => 1,
+                           "per_page" => 50,
+
+                           # フィルタオプション (すべて任意)
+                           # 期間指定 (ISO8601形式の文字列)
+                           "from" => "2019-01-01T00:00:00+09:00",
+                           "to"   => "2019-07-30T18:13:39+09:00",
+                           # 検索オプション
+                           "customer_id"    => "xxxxxxxxxxxxxxxxx", # エンドユーザーID
+                           "customer_name"  => "福沢",           # エンドユーザー名
+                           "transaction_id" => "24bba30c......", # 取引ID
+                           "shop_id"        => "456a820b......", # 店舗ID
+                           "terminal_id"    => "d8023185......", # 端末ID
+                           "organization"   => "pocketchange",   # 組織コード
+                           "private_money"  => "9ff644fc......", # マネーID
+                           "is_modified"    => "true",           # キャンセルされた取引のみ検索するか
+                           # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
+                           "types"          => ["topup", "payment"],
+                         }))
+```
+
+成功したときは `Pokepay::Response::Transaction` を `rows` に含むページングオブジェクトを返します。  
+詳細は [ページング](#paging) を参照してください。
 
 #### 送金する
 
