@@ -68,7 +68,7 @@ Partner APIへの通信はリクエストオブジェクトを作り、`Pokepay:
 たとえば `Pokepay::Request::SendEcho` は送信した内容をそのまま返す処理です。
 
 ```ruby
-request = Pokepay::Request::SendEcho.new('hello')
+request = Pokepay::Request::CreateEcho.new('hello')
 
 response = client.send(request)
 # => #<Pokepay::Response::Response 200 OK readbody=>
@@ -150,7 +150,7 @@ response.body
 #### 取引情報を取得する
 
 ```ruby
-transaction_id = "xxxxxxxxxxxxxxxxx"  # 取引ID
+transaction_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # 取引ID
 response = client.send(Pokepay::Request::GetTransaction.new(transaction_id))
 ```
 
@@ -201,19 +201,53 @@ shop_id          = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 店舗ID
 customer_id      = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy" # エンドユーザーのID
 private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # 送るマネーのID
 money_amount     = 1000                                   # チャージマネー額
-point_amount     = 0                                      # チャージするポイント額
-description      = "初夏のチャージキャンペーン"                # 取引履歴に表示する説明文
+point_amount     = 0                                      # チャージするポイント額 (任意)
+description      = "初夏のチャージキャンペーン"                # 取引履歴に表示する説明文 (任意)
 
 response = client.send(Pokepay::Request::CreateTransaction.new(
                          shop_id, customer_id, private_money_id,
                          money_amount, point_amount, description))
 ```
 
-成功したときは `Pokepay::Response::Transaction` を持つレスポンスオブジェクトを返します。
+成功したときは `Pokepay::Response::Transaction` を持つレスポンスオブジェクトを返します。  
+プロパティは [取引情報を取得する](#get-transaction) を参照してください。
 
 #### 支払いする
 
+```ruby
+shop_id          = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 店舗ID
+customer_id      = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy" # エンドユーザーのID
+private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # 支払うマネーのID
+money_amount     = 1000                                   # 支払い額
+description      = "たい焼き(小倉)"                         # 取引履歴に表示する説明文 (任意)
+
+response = client.send(Pokepay::Request::CreatePaymentTransaction.new(
+                         shop_id, customer_id, private_money_id,
+                         money_amount, description))
+```
+
+成功したときは `Pokepay::Response::Transaction` オブジェクトをレスポンスとして返します。  
+プロパティは [取引情報を取得する](#get-transaction) を参照してください。
+
 #### チャージ用QRコードを読み取ることでチャージする
+
+チャージ用QRコードを解析すると次のようなURLになります(URLは環境によって異なります)。
+
+`https://www-sandbox.pokepay.jp/checks/xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx`
+
+この `xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx` の部分がチャージ用QRコードのIDです。
+これを以下のようにエンドユーザIDと共に渡すことでチャージ取引が作られます。
+
+```ruby
+check_id    = "xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx" # チャージ用QRコードのID
+customer_id = "yyyyyyyy-yyyy-yyyyyyyyy-yyyyyyyyyyyy" # エンドユーザーのID
+
+response = client.send(Pokepay::Request::CreateTopupTransactionWithCheck.new(
+                         check_id, customer_id))
+```
+
+成功したときは `Pokepay::Response::Transaction` オブジェクトをレスポンスとして返します。  
+プロパティは [取引情報を取得する](#get-transaction) を参照してください。
 
 #### 取引履歴を取得する
 
@@ -245,24 +279,178 @@ response = client.send(Pokepay::Request::ListTransactions.new(
 成功したときは `Pokepay::Response::Transaction` を `rows` に含むページングオブジェクトを返します。  
 詳細は [ページング](#paging) を参照してください。
 
-#### 送金する
+#### 返金する
+
+```ruby
+transaction_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 取引ID
+description    = "返品対応のため"                          # 取引履歴に表示する返金事由 (任意)
+
+response = client.send(Pokepay::Request::RefundTransaction.new(
+                         transaction_id, description))
+```
+
+成功したときは `Pokepay::Response::Transfer` のオブジェクトを返します。  
+以下にプロパティを示します。
+
+- id (string): 送金ID
+- sender (Response\User): 送金者情報
+- receiver (Response\User): 受取者情報
+- senderAccount (Response\Account): 送金口座情報
+- receiverAccount (Response\Account): 受取口座情報
+- amount (double): 決済総額 (マネー額 + ポイント額)
+- moneyAmount (double): 決済マネー額
+- pointAmount (double): 決済ポイント額
+- doneAt (DateTime): 取引日時
+- description (string): 取引説明文
 
 ### Customer
 
 #### 新規エンドユーザー口座を追加する
 
+```ruby
+private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # マネーのID
+user_name        = "ポケペイ太郎"                           #  ユーザー名 (任意)
+account_name     = "ポケペイ太郎のアカウント"                 # アカウント名 (任意)
+
+response = client.send(Pokepay::Request::CreateCustomerAccount.new(
+                         private_money_id, user_name, account_name))
+```
+
+成功したときは以下のプロパティを持つ `Pokepay::Response::AccountWithUser` のオブジェクトをレスポンスとして返します。
+
+- id (string): 口座ID
+- name (string): 口座名
+- isSuspended (bool): 口座が凍結されているかどうか
+- privateMoney (Response\PrivateMoney): 設定マネー情報
+- user (Response\User): ユーザーIDなどを含むユーザー情報
+
 #### エンドユーザーの口座情報を表示する
 
+```ruby
+account_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 口座ID
+
+response = client.send(Pokepay::Request::GetAccount.new(account_id))
+```
+
+成功したときは以下のプロパティを持つ `Pokepay::Response::AccountDetail` のオブジェクトをレスポンスとして返します。
+
+- id (string): 口座ID
+- name (string): 口座名
+- isSuspended (bool): 口座が凍結されているかどうか
+- balance (double): 総残高
+- moneyBalance (double): 総マネー残高
+- pointBalance (double): 総ポイント残高
+- privateMoney (Response\PrivateMoney): 設定マネー情報
+
 #### エンドユーザーの残高内訳を表示する
+
+エンドユーザーの残高は有効期限別のリストとして取得できます。
+
+```ruby
+account_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 口座ID
+
+response = client.send(Pokepay::Request::ListAccountBalances.new(account_id))
+```
+
+成功したときは `Pokepay::Response::AccountBalance` を `rows` に含むページングオブジェクトを返します。  
+詳細は [ページング](#paging) を参照してください。
+
+`Pokepay::Response::AccountBalance` のプロパティは以下の通りです。
+
+- expiresAt (DateTime): 失効日時
+- moneyAmount (double): マネー額
+- pointAmount (double): ポイント額
 
 ### Organization
 
 #### 新規加盟店組織を追加する
 
+```ruby
+organization_code    = "ox_supermarket"                   # 新規組織コード
+organization_name    = "oxスーパー"                        # 新規組織名
+issuer_email_address = "pay@xx-issuer-company.jp"         # 発行体担当者メールアドレス
+new_email_address    = "admin+pokepay@ox-supermarket.com" # 新規組織担当者メールアドレス
+
+# 追加データ (すべて任意)
+bank_name                = "XYZ銀行"  # 銀行名
+bank_code                = "999X"    # 銀行金融機関コード
+bank_branch_name         = "ABC支店"  # 銀行支店名
+bank_banch_code          = "99X"     # 銀行支店コード
+bank_account_type        = "saving"  # 銀行口座種別 (普通=saving, 当座=current, その他=other)
+bank_account             = "9999999" # 銀行口座番号
+bank_account_holder_name = "ﾌｸｻﾞﾜﾕｷﾁ" # 口座名義人名
+
+response = client.send(Pokepay::Request::CreateOrganization.new(
+                         organization_code, organization_name, issuer_email_address, new_email_address
+                         bank_name, bank_code, bank_branch_name, bank_banch_code, bank_account_type,
+                         bank_account, bank_account_holder_name))
+```
+
+成功したときには以下のプロパティを持つ `Pokepay::Response::Organization` のオブジェクトをレスポンスとして返します。
+
+- code (string): 組織コード
+- name (string): 組織名
+
 ### Shop
 
 #### 新規店舗を追加する
 
+```ruby
+shop_name = "OXスーパー三田店" # 店舗名
+
+# 追加データ (すべて任意)
+shop_postal_code = "108-0014"                # 店舗の郵便番号
+shop_address     = "東京都港区芝..."           # 店舗の住所
+shop_tel         = "03-xxxx..."              # 店舗の電話番号
+shop_email       = "mita@ox-supermarket.com" # 店舗のメールアドレス
+shop_external_id = "mita0309"                # 店舗の外部ID
+
+response = client.send(Pokepay::Request::CreateShop.new(
+                         shop_name, shop_postal_code, shop_address, shop_tel,
+                         shop_email, shop_external_id))
+```
+
+成功したときは以下のプロパティを持つ `Pokepay::Response::User` のオブジェクトをレスポンスとして返します。
+
+- id (string): 店舗ID
+- name (string): 店舗名
+- isMerchant (bool): 店舗かどうかのフラグ (この場合は常に真)
+
 ### Private Money
 
 #### 決済加盟店の取引サマリを取得する
+
+```ruby
+private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # マネーのID
+
+# フィルタオプション (すべて任意)
+# 期間指定 (ISO8601形式の文字列、またはDateTimeオブジェクト)
+# fromとtoを指定する場合は同時に指定する必要あり。
+# デフォルトではfromは昨日0時、toは当日0時。
+from = "2019-01-01T00:00:00+09:00"
+to   = "2019-07-31T18:13:39+09:00"
+
+# ページングオプション
+page     = 1
+per_page = 50
+
+response = client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
+                         private_money_id, from, to, page, per_page))
+```
+
+成功したときは `Pokepay::Response::PrivateMoneyOrganizationSummary` を `rows` に含むページングオブジェクトを返します。  
+以下にプロパティを示します。
+
+- organizationCode (string): 組織コード
+- topup (Response\OrganizationSummary): チャージのサマリ情報
+- payment (Response\OrganizationSummary): 支払いのサマリ情報
+
+`Pokepay::Response::OrganizationSummary` のプロパティを以下に示します。
+
+- count (integer): 取引数
+- moneyAmount (double): 取引マネー総額
+- moneyCount (integer): マネー取引数
+- pointAmount (double): 取引ポイント総額
+- pointCount (integer): ポイント取引数
+
+ページングについての詳細は [ページング](#paging) を参照してください。
