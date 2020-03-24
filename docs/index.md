@@ -150,8 +150,10 @@ response.body
 #### 取引情報を取得する
 
 ```ruby
-transaction_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # 取引ID
-response = client.send(Pokepay::Request::GetTransaction.new(transaction_id))
+response = client.send(Pokepay::Request::GetTransaction.new(
+                         "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 取引ID
+                         ))
+
 ```
 
 成功したときは以下のプロパティを含む `Pokepay::Response::Transaction` オブジェクトをレスポンスとして返します。
@@ -197,16 +199,15 @@ response = client.send(Pokepay::Request::GetTransaction.new(transaction_id))
 #### チャージする
 
 ```ruby
-shop_id          = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 店舗ID
-customer_id      = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy" # エンドユーザーのID
-private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # 送るマネーのID
-money_amount     = 1000                                   # チャージマネー額
-point_amount     = 0                                      # チャージするポイント額 (任意)
-description      = "初夏のチャージキャンペーン"                # 取引履歴に表示する説明文 (任意)
-
-response = client.send(Pokepay::Request::CreateTransaction.new(
-                         shop_id, customer_id, private_money_id,
-                         money_amount, point_amount, description))
+response = client.send(Pokepay::Request::CreateTopupTransaction.new(
+                         "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # 店舗ID
+                         "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy",   # エンドユーザーのID
+                         "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz",   # 送るマネーのID
+                         {
+                           "money_amount" => 100,                  # チャージマネー額
+                           "point_amount" => 200,                  # チャージするポイント額 (任意)
+                           "description" => "チャージテスト"          # 取引履歴に表示する説明文 (任意)
+                         }))
 ```
 
 成功したときは `Pokepay::Response::Transaction` を持つレスポンスオブジェクトを返します。  
@@ -215,15 +216,14 @@ response = client.send(Pokepay::Request::CreateTransaction.new(
 #### 支払いする
 
 ```ruby
-shop_id          = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 店舗ID
-customer_id      = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy" # エンドユーザーのID
-private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # 支払うマネーのID
-money_amount     = 1000                                   # 支払い額
-description      = "たい焼き(小倉)"                         # 取引履歴に表示する説明文 (任意)
-
 response = client.send(Pokepay::Request::CreatePaymentTransaction.new(
-                         shop_id, customer_id, private_money_id,
-                         money_amount, description))
+                         "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 店舗ID
+                         "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy", # エンドユーザーのID
+                         "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz", # 支払うマネーのID
+                         100,                                    # 支払い額
+                         {
+                           "description"  => "たい焼き(小倉)"      # 取引履歴に表示する説明文 (任意)
+                         }))
 ```
 
 成功したときは `Pokepay::Response::Transaction` オブジェクトをレスポンスとして返します。  
@@ -262,15 +262,16 @@ response = client.send(Pokepay::Request::ListTransactions.new(
                            # 期間指定 (ISO8601形式の文字列)
                            "from" => "2019-01-01T00:00:00+09:00",
                            "to"   => "2019-07-30T18:13:39+09:00",
+
                            # 検索オプション
                            "customer_id"    => "xxxxxxxxxxxxxxxxx", # エンドユーザーID
-                           "customer_name"  => "福沢",           # エンドユーザー名
-                           "transaction_id" => "24bba30c......", # 取引ID
-                           "shop_id"        => "456a820b......", # 店舗ID
-                           "terminal_id"    => "d8023185......", # 端末ID
-                           "organization"   => "pocketchange",   # 組織コード
-                           "private_money"  => "9ff644fc......", # マネーID
-                           "is_modified"    => "true",           # キャンセルされた取引のみ検索するか
+                           "customer_name"  => "福沢",               # エンドユーザー名
+                           "transaction_id" => "24bba30c......",    # 取引ID
+                           "shop_id"        => "456a820b......",    # 店舗ID
+                           "terminal_id"    => "d8023185......",    # 端末ID
+                           "organization"   => "pocketchange",      # 組織コード
+                           "private_money"  => "9ff644fc......",    # マネーID
+                           "is_modified"    => "true",              # キャンセルされた取引のみ検索するか
                            # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
                            "types"          => ["topup", "payment"],
                          }))
@@ -282,11 +283,11 @@ response = client.send(Pokepay::Request::ListTransactions.new(
 #### 返金する
 
 ```ruby
-transaction_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 取引ID
-description    = "返品対応のため"                          # 取引履歴に表示する返金事由 (任意)
-
 response = client.send(Pokepay::Request::RefundTransaction.new(
-                         transaction_id, description))
+                         "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 取引ID
+                         {
+                           "description" => "返品対応のため"        # 取引履歴に表示する返金事由 (任意)
+                         }))
 ```
 
 成功したときは `Pokepay::Response::Transfer` のオブジェクトを返します。  
