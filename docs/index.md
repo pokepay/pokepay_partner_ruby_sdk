@@ -68,7 +68,7 @@ Partner APIへの通信はリクエストオブジェクトを作り、`Pokepay:
 たとえば `Pokepay::Request::SendEcho` は送信した内容をそのまま返す処理です。
 
 ```ruby
-request = Pokepay::Request::CreateEcho.new('hello')
+request = Pokepay::Request::SendEcho.new('hello')
 
 response = client.send(request)
 # => #<Pokepay::Response::Response 200 OK readbody=>
@@ -309,12 +309,12 @@ response = client.send(Pokepay::Request::RefundTransaction.new(
 #### 新規エンドユーザー口座を追加する
 
 ```ruby
-private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # マネーのID
-user_name        = "ポケペイ太郎"                           #  ユーザー名 (任意)
-account_name     = "ポケペイ太郎のアカウント"                 # アカウント名 (任意)
-
 response = client.send(Pokepay::Request::CreateCustomerAccount.new(
-                         private_money_id, user_name, account_name))
+                         "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz",    # マネーのID
+                         {
+                           "user_name" => "ポケペイ太郎",             #  ユーザー名 (任意)
+                           "account_name" => "ポケペイ太郎のアカウント" # アカウント名 (任意)
+                         }))
 ```
 
 成功したときは以下のプロパティを持つ `Pokepay::Response::AccountWithUser` のオブジェクトをレスポンスとして返します。
@@ -328,9 +328,9 @@ response = client.send(Pokepay::Request::CreateCustomerAccount.new(
 #### エンドユーザーの口座情報を表示する
 
 ```ruby
-account_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 口座ID
-
-response = client.send(Pokepay::Request::GetAccount.new(account_id))
+response = client.send(Pokepay::Request::GetAccount.new(
+                         "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 口座ID
+                         ))
 ```
 
 成功したときは以下のプロパティを持つ `Pokepay::Response::AccountDetail` のオブジェクトをレスポンスとして返します。
@@ -348,9 +348,20 @@ response = client.send(Pokepay::Request::GetAccount.new(account_id))
 エンドユーザーの残高は有効期限別のリストとして取得できます。
 
 ```ruby
-account_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 口座ID
+response = client.send(Pokepay::Request::ListAccountBalances.new(
+                         "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 口座ID
+                         {
+                           # ページング
+                           "page"     => 1,
+                           "per_page" => 50,
 
-response = client.send(Pokepay::Request::ListAccountBalances.new(account_id))
+                           # フィルタオプション (すべて任意)
+                           # 期間指定 (ISO8601形式の文字列)
+                           "from" => "2019-01-01T00:00:00+09:00",
+                           "to"   => "2019-07-30T18:13:39+09:00",
+
+                           # 検索オプション
+                         }))
 ```
 
 成功したときは `Pokepay::Response::AccountBalance` を `rows` に含むページングオブジェクトを返します。  
