@@ -3,13 +3,14 @@
 require "pokepay_partner_ruby_sdk/response/transaction"
 
 module Pokepay::Request
-  class CreateTransaction < Request
-    def initialize(shop_id, customer_id, private_money_id, rest_args = {})
-      @path = "/transactions"
+  class CreatePaymentTransaction < Request
+    def initialize(shop_id, customer_id, private_money_id, amount, rest_args = {})
+      @path = "/transactions" + "/payment"
       @method = "POST"
       @body_params = { "shop_id" => shop_id,
                        "customer_id" => customer_id,
-                       "private_money_id" => private_money_id }.merge(rest_args)
+                       "private_money_id" => private_money_id,
+                       "amount" => amount }.merge(rest_args)
       @response_class = Pokepay::Response::Transaction
     end
     attr_reader :response_class

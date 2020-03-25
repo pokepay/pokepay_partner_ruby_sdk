@@ -2,10 +2,10 @@
 
 
 module Pokepay::Response
-  class Pong
+  class BadRequest
     def initialize(row)
-      @ok = row["ok"]
+      
     end
-    attr_reader :ok
+    
   end
 end
