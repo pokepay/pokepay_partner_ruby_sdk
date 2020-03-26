@@ -239,11 +239,10 @@ response = client.send(Pokepay::Request::CreatePaymentTransaction.new(
 これを以下のようにエンドユーザIDと共に渡すことでチャージ取引が作られます。
 
 ```ruby
-check_id    = "xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx" # チャージ用QRコードのID
-customer_id = "yyyyyyyy-yyyy-yyyyyyyyy-yyyyyyyyyyyy" # エンドユーザーのID
-
 response = client.send(Pokepay::Request::CreateTopupTransactionWithCheck.new(
-                         check_id, customer_id))
+                         "xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx", # チャージ用QRコードのID
+                         "yyyyyyyy-yyyy-yyyyyyyyy-yyyyyyyyyyyy"  # エンドユーザーのID
+                         ))
 ```
 
 成功したときは `Pokepay::Response::Transaction` オブジェクトをレスポンスとして返します。  
@@ -350,18 +349,7 @@ response = client.send(Pokepay::Request::GetAccount.new(
 ```ruby
 response = client.send(Pokepay::Request::ListAccountBalances.new(
                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 口座ID
-                         {
-                           # ページング
-                           "page"     => 1,
-                           "per_page" => 50,
-
-                           # フィルタオプション (すべて任意)
-                           # 期間指定 (ISO8601形式の文字列)
-                           "from" => "2019-01-01T00:00:00+09:00",
-                           "to"   => "2019-07-30T18:13:39+09:00",
-
-                           # 検索オプション
-                         }))
+                         ))
 ```
 
 成功したときは `Pokepay::Response::AccountBalance` を `rows` に含むページングオブジェクトを返します。  
@@ -378,24 +366,21 @@ response = client.send(Pokepay::Request::ListAccountBalances.new(
 #### 新規加盟店組織を追加する
 
 ```ruby
-organization_code    = "ox_supermarket"                   # 新規組織コード
-organization_name    = "oxスーパー"                        # 新規組織名
-issuer_email_address = "pay@xx-issuer-company.jp"         # 発行体担当者メールアドレス
-new_email_address    = "admin+pokepay@ox-supermarket.com" # 新規組織担当者メールアドレス
-
-# 追加データ (すべて任意)
-bank_name                = "XYZ銀行"  # 銀行名
-bank_code                = "999X"    # 銀行金融機関コード
-bank_branch_name         = "ABC支店"  # 銀行支店名
-bank_banch_code          = "99X"     # 銀行支店コード
-bank_account_type        = "saving"  # 銀行口座種別 (普通=saving, 当座=current, その他=other)
-bank_account             = "9999999" # 銀行口座番号
-bank_account_holder_name = "ﾌｸｻﾞﾜﾕｷﾁ" # 口座名義人名
-
 response = client.send(Pokepay::Request::CreateOrganization.new(
-                         organization_code, organization_name, issuer_email_address, new_email_address
-                         bank_name, bank_code, bank_branch_name, bank_banch_code, bank_account_type,
-                         bank_account, bank_account_holder_name))
+                         "ox_supermarket",                   # 新規組織コード
+                         "oxスーパー",                         # 新規組織名
+                         "pay@xx-issuer-company.jp",         # 発行体担当者メールアドレス
+                         "admin+pokepay@ox-supermarket.com", # 新規組織担当者メールアドレス
+                         {
+                           # 追加データ (すべて任意)
+                           "bank_name"                => "XYZ銀行",  # 銀行名
+                           "bank_code"                => "999X",    # 銀行金融機関コード
+                           "bank_branch_name"         => "ABC支店",  # 銀行支店名
+                           "bank_banch_code"          => "99X",     # 銀行支店コード
+                           "bank_account_type"        => "saving",  # 銀行口座種別 (普通=saving, 当座=current, その他=other)
+                           "bank_account"             => "9999999", # 銀行口座番号
+                           "bank_account_holder_name" => "ﾌｸｻﾞﾜﾕｷﾁ", # 口座名義人名
+                         }))
 ```
 
 成功したときには以下のプロパティを持つ `Pokepay::Response::Organization` のオブジェクトをレスポンスとして返します。
@@ -408,18 +393,16 @@ response = client.send(Pokepay::Request::CreateOrganization.new(
 #### 新規店舗を追加する
 
 ```ruby
-shop_name = "OXスーパー三田店" # 店舗名
-
-# 追加データ (すべて任意)
-shop_postal_code = "108-0014"                # 店舗の郵便番号
-shop_address     = "東京都港区芝..."           # 店舗の住所
-shop_tel         = "03-xxxx..."              # 店舗の電話番号
-shop_email       = "mita@ox-supermarket.com" # 店舗のメールアドレス
-shop_external_id = "mita0309"                # 店舗の外部ID
-
 response = client.send(Pokepay::Request::CreateShop.new(
-                         shop_name, shop_postal_code, shop_address, shop_tel,
-                         shop_email, shop_external_id))
+                         "OXスーパー三田店",             # 店舗名
+                         {
+                           # 追加データ (すべて任意)
+                           "shop_postal_code" => "108-0014",                # 店舗の郵便番号
+                           "shop_address"     => "東京都港区芝...",           # 店舗の住所
+                           "shop_tel"         => "03-xxxx...",              # 店舗の電話番号
+                           "shop_email"       => "mita@ox-supermarket.com", # 店舗のメールアドレス
+                           "shop_external_id" => "mita0309",                # 店舗の外部ID
+                         }))
 ```
 
 成功したときは以下のプロパティを持つ `Pokepay::Response::User` のオブジェクトをレスポンスとして返します。
@@ -433,29 +416,28 @@ response = client.send(Pokepay::Request::CreateShop.new(
 #### 決済加盟店の取引サマリを取得する
 
 ```ruby
-private_money_id = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz" # マネーのID
-
-# フィルタオプション (すべて任意)
-# 期間指定 (ISO8601形式の文字列、またはDateTimeオブジェクト)
-# fromとtoを指定する場合は同時に指定する必要あり。
-# デフォルトではfromは昨日0時、toは当日0時。
-from = "2019-01-01T00:00:00+09:00"
-to   = "2019-07-31T18:13:39+09:00"
-
-# ページングオプション
-page     = 1
-per_page = 50
-
 response = client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                         private_money_id, from, to, page, per_page))
+                         "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz", # マネーのID
+                         {
+                           # フィルタオプション (すべて任意)
+                           # 期間指定 (ISO8601形式の文字列、またはDateTimeオブジェクト)
+                           # fromとtoを指定する場合は同時に指定する必要あり。
+                           # デフォルトではfromは昨日0時、toは当日0時。
+                          "from" => "2019-01-01T00:00:00+09:00",
+                          "to"   => "2019-07-31T18:13:39+09:00",
+
+                          # ページングオプション
+                          "page"     => 1,
+                          "per_page" => 50
+                         }))
 ```
 
 成功したときは `Pokepay::Response::PrivateMoneyOrganizationSummary` を `rows` に含むページングオブジェクトを返します。  
 以下にプロパティを示します。
 
 - organizationCode (string): 組織コード
-- topup (Response\OrganizationSummary): チャージのサマリ情報
-- payment (Response\OrganizationSummary): 支払いのサマリ情報
+- topup (Response::OrganizationSummary): チャージのサマリ情報
+- payment (Response::OrganizationSummary): 支払いのサマリ情報
 
 `Pokepay::Response::OrganizationSummary` のプロパティを以下に示します。
 
