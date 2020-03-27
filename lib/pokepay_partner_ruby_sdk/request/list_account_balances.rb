@@ -5,9 +5,9 @@ require "pokepay_partner_ruby_sdk/response/paginated_account_balance"
 module Pokepay::Request
   class ListAccountBalances < Request
     def initialize(account_id, rest_args = {})
-      @path = "/accounts" + account_id + "/balances"
+      @path = "/accounts" + "/" + account_id + "/balances"
       @method = "GET"
-      @body_params = { "account_id" => account_id }.merge(rest_args)
+      @body_params = {  }.merge(rest_args)
       @response_class = Pokepay::Response::PaginatedAccountBalance
     end
     attr_reader :response_class

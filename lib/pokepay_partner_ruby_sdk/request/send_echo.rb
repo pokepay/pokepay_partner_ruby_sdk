@@ -3,7 +3,7 @@
 require "pokepay_partner_ruby_sdk/response/echo"
 
 module Pokepay::Request
-  class CreateEcho < Request
+  class SendEcho < Request
     def initialize(message)
       @path = "/echo"
       @method = "POST"

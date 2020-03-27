@@ -5,9 +5,9 @@ require "pokepay_partner_ruby_sdk/response/account_detail"
 module Pokepay::Request
   class GetAccount < Request
     def initialize(account_id)
-      @path = "/accounts" + account_id
+      @path = "/accounts" + "/" + account_id
       @method = "GET"
-      @body_params = { "account_id" => account_id }
+      @body_params = {  }
       @response_class = Pokepay::Response::AccountDetail
     end
     attr_reader :response_class
