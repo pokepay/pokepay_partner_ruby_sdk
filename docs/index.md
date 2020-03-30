@@ -264,13 +264,13 @@ response = client.send(Pokepay::Request::ListTransactions.new(
 
                            # 検索オプション
                            "customer_id"    => "xxxxxxxxxxxxxxxxx", # エンドユーザーID
-                           "customer_name"  => "福沢",               # エンドユーザー名
+                           "customer_name"  => "福沢",              # エンドユーザー名
                            "transaction_id" => "24bba30c......",    # 取引ID
                            "shop_id"        => "456a820b......",    # 店舗ID
                            "terminal_id"    => "d8023185......",    # 端末ID
                            "organization"   => "pocketchange",      # 組織コード
-                           "private_money"  => "9ff644fc......",    # マネーID
-                           "is_modified"    => "true",              # キャンセルされた取引のみ検索するか
+                           "private_money_id" => "9ff644fc......",  # マネーID
+                           "is_modified"    => true,                # キャンセルされた取引のみ検索するか
                            # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
                            "types"          => ["topup", "payment"],
                          }))
