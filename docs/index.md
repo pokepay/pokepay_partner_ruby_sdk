@@ -279,30 +279,6 @@ response = client.send(Pokepay::Request::ListTransactions.new(
 成功したときは `Pokepay::Response::Transaction` を `rows` に含むページングオブジェクトを返します。  
 詳細は [ページング](#paging) を参照してください。
 
-#### 返金する
-
-```ruby
-response = client.send(Pokepay::Request::RefundTransaction.new(
-                         "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 取引ID
-                         {
-                           "description" => "返品対応のため"        # 取引履歴に表示する返金事由 (任意)
-                         }))
-```
-
-成功したときは `Pokepay::Response::Transfer` のオブジェクトを返します。  
-以下にプロパティを示します。
-
-- id (string): 送金ID
-- sender (Response\User): 送金者情報
-- receiver (Response\User): 受取者情報
-- senderAccount (Response\Account): 送金口座情報
-- receiverAccount (Response\Account): 受取口座情報
-- amount (double): 決済総額 (マネー額 + ポイント額)
-- moneyAmount (double): 決済マネー額
-- pointAmount (double): 決済ポイント額
-- doneAt (DateTime): 取引日時
-- description (string): 取引説明文
-
 ### Customer
 
 #### 新規エンドユーザー口座を追加する
