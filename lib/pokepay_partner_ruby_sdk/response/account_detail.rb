@@ -3,16 +3,22 @@
 require "pokepay_partner_ruby_sdk/response/private_money"
 
 module Pokepay::Response
-  class Account
+  class AccountDetail
     def initialize(row)
       @id = row["id"]
       @name = row["name"]
       @is_suspended = row["is_suspended"]
+      @balance = row["balance"]
+      @money_balance = row["money_balance"]
+      @point_balance = row["point_balance"]
       @private_money = PrivateMoney.new(row["private_money"])
     end
     attr_reader :id
     attr_reader :name
     attr_reader :is_suspended
+    attr_reader :balance
+    attr_reader :money_balance
+    attr_reader :point_balance
     attr_reader :private_money
   end
 end
