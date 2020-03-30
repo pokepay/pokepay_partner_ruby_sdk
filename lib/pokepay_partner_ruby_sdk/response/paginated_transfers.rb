@@ -3,7 +3,7 @@
 require "pokepay_partner_ruby_sdk/response/pagination"
 
 module Pokepay::Response
-  class PaginatedTransaction
+  class PaginatedTransfers
     def initialize(row)
       @rows = row["rows"]
       @count = row["count"]

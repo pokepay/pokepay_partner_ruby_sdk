@@ -3,9 +3,9 @@
 require "pokepay_partner_ruby_sdk/response/transaction"
 
 module Pokepay::Request
-  class CreateTransaction < Request
+  class CreateTopupTransaction < Request
     def initialize(shop_id, customer_id, private_money_id, rest_args = {})
-      @path = "/transactions"
+      @path = "/transactions" + "/topup"
       @method = "POST"
       @body_params = { "shop_id" => shop_id,
                        "customer_id" => customer_id,

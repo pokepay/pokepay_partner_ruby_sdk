@@ -39,6 +39,20 @@ response = c.send(Pokepay::Request::CreateTransaction.new(
 
 ## Run test
 
+Add `~/.pokepay/test-config.ini`
+
+```
+CLIENT_ID        = aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+CLIENT_SECRET    = bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+API_BASE_URL     = https://partnerapi-dev.pokepay.jp
+SSL_KEY_FILE     = /path/to/key.pem
+SSL_CERT_FILE    = /path/to/cert.pem
+[testdata]
+shop_id = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+customer_id = yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
+private_money_id = zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz
+```
+
 ```
 $ bundle exec ruby test/pokepay_partner_ruby_sdk_test.rb
 ```
