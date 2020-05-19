@@ -172,6 +172,8 @@ class PokepayTest < Minitest::Test
   end
 
   def test_can_create_customer_account
+    customer_id = $inifile["testdata"]["customer_id"]
+    shop_id = $inifile["testdata"]["shop_id"]
     private_money_id = $inifile["testdata"]["private_money_id"]
     amount = 100
     description = "支払いテスト"
