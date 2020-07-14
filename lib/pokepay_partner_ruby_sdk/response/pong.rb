@@ -4,8 +4,8 @@
 module Pokepay::Response
   class Pong
     def initialize(row)
-      @ok = row["ok"]
+      @pong = row["pong"]
     end
-    attr_reader :ok
+    attr_reader :pong
   end
 end
