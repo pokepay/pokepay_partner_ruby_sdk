@@ -4,11 +4,12 @@ require "pokepay_partner_ruby_sdk/response/organization"
 
 module Pokepay::Request
   class CreateOrganization < Request
-    def initialize(code, name, issuer_admin_user_email, member_admin_user_email, rest_args = {})
+    def initialize(code, name, private_money_ids, issuer_admin_user_email, member_admin_user_email, rest_args = {})
       @path = "/organizations"
       @method = "POST"
       @body_params = { "code" => code,
                        "name" => name,
+                       "private_money_ids" => private_money_ids,
                        "issuer_admin_user_email" => issuer_admin_user_email,
                        "member_admin_user_email" => member_admin_user_email }.merge(rest_args)
       @response_class = Pokepay::Response::Organization
