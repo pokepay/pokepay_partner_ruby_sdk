@@ -725,10 +725,12 @@ paths:
                 page:
                   type: integer
                   minimum: 1
+                  summary: 'ページ番号'
                   description: 取得したいページ番号です。
                 per_page:
                   type: integer
                   minimum: 1
+                  summary: '1ページ分の取引数'
                   description: 1ページ分のウォレット残高数です。
       responses:
         '200':
@@ -802,6 +804,7 @@ paths:
           application/json:
             schema:
               required: ["account_id"]
+              x-pokepay-conditional-parameters: {or: [money_amount, point_amount]}
               properties:
                 money_amount:
                   type: number
@@ -825,10 +828,17 @@ paths:
                 is_onetime:
                   type: boolean
                   summary: 'ワンタイムかどうか。真の場合1度読み込まれた時点でそのチャージQRは失効する(デフォルト値は真)'
+                  description: |
+                    チャージQRコードが一度の読み取りで失効するときに`true`にします。デフォルト値は`true`です。
+                    `false`の場合、そのチャージQRコードは1ユーザについては1回きりですが、複数ユーザによって読み取り可能なQRコードになります。
                 usage_limit:
                   type: integer
                   nullable: true
                   summary: 'ワンタイムでない場合、複数ユーザから読み取られ得る。その場合の最大読み取り回数'
+                  description: |
+                    複数ユーザによって読み取り可能なチャージQRコードの読み取り回数に制限をつけるために指定します。
+                    省略すると無制限に読み取り可能なチャージQRコードになります。
+                    チャージQRコードは管理画面からいつでも無効化(有効化)することができます。
                 expires_at:
                   type: string
                   format: date-time
@@ -1302,6 +1312,42 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  /transactions/{transaction_id}/refund:
+    post:
+      summary: 返金する
+      x-pokepay-operator-name: RefundTransaction
+      parameters:
+        - in: path
+          name: transaction_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          summary: '取引ID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                description:
+                  type: string
+                  maxLength: 200
+                  summary: '取引履歴に表示する返金事由'
+                  example: '返品対応のため'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
   /transfers:
     get:
       x-pokepay-operator-name: "ListTransfers"
@@ -1520,7 +1566,7 @@ paths:
         content:
           application/json:
             schema:
-              x-pokepay-required-set: [[from, to]]
+              x-pokepay-conditional-parameters: {xnor: [from, to]}
               properties:
                 from:
                   type: string
