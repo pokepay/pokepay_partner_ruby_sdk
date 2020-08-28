@@ -329,7 +329,7 @@ components:
           type: string
           summary: '取引説明文'
     ShopWithMetadata:
-      x-poepay-schema-type: "response"
+      x-pokepay-schema-type: "response"
       properties:
         id:
           type: string
