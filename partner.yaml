@@ -771,7 +771,7 @@ paths:
           $ref: '#/components/responses/NotFound'
   /accounts/{account_id}:
     get:
-      summary: 'エンドユーザーのウォレット情報を表示する'
+      summary: 'ウォレット情報を表示する'
       description: ウォレットを取得します。
       x-pokepay-operator-name: "GetAccount"
       x-pokepay-allow-server-side: true
@@ -801,6 +801,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
     patch:
+      summary: 'ウォレット情報を更新する'
       description: ウォレットの状態を更新します。現在はウォレットの凍結/凍結解除の切り替えにのみ対応しています。
       x-pokepay-operator-name: "UpdateAccount"
       x-pokepay-allow-server-side: true
@@ -811,6 +812,7 @@ paths:
           schema:
             type: string
             format: uuid
+          summary: 'ウォレットID'
           description: |-
             ウォレットIDです。
 
@@ -823,6 +825,7 @@ paths:
               properties:
                 is_suspended:
                   type: boolean
+                  summary: 'ウォレットが凍結されているかどうか'
                   description: ウォレットの凍結状態です。真にするとウォレットが凍結され、そのウォレットでは新規取引ができなくなります。偽にすると凍結解除されます。
       responses:
         '200':
