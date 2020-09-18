@@ -165,6 +165,9 @@ components:
         is_disabled:
           type: boolean
           summary: 無効化されているかどうか
+        token:
+          type: string
+          description: 支払いQRコードを解析したときに出てくるURL
     Check:
       x-pokepay-schema-type: "response"
       properties:
@@ -843,7 +846,7 @@ paths:
   /accounts/{account_id}/balances:
     get:
       summary: 'エンドユーザーの残高内訳を表示する'
-      description: エンドユーザーの残高は有効期限別のリストとして取得できます。
+      description: エンドユーザーのウォレット毎の残高を有効期限別のリストとして取得します。
       x-pokepay-operator-name: "ListAccountBalances"
       x-pokepay-allow-server-side: true
       parameters:
@@ -868,12 +871,89 @@ paths:
                   type: integer
                   minimum: 1
                   summary: 'ページ番号'
-                  description: 取得したいページ番号です。
+                  description: 取得したいページ番号です。デフォルト値は1です。
                 per_page:
                   type: integer
                   minimum: 1
                   summary: '1ページ分の取引数'
-                  description: 1ページ分のウォレット残高数です。
+                  description: 1ページ分のウォレット残高数です。デフォルト値は30です。
+                expires_at_from:
+                  type: string
+                  format: date-time
+                  summary: '有効期限の期間によるフィルター(開始時点)'
+                  description: 有効期限の期間によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
+                expires_at_to:
+                  type: string
+                  format: date-time
+                  summary: '有効期限の期間によるフィルター(終了時点)'
+                  description: 有効期限の期間によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
+                direction:
+                  type: string
+                  enum: [asc, desc]
+                  summary: '有効期限によるソート順序'
+                  description: 有効期限によるソートの順序を指定します。デフォルト値はasc (昇順)です。
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountBalance'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/{account_id}/expired-balances:
+    get:
+      summary: 'エンドユーザーの失効済みの残高内訳を表示する'
+      description: エンドユーザーのウォレット毎の失効済みの残高を有効期限別のリストとして取得します。
+      x-pokepay-operator-name: "ListAccountExpiredBalances"
+      x-pokepay-allow-server-side: true
+      parameters:
+        - name: account_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          summary: 'ウォレットID'
+          description: |-
+            ウォレットIDです。
+
+            フィルターとして使われ、指定したウォレットIDのウォレット残高を取得します。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                page:
+                  type: integer
+                  minimum: 1
+                  summary: 'ページ番号'
+                  description: 取得したいページ番号です。デフォルト値は1です。
+                per_page:
+                  type: integer
+                  minimum: 1
+                  summary: '1ページ分の取引数'
+                  description: 1ページ分のウォレット残高数です。デフォルト値は30です。
+                expires_at_from:
+                  type: string
+                  format: date-time
+                  summary: '有効期限の期間によるフィルター(開始時点)'
+                  description: 有効期限の期間によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
+                expires_at_to:
+                  type: string
+                  format: date-time
+                  summary: '有効期限の期間によるフィルター(終了時点)'
+                  description: 有効期限の期間によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
+                direction:
+                  type: string
+                  enum: [asc, desc]
+                  summary: '有効期限によるソート順序'
+                  description: 有効期限によるソートの順序を指定します。デフォルト値はdesc (降順)です。
       responses:
         '200':
           description: OK
@@ -1033,6 +1113,104 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '403':
           $ref: '#/components/responses/Forbidden'
+    post:
+      summary: '支払いQRコードの発行'
+      description: 支払いQRコードの内容を更新します。支払い先の店舗ユーザーは指定したマネーのウォレットを持っている必要があります。
+      x-pokepay-operator-name: "CreateBill"
+      x-pokepay-allow-server-side: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: ["private_money_id", "shop_id"]
+              properties:
+                amount:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  format: decimal
+                  summary: '支払い額'
+                  description: 支払いQRコードを支払い額を指定します。省略するかnullを渡すと任意金額の支払いQRコードとなり、エンドユーザーがアプリで読み取った際に金額を入力します。
+                private_money_id:
+                  type: string
+                  format: uuid
+                  summary: '支払いマネーのマネーID'
+                shop_id:
+                  type: string
+                  format: uuid
+                  summary: '支払い先(受け取り人)の店舗ID'
+                description:
+                  type: string
+                  maxLength: 200
+                  summary: '説明文(アプリ上で取引の説明文として表示される)'
+                  example: 'test bill'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /bills/{bill_id}:
+    patch:
+      summary: '支払いQRコードの更新'
+      description: 支払いQRコードの内容を更新します。パラメータは全て省略可能で、指定したもののみ更新されます。
+      x-pokepay-operator-name: "UpdateBill"
+      x-pokepay-allow-server-side: true
+      parameters:
+        - in: path
+          name: bill_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          summary: '支払いQRコードのID'
+          description: |-
+            更新対象の支払いQRコードのIDです。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                amount:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  format: decimal
+                  summary: '支払い額'
+                  description: 支払いQRコードを支払い額を指定します。nullを渡すと任意金額の支払いQRコードとなり、エンドユーザーがアプリで読み取った際に金額を入力します。
+                description:
+                  type: string
+                  maxLength: 200
+                  summary: '説明文'
+                  description: 支払いQRコードの詳細説明文です。アプリ上で取引の説明文として表示されます。
+                  example: 'test bill'
+                is_disabled:
+                  type: boolean
+                  summary: '無効化されているかどうか'
+                  description: 支払いQRコードが無効化されているかどうかを指定します。真にすると無効化され、偽にすると有効化します。
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /checks:
     post:
       summary: 'チャージQRコードの発行'
@@ -1968,3 +2146,105 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  /customers/transactions:
+    get:
+      summary: '取引履歴を取得する'
+      description: '取引一覧を返します。'
+      x-pokepay-operator-name: "ListCustomerTransactions"
+      x-pokepay-allow-server-side: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: ["private_money_id"]
+              properties:
+                private_money_id:
+                  type: string
+                  format: uuid
+                  summary: 'マネーID'
+                  description: |-
+                    マネーIDです。
+                    フィルターとして使われ、指定したマネーでの取引のみ一覧に表示されます。
+                sender_customer_id:
+                  type: string
+                  format: uuid
+                  summary: '送金エンドユーザーID'
+                  description: |-
+                    送金ユーザーIDです。
+
+                    フィルターとして使われ、指定された送金ユーザーでの取引のみ一覧に表示されます。
+                receiver_customer_id:
+                  type: string
+                  format: uuid
+                  summary: '受取エンドユーザーID'
+                  description: |-
+                    受取ユーザーIDです。
+
+                    フィルターとして使われ、指定された受取ユーザーでの取引のみ一覧に表示されます。
+                type:
+                  type: string
+                  summary: '取引種別、チャージ=topup、支払い=payment、個人間送金=transfer'
+                  description: |-
+                    取引の種類でフィルターします。
+
+                    以下の種類を指定できます。
+
+                    1. topup
+                       店舗からエンドユーザーへの送金取引(チャージ)
+                    2. payment
+                       エンドユーザーから店舗への送金取引(支払い)
+                    3. exchange
+                       他マネーへの流出(outflow)/他マネーからの流入(inflow)
+                    4. transfer
+                       個人間送金
+                is_modified:
+                  type: boolean
+                  summary: 'キャンセル済みかどうか'
+                  description: |-
+                    キャンセル済みかどうかを判定するフラグです。
+
+                    これにtrueを指定するとキャンセルされた取引のみ一覧に表示されます。
+                    falseを指定するとキャンセルされていない取引のみ一覧に表示されます
+                    何も指定しなければキャンセルの有無にかかわらず一覧に表示されます。
+                from:
+                  type: string
+                  format: date-time
+                  summary: '開始日時'
+                  description: |-
+                    抽出期間の開始日時です。
+
+                    フィルターとして使われ、開始日時以降に発生した取引のみ一覧に表示されます。
+                to:
+                  type: string
+                  format: date-time
+                  summary: '終了日時'
+                  description: |-
+                    抽出期間の終了日時です。
+
+                    フィルターとして使われ、終了日時以前に発生した取引のみ一覧に表示されます。
+                page:
+                  type: integer
+                  minimum: 1
+                  summary: 'ページ番号'
+                  description: 取得したいページ番号です。
+                  example: 1
+                per_page:
+                  type: integer
+                  minimum: 1
+                  summary: '1ページ分の取引数'
+                  description: 1ページ分の取引数です。
+                  example: 50
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTransaction'
+        '400':
+          $ref: '#/components/responses/InvalidParameters'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
