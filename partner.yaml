@@ -10,6 +10,26 @@ info:
   title:  Partner APIs
   version: 0.0.0
 
+tags:
+  - name: Transaction
+  - name: Check
+    description: |
+      店舗ユーザが発行し、エンドユーザがポケペイアプリから読み取ることでチャージ取引が発生するQRコードです。
+
+      チャージQRコードを解析すると次のようなURLになります(URLは環境によって異なります)。
+
+      `https://www-sandbox.pokepay.jp/checks/xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx`
+
+      QRコードを読み取る方法以外にも、このURLリンクを直接スマートフォン(iOS/Android)上で開くことによりアプリが起動して取引が行われます。(注意: 上記URLはsandbox環境であるため、アプリもsandbox環境のものである必要があります) 上記URL中の `xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx` の部分がチャージQRコードのIDです。
+  - name: Bill
+    description: 支払いQRコード
+  - name: Customer
+  - name: Organization
+  - name: Shop
+  - name: Account
+  - name: Private Money
+  - name: Bulk
+
 components:
   schemas:
     Pong:
@@ -773,6 +793,8 @@ paths:
                 $ref: '#/components/schemas/AdminUserWithShopsAndPrivateMoneys'
   /users/{user_id}/accounts:
     get:
+      tags:
+        - Account
       summary: 'エンドユーザー、店舗ユーザーのウォレット一覧を表示する'
       description: ユーザーIDを指定してそのユーザーのウォレット一覧を取得します。
       x-pokepay-operator-name: "ListUserAccounts"
@@ -804,6 +826,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   /accounts/{account_id}:
     get:
+      tags:
+        - Customer
       summary: 'ウォレット情報を表示する'
       description: ウォレットを取得します。
       x-pokepay-operator-name: "GetAccount"
@@ -834,6 +858,8 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
     patch:
+      tags:
+        - Customer
       summary: 'ウォレット情報を更新する'
       description: ウォレットの状態を更新します。現在はウォレットの凍結/凍結解除の切り替えにのみ対応しています。
       x-pokepay-operator-name: "UpdateAccount"
@@ -875,6 +901,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   /accounts/{account_id}/balances:
     get:
+      tags:
+        - Customer
       summary: 'エンドユーザーの残高内訳を表示する'
       description: エンドユーザーのウォレット毎の残高を有効期限別のリストとして取得します。
       x-pokepay-operator-name: "ListAccountBalances"
@@ -937,6 +965,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   /accounts/{account_id}/expired-balances:
     get:
+      tags:
+        - Customer
       summary: 'エンドユーザーの失効済みの残高内訳を表示する'
       description: エンドユーザーのウォレット毎の失効済みの残高を有効期限別のリストとして取得します。
       x-pokepay-operator-name: "ListAccountExpiredBalances"
@@ -999,6 +1029,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   /accounts/customers:
     post:
+      tags:
+        - Customer
       summary: '新規エンドユーザーウォレットを追加する'
       description: |-
         指定したマネーのウォレットを作成し、同時にそのウォレットを保有するユーザも作成します。
@@ -1048,6 +1080,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /bills:
     get:
+      tags:
+        - Bill
       summary: '支払いQRコード一覧を表示する'
       description: 支払いQRコード一覧を表示します。
       x-pokepay-operator-name: "ListBills"
@@ -1071,7 +1105,7 @@ paths:
                 bill_id:
                   type: string
                   summary: '支払いQRコードのID'
-                  description: 支払いQRコードのIDを指定して検索します。IDは部分一致で検索できます。
+                  description: 支払いQRコードのIDを指定して検索します。IDは前方一致で検索されます。
                 private_money_id:
                   type: string
                   format: uuid
@@ -1109,7 +1143,7 @@ paths:
                   type: string
                   maxLength: 256
                   summary: '店舗名'
-                  description: 支払いQRコードを作成した店舗名でフィルターします。
+                  description: 支払いQRコードを作成した店舗名でフィルターします。店舗名は部分一致で検索されます。
                   example: 'bill test shop1'
                 shop_id:
                   type: string
@@ -1144,6 +1178,8 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
     post:
+      tags:
+        - Bill
       summary: '支払いQRコードの発行'
       description: 支払いQRコードの内容を更新します。支払い先の店舗ユーザーは指定したマネーのウォレットを持っている必要があります。
       x-pokepay-operator-name: "CreateBill"
@@ -1191,6 +1227,8 @@ paths:
 
   /bills/{bill_id}:
     patch:
+      tags:
+        - Bill
       summary: '支払いQRコードの更新'
       description: 支払いQRコードの内容を更新します。パラメータは全て省略可能で、指定したもののみ更新されます。
       x-pokepay-operator-name: "UpdateBill"
@@ -1243,6 +1281,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   /checks:
     post:
+      tags:
+        - Check
       summary: 'チャージQRコードの発行'
       x-pokepay-operator-name: "CreateCheck"
       requestBody:
@@ -1314,6 +1354,8 @@ paths:
           $ref: '#/components/responses/InvalidParameters'
   /transactions:
     get:
+      tags:
+        - Transaction
       summary: '取引履歴を取得する'
       description: 取引一覧を返します。
       x-pokepay-operator-name: "ListTransactions"
@@ -1452,6 +1494,8 @@ paths:
         '400':
           $ref: '#/components/responses/InvalidParameters'
     post:
+      tags:
+        - Transaction
       x-pokepay-operator-name: "CreateTransaction"
       x-pokepay-allow-server-side: true
       deprecated: true
@@ -1479,6 +1523,13 @@ paths:
                   type: integer
                   format: decimal
                   minimum: 0
+                point_expires_at:
+                  type: string
+                  format: date-time
+                  summary: 'ポイント有効期限'
+                  description: |-
+                    ポイントをチャージした場合の、付与されるポイントの有効期限です。
+                    省略した場合はマネーに設定された有効期限と同じものがポイントの有効期限となります。
                 description:
                   type: string
                   maxLength: 200
@@ -1497,6 +1548,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /transactions/topup:
     post:
+      tags:
+        - Transaction
       summary: 'チャージする'
       description: チャージ取引を作成します。
       x-pokepay-operator-name: "CreateTopupTransaction"
@@ -1556,6 +1609,13 @@ paths:
                     ポイント額です。
 
                     送金するポイント額を指定します。
+                point_expires_at:
+                  type: string
+                  format: date-time
+                  summary: 'ポイント有効期限'
+                  description: |-
+                    ポイントをチャージした場合の、付与されるポイントの有効期限です。
+                    省略した場合はマネーに設定された有効期限と同じものがポイントの有効期限となります。
                 description:
                   type: string
                   maxLength: 200
@@ -1580,6 +1640,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /transactions/topup/check:
     post:
+      tags:
+        - Check
       summary: 'チャージQRコードを読み取ることでチャージする'
       description: |
         通常チャージQRコードはエンドユーザのアプリによって読み取られ、アプリとポケペイサーバとの直接通信によって取引が作られます。 もしエンドユーザとの通信をパートナーのサーバのみに限定したい場合、パートナーのサーバがチャージQRの情報をエンドユーザから代理受けして、サーバ間連携APIによって実際のチャージ取引をリクエストすることになります。
@@ -1627,6 +1689,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /transactions/payment:
     post:
+      tags:
+        - Transaction
       summary: '支払いする'
       description: |
         支払取引を作成します。
@@ -1696,6 +1760,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /transactions/transfer:
     post:
+      tags:
+        - Transaction
       summary: '個人間送金'
       description: |
         エンドユーザー間での送金取引(個人間送金)を作成します。
@@ -1765,6 +1831,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /transactions/exchange:
     post:
+      tags:
+        - Transaction
       x-pokepay-allow-server-side: true
       requestBody:
         required: true
@@ -1801,6 +1869,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /transactions/bulk:
     post:
+      tags:
+        - Bulk
       summary: CSVファイル一括取引
       description: CSVファイルから一括取引をします。
       x-pokepay-operator-name: "BulkCreateTransaction"
@@ -1834,14 +1904,18 @@ paths:
 
                     - `type`: 取引種別
                       - 必須。'topup' または 'payment'
-                    - `sender_account_id`: 送金ウォレットID
+                    - `sender_id`: 送金ユーザーID
                       - 必須。UUID
-                    - `receiver_account_id`: 受取ウォレットID
+                    - `receiver_id`: 受取ユーザーID
+                      - 必須。UUID
+                    - `private_money_id`: マネーID
                       - 必須。UUID
                     - `money_amount`: マネー額
                       - 任意。ただし `point_amount` といずれかが必須。0以上の数字
                     - `point_amount`: ポイント額
                       - 任意。ただし `money_amount` といずれかが必須。0以上の数字
+                    - `description`: 取引の説明文
+                      - 任意。200文字以内。取引履歴に表示される文章
                     - `bear_account_id`: ポイント負担ウォレットID
                       - `point_amount` があるときは必須。UUID
                     - `point_expires_at`: ポイントの有効期限
@@ -1868,6 +1942,8 @@ paths:
           $ref: '#/components/responses/Conflict'
   /transactions/{transaction_id}:
     get:
+      tags:
+        - Transaction
       summary: '取引情報を取得する'
       description: 取引を取得します。
       x-pokepay-operator-name: "GetTransaction"
@@ -1899,6 +1975,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   /transactions/{transaction_id}/refund:
     post:
+      tags:
+        - Transaction
       summary: 返金する
       x-pokepay-operator-name: RefundTransaction
       parameters:
@@ -1935,6 +2013,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /transfers:
     get:
+      tags:
+        - Transaction
       x-pokepay-operator-name: "ListTransfers"
       x-pokepay-allow-server-side: true
       requestBody:
@@ -1997,6 +2077,8 @@ paths:
 
   /organizations:
     post:
+      tags:
+        - Organization
       summary: '新規加盟店組織を追加する'
       x-pokepay-operator-name: "CreateOrganization"
       requestBody:
@@ -2082,6 +2164,8 @@ paths:
                 $ref: '#/components/schemas/Organization'
   /shops:
     get:
+      tags:
+        - Shop
       summary: '店舗一覧を取得する'
       x-pokepay-operator-name: "ListShops"
       x-pokepay-allow-server-side: true
@@ -2173,6 +2257,8 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
     post:
+      tags:
+        - Shop
       summary: '新規店舗を追加する'
       x-pokepay-operator-name: "CreateShop"
       x-pokepay-allow-server-side: true
@@ -2234,6 +2320,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
   /private-moneys/{private_money_id}/organization-summaries:
     get:
+      tags:
+        - Private Money
       summary: 決済加盟店の取引サマリを取得する
       x-pokepay-operator-name: "GetPrivateMoneyOrganizationSummaries"
       x-pokepay-allow-server-side: true
@@ -2285,6 +2373,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   /customers/transactions:
     get:
+      tags:
+        - Customer
       summary: '取引履歴を取得する'
       description: '取引一覧を返します。'
       x-pokepay-operator-name: "ListCustomerTransactions"
