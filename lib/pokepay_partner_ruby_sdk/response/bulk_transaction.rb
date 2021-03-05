@@ -4,17 +4,23 @@
 module Pokepay::Response
   class BulkTransaction
     def initialize(row)
+      @id = row["id"]
       @request_id = row["request_id"]
       @name = row["name"]
       @description = row["description"]
       @status = row["status"]
+      @error = row["error"]
+      @error_lineno = row["error_lineno"]
       @submitted_at = row["submitted_at"]
       @updated_at = row["updated_at"]
     end
+    attr_reader :id
     attr_reader :request_id
     attr_reader :name
     attr_reader :description
     attr_reader :status
+    attr_reader :error
+    attr_reader :error_lineno
     attr_reader :submitted_at
     attr_reader :updated_at
   end
