@@ -17,7 +17,6 @@ module Pokepay::Response
       @type = row["type"]
       @expiration_type = row["expiration_type"]
       @enable_topup_by_member = row["enable_topup_by_member"]
-      @account_image = row["account_image"]
     end
     attr_reader :id
     attr_reader :name
@@ -31,6 +30,5 @@ module Pokepay::Response
     attr_reader :type
     attr_reader :expiration_type
     attr_reader :enable_topup_by_member
-    attr_reader :account_image
   end
 end
