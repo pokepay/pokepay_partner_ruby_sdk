@@ -46,7 +46,7 @@ module Pokepay
                        'timestamp' => Time.now.iso8601(6),
                        'partner_call_id' => SecureRandom.uuid }
       params = {"partner_client_id" => @client_id,
-                "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data)))}
+                "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data))).tr("=", "")}
       req = request_class.new(path)
       req.set_form_data(params)
       res = @http.start { @http.request(req) }
