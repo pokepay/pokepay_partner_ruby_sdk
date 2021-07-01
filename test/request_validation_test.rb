@@ -22,7 +22,7 @@ class PokepayTest < Minitest::Test
 
   def test_send_echo_0
     response = $client.send(Pokepay::Request::SendEcho.new(
-                              "HWm"
+                              "acDgdY"
     ))
     assert response.code != "400"
   end
@@ -35,28 +35,28 @@ class PokepayTest < Minitest::Test
 
   def test_list_user_accounts_0
     response = $client.send(Pokepay::Request::ListUserAccounts.new(
-                              "1575515d-adb3-4c0f-9c32-b38227023ee8"
+                              "f7badafa-54a1-4511-b337-e4aa1c1fe652"
     ))
     assert response.code != "400"
   end
 
   def test_get_account_0
     response = $client.send(Pokepay::Request::GetAccount.new(
-                              "80d10fac-bdc2-45a7-8668-af497294e430"
+                              "7c419418-aa59-4e5c-bbdc-7d8d6bf88c31"
     ))
     assert response.code != "400"
   end
 
   def test_update_account_0
     response = $client.send(Pokepay::Request::UpdateAccount.new(
-                              "14034fbb-4cc4-4cf8-a09d-9780f63ef3d2"
+                              "1cca797a-a4ae-4807-a9ad-4bab80f00988"
     ))
     assert response.code != "400"
   end
 
   def test_update_account_1
     response = $client.send(Pokepay::Request::UpdateAccount.new(
-                              "14034fbb-4cc4-4cf8-a09d-9780f63ef3d2",
+                              "1cca797a-a4ae-4807-a9ad-4bab80f00988",
                               is_suspended: true
     ))
     assert response.code != "400"
@@ -64,14 +64,14 @@ class PokepayTest < Minitest::Test
 
   def test_list_account_balances_0
     response = $client.send(Pokepay::Request::ListAccountBalances.new(
-                              "012fb568-04fa-483f-aab8-c9b3de62c6bd"
+                              "cc450cba-668f-4380-854c-2e6dae6d9426"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_balances_1
     response = $client.send(Pokepay::Request::ListAccountBalances.new(
-                              "012fb568-04fa-483f-aab8-c9b3de62c6bd",
+                              "cc450cba-668f-4380-854c-2e6dae6d9426",
                               direction: "desc"
     ))
     assert response.code != "400"
@@ -79,8 +79,8 @@ class PokepayTest < Minitest::Test
 
   def test_list_account_balances_2
     response = $client.send(Pokepay::Request::ListAccountBalances.new(
-                              "012fb568-04fa-483f-aab8-c9b3de62c6bd",
-                              expires_at_to: "2023-09-06T05:11:34.000000+09:00",
+                              "cc450cba-668f-4380-854c-2e6dae6d9426",
+                              expires_at_to: "2023-12-04T19:51:42.000000+09:00",
                               direction: "desc"
     ))
     assert response.code != "400"
@@ -88,77 +88,77 @@ class PokepayTest < Minitest::Test
 
   def test_list_account_balances_3
     response = $client.send(Pokepay::Request::ListAccountBalances.new(
-                              "012fb568-04fa-483f-aab8-c9b3de62c6bd",
-                              expires_at_from: "2022-01-14T10:33:29.000000+09:00",
-                              expires_at_to: "2025-06-22T13:53:35.000000+09:00",
-                              direction: "desc"
+                              "cc450cba-668f-4380-854c-2e6dae6d9426",
+                              expires_at_from: "2023-01-15T03:20:22.000000+09:00",
+                              expires_at_to: "2016-07-18T17:09:40.000000+09:00",
+                              direction: "asc"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_balances_4
     response = $client.send(Pokepay::Request::ListAccountBalances.new(
-                              "012fb568-04fa-483f-aab8-c9b3de62c6bd",
-                              per_page: 1829,
-                              expires_at_from: "2018-10-25T15:10:57.000000+09:00",
-                              expires_at_to: "2017-11-24T18:44:28.000000+09:00",
-                              direction: "desc"
+                              "cc450cba-668f-4380-854c-2e6dae6d9426",
+                              per_page: 2394,
+                              expires_at_from: "2025-01-10T04:46:02.000000+09:00",
+                              expires_at_to: "2024-05-11T03:04:24.000000+09:00",
+                              direction: "asc"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_balances_5
     response = $client.send(Pokepay::Request::ListAccountBalances.new(
-                              "012fb568-04fa-483f-aab8-c9b3de62c6bd",
-                              page: 1801,
-                              per_page: 1310,
-                              expires_at_from: "2021-01-07T07:19:49.000000+09:00",
-                              expires_at_to: "2021-10-18T03:07:02.000000+09:00",
-                              direction: "asc"
+                              "cc450cba-668f-4380-854c-2e6dae6d9426",
+                              page: 5477,
+                              per_page: 8394,
+                              expires_at_from: "2022-03-09T11:53:53.000000+09:00",
+                              expires_at_to: "2019-09-12T11:19:03.000000+09:00",
+                              direction: "desc"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_expired_balances_0
     response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
-                              "da603f48-d714-414d-b0fb-c9dc83645273"
+                              "c3851eee-c081-4e48-9428-8ce6203ac303"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_expired_balances_1
     response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
-                              "da603f48-d714-414d-b0fb-c9dc83645273",
-                              direction: "asc"
+                              "c3851eee-c081-4e48-9428-8ce6203ac303",
+                              direction: "desc"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_expired_balances_2
     response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
-                              "da603f48-d714-414d-b0fb-c9dc83645273",
-                              expires_at_to: "2024-05-05T09:56:15.000000+09:00",
-                              direction: "asc"
+                              "c3851eee-c081-4e48-9428-8ce6203ac303",
+                              expires_at_to: "2023-10-14T15:41:08.000000+09:00",
+                              direction: "desc"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_expired_balances_3
     response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
-                              "da603f48-d714-414d-b0fb-c9dc83645273",
-                              expires_at_from: "2019-01-02T07:32:04.000000+09:00",
-                              expires_at_to: "2020-04-16T20:05:24.000000+09:00",
-                              direction: "asc"
+                              "c3851eee-c081-4e48-9428-8ce6203ac303",
+                              expires_at_from: "2016-02-07T23:51:43.000000+09:00",
+                              expires_at_to: "2023-06-26T07:13:08.000000+09:00",
+                              direction: "desc"
     ))
     assert response.code != "400"
   end
 
   def test_list_account_expired_balances_4
     response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
-                              "da603f48-d714-414d-b0fb-c9dc83645273",
-                              per_page: 1878,
-                              expires_at_from: "2022-01-26T02:22:53.000000+09:00",
-                              expires_at_to: "2019-03-16T04:23:09.000000+09:00",
+                              "c3851eee-c081-4e48-9428-8ce6203ac303",
+                              per_page: 1280,
+                              expires_at_from: "2017-09-19T20:56:50.000000+09:00",
+                              expires_at_to: "2021-05-01T18:07:44.000000+09:00",
                               direction: "desc"
     ))
     assert response.code != "400"
@@ -166,36 +166,36 @@ class PokepayTest < Minitest::Test
 
   def test_list_account_expired_balances_5
     response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
-                              "da603f48-d714-414d-b0fb-c9dc83645273",
-                              page: 4824,
-                              per_page: 5026,
-                              expires_at_from: "2024-02-16T10:37:45.000000+09:00",
-                              expires_at_to: "2017-04-14T08:17:55.000000+09:00",
-                              direction: "asc"
+                              "c3851eee-c081-4e48-9428-8ce6203ac303",
+                              page: 7954,
+                              per_page: 183,
+                              expires_at_from: "2017-07-15T07:24:12.000000+09:00",
+                              expires_at_to: "2018-02-11T05:24:08.000000+09:00",
+                              direction: "desc"
     ))
     assert response.code != "400"
   end
 
   def test_create_customer_account_0
     response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
-                              "088449f4-c8a0-4ccc-a1e7-ecb935d657e1"
+                              "7f94c950-6ed6-47a1-b8d4-2c8895d41b68"
     ))
     assert response.code != "400"
   end
 
   def test_create_customer_account_1
     response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
-                              "088449f4-c8a0-4ccc-a1e7-ecb935d657e1",
-                              account_name: "xARTcCtKjz1M2kusM3cVDMOGMtpxWNvKR6Gcp6PWCiNymBaUIu6lQIyVNDYRttS46oTXBYnbHbMuAdnXANiixumuncg7egxc7L05i8jkZ1Waa6h6AAgB9jXehhbgsnyiHZ1n3qwk3r3QhfSXAhy6Q6NsE0G4ETHn0hBw4No1YXyGaN9eZjSIQORsTn19Lt83IRfp6apsZzwHUgb2qqrLtRpMZnFJMuPuuYDxH"
+                              "7f94c950-6ed6-47a1-b8d4-2c8895d41b68",
+                              account_name: "RcEAVa4JmfjoJZ9ajsO39BqxPDSP5BpfA0dYcuMmHpa4aDHWm32hBFhI0DxRhz83lKq4Wp1hKlNvpHM0s7Dd9Uu6qWqC0qUtLag9adxARTcCtKjz1M2kusM3cVDMOGMtpxWNvKR6Gcp6PWCiNymBaUIu6lQIyVNDYRttS46oTXBYnbHbMuAdnXANiixumuncg7eg"
     ))
     assert response.code != "400"
   end
 
   def test_create_customer_account_2
     response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
-                              "088449f4-c8a0-4ccc-a1e7-ecb935d657e1",
-                              user_name: "dnikAchiJbVP3ZTnJxIJTqpbj9hQa29LtqbzIUCtrgI5GH6wQi2f3OojTDEk0fitYgKzfXu0N7ZPQ6Ey6Tu3BU56A0D",
-                              account_name: "ovC2AWlgsj8AO1bqHH9NHpqZ"
+                              "7f94c950-6ed6-47a1-b8d4-2c8895d41b68",
+                              user_name: "c7L05i8jkZ1Waa6h6AAgB9jXehhbgsnyiHZ1n3qwk3r3QhfSXAhy6Q6NsE0G4ETHn0hBw4No1YXyGaN9eZjSIQORsTn19Lt83IRfp6apsZzwHUgb2qqrLtRpMZnFJMuPuuYDxHZdnikAchiJbVP3ZTnJxIJTqpbj9hQa29LtqbzIUCtrgI5GH6wQi2f3OojTDEk0fitYgKzfXu0N7ZPQ6Ey6Tu3BU56A0DovC2AWlgsj8AO1bqHH9NHpq",
+                              account_name: "wH1tkpyNDcuWxfr4xKRRC5UPfddKJfLPJmxAhDpkltxfpGBgKzLBWMCYifXDXPCbHnT3R8fCd8115VzfSNwUPij0JCe"
     ))
     assert response.code != "400"
   end
@@ -215,16 +215,16 @@ class PokepayTest < Minitest::Test
 
   def test_list_bills_2
     response = $client.send(Pokepay::Request::ListBills.new(
-                              upper_limit_amount: 9750,
-                              is_disabled: true
+                              upper_limit_amount: 2055,
+                              is_disabled: false
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_3
     response = $client.send(Pokepay::Request::ListBills.new(
-                              lower_limit_amount: 3968,
-                              upper_limit_amount: 2045,
+                              lower_limit_amount: 2546,
+                              upper_limit_amount: 4783,
                               is_disabled: true
     ))
     assert response.code != "400"
@@ -232,20 +232,20 @@ class PokepayTest < Minitest::Test
 
   def test_list_bills_4
     response = $client.send(Pokepay::Request::ListBills.new(
-                              shop_id: "8a6de4b1-667c-4481-b4eb-5122516d4d70",
-                              lower_limit_amount: 6147,
-                              upper_limit_amount: 32,
-                              is_disabled: true
+                              shop_id: "245c67ff-0e24-4b77-8960-3c0008983206",
+                              lower_limit_amount: 8742,
+                              upper_limit_amount: 2701,
+                              is_disabled: false
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_5
     response = $client.send(Pokepay::Request::ListBills.new(
-                              shop_name: "yNDcuWxfr4xKRRC5UPfddKJfLPJmxAhDpkltxfpGBgKzLBWMCYifXDXPCbHnT3R8fCd8115VzfSNwUPij0JCeKaErwIngTct5VctC8ahSG576Yk267hNuqsd2aOEu5ugI0fcKmGRUw7sMhCFW8ODbH",
-                              shop_id: "657f64dc-470f-4e6b-a58f-2c92193a2a5a",
-                              lower_limit_amount: 1822,
-                              upper_limit_amount: 9389,
+                              shop_name: "ct5VctC8ahSG576Yk267hNuqsd2aOEu5ugI0fcKmGRUw7sMhCFW8ODbHkZSUPXBsmObvnHUjDTSSciw3PX7II",
+                              shop_id: "6a1e2620-9d8d-4013-adeb-8276d175d1ff",
+                              lower_limit_amount: 7806,
+                              upper_limit_amount: 134,
                               is_disabled: true
     ))
     assert response.code != "400"
@@ -253,53 +253,53 @@ class PokepayTest < Minitest::Test
 
   def test_list_bills_6
     response = $client.send(Pokepay::Request::ListBills.new(
-                              created_to: "2016-10-09T06:39:49.000000+09:00",
-                              shop_name: "PXBsmObvnHUjDTSSciw3PX7IImkvl5vCAHh7QD95u0YIcm0Sp2RluFOAxJTKKlkJp5ENq52OLTcJlnsa7zuy1tusdwen7Z1wrrgdxWfKkMLwrBpORQ9LHlnKRmCd4nadmeyKnqGyqpn3W7S36l34SSSOxW72",
-                              shop_id: "5910390c-6e67-481c-9ef1-9a8ddaf19f53",
-                              lower_limit_amount: 6592,
-                              upper_limit_amount: 7402,
-                              is_disabled: true
+                              created_to: "2016-02-09T21:59:59.000000+09:00",
+                              shop_name: "CAHh7QD95u0YIcm0Sp2RluFOAxJTKKlkJp5ENq52OLTcJlnsa7zuy1tusdwen7Z1wrrgdxWfKkMLwrBpORQ9LHlnKRmCd4nadmeyKnqGyqpn3W7S36l34SSSOxW72gqSjd8QPzbjt0rt7UmerReZGbvGgvAZbyLJ1Lea6an4P1AnQALadFsAzgfKjbtuXgZDedIJqTHGgnOhGiwZBj5AvHdO2AtfcLabY2vDzXzQx3sP8V6IT9VFC5b",
+                              shop_id: "424fb511-d46f-4330-938a-d53f04707e4b",
+                              lower_limit_amount: 344,
+                              upper_limit_amount: 4198,
+                              is_disabled: false
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_7
     response = $client.send(Pokepay::Request::ListBills.new(
-                              created_from: "2021-03-18T22:49:07.000000+09:00",
-                              created_to: "2023-10-26T01:44:43.000000+09:00",
-                              shop_name: "bjt0rt7UmerReZGbvGgvAZbyLJ1Lea6an4P1AnQALadFsAzgfKjbtuXgZDedIJqTHGgnOhGiwZBj5AvHdO2AtfcLabY2vDzXzQx3sP8V6IT9VFC5bo0KXfPASw8",
-                              shop_id: "e6ede86a-f950-43d1-8e2e-155c59e41e60",
-                              lower_limit_amount: 4272,
-                              upper_limit_amount: 6861,
-                              is_disabled: true
+                              created_from: "2017-10-06T00:37:12.000000+09:00",
+                              created_to: "2022-10-15T14:09:50.000000+09:00",
+                              shop_name: "8jPQ0hMJ4nPgNJOUuVI3xkUSOX0vTgyFK1FOp7pl9MWii2exAarzlUllrgsQZQAnUYeKIbZQuPYAKNLvTyMcIYlLoYSz5jRHNPv9LO3MtPyt1wTnktL8AYkBvD7caRgncONv8Kje2pUTWzADND",
+                              shop_id: "195e4ee5-eb1d-4906-b8b7-82efe5592669",
+                              lower_limit_amount: 193,
+                              upper_limit_amount: 7876,
+                              is_disabled: false
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_8
     response = $client.send(Pokepay::Request::ListBills.new(
-                              description: "J4nPgNJOUuVI3xkUSOX0vTgyFK1FOp7pl9MWii2",
-                              created_from: "2015-11-03T10:35:15.000000+09:00",
-                              created_to: "2025-06-13T12:56:13.000000+09:00",
-                              shop_name: "AarzlUllrgsQZQAnUYeKIbZQuPYAKNLvTyMcIYl",
-                              shop_id: "67136e10-6092-4727-8c6f-ec5949306e03",
-                              lower_limit_amount: 7049,
-                              upper_limit_amount: 2013,
-                              is_disabled: false
+                              description: "B6ZsUUsk6umIdkjysmBoCy1Ud1e5PrxfXmPZX1V",
+                              created_from: "2025-06-28T06:22:12.000000+09:00",
+                              created_to: "2022-10-09T02:35:10.000000+09:00",
+                              shop_name: "ebv0ckwSJ4e9e0pY47yGoAwg28Msl4sq96mAewFZHEg2RF0uEHwK5Jbwu9JRSn5a7ymUxn4mfvD7ycun86BZW4IWD5GZy4J15w0ovSrq2HjQnZoVWhOdLDSpe9mEjTApY38vZyrfHaX2ePxiTIXhf26BicGgC0Q3onqPmyIzFPAF7SEHME8DlS2m5Kv5IbgTWsj7MinGr0IGEeLzU5ms0HjwVmUqLVvuFmzvx3MioePO7gkONN",
+                              shop_id: "4faa4393-bfc1-4501-bb6a-b042c64b79ab",
+                              lower_limit_amount: 1219,
+                              upper_limit_amount: 729,
+                              is_disabled: true
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_9
     response = $client.send(Pokepay::Request::ListBills.new(
-                              organization_code: "bLcc8-q--",
-                              description: "RgncONv8Kje2pUTWzADNDe87oiAkJDB6ZsUUsk6umIdkjysmBoCy1Ud1e5PrxfXmPZX1VlVfqebv0ckwSJ4e9e0pY47yGoAwg2",
-                              created_from: "2020-06-16T20:57:31.000000+09:00",
-                              created_to: "2025-06-22T03:48:04.000000+09:00",
-                              shop_name: "sq96mAewFZHEg2RF0uEHwK5Jbwu9JRSn5a7ymUxn4mfvD7ycun86BZW4IWD5GZy4J15w0ovSrq2HjQnZoVWhOdLDSpe9mEjTApY38vZyrfHaX2ePxiTIXhf26BicGgC0Q3onqPmyIzFPAF7SEHME8DlS2m5Kv5IbgTWsj7MinGr0IGEeLzU5m",
-                              shop_id: "122f7c99-ba73-409e-bcaf-ca2e6fa9d12e",
-                              lower_limit_amount: 2193,
-                              upper_limit_amount: 6445,
+                              organization_code: "AsqS2Z-V79-dtNkY7",
+                              description: "xuQUV",
+                              created_from: "2023-06-24T23:35:38.000000+09:00",
+                              created_to: "2022-08-08T06:45:21.000000+09:00",
+                              shop_name: "ZD3LHlYNS3c0MUvvhZyFdpqg4zFLwpBAFUZ73GCZjYfwcSTcjOL0y0KRT0zFenF09DVyQoaELlrJk6MRPKi62IzWH9emhQ0CqvNNBrhyRg9xxzNXJhnMZrEqyRqPCGzbSmOoYCMUQNjvF4AYLzd022rwQVNfYYCfZZWpAcyBWwWi1DgvTt4hTTZowFPycMflfcbIe",
+                              shop_id: "515d81cf-56c9-4e2d-8b3e-fcaf1c1fe59d",
+                              lower_limit_amount: 4965,
+                              upper_limit_amount: 6298,
                               is_disabled: true
     ))
     assert response.code != "400"
@@ -307,120 +307,120 @@ class PokepayTest < Minitest::Test
 
   def test_list_bills_10
     response = $client.send(Pokepay::Request::ListBills.new(
-                              private_money_id: "6abed3fd-54f7-4397-bf2a-7256495b7f8e",
-                              organization_code: "-2--91Ju--Q-fl9-0",
-                              description: "KxjITuRCVadPy2BbYSAUfNgtCT3aJmzxxuQUVBryDZD3LHlYNS3c0MUvvhZyFdpqg4zFLwpBAFUZ73GC",
-                              created_from: "2022-04-09T21:36:08.000000+09:00",
-                              created_to: "2018-02-15T01:53:50.000000+09:00",
-                              shop_name: "YfwcSTcjOL0y0KRT0zFenF09DVyQoaELlrJk6MRPKi62IzWH9emhQ0CqvNNBrhyRg9xxzNXJhnMZrEqyRqPCGzbSmOoYCMUQNjvF4AYLzd022rwQVNfYYCfZZWpAcyBWwWi1DgvTt4hTTZowFPycMflfcbIeOIKes05558vbabHcGuqU0Zpo5LBba7yo5q8iSiTBSZQPeDSY9S36TscHpgaN0j8ZeP1HDPDTHzzRIdW",
-                              shop_id: "674bddf8-4648-4a18-aade-71cb3b56b1f9",
-                              lower_limit_amount: 2616,
-                              upper_limit_amount: 1823,
-                              is_disabled: true
+                              private_money_id: "864ea212-382c-493b-9df3-443f4fd60db0",
+                              organization_code: "Q0--Vm51xP51j-Uc-1fe-3Z-e---",
+                              description: "TscHpgaN0j8ZeP1HDPDTHzzRIdWxHjKy82N74miDUcOuIVqRIEU93kljq1Q8TjukgNdosrcsbqXkWqVhxkWkSbCcQV2KWKaXCJgJ38wW32AKvILX828FihWZQyqSbK0FMXzQI3K0upT8cYYAuEa7VHyo1Pr6ZXG8JSWzel5X6ggilnbIikjMsDt",
+                              created_from: "2019-04-11T19:02:55.000000+09:00",
+                              created_to: "2016-03-28T17:19:29.000000+09:00",
+                              shop_name: "Hs8kXaVldBOvstCOu5vNtx3bBib1BS1IIGWD4mpTYqNNFPcbcfJ8JMK49acle",
+                              shop_id: "54afd3d6-a852-4a73-bc70-69e31ba6b2ec",
+                              lower_limit_amount: 868,
+                              upper_limit_amount: 2036,
+                              is_disabled: false
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_11
     response = $client.send(Pokepay::Request::ListBills.new(
-                              bill_id: "2N74",
-                              private_money_id: "f661e790-3214-486d-a944-ea831d99a855",
-                              organization_code: "-I--4-ts-",
-                              description: "sbqXkW",
-                              created_from: "2018-09-09T05:51:35.000000+09:00",
-                              created_to: "2017-01-12T11:09:30.000000+09:00",
-                              shop_name: "VhxkWkSbCcQV2KWKaXCJgJ38wW32AKvILX828FihWZQyqSbK0FMXzQI3K0upT8cYYAuEa7VHyo1Pr6ZXG8JSWzel5X6ggilnbIikjMsDtvgyHs8kXaVldBOvstCOu5vNtx3bBib1BS1IIG",
-                              shop_id: "73d37c5b-16d7-42c4-9a34-a5edfab2b7f0",
-                              lower_limit_amount: 2953,
-                              upper_limit_amount: 5972,
-                              is_disabled: false
+                              bill_id: "5tmURvImdn",
+                              private_money_id: "ed6fdaa7-91e9-45e5-9b29-8dec29b3be0c",
+                              organization_code: "DoRXh-Y-9SWD-l-fv-u",
+                              description: "Ys7Yv5K",
+                              created_from: "2016-09-06T09:57:24.000000+09:00",
+                              created_to: "2023-02-14T22:10:18.000000+09:00",
+                              shop_name: "cz7zjgazoph",
+                              shop_id: "e79838f5-c921-4023-9669-1143c81ef931",
+                              lower_limit_amount: 9302,
+                              upper_limit_amount: 3548,
+                              is_disabled: true
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_12
     response = $client.send(Pokepay::Request::ListBills.new(
-                              per_page: 6296,
-                              bill_id: "qNNFPcbc",
-                              private_money_id: "a623520f-abe0-4d1a-a64a-d1b8002929ca",
-                              organization_code: "Nco-F-MiT-4B-",
-                              description: "ZrQj5DbpL3fJFTwwcn9WP3m8VyuReCXx5WTYs7Yv5KDLwBcz7zjgazophuiC1VR8XiXW8JGdOuAk94khcXRAwlFr4tlYuwMI02c6YHU8uGe8qGNvTmA6H2tH06f3cpkGDNNhHR4jcwCrCwplpzKOK41muEK",
-                              created_from: "2019-10-09T00:31:18.000000+09:00",
-                              created_to: "2019-01-02T02:36:29.000000+09:00",
-                              shop_name: "9f6dQ5BvDAnz25uvrmGGKjRYVWTh4n3trK0bvzHyQJ1u0mKrSXl5b4zkBhHXIiOwN14umNbs9HzTMzg2AFGgoFwChMKyFjnp6NWuVTvukHEJJxjvwA",
-                              shop_id: "8ee0d305-f9e1-40d3-936b-0972c0f4d8ec",
-                              lower_limit_amount: 1488,
-                              upper_limit_amount: 9715,
-                              is_disabled: false
+                              per_page: 447,
+                              bill_id: "XiXW8JGdO",
+                              private_money_id: "5050d80d-c7ba-4f99-ad8b-b975c78d25bf",
+                              organization_code: "z",
+                              description: "uwMI02c6YHU8uGe8qGNvTmA",
+                              created_from: "2021-03-11T17:24:05.000000+09:00",
+                              created_to: "2024-02-26T23:31:28.000000+09:00",
+                              shop_name: "H06f3cpkGDNNhHR4jcwCrCwplpzKOK41muEKIO2q9f6dQ5BvDAnz25uvrmGGKjRYVWTh4n3trK0bvzHyQJ1u0mKrSXl5b4zkBhHXIiOwN14umNbs9HzTMzg2AFGgoFwChMKyFjnp6NWuVTvukHEJJxjvwAaSkrlPscgFZA7kgmnQGh0g7xEy0gjIfqsy3qqeO2uL3gmJXocI00jDfhi9nkYKzlD45lOs5FqPThDPFGAn6g717B9KA",
+                              shop_id: "e1400ce0-47d7-451c-9618-89c8bbd88a9a",
+                              lower_limit_amount: 2172,
+                              upper_limit_amount: 8069,
+                              is_disabled: true
     ))
     assert response.code != "400"
   end
 
   def test_list_bills_13
     response = $client.send(Pokepay::Request::ListBills.new(
-                              page: 8512,
-                              per_page: 1309,
-                              bill_id: "FZA7kgmn",
-                              private_money_id: "a58266db-04aa-4822-a951-3ddf3a5c40ba",
-                              organization_code: "F-16Bc-",
-                              description: "gmJXocI00jDfhi9nkYKzlD45lOs5FqPThDPFGAn6g717B9KAWVHYRkMJaQT0YWfQtgxVhq9RVZQG6j5A2pjVon4uuDqic8AnsoXtmv8LerXQe8LjF8Q6qvpD5ZbBwXFvQ1skGDixXFJczCMVyjlRecAjobCopZKVFLb9UiV0XEmtc9iB2syy",
-                              created_from: "2021-06-21T01:43:01.000000+09:00",
-                              created_to: "2023-11-30T22:38:05.000000+09:00",
-                              shop_name: "fawMoOZtkTktpas3rTKhS7CSUreJUtTC5W6xtdNcZmGzg6LOAwdB03Wi69g5bppku3R9lJVdDaUu8gKI7uxlsX8tJTVN1o4Avhi0fX5dozKzovfXQ3PHUhjHLVEtSIaxZ8O9N2SLzG35Urh2rbZx2aAr",
-                              shop_id: "56c8a5f6-b5f2-4829-a02b-d1dee4eca1ad",
-                              lower_limit_amount: 32,
-                              upper_limit_amount: 9471,
-                              is_disabled: false
+                              page: 5228,
+                              per_page: 6990,
+                              bill_id: "aQT0YWfQtg",
+                              private_money_id: "aa0d8a40-f689-4fdb-b8d6-736898ef5371",
+                              organization_code: "-4V-k1D8HboK--w-uW",
+                              description: "LerXQe8LjF8Q6qvpD5ZbBwXFvQ1skGDixXFJczCMVyjlRecAjobCopZKV",
+                              created_from: "2024-12-05T21:24:47.000000+09:00",
+                              created_to: "2021-12-15T16:10:53.000000+09:00",
+                              shop_name: "9UiV0XEmtc9iB2syyuELfawMoOZtkTktpas3rTKhS7CSUreJUtTC5W6xtdNcZmGzg6LOAwdB03Wi69g5bppku3R9lJVdDaUu8gKI7uxlsX8tJTVN1o4Avhi0fX5dozKzovfXQ3PHUhjHLVEtSIaxZ8O9N2SLzG35Urh2rbZx2aArvrKFEW0caD1nqOz",
+                              shop_id: "ef491acb-060a-4810-910f-e7adbe43b402",
+                              lower_limit_amount: 2666,
+                              upper_limit_amount: 8542,
+                              is_disabled: true
     ))
     assert response.code != "400"
   end
 
   def test_create_bill_0
     response = $client.send(Pokepay::Request::CreateBill.new(
-                              "11c21346-1c20-4c45-97b0-4d63dd5b2e16",
-                              "a3b6a861-85c4-485d-b1ae-e2ee526d7471"
+                              "10b38e5a-a0a2-4643-b978-0431d3fe12c5",
+                              "6be77097-48f0-43b4-96fd-0f6bfa0ed65f"
     ))
     assert response.code != "400"
   end
 
   def test_create_bill_1
     response = $client.send(Pokepay::Request::CreateBill.new(
-                              "11c21346-1c20-4c45-97b0-4d63dd5b2e16",
-                              "a3b6a861-85c4-485d-b1ae-e2ee526d7471",
-                              description: "OzKQjZCyx1Ep4VkAmGgvgI7YgVKC9RfQiSpTWZrd0hVSBtTu"
+                              "10b38e5a-a0a2-4643-b978-0431d3fe12c5",
+                              "6be77097-48f0-43b4-96fd-0f6bfa0ed65f",
+                              description: "AmGgvgI7Yg"
     ))
     assert response.code != "400"
   end
 
   def test_create_bill_2
     response = $client.send(Pokepay::Request::CreateBill.new(
-                              "11c21346-1c20-4c45-97b0-4d63dd5b2e16",
-                              "a3b6a861-85c4-485d-b1ae-e2ee526d7471",
-                              amount: 7401,
-                              description: "KN3fmfJoVUvvyWz4acD4Y"
+                              "10b38e5a-a0a2-4643-b978-0431d3fe12c5",
+                              "6be77097-48f0-43b4-96fd-0f6bfa0ed65f",
+                              amount: 7044,
+                              description: "C9RfQiSpTWZrd0hVSBtTuiSKN3fmfJoVUvvyWz4acD4YN5"
     ))
     assert response.code != "400"
   end
 
   def test_update_bill_0
     response = $client.send(Pokepay::Request::UpdateBill.new(
-                              "ec36f291-659a-474e-a215-7008567cfb35"
+                              "f74385dc-54b9-4a04-b397-68b535a93439"
     ))
     assert response.code != "400"
   end
 
   def test_update_bill_1
     response = $client.send(Pokepay::Request::UpdateBill.new(
-                              "ec36f291-659a-474e-a215-7008567cfb35",
-                              is_disabled: true
+                              "f74385dc-54b9-4a04-b397-68b535a93439",
+                              is_disabled: false
     ))
     assert response.code != "400"
   end
 
   def test_update_bill_2
     response = $client.send(Pokepay::Request::UpdateBill.new(
-                              "ec36f291-659a-474e-a215-7008567cfb35",
-                              description: "s59xIWGujcTxFFrrXyLyMOsteVH8YLvoUoraYyVUvoHuSd144X7ZEq8UGlMat7Q5BMcC1v73v60y8DMLWrlnr061xWZsz1ogogHitDMic7XGDhIwoiIw8buBfBCDG7j4DoWkpZIbqBi9TROGFtlR9rLj2Y1ER9gKdUSrcKHlFd3Ur1MCMIUROIYftW",
+                              "f74385dc-54b9-4a04-b397-68b535a93439",
+                              description: "IWGujcTx",
                               is_disabled: true
     ))
     assert response.code != "400"
@@ -428,9 +428,9 @@ class PokepayTest < Minitest::Test
 
   def test_update_bill_3
     response = $client.send(Pokepay::Request::UpdateBill.new(
-                              "ec36f291-659a-474e-a215-7008567cfb35",
-                              amount: 8759,
-                              description: "MsIbzCAj1GsSvfXjxUW5PMdDuBsMe04PTf8vSsZQwwHu7ykbtkzGPhzROeLpMaUZfjz7mGpF3omDB92rueqlmfnAfu7erS3gFr3FTdQ8rwckpkfwdxwxZ95sfTG5",
+                              "f74385dc-54b9-4a04-b397-68b535a93439",
+                              amount: 7494,
+                              description: "XyLyMOsteVH8YLvoUoraYyVUvoHuSd144X7ZEq8UGlMat7Q5BMcC1v73v60y8DMLWrlnr061xWZsz1ogogHitDMic7XGDhIwo",
                               is_disabled: false
     ))
     assert response.code != "400"
@@ -438,284 +438,284 @@ class PokepayTest < Minitest::Test
 
   def test_create_check_0
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 6289
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 5442
     ))
     assert response.code != "400"
   end
 
   def test_create_check_1
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 8500,
-                              description: "VCG4sTwcYeFwcP7ZmLygXYRtjxN2aIco6xNkWo0aYr1y1KHCmQGL0IM3EaCDd87kJG01a7GOWj7LV4v5yotPxhlRj2vkjikjfOo5Zy9zD8cfycxdjXF6cmwiKvevzAx7rHin0MHYFpvh"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 4924,
+                              description: "BCDG7j4DoWkpZIbqBi9TROGFtlR9rLj2Y1ER9gKdUSrcKHlFd3Ur1MCMIUROIYftW7QMsIbzCAj1GsSvfXjxUW5PMdDuBsMe04PTf8v"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_2
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 8177,
-                              is_onetime: true,
-                              description: "g2yG4Wo0L4evFZLjpsodOQD43fZ5T5bk20d"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 7165,
+                              is_onetime: false,
+                              description: "QwwHu7ykbtkzGPhzROeLpMaUZfjz7mGpF3omDB92rueqlmfnAfu7erS3gFr3FTdQ8rwckpkfwdxwxZ95sfTG55oAI4V"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_3
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 8053,
-                              usage_limit: 7969,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 9795,
+                              usage_limit: 6471,
                               is_onetime: false,
-                              description: "2e25agSXyEGickpeze5Yn7vyzhltNB5edjt157B8n6abEccTMUOFUG9Fme9wlEEj2gZC8ckmFOzWRdKb11QTIHM0x5oJQ4O2Nwel4rHJTDGFvqXggC9Tcy7ogKmUw0VnsFyzfyt6Bg95FB1a7IFTBkW9"
+                              description: "4sTwcYeFwcP7ZmLygXYRtjxN2aIco6xNkWo0aYr1y1KHCmQGL0IM3EaCDd87kJG01a7GOWj7LV4v5yotPxhlRj2vkjikjfOo5Zy9zD8cfycxdjXF6cmwiKvevzAx7rHin0MHYFpvhqZUg2yG4"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_4
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 8436,
-                              expires_at: "2025-03-05T02:57:23.000000+09:00",
-                              usage_limit: 7504,
-                              is_onetime: false,
-                              description: "yeqITUoc54HWI6lY3NxA2Qq6LVyn2dOGJj5BoyL1MgjctfisLuYo4aorOwFrhmbs26EDkzDLnAr7NHvMDZLOk3Kn6N9IKA2DQ0U"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 6414,
+                              expires_at: "2019-05-03T14:12:01.000000+09:00",
+                              usage_limit: 7164,
+                              is_onetime: true,
+                              description: "L4evFZLjpsodOQD43fZ5T5bk20dIuBp2e25agSXyEGickpeze"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_5
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 9648,
-                              point_expires_at: "2019-07-18T11:27:25.000000+09:00",
-                              expires_at: "2018-01-07T15:24:32.000000+09:00",
-                              usage_limit: 223,
-                              is_onetime: true,
-                              description: "qQRpkGArTGUPugetKJLdESdgB4DMlPhuAgx6J23S5a4KJH2dJnXOeAy8xYgmS"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 4023,
+                              point_expires_at: "2018-03-11T02:38:10.000000+09:00",
+                              expires_at: "2022-07-08T12:11:45.000000+09:00",
+                              usage_limit: 872,
+                              is_onetime: false,
+                              description: "ltNB5ed"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_6
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 4311,
-                              point_expires_in_days: 5663,
-                              point_expires_at: "2021-05-02T05:23:56.000000+09:00",
-                              expires_at: "2023-08-31T11:31:56.000000+09:00",
-                              usage_limit: 4745,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 1652,
+                              point_expires_in_days: 5298,
+                              point_expires_at: "2020-07-06T08:37:37.000000+09:00",
+                              expires_at: "2024-02-16T01:46:48.000000+09:00",
+                              usage_limit: 3355,
                               is_onetime: true,
-                              description: "za9f0TF30iljDxgSpyfoekUtYXnQ6dyRqDXbojqilSXXfgL13rI1kMYSkzLYWcqyBEPqq6jXo"
+                              description: "n6abEccTMUOFUG9Fme9wlEEj2gZC8ckmFOzWRdKb11QTIHM0x5oJQ4O2Nwel4rHJTDGFvqXggC9Tcy7ogKmUw0VnsFyzfyt6Bg95FB1a7IFTBkW9tPubyeqITUoc54HWI6lY"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_7
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 4173,
-                              bear_point_account: "97f39950-e76f-4cc9-b564-5c829b753859",
-                              point_expires_in_days: 8041,
-                              point_expires_at: "2021-10-26T13:32:44.000000+09:00",
-                              expires_at: "2019-12-15T02:19:47.000000+09:00",
-                              usage_limit: 9921,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 8215,
+                              bear_point_account: "526fadb3-fa90-457f-8e5c-0678195e33c1",
+                              point_expires_in_days: 5555,
+                              point_expires_at: "2018-09-23T16:27:36.000000+09:00",
+                              expires_at: "2018-03-05T11:35:21.000000+09:00",
+                              usage_limit: 1183,
                               is_onetime: false,
-                              description: "C8MN1MIRbysguh0xXqdkQK8VGfHRzulBqoPAVuBC2EUluqb81O3ZagKE8LcCa8bz2nHShe5EoHVudmx1iMacSt3whWHQ5cbR62EyfrAyRxoXmZ8au8D4esSHy55WYfHfvN0QEBe9OU"
+                              description: "6LVyn2dOGJj5BoyL1MgjctfisLuYo4aorOwFrhmbs26EDkzDLnAr7NHvMDZLOk3Kn6N9IKA2DQ0UDl0RkGXqQRpkGArTGUPugetKJLdESdgB4DMlPh"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_8
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 4205,
-                              point_amount: 7157
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 4341,
+                              point_amount: 8453
     ))
     assert response.code != "400"
   end
 
   def test_create_check_9
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 3489,
-                              point_amount: 4734,
-                              description: "yAxdhT65YfaNVM2xjqlPxxy8RqwFWTQ1hvVt9bN2zIxNZx4eE9mHPjq6XCvYjxbcuNA5AOQHru6gAXo"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 1819,
+                              point_amount: 12,
+                              description: "gx6J23S5a4KJH2dJnXOeAy8xYgmSSWd6nFdHza9f0TF30iljDxgSpyfoekUtYXnQ6dyRqDXbojqilSXXfgL13rI1kMYSkzLYWcqyBEPqq6jXoMPoI5dYhtAEAC8MN1MIRbysguh0xXqdkQK8VGfHRzulBqoPAVuBC2EUluqb81O3ZagKE8LcCa8bz2nHShe5Eo"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_10
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 8092,
-                              point_amount: 7440,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 342,
+                              point_amount: 5638,
                               is_onetime: false,
-                              description: "UpOUbFxl1xg8SX1voG8Gydqo4fQ7D47J36mgyKf2pLnur36TYPgxI"
+                              description: "dmx1iMacSt3whWHQ5cbR62EyfrAyRxoXmZ8au8D4esSHy55WYfHfvN0QEBe9OUmuQoNyAxdhT65YfaNVM2xjqlPxxy8RqwFWTQ1hvVt9bN2zIxNZx4eE9mHPjq6XCvYjxbcuNA5AOQHru6gAX"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_11
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 5024,
-                              point_amount: 7269,
-                              usage_limit: 2141,
-                              is_onetime: true,
-                              description: "gwWnuJKugM3OQh2JHBnxbiEM0oFGnnvKX9mW4mLerHweV6yDqMFurm2HyY5rxBRsFTyEvnewbYd4rNZJsCq7m7arw2NKYH12xHXaAOFqIwxrvxkxwVY"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 4463,
+                              point_amount: 8092,
+                              usage_limit: 7440,
+                              is_onetime: false,
+                              description: "UpOUbFxl1xg8SX1voG8Gydqo4fQ7D47J36mgyKf2pLnur36TYPgxI"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_12
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 3650,
-                              point_amount: 7293,
-                              expires_at: "2016-09-17T00:20:20.000000+09:00",
-                              usage_limit: 8169,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 5024,
+                              point_amount: 7269,
+                              expires_at: "2016-07-06T05:37:37.000000+09:00",
+                              usage_limit: 3031,
                               is_onetime: true,
-                              description: "CyVTR3czNdwQ9LziqjK5MdQ1lZMyARXVB9A32ESqVUKE1GN9JqLEvyRdA5j20ws4Z1pnjZ8xWKeN3WKGyHXCKDfS0S9olxtCG8sS34enFyHhIbteE1tQOMttUhD0OiwEvovxL7L6kZ3KaNub1zwaCdHgj8ik3dmsSURUNaSg6OcHEmOeQFO3Ox8qDzSQ0"
+                              description: "JKugM3OQh2JHBnxbiEM0oFGnnvKX9mW4mLerHweV6yDqMFurm2HyY5rxBRsFTyEvnewbYd4rNZJsCq7m7arw2NKYH12xHXaAOFqIwxrvxkxwVYBDQiRCyV"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_13
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 7129,
-                              point_amount: 2568,
-                              point_expires_at: "2022-12-03T13:39:38.000000+09:00",
-                              expires_at: "2022-05-31T03:53:09.000000+09:00",
-                              usage_limit: 1219,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 1083,
+                              point_amount: 7854,
+                              point_expires_at: "2022-11-09T12:14:18.000000+09:00",
+                              expires_at: "2016-07-31T12:05:06.000000+09:00",
+                              usage_limit: 7214,
                               is_onetime: false,
-                              description: "6SfrLsEgbwDrafzykU4qQWwEl9RBh7JkqQ2DDr8e6Qf"
+                              description: "czNdwQ9LziqjK5MdQ1lZMyA"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_14
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 8216,
-                              point_amount: 1894,
-                              point_expires_in_days: 9036,
-                              point_expires_at: "2024-11-03T02:11:11.000000+09:00",
-                              expires_at: "2024-06-10T07:33:23.000000+09:00",
-                              usage_limit: 8509,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 1234,
+                              point_amount: 8064,
+                              point_expires_in_days: 6979,
+                              point_expires_at: "2024-08-10T09:35:05.000000+09:00",
+                              expires_at: "2018-04-18T08:05:42.000000+09:00",
+                              usage_limit: 5344,
                               is_onetime: true,
-                              description: "SBxethCuCr4dBSWzD3agMTAvZtCmtviHLHOBHoLHZ5Hyso5u9Osjia9h3ovwp1QqOYhJfTJv94bnDyHKg7jf7TRBDusrb62i"
+                              description: "SqVUKE1GN9JqLEvyRdA5j20ws4Z1pnjZ8xWKeN3WKGyHXCKDfS0S9olxtCG8sS34enFyHh"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_15
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              money_amount: 3836,
-                              point_amount: 5221,
-                              bear_point_account: "3102ac99-a5ba-4b61-8edc-045b62537585",
-                              point_expires_in_days: 49,
-                              point_expires_at: "2025-03-07T19:32:11.000000+09:00",
-                              expires_at: "2020-08-19T12:59:35.000000+09:00",
-                              usage_limit: 4185,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              money_amount: 4553,
+                              point_amount: 5773,
+                              bear_point_account: "aa1efee2-12fb-4a74-a545-2a0562a1f98f",
+                              point_expires_in_days: 5520,
+                              point_expires_at: "2018-06-14T19:13:27.000000+09:00",
+                              expires_at: "2018-12-04T15:17:40.000000+09:00",
+                              usage_limit: 8710,
                               is_onetime: true,
-                              description: "897JBIT98Ea3vOiHnJbC3RzxMsGYTRQVbbDGQ3KFvfr7wcTIqfZGa8VmM7LxaafZsEiZ4h1kUtLESZUqCMHUv6WI9WlLqAjFFVtovIA3w7if4YoZJ6xmZ8N4p4uCNZaugRp11iMcrfILoN8ZP7287JaoYb8spv1FcaYx8c7c37K2BoQEomxqdvz"
+                              description: "OMttUhD0OiwEvovxL7L6kZ3KaNub1zwaCdHgj8ik3dmsSURUNaSg6OcHEmOeQFO3Ox8qDzSQ0YVNC6SfrLsEgbwDrafzykU4qQWwEl9RBh7JkqQ2DDr8e6Qf8fK7SBxethCuCr4dBSWzD3agMTAvZtCmtviHLHOBHoLHZ5Hyso5u9Osjia9h3ovwp1QqOYh"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_16
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 9095
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 3558
     ))
     assert response.code != "400"
   end
 
   def test_create_check_17
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 9731,
-                              description: "Vxdoit0nsRdkY0a6T9IRy95uKnYj6aDVb3qDkr4zFWttvA7t4NS9wkdOXwioDpfXuzoNbRpuKefj9znX2XonFzQcO5QEOmdgUm73I2kFchNQksZB6ByT3lVRQ7O823WFeXCsADfveWv5SetJLuZcB6tdcwibyPvTHbjOWbqqVGNOP2f7Fmc6XSXXM3Y5X"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 7124,
+                              description: "v94bnDyHKg7jf7TRBDusrb62imeaN035TYhQYVT6897JBIT98Ea3vOiHnJbC3RzxMsGYTRQVbbD"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_18
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 7932,
-                              is_onetime: false,
-                              description: "PxnjFhfkfYgvABxRhjV7rXm6F6onhtgkbe1I3fnSrAjiMpnuQgQNZWqLAFAWqZBqyjs43AAjNChMERBnJER6lOBQBwAgsTow"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 7755,
+                              is_onetime: true,
+                              description: "fr7wcTIqfZGa8VmM7LxaafZsEiZ4h1kUtLESZUqCMHUv6WI9WlLqAjFFVtovIA3w7if4YoZJ6xmZ8N4p4uCNZaugRp11iMcrfILoN8ZP7287JaoYb8spv1FcaYx8c7c37K2BoQEomxqdvzxKVxdoit0nsRd"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_19
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 282,
-                              usage_limit: 3457,
-                              is_onetime: true,
-                              description: "Z3Uka1wds9TY9Bp5VDJiBPB1XeTNJcIKtWyeNc1zzlxW2hgOK8NI225RAsUHuuLFS4058hKDGnyjbxrF6zxkmTZedVWeLbSdWlORFkWxf1fgII7vrhxHZrOEIH6HNdDlfIrfFFwUdXhpSi4j72IcAxs"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 7999,
+                              usage_limit: 6753,
+                              is_onetime: false,
+                              description: "T9IRy95uKnYj6aDVb3qDkr4zFWttvA7t4NS9wkdOXwioDpfXuzoNbRp"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_20
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 5914,
-                              expires_at: "2022-05-20T22:29:19.000000+09:00",
-                              usage_limit: 4346,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 9565,
+                              expires_at: "2017-02-13T22:49:55.000000+09:00",
+                              usage_limit: 4769,
                               is_onetime: false,
-                              description: "YlwiQaQGyn4Age91Y1cWNDBnv9RrzZK5kL8kuH9QZjAoA9Wjz3xWF4fJVtnG3Avmta20vIgud6F1UgGMHbk2IRflsvwuZxk0nQmXMvg0FcWUrBHOSV7LC2s46hfsRF0YKxTClCMK7WZ9OzNLNkjfoAuP"
+                              description: "j9znX2XonFzQcO5QEOmdgUm73I2kFchNQksZB6ByT3lVRQ7O823WFeXCsADfveWv5SetJLuZcB6tdcwibyPvTHbjOWbqqVGNOP2f7Fm"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_21
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 7507,
-                              point_expires_at: "2019-08-29T19:58:20.000000+09:00",
-                              expires_at: "2017-09-19T12:32:25.000000+09:00",
-                              usage_limit: 1681,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 7691,
+                              point_expires_at: "2016-03-06T09:52:08.000000+09:00",
+                              expires_at: "2021-09-17T16:54:03.000000+09:00",
+                              usage_limit: 1206,
                               is_onetime: true,
-                              description: "UuefNAm0yTlB8Y7jnhE6v0ICVfZpB32LWZFMYYNQ77hNnDgeQkP6BrHNLW2TjgwJkClYsxYjLV6mNckmXWb6cDTOBEvT1fZYocBrtgwRLixenA1GWqf2JPqamqpbbuSj1PURjYRasH9ARntTDK9f1O2csoG3F55uy56fVMl4ovKtbbNMLWzz4xf72tklH"
+                              description: "SXXM3Y5XPxnjFhfkfYgvABxRhjV7rXm6F6onhtgkbe1I3fnSrAjiMpnuQgQNZWqLAFAWqZBqyjs43AAjNChMERBnJER6lOBQBwAgsTow2Z3Uka1wds9TY9Bp5VDJiBPB"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_22
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 4284,
-                              point_expires_in_days: 3491,
-                              point_expires_at: "2016-04-10T08:17:35.000000+09:00",
-                              expires_at: "2024-12-21T00:10:38.000000+09:00",
-                              usage_limit: 9263,
-                              is_onetime: false,
-                              description: "xVqKMzKtPMLBX6YLvmDqPAbWtHJHRtQBqCHsxk71kIOiSHcZ37"
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 2225,
+                              point_expires_in_days: 2621,
+                              point_expires_at: "2019-10-29T04:38:08.000000+09:00",
+                              expires_at: "2023-05-17T07:39:03.000000+09:00",
+                              usage_limit: 6629,
+                              is_onetime: true,
+                              description: "NJcIKtWyeNc1zzlxW2hgOK8NI225RAsUHuuLFS4058hKDGnyjbxrF6zxkmTZedVWeLbSdWlORFkWxf1fgII7vrhxHZrOEIH6HNdDlfIrfFFwUdXhpSi4j72IcAxs47XeIzYlwiQaQGyn4Age91Y1cWNDBnv9RrzZK5"
     ))
     assert response.code != "400"
   end
 
   def test_create_check_23
     response = $client.send(Pokepay::Request::CreateCheck.new(
-                              "3f487d60-58b5-41ef-bce0-94aec6f8b441",
-                              point_amount: 4969,
-                              bear_point_account: "c3bf7a17-5d0d-41ef-aa60-9a20234a6eee",
-                              point_expires_in_days: 5740,
-                              point_expires_at: "2022-11-18T05:03:59.000000+09:00",
-                              expires_at: "2024-01-26T12:15:46.000000+09:00",
-                              usage_limit: 4915,
+                              "ce5c4e69-e4c9-47f7-b8e2-81239073ebf5",
+                              point_amount: 4479,
+                              bear_point_account: "13049eeb-a24c-4638-bceb-db1ea417ee75",
+                              point_expires_in_days: 7753,
+                              point_expires_at: "2018-05-08T07:35:43.000000+09:00",
+                              expires_at: "2023-11-14T12:55:05.000000+09:00",
+                              usage_limit: 608,
                               is_onetime: false,
-                              description: "qMA4N2evwLBNS7QyCEhtgNDuAnxydB9u3o7ZMeTosoRh4S0mExQI1uCwHXvSS9xqXNJMeqv2rRxx8SeYgA5RTAZIE0d3whSKLF4xWXCgQOdSsQVPrApoltrzZbMjGbqCaDUv1CsWTy6z2FdXbfXavW2HwaVVWGcOvRgfjTir1eeHpnGAvFN5"
+                              description: "oA9Wjz3x"
     ))
     assert response.code != "400"
   end
@@ -736,160 +736,160 @@ class PokepayTest < Minitest::Test
   def test_list_transactions_2
     response = $client.send(Pokepay::Request::ListTransactions.new(
                               is_modified: true,
-                              types: ["exchange_inflow", "exchange_outflow", "payment", "topup"]
+                              types: ["exchange_outflow", "exchange_inflow"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_3
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              private_money_id: "dd825aed-e04d-4933-9470-a8ec04c35167",
+                              private_money_id: "b3749756-8106-4174-9c3a-2ba298e8ca11",
                               is_modified: true,
-                              types: ["exchange_outflow", "topup", "payment"]
+                              types: ["exchange_inflow", "topup", "payment"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_4
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              organization_code: "40PHYa--3Ku-d-F",
-                              private_money_id: "5b0035dd-dc56-45d1-beda-02eab15720c8",
-                              is_modified: false,
-                              types: ["payment"]
+                              organization_code: "I2-2-G9--1",
+                              private_money_id: "615f8196-f5f3-4ff6-b715-547504f77f22",
+                              is_modified: true,
+                              types: ["topup", "exchange_inflow"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_5
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              transaction_id: "697eaa6c-e59a-43d6-8a39-a803f19460f3",
-                              organization_code: "0p6S5dE---XMxvFoMK8-",
-                              private_money_id: "e4c281c5-52b5-4b92-9668-72ce311da578",
+                              transaction_id: "1b5c03a7-3b86-4aa3-a278-768e9bdfec3f",
+                              organization_code: "-7d-g-b6iS32WX-gqLu-M-4A-JG--",
+                              private_money_id: "b6dcb618-b35a-48b9-8ffa-214edef7544c",
                               is_modified: true,
-                              types: ["exchange_outflow"]
+                              types: ["exchange_inflow", "topup"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_6
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              terminal_id: "a95d4274-ea4e-4e68-b83c-192c4c867381",
-                              transaction_id: "a96f85b4-11d7-4fcc-b548-cb4baa4462d7",
-                              organization_code: "Katw-E22v--5--z-z9Efjzs4F--N-",
-                              private_money_id: "e04b0fb7-81be-4732-a3b2-ef3e75d7e436",
+                              terminal_id: "85fc10ef-c6c1-42a0-9c8c-d48f10a8d575",
+                              transaction_id: "c452fd84-b760-46d0-932c-136b1bc38fab",
+                              organization_code: "F6rD68Aq",
+                              private_money_id: "c2ebb542-b325-4685-b332-deff24cc0e4c",
                               is_modified: false,
-                              types: ["payment", "exchange_outflow", "topup"]
+                              types: []
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_7
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              customer_name: "6B3OB7swghUIdkqUOY2HAI87h7tC8vMnTzjNmFWDzLZEPN7HQXwymFrbXYvN3cal4RO9jT63dRDxKNVoewLoaJggIMA5wXB3CTdPu3I6Gb57N6Bfk723xgVJhWc2FLmu9RV4wTQ1eFfFoOmA6KgKFTgUMIqeaKPydQtxKkPEiJ9F7s09s2D07ZJtROtnJyz65lsPnpU0js5rsIZ4cWpER3UtPkG2eq1I6SZr9",
-                              terminal_id: "c4dad83b-c458-4e3b-af26-b5a83adffc24",
-                              transaction_id: "ed1c152f-b00f-40b8-8d9a-de4409672a8f",
-                              organization_code: "7N0f8",
-                              private_money_id: "fde2605c-5be2-4e5a-a2cb-6d8c30ea2d75",
-                              is_modified: false,
-                              types: ["topup", "exchange_outflow", "exchange_inflow"]
+                              customer_name: "YYNQ77hNnDgeQkP6BrHNLW2TjgwJkClYsxYjLV6mNckmXWb6cDTOBEvT1fZYocBrt",
+                              terminal_id: "ef6d2f8e-61e7-47bf-9777-3a52a35dd4cc",
+                              transaction_id: "6df9733d-2e0f-4769-8a78-ba65098fedac",
+                              organization_code: "0S9s-b-zSFjOgue-Z",
+                              private_money_id: "77f6420b-37e6-4631-8f98-d6a364679511",
+                              is_modified: true,
+                              types: ["exchange_inflow", "topup", "payment"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_8
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              customer_id: "045a0e15-1b0f-49e4-940c-6650dc1b58e9",
-                              customer_name: "sUgKnCVzFujd5",
-                              terminal_id: "3e2b06a5-a93a-4af4-adf0-c0b1bda93ca2",
-                              transaction_id: "a91d6b94-3dbe-4084-867b-0cddef25f16c",
-                              organization_code: "W2--Qx",
-                              private_money_id: "45fa8d2f-b014-4033-bd84-6d4114c09fee",
+                              customer_id: "97241719-7d86-4463-b3ef-c4477a3a86a8",
+                              customer_name: "3F55uy5",
+                              terminal_id: "131ba2dd-bf36-4e66-96cd-83ffed3701ec",
+                              transaction_id: "fbbd6597-ee5c-4d26-92b4-94ef052f8776",
+                              organization_code: "6K2LE-uqNcy",
+                              private_money_id: "e56727b6-f9a2-4dd9-9097-34a697d8e187",
                               is_modified: false,
-                              types: ["exchange_inflow", "payment"]
+                              types: ["topup", "payment"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_9
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              shop_id: "e2399fd4-0ad4-4f76-abe7-53f83b5cf612",
-                              customer_id: "33bdfb24-9648-49fa-89a2-f07a57240b3e",
-                              customer_name: "gdLIxgPMdYrCUsTg7mFBD5JyTl3OSbQF6o9LFFmkiVCdqah",
-                              terminal_id: "9033417f-9792-44fb-aee6-af590f523da8",
-                              transaction_id: "92a409db-1131-490b-888f-5352e8408f3f",
-                              organization_code: "19-c",
-                              private_money_id: "9675646d-2137-46ee-af37-4b37873fa1aa",
-                              is_modified: true,
-                              types: ["payment", "exchange_inflow"]
+                              shop_id: "f1dc9af6-286d-48c4-a022-9add0ad0fc3e",
+                              customer_id: "22aa7df1-0e50-47c1-8762-edfd409bf19d",
+                              customer_name: "tHJHRtQBqCHsxk71kIOiSHcZ37iojnk7j2j33qMA4N2evwLBNS7QyCEhtgNDuAnxydB9u3o7ZMeTosoRh4S0mExQI1uCwHXvSS9xqXNJMeqv2rRxx8SeYgA5RTAZIE0d3whSKLF4xWXCgQOdSsQVPrApoltrzZbMjGbqCaDUv1CsWTy6z2FdXbfXavW2HwaVVWGcOvRgfjTir1eeHpnGAvFN",
+                              terminal_id: "664d6dbc-f235-4f75-95d6-7b484ba0a6fe",
+                              transaction_id: "0f45fd4b-0a49-4e16-b79f-5d04dd825aed",
+                              organization_code: "t16640PHYa--3",
+                              private_money_id: "337159e9-673d-4cea-98b4-717f44b4f160",
+                              is_modified: false,
+                              types: ["exchange_inflow"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_10
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              per_page: 1081,
-                              shop_id: "6fdfdac1-47e1-4373-9b7e-32c320499d9f",
-                              customer_id: "54273122-c2c8-4835-863b-2bad29866cb6",
-                              customer_name: "nyuHFpFsNPJmzuH1GHYOOmiUvKwyiQYSSoPK3N5ZGrmU0unMptspEioBBqGcJLaXcepDTPRHElLNQrvWUnk17KWAioiFIGH7shpxz5S2r82nr4Char2DsC6IOlQ3ZCa8lZmMT5mAFAIeN7EOzXnRCcbLOsMiN4tjoxBAROpiRc0j39oPNkDTFwGmGihFz2z0gAPfWDnSv3peMsqUtDBVf5JNWPBpzSQtetKx5V0I",
-                              terminal_id: "d048d303-cb22-41d5-ab28-afa04179e8b1",
-                              transaction_id: "d22a7e5e-f39f-47c8-83b2-4c71183d5d75",
-                              organization_code: "k9l-36N1-r--9-wvXO06aNr--TRJ9t-4",
-                              private_money_id: "7f83774c-4024-4e8e-981e-add30d9e2ef8",
-                              is_modified: true,
-                              types: ["exchange_inflow", "topup", "exchange_outflow", "payment"]
+                              per_page: 6619,
+                              shop_id: "a60a02ea-20c8-473d-8df7-9c6818b08862",
+                              customer_id: "857192ad-1239-4a6c-9ad6-ab8a1aa9e839",
+                              customer_name: "sTjb",
+                              terminal_id: "6abace12-a20e-44df-9271-9ba6f099d98e",
+                              transaction_id: "b3954460-8538-4284-976f-197fc1b8e2dd",
+                              organization_code: "DE---XMxvFoMK8-V6ok2U8mU-vl-",
+                              private_money_id: "1944eeef-a05d-4999-bc09-a9bc6ab38f59",
+                              is_modified: false,
+                              types: ["payment", "topup", "exchange_outflow"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_11
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              page: 7228,
-                              per_page: 222,
-                              shop_id: "48eac148-0f16-4730-9aea-631578897277",
-                              customer_id: "d7a7c349-5394-4f3c-a7d0-d7e22e0c6f9d",
-                              customer_name: "MhYlMMXruKsOetb8P3w3wpAlq46MRFhBa1KSFCImukjAtQPb0UOTifX7KrzTtAdseC51TTzGU05VTqLiAQDTT40IDYkIvu0sCcHMaDTHEOIiZjdOoQxmayWcgZvBQUAudiHvhALf0xr0YedjAtAhk4Q5ZEYWHc6DIDKem3xaXPio5",
-                              terminal_id: "da61dc3b-87fd-4a2e-afb0-188908141bf1",
-                              transaction_id: "b5fe29b9-5178-4130-a955-60086c32d0ff",
-                              organization_code: "6pqi124eJ23IQZ2-G-4-2-LzD--",
-                              private_money_id: "24a7f392-2f7b-4452-8d3f-b8d06a33d356",
-                              is_modified: false,
-                              types: ["topup", "payment", "exchange_outflow", "exchange_inflow"]
+                              page: 7183,
+                              per_page: 1101,
+                              shop_id: "92828a74-28bb-44ca-bf79-6a3d730d9f1a",
+                              customer_id: "0b558669-a50d-48d7-9862-604411210ad6",
+                              customer_name: "6Ss7attO0KDvZ2PuoFKU33PYYZTEIyRndmm72c26Cd6B3OB7swghUIdkqUOY2HAI87h7tC8vMnTzjNmFWDzLZEPN7HQXwymFrbXYvN3cal4RO9jT63dRDxKNVo",
+                              terminal_id: "d3085e22-2090-4a65-b7cc-d7ef61ad46e1",
+                              transaction_id: "76ba0a1e-5a4a-4184-a767-6dc9536c8ccd",
+                              organization_code: "5--66---0",
+                              private_money_id: "286b2aff-1133-49bc-b8e7-3fd658419da3",
+                              is_modified: true,
+                              types: []
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_12
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              to: "2019-03-16T18:54:04.000000+09:00",
-                              page: 1536,
-                              per_page: 6992,
-                              shop_id: "e7280e31-b1f7-4d32-8797-30d3635812e8",
-                              customer_id: "c7e7a98b-f05b-431e-8d2e-858600e661d1",
-                              customer_name: "P1XNaA4tMwkt9CEIs7P52Qn8Ps6rGg4gxhQEPHlDMgzo7RyqyjDQCvIVLohtP7YX7LIJvkHIDHAM5JdvPW8u4K9jehE0FIX2d1fsIJRaq4cseT3Jr8x9EZ1qV",
-                              terminal_id: "32e8c434-e7bf-4b19-9522-4306a2b9c7e6",
-                              transaction_id: "97c8bfbd-760a-4fac-a361-6e5c0dbeda87",
-                              organization_code: "--CzDczG--t48",
-                              private_money_id: "018e118a-68ce-4cea-8dc7-1093ac9c427b",
+                              to: "2024-02-07T00:18:51.000000+09:00",
+                              page: 1836,
+                              per_page: 8878,
+                              shop_id: "0fd3be87-5a46-41cc-850b-5ced1949a5f5",
+                              customer_id: "fc9860b9-1785-4e2d-927c-ff565354c9b4",
+                              customer_name: "TQ1eFfFoOmA6KgKFTgUMIqeaKPydQtxKkPEiJ9F7s09s2D07ZJtROtnJyz65lsPnpU0js5rsIZ4cWpER3UtPkG2eq1I6SZr9Xo8DUROCVDxPSk72x92MmliF",
+                              terminal_id: "c125b0ac-8437-4935-8d5e-ac409e6006a4",
+                              transaction_id: "8d65d325-aa46-4b1e-9b68-605ca0b25be2",
+                              organization_code: "KvUQCe9g1-pc3n9--z---qEPH-",
+                              private_money_id: "19c2ba7f-219f-4a06-b5e3-66342fae0485",
                               is_modified: false,
-                              types: ["exchange_outflow"]
+                              types: ["exchange_outflow", "exchange_inflow"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transactions_13
     response = $client.send(Pokepay::Request::ListTransactions.new(
-                              from: "2021-08-04T03:28:42.000000+09:00",
-                              to: "2020-06-07T01:05:19.000000+09:00",
-                              page: 2424,
-                              per_page: 7922,
-                              shop_id: "d2aa0010-88ee-4724-be98-1fdd7b996ceb",
-                              customer_id: "2cafe2e1-68d0-4470-acf7-95fd039690c9",
-                              customer_name: "D0eLyZpFNZ79bus52pNLLPo",
-                              terminal_id: "4d133853-5da0-465b-8c38-9eb470108e13",
-                              transaction_id: "2f8cb814-7953-4a92-9d25-9c5d65235647",
-                              organization_code: "p39",
-                              private_money_id: "b38b84f0-f62f-49c5-9aaf-3fcdeb93d37f",
-                              is_modified: false,
+                              from: "2019-11-19T13:18:57.000000+09:00",
+                              to: "2023-08-17T15:58:28.000000+09:00",
+                              page: 7192,
+                              per_page: 3376,
+                              shop_id: "e40db014-b033-483d-8441-9fee5e06359b",
+                              customer_id: "38b979eb-23dc-407e-b6c2-9fd4b9a70ad4",
+                              customer_name: "gxHzzgdLIxgPMdYrCUsTg7mFBD5JyTl3OSbQF6o9LFFmkiVCdqahnfY1HR9DfMzD3LCASqee9bY3sHOGNF3Mai4m7no77RN8AasCH56gnyuHFpFsNPJmzuH",
+                              terminal_id: "a80df4b1-7b47-471e-9fc8-b659302db327",
+                              transaction_id: "e4d8e6a0-634f-4487-80a6-e4234e8c8b8f",
+                              organization_code: "v4-u-fJf-2CG7-0",
+                              private_money_id: "257b84cc-1ba7-4b5b-a101-6fd8033c3a63",
+                              is_modified: true,
                               types: []
     ))
     assert response.code != "400"
@@ -897,236 +897,236 @@ class PokepayTest < Minitest::Test
 
   def test_create_transaction_0
     response = $client.send(Pokepay::Request::CreateTransaction.new(
-                              "ab2e266b-2d27-4d18-a1ba-c3276f195a31",
-                              "d89d3b01-24fc-44b6-bb49-4e37b597f07f",
-                              "f6875da5-5569-4d5f-98a7-90697ac2ca7e"
+                              "49bff2c4-6ad4-4d89-8450-c0031314a294",
+                              "87352198-3ed2-4548-9e29-338eb9f94f0c",
+                              "899befc5-fe6c-4be0-ac9b-ccde0397b840"
     ))
     assert response.code != "400"
   end
 
   def test_create_transaction_1
     response = $client.send(Pokepay::Request::CreateTransaction.new(
-                              "ab2e266b-2d27-4d18-a1ba-c3276f195a31",
-                              "d89d3b01-24fc-44b6-bb49-4e37b597f07f",
-                              "f6875da5-5569-4d5f-98a7-90697ac2ca7e",
-                              description: "gWOnUAkBWGfv1h3SdKWf7Mk6qxlTgasH11ZahWwt0KCw4FDQO05qLTqGDbzQ"
+                              "49bff2c4-6ad4-4d89-8450-c0031314a294",
+                              "87352198-3ed2-4548-9e29-338eb9f94f0c",
+                              "899befc5-fe6c-4be0-ac9b-ccde0397b840",
+                              description: "QrvWUnk17KWAioiFIGH7shpxz5S2r82nr4Char2DsC6IOlQ3ZCa8lZmMT5mAFAIeN7EOzXnRCcbLOsM"
     ))
     assert response.code != "400"
   end
 
   def test_create_transaction_2
     response = $client.send(Pokepay::Request::CreateTransaction.new(
-                              "ab2e266b-2d27-4d18-a1ba-c3276f195a31",
-                              "d89d3b01-24fc-44b6-bb49-4e37b597f07f",
-                              "f6875da5-5569-4d5f-98a7-90697ac2ca7e",
-                              point_expires_at: "2020-05-28T02:24:04.000000+09:00",
-                              description: "Fv4VsaDUMga8HPHLfj8VAxLQCn6DppPY7uZKs5wMf3MBYDCuFCMBOgtd28MFakoJp4sttlPyu0hLTf3LV1FvqM27O2bqybT3XF"
+                              "49bff2c4-6ad4-4d89-8450-c0031314a294",
+                              "87352198-3ed2-4548-9e29-338eb9f94f0c",
+                              "899befc5-fe6c-4be0-ac9b-ccde0397b840",
+                              point_expires_at: "2022-01-21T08:45:58.000000+09:00",
+                              description: "joxBAROpiRc0j39oPNkDTFwGmGihFz2z0gAPfWDnSv3peMsqUtDBVf5JNWPBpzSQtetKx5V0IU1H2quyHwM52367FRSK6ZN3dPGJYhssMJ1c81K9V4uwa"
     ))
     assert response.code != "400"
   end
 
   def test_create_transaction_3
     response = $client.send(Pokepay::Request::CreateTransaction.new(
-                              "ab2e266b-2d27-4d18-a1ba-c3276f195a31",
-                              "d89d3b01-24fc-44b6-bb49-4e37b597f07f",
-                              "f6875da5-5569-4d5f-98a7-90697ac2ca7e",
-                              point_amount: 6099,
-                              point_expires_at: "2024-04-26T08:17:39.000000+09:00",
-                              description: "XNEvBDebROkI568yn3vAdg2WzE6cQfJbdKVhYmdIeaGtyZiVBFtaHsVEu5jHLt1IIKsQ450xUM6O5hfI4vi32Rsg"
+                              "49bff2c4-6ad4-4d89-8450-c0031314a294",
+                              "87352198-3ed2-4548-9e29-338eb9f94f0c",
+                              "899befc5-fe6c-4be0-ac9b-ccde0397b840",
+                              point_amount: 4046,
+                              point_expires_at: "2022-10-05T06:58:18.000000+09:00",
+                              description: "FqKGuMQEbIhSKLSxcJDAAH0jwIPbMhYlMMXruKsOetb8P3w3wpAlq46MRFhBa1KSFCImukjAtQPb0UOTifX7KrzTtAdseC51TTzGU05VTqLiAQDTT40IDYkIvu0sCcHMaDTHEOIiZjdOoQxmayWcgZvBQUAudiHvhALf0xr0YedjAtAhk4Q5ZEY"
     ))
     assert response.code != "400"
   end
 
   def test_create_transaction_4
     response = $client.send(Pokepay::Request::CreateTransaction.new(
-                              "ab2e266b-2d27-4d18-a1ba-c3276f195a31",
-                              "d89d3b01-24fc-44b6-bb49-4e37b597f07f",
-                              "f6875da5-5569-4d5f-98a7-90697ac2ca7e",
-                              money_amount: 8317,
-                              point_amount: 6782,
-                              point_expires_at: "2022-04-06T09:29:42.000000+09:00",
-                              description: "DzruBR2bpCJbWCsF1XOMwOMfbCbRi8MeoObjQBbD5vivOmPF0WWyAe43BTjYiVtdGDmgs4Vk2VUx2tI5N4bIOpNtWwRJ7taFGOOZNR9womkOYYXss"
+                              "49bff2c4-6ad4-4d89-8450-c0031314a294",
+                              "87352198-3ed2-4548-9e29-338eb9f94f0c",
+                              "899befc5-fe6c-4be0-ac9b-ccde0397b840",
+                              money_amount: 6615,
+                              point_amount: 8136,
+                              point_expires_at: "2024-01-07T18:19:15.000000+09:00",
+                              description: "c6DIDKem3xaXPio5o0q9x0iUyrfJOMPlYYA9d24g2qlkQeuW"
     ))
     assert response.code != "400"
   end
 
   def test_create_topup_transaction_0
     response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
-                              "c32ad231-9f8e-443a-a830-60e1b89f3de3",
-                              "c61db86f-d541-4d2b-aba4-86552c4dbb2c",
-                              "493f4422-bced-46aa-8142-2ca8b379c145"
+                              "4dcd4f0c-56b1-42f6-b6a8-82cfa503d874",
+                              "b8a5d430-e934-4a5d-a896-81ca6dff4f01",
+                              "2032af6a-b7d2-417e-b4e0-07dd3d08c424"
     ))
     assert response.code != "400"
   end
 
   def test_create_topup_transaction_1
     response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
-                              "c32ad231-9f8e-443a-a830-60e1b89f3de3",
-                              "c61db86f-d541-4d2b-aba4-86552c4dbb2c",
-                              "493f4422-bced-46aa-8142-2ca8b379c145",
-                              description: "DWtANH45sfx8Sg9q1O62IQSAJ63xgskw6yfFQPcXHRn98CcSXK5Zlq5PBZ9vRV0xbdBDEvdzHS5KI84n4B4JwtxMbsrynFzleqVzZvPQrwaZ5xfzumz05DAlrcpNez8TuusjLCXuqGq9aXt2RyxOmHZB8Yd9TYL0bkCAVqSRIdac4BtBwC2bbOKrqE"
+                              "4dcd4f0c-56b1-42f6-b6a8-82cfa503d874",
+                              "b8a5d430-e934-4a5d-a896-81ca6dff4f01",
+                              "2032af6a-b7d2-417e-b4e0-07dd3d08c424",
+                              description: "KJ3Y50yRgOZb7LyYKRMPV8lVcOO1w2GShMQxP1XNaA4tMwkt9CEIs7P52Qn8Ps6rGg4gxhQEPHlDMgzo7RyqyjDQCvIVLohtP7YX7LIJvkHIDHAM5JdvPW8u4K9jehE0FIX2d1fsIJRaq4cseT3Jr8x9EZ1qV4Ufa8"
     ))
     assert response.code != "400"
   end
 
   def test_create_topup_transaction_2
     response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
-                              "c32ad231-9f8e-443a-a830-60e1b89f3de3",
-                              "c61db86f-d541-4d2b-aba4-86552c4dbb2c",
-                              "493f4422-bced-46aa-8142-2ca8b379c145",
-                              point_expires_at: "2024-06-29T17:05:12.000000+09:00",
-                              description: "HSmLf6gZqSXb2Lr55RtyiRtGJ1HUxolj1KPz6vAaVd6Sg4zOt2LPb0nLBvCfu5QWsdUnRrH9KHVuXFGKt4lw9lRVMCAhIxweHf4mhVFw56RKDemCYdfHK"
+                              "4dcd4f0c-56b1-42f6-b6a8-82cfa503d874",
+                              "b8a5d430-e934-4a5d-a896-81ca6dff4f01",
+                              "2032af6a-b7d2-417e-b4e0-07dd3d08c424",
+                              point_expires_at: "2024-06-13T20:05:01.000000+09:00",
+                              description: "KBhpNX1jWPk8Z43B0y0B9mfs2NjGqIbT9OwqnkaPpwID0eLyZpFNZ79bus52pNLLPoSL8"
     ))
     assert response.code != "400"
   end
 
   def test_create_topup_transaction_3
     response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
-                              "c32ad231-9f8e-443a-a830-60e1b89f3de3",
-                              "c61db86f-d541-4d2b-aba4-86552c4dbb2c",
-                              "493f4422-bced-46aa-8142-2ca8b379c145",
-                              point_amount: 418,
-                              point_expires_at: "2019-06-20T05:18:35.000000+09:00",
-                              description: "6kNARZB0e7gSo7Ck5GjWL9QXL9sfwRokQiO2gJLOs7NWiVmOaSDg31Umvi1k0xZepHVlU5UCBk1mC260SZIPf7lUxpBEw"
+                              "4dcd4f0c-56b1-42f6-b6a8-82cfa503d874",
+                              "b8a5d430-e934-4a5d-a896-81ca6dff4f01",
+                              "2032af6a-b7d2-417e-b4e0-07dd3d08c424",
+                              point_amount: 7860,
+                              point_expires_at: "2020-09-23T08:04:43.000000+09:00",
+                              description: "GwACEhVooVmB4cFvbTIGcXWAqG4BSfipEZMFGhk16I7iXigWOnUAkBWGfv1h3SdKWf7Mk6qxlTgasH11ZahW"
     ))
     assert response.code != "400"
   end
 
   def test_create_topup_transaction_4
     response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
-                              "c32ad231-9f8e-443a-a830-60e1b89f3de3",
-                              "c61db86f-d541-4d2b-aba4-86552c4dbb2c",
-                              "493f4422-bced-46aa-8142-2ca8b379c145",
-                              money_amount: 6735,
-                              point_amount: 2883,
-                              point_expires_at: "2024-07-04T09:47:09.000000+09:00",
-                              description: "UnBV1wl8i3xQfqNGTjhBSpAIG2GVjRLCF7S26ypTzMExe5LQXN3tfMMeaiTEdRlgPRLO6iu4xB9p9hHVjuFskSUixLpvflY8MFYZJvlfPZ9XRs2DjUex8FZcru468uiy2IBQsKNbECUonyUv3nTPZ70"
+                              "4dcd4f0c-56b1-42f6-b6a8-82cfa503d874",
+                              "b8a5d430-e934-4a5d-a896-81ca6dff4f01",
+                              "2032af6a-b7d2-417e-b4e0-07dd3d08c424",
+                              money_amount: 5239,
+                              point_amount: 3956,
+                              point_expires_at: "2021-02-02T11:30:43.000000+09:00",
+                              description: "0KCw4FDQO05qLTqGDbzQDuaFv4VsaDUMga8HPHLfj8VAxLQCn6DppPY7uZKs5wMf3MBYDCuFCMBOgtd28MFakoJp4sttlPyu0hLTf3LV1FvqM27O2bqybT3XFSWXNEvBDebROkI568yn3vAdg2WzE6cQfJbdKVhYmdIeaG"
     ))
     assert response.code != "400"
   end
 
   def test_create_topup_transaction_5
     response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
-                              "c32ad231-9f8e-443a-a830-60e1b89f3de3",
-                              "c61db86f-d541-4d2b-aba4-86552c4dbb2c",
-                              "493f4422-bced-46aa-8142-2ca8b379c145",
-                              bear_point_shop_id: "6c6d3725-d131-48e8-ac97-347fc5203ab3",
-                              money_amount: 2210,
-                              point_amount: 4643,
-                              point_expires_at: "2019-08-22T05:59:47.000000+09:00",
-                              description: "ywi2pn04JUSx27eVHz2wOx9gOffBCzdPD5lY5ruzs73QnlHzwGBVLp2Vmg3eprOU7ktZcHWsZTpEtZX9770nlSO8H2DCl6imPJgn2XjYsZUpQvLebh65Hdtxmvs4SwxRthVVa"
+                              "4dcd4f0c-56b1-42f6-b6a8-82cfa503d874",
+                              "b8a5d430-e934-4a5d-a896-81ca6dff4f01",
+                              "2032af6a-b7d2-417e-b4e0-07dd3d08c424",
+                              bear_point_shop_id: "a70a085c-cc74-4aa4-9d79-e19d70fbd1da",
+                              money_amount: 4006,
+                              point_amount: 5797,
+                              point_expires_at: "2021-07-18T07:31:26.000000+09:00",
+                              description: "taHsVEu5jHLt1II"
     ))
     assert response.code != "400"
   end
 
   def test_create_topup_transaction_with_check_0
     response = $client.send(Pokepay::Request::CreateTopupTransactionWithCheck.new(
-                              "46b23079-31ea-4c2a-8f16-04de31eeeab1",
-                              "07e63322-a3df-4b74-8e96-c4a410f55214"
+                              "31f55b29-eaa0-4e4b-b3d1-0e3437a7c8b5",
+                              "38f64c21-5c7b-4fb0-b83e-27d51ad9efcd"
     ))
     assert response.code != "400"
   end
 
   def test_create_payment_transaction_0
     response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
-                              "1ee7cb68-d7a2-42b3-943f-5a91cf3316f3",
-                              "12660eb3-d5e5-4a40-b62a-eae6977e2b08",
-                              "4e43a061-0a79-478a-86fe-9c5a1bff689c",
-                              3323
+                              "fbb67db6-10e0-465b-8dbb-d2cf8498e40a",
+                              "7fb1af35-1899-4b68-9f07-0fe627a37ec9",
+                              "8cb723c0-201d-4234-8223-09f6f91f3fe9",
+                              3202
     ))
     assert response.code != "400"
   end
 
   def test_create_payment_transaction_1
     response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
-                              "1ee7cb68-d7a2-42b3-943f-5a91cf3316f3",
-                              "12660eb3-d5e5-4a40-b62a-eae6977e2b08",
-                              "4e43a061-0a79-478a-86fe-9c5a1bff689c",
-                              3323,
-                              description: "2E32vm3RMvvWttu1PJb3d04IfskzbRh2KXDkJqy1UyPaGHVkyMSdmemZcovbEUc9TiM3DTSa7pJlo8JS6mIVfCl8O6XT"
+                              "fbb67db6-10e0-465b-8dbb-d2cf8498e40a",
+                              "7fb1af35-1899-4b68-9f07-0fe627a37ec9",
+                              "8cb723c0-201d-4234-8223-09f6f91f3fe9",
+                              3202,
+                              description: "2RsgmtpDzruBR2bpCJbWCsF1XOMwOMfbCbRi8MeoObjQBbD5vivOmPF0WWyAe43BTjYiVtdGDmgs4Vk2VUx2tI5N4bIOpNtWwRJ7taFGOOZNR9womkOYYXss1h0acoAUmABE9DWtANH45sfx8Sg9q1O62IQSAJ63xgskw6yfFQPcXHRn98Cc"
     ))
     assert response.code != "400"
   end
 
   def test_create_transfer_transaction_0
     response = $client.send(Pokepay::Request::CreateTransferTransaction.new(
-                              "3703a79b-b8f0-40a5-879b-eb1b8955fe5c",
-                              "97b73dd5-e882-4586-90c5-8a1fb8b27422",
-                              "556f04bf-d5ca-454f-a25b-7ce14f97af0d",
-                              1544
+                              "4d6630bf-8582-4807-9309-77d8ac5a8908",
+                              "85b8af0e-9318-4bcb-a500-21862bb622b5",
+                              "7b359986-1e08-449c-9aec-ac23dc273ef1",
+                              5840
     ))
     assert response.code != "400"
   end
 
   def test_create_transfer_transaction_1
     response = $client.send(Pokepay::Request::CreateTransferTransaction.new(
-                              "3703a79b-b8f0-40a5-879b-eb1b8955fe5c",
-                              "97b73dd5-e882-4586-90c5-8a1fb8b27422",
-                              "556f04bf-d5ca-454f-a25b-7ce14f97af0d",
-                              1544,
-                              description: "nRanlNyuKHWuXq7zEzVgAAIhzrVmMQ7zQf4j1Xlnx61iQEXBdwXQXBx9CjvSgZke3VuPIIBeUSxLQqoj9SXP9EgDJcoagTJNb42JvVKNsj3zA7Dw0uibv6O0nFaLFwVLIZnC6rDyYuuG1XnlSIVaCTCoBzc3PolsdbrxUTbpTkQr9"
+                              "4d6630bf-8582-4807-9309-77d8ac5a8908",
+                              "85b8af0e-9318-4bcb-a500-21862bb622b5",
+                              "7b359986-1e08-449c-9aec-ac23dc273ef1",
+                              5840,
+                              description: "Z9vRV0xbdBDEvdzHS5KI84n4B4JwtxMbsrynFzleqVzZvPQrwaZ5xfzumz05DAlrcpN"
     ))
     assert response.code != "400"
   end
 
   def test_create_exchange_transaction_0
     response = $client.send(Pokepay::Request::CreateExchangeTransaction.new(
-                              "93a54c3f-3f2b-4b43-8134-ed2559448435",
-                              "4867d87c-a6b8-454f-8681-92d5cc1d72e9",
-                              "bdd83583-db16-4e14-ab43-825b6f983630",
-                              3961
+                              "127e7540-96e5-4f7a-b8dc-87d48d84ec94",
+                              "2babfc75-9b75-4d73-aa4c-d07f247bd4c3",
+                              "c0e5e224-5158-4593-b5f1-8694495bcc11",
+                              9231
     ))
     assert response.code != "400"
   end
 
   def test_create_exchange_transaction_1
     response = $client.send(Pokepay::Request::CreateExchangeTransaction.new(
-                              "93a54c3f-3f2b-4b43-8134-ed2559448435",
-                              "4867d87c-a6b8-454f-8681-92d5cc1d72e9",
-                              "bdd83583-db16-4e14-ab43-825b6f983630",
-                              3961,
-                              description: "jD1g6ausYOsWjmgSVes0LvRpIOKLgAa2m76DTKceEBbKe1QbzWrTYvHigdBYvKVDdotVdsHD1HarFGR"
+                              "127e7540-96e5-4f7a-b8dc-87d48d84ec94",
+                              "2babfc75-9b75-4d73-aa4c-d07f247bd4c3",
+                              "c0e5e224-5158-4593-b5f1-8694495bcc11",
+                              9231,
+                              description: "q9aXt2RyxOmHZB8Yd9TYL0bkCAVqSRIdac4BtBwC2bbOKrqEvtHSmLf6gZqSXb2Lr55RtyiR"
     ))
     assert response.code != "400"
   end
 
   def test_bulk_create_transaction_0
     response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
-                              "0Q28LywVGUz2sIRxtNbAYMzHePl",
-                              "RHJLPebY",
-                              "CA3qabphyjXP3xuhhy9uGRsNNOdzmZ5nbPQz"
+                              "GJ1HUxolj1KPz6vAaVd6S",
+                              "g",
+                              "4zOt2LPb0nLBvCfu5QWsdUnRrH9KHVuXFGKt"
     ))
     assert response.code != "400"
   end
 
   def test_bulk_create_transaction_1
     response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
-                              "0Q28LywVGUz2sIRxtNbAYMzHePl",
-                              "RHJLPebY",
-                              "CA3qabphyjXP3xuhhy9uGRsNNOdzmZ5nbPQz",
-                              description: "PRirLmp7HiQaj"
+                              "GJ1HUxolj1KPz6vAaVd6S",
+                              "g",
+                              "4zOt2LPb0nLBvCfu5QWsdUnRrH9KHVuXFGKt",
+                              description: "4lw9lRVMCAhIxweHf4mhVFw56RKDemCYdf"
     ))
     assert response.code != "400"
   end
 
   def test_get_transaction_0
     response = $client.send(Pokepay::Request::GetTransaction.new(
-                              "1f208b29-29aa-4618-b05e-d06c2b0d15b0"
+                              "1dae0a20-4448-4a4b-a25d-00f97e10165c"
     ))
     assert response.code != "400"
   end
 
   def test_refund_transaction_0
     response = $client.send(Pokepay::Request::RefundTransaction.new(
-                              "31d3b385-1539-4e26-95a7-0464e92e41b6"
+                              "988f0fb6-edbb-4deb-8e41-f928d0a67c52"
     ))
     assert response.code != "400"
   end
 
   def test_refund_transaction_1
     response = $client.send(Pokepay::Request::RefundTransaction.new(
-                              "31d3b385-1539-4e26-95a7-0464e92e41b6",
-                              description: "IiaL5c40GPi4i"
+                              "988f0fb6-edbb-4deb-8e41-f928d0a67c52",
+                              description: "B0e7gSo7Ck5GjWL9QXL9sfwRokQiO2gJLOs7NWiVmOaSDg31Umvi1k0xZepHVlU5UCBk1mC260SZIPf7lUxpBEwOCUnBV1wl8i3xQfqNGTjhBSpAIG2GVjRLCF7S26ypTzMExe5LQXN3tfMMeaiTEdRlgPRLO6iu4xB9p9hHV"
     ))
     assert response.code != "400"
   end
@@ -1139,15 +1139,15 @@ class PokepayTest < Minitest::Test
 
   def test_list_transfers_1
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              transfer_types: ["transfer"]
+                              transfer_types: ["exchange", "topup"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_2
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              transaction_types: ["transfer", "topup", "payment"],
-                              transfer_types: ["payment", "transfer", "exchange", "topup"]
+                              transaction_types: ["exchange", "topup", "payment"],
+                              transfer_types: ["payment", "exchange", "transfer"]
     ))
     assert response.code != "400"
   end
@@ -1155,17 +1155,17 @@ class PokepayTest < Minitest::Test
   def test_list_transfers_3
     response = $client.send(Pokepay::Request::ListTransfers.new(
                               is_modified: false,
-                              transaction_types: ["payment"],
-                              transfer_types: ["transfer", "exchange"]
+                              transaction_types: ["payment", "transfer", "topup", "exchange"],
+                              transfer_types: []
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_4
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              private_money_id: "2282f47b-4d19-4e68-9877-03be3334017d",
-                              is_modified: false,
-                              transaction_types: ["transfer"],
+                              private_money_id: "330f5903-3d76-483d-9b66-7e6cbfac9759",
+                              is_modified: true,
+                              transaction_types: ["exchange"],
                               transfer_types: []
     ))
     assert response.code != "400"
@@ -1173,270 +1173,270 @@ class PokepayTest < Minitest::Test
 
   def test_list_transfers_5
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              transaction_id: "c7e79594-9a11-466d-9ef9-6aa6fd93549e",
-                              private_money_id: "c47648e1-73eb-4f0e-b7df-3a43c89e0fe9",
-                              is_modified: true,
-                              transaction_types: ["transfer", "payment", "exchange"],
-                              transfer_types: ["transfer"]
+                              transaction_id: "c7c407f6-7e6c-47bd-a6d0-7b5ab611eab9",
+                              private_money_id: "3058b758-399e-4705-be3a-125bd40a2d0d",
+                              is_modified: false,
+                              transaction_types: ["exchange", "payment", "transfer"],
+                              transfer_types: ["transfer", "payment", "exchange", "topup"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_6
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              customer_name: "KrJ8u3JtJHw13BJLqURa9CDG8z1r52NxmvSo3IMgKOG9RqgqLtsxscDVj4qDxwlIsjYdDsgNzWfMVY",
-                              transaction_id: "80d67ece-6e1c-4cb8-85f4-330f911535a5",
-                              private_money_id: "5f376b11-7b95-4ba1-861b-fe9cc6d2f14f",
+                              customer_name: "jUex8FZcru468uiy2IBQsKNbECUonyUv3nTPZ701h3V5Qywi2pn04JUSx27eVHz2wOx9gOffBCzdPD5lY5ruzs73QnlHzwGBVLp2Vmg3eprOU7ktZcHWsZTpEtZX9770nlSO8H2DCl6imPJg",
+                              transaction_id: "41770b6e-4e0c-4a22-bc7b-77ba574894b2",
+                              private_money_id: "55d67d04-0be0-4258-9c93-fda07ed7566a",
                               is_modified: false,
-                              transaction_types: ["transfer"],
-                              transfer_types: ["transfer"]
+                              transaction_types: ["exchange", "transfer"],
+                              transfer_types: ["exchange", "topup"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_7
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              customer_id: "5092e7a6-a14e-4831-871b-76d324f1940a",
-                              customer_name: "kTmsnETZgON7wI25XD4LDGgtc1eHQx1a38fcy9G2ru7CIugZBUKc64A8KJDFHDE0sPh",
-                              transaction_id: "b9349718-8584-408c-96bf-23a76cfb4e4c",
-                              private_money_id: "e51212d3-031b-466d-8078-853e21da4a00",
+                              customer_id: "cff19c70-0198-4251-932f-c9f65a0ef74c",
+                              customer_name: "ebh65Hdtxmvs4SwxRthVVayjO1th3s3e6fayZ2E32vm3RM",
+                              transaction_id: "cad3400e-c6f6-461b-b607-ea16445cf5d7",
+                              private_money_id: "8e7dc674-61f4-4c75-8e99-ee913e789131",
                               is_modified: true,
-                              transaction_types: ["payment", "exchange", "topup"],
-                              transfer_types: []
+                              transaction_types: ["transfer", "exchange"],
+                              transfer_types: ["exchange", "payment", "transfer", "topup"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_8
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              shop_name: "U3DnW6KqsDEeelMkJvsg1mQveiZolVhKjCQVZwzstz19XaUt7HUg2vBtQ3icUlEOMImvGy3",
-                              customer_id: "b1dbc5b7-5de1-4147-be7d-08dd887af180",
-                              customer_name: "VpRlqKVbLVJ59qzi8HFxZtC5ypm8TU2Y6m10oazOnSDRVBADkHpY",
-                              transaction_id: "9bb518ef-81ca-4474-8b38-26647ef284e5",
-                              private_money_id: "ddbfdd45-504c-4b0e-92dc-d98ae8b05abe",
+                              shop_name: "04IfskzbRh2KXDkJqy1UyPaGHVkyMSdmemZcovbEUc9TiM3DTSa7pJlo8JS6mIVfCl8O6XTpGUPEJOaNnRanlNyuKHWuXq7zEzVgAAIhzrVmMQ7zQf4j1Xlnx61iQEXBdwXQXBx9CjvSgZke3VuPIIBeUSxLQqoj9SXP9EgDJcoagTJNb42JvVKNsj3zA7Dw0uibv6O0nFaLFwVLIZnC6rDyYuuG1XnlSIVaC",
+                              customer_id: "58dac9aa-f4d4-40c3-af97-98c22746e391",
+                              customer_name: "zc3PolsdbrxUTbpTkQr9CA458OFUiC0xNjD1g6ausYOsWjmgSVes0LvRpIOKLgAa2m76DTKceEBbKe1QbzWrTYvHigdBYvKVDdotVdsHD1HarFGRZ0Q28LywVGUz2sIRxtNbAYMzHePlwRHJLPebYCA3qabphyjXP3",
+                              transaction_id: "e69edca0-be14-422e-b875-b413a294b6e8",
+                              private_money_id: "200583e8-7279-48b9-b547-b7d2248394f3",
                               is_modified: true,
-                              transaction_types: [],
-                              transfer_types: ["exchange", "payment", "topup"]
+                              transaction_types: ["transfer", "exchange", "payment", "topup"],
+                              transfer_types: ["topup", "transfer"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_9
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              shop_id: "41074e24-f150-4827-a428-e716f618a7db",
-                              shop_name: "8vCqW8ZrqfNGAkbzmAIScfq8JbwsUjFhr3NwoEyag2SfuJiolnAr0O5BazmKqHUlvI3TLRDU2wR06BrqE4xR4GA8B6QEvmEtQTqfIDfhF08aWAgYKgMRg4eijui0x4AzukqXii06wz9NdLnaFp0d8NnYZXWwwPUfmYGEVrOM4dkj0diMGxwkBMFBNKhTrrGkGVnz7dW1L5JRcqWGZoB7J2SLBuVTFPFKYeg",
-                              customer_id: "c254147c-feec-4881-9551-f541d7da082c",
-                              customer_name: "ESlFenRvUgW2",
-                              transaction_id: "40da991e-bd43-40b0-906b-5fb5c176a9b5",
-                              private_money_id: "b9a9cf5c-eddb-4529-b080-c3755090ad1f",
-                              is_modified: false,
-                              transaction_types: ["transfer"],
-                              transfer_types: ["topup", "transfer"]
+                              shop_id: "74358a2e-8191-4b35-ae83-7b8bbd6f7f8d",
+                              shop_name: "PQzPRirLmp7HiQajpl09d6QIiaL5c40GPi4ivBi3eJhDgAiQ5RhXwEfmyakwCi2K41MKrJ8u3JtJHw13BJLqURa9CDG8z1r52Nx",
+                              customer_id: "6615d1ed-1f15-4d9c-9d5b-c912e992329d",
+                              customer_name: "vSo3IMgKOG9RqgqLtsxscDVj4qDxwlIsjYdDsgNzWfMVYN8tFORiCKaN1GSBkTmsnETZgON7wI25XD4LDGgtc1eHQx1a38fcy9G2ru7CIugZBUKc64A8KJDFHDE0sPhVLSmxr0FU3D",
+                              transaction_id: "12d7d9ee-1a57-47b6-8b5b-1d92fc26510e",
+                              private_money_id: "76831699-0bf1-4ff3-989f-769188681d44",
+                              is_modified: true,
+                              transaction_types: ["topup", "transfer", "exchange", "payment"],
+                              transfer_types: ["topup", "exchange"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_10
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              per_page: 2871,
-                              shop_id: "8c6c2285-bd3b-496d-84ad-02f63f205792",
-                              shop_name: "Qf3SzEAz6sFhOXUyleHUBygYLLJFfbbjnOxn1Ii4QyBabDj",
-                              customer_id: "18e645b1-b673-4f5f-a391-b04af7aa98fc",
-                              customer_name: "7k6dP6L13ja",
-                              transaction_id: "829495b9-0fbe-441d-a156-5d1b917684fb",
-                              private_money_id: "f0b836a2-449f-4a18-af40-8176599a27a9",
-                              is_modified: false,
-                              transaction_types: ["payment", "topup"],
-                              transfer_types: ["payment", "topup"]
+                              per_page: 782,
+                              shop_id: "98d66989-325c-44f6-bdf3-a2e79f21b63f",
+                              shop_name: "1mQveiZolVhKjCQVZwzstz19XaUt7HUg2vBtQ3icUlEOMImvGy37aG3VpRlqKVb",
+                              customer_id: "1cb88acc-3f88-458b-bdbd-1bd6603e2987",
+                              customer_name: "J59qzi8HFxZtC5ypm8TU2Y6m10oazOnSDRVBADkHpYoJtK8deELoxPb8vCqW8ZrqfNGAkbzmAIScfq8JbwsUjFhr3NwoEyag2SfuJiolnAr0O5BazmKqHUlvI3TLRDU2wR06BrqE4xR4GA8B6QEvmEtQTqfIDfhF08aWAgYKgMRg4eijui0x4AzukqXii06wz",
+                              transaction_id: "79d68215-feba-43a2-8f85-882ab4b0669c",
+                              private_money_id: "67020db9-26ce-47e4-8ca7-696e8c0142e1",
+                              is_modified: true,
+                              transaction_types: ["topup", "payment", "transfer"],
+                              transfer_types: ["topup", "payment", "transfer"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_11
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              page: 3783,
-                              per_page: 282,
-                              shop_id: "65719173-820d-4a91-b829-3433f2e9fa2c",
-                              shop_name: "BzSot4H9G2QRAYPymeRfFOHsPVjb9UCbPcYx5YXiYOW0oa5SUOR88F7Ubd6EIlmfbIWBjq1h3aM3MFSn6Z9Xp0dYAIwKPnm62HiK775FUjJKUwWsCFULHC5xu9xwKzEEFrv0p5VC2XFSxIKMXYPxeKc6v3uyZaCEMZ2Ju8UbXHSU9E0Qlg3gebvAwjzG8UYapgA4DXNtjsg9PgQkXqYPn4dGIxCAVXu8wPFdMI0g8RX9",
-                              customer_id: "e593f147-0d77-46bc-94ed-023160266045",
-                              customer_name: "eDH0runisLVA8D7RtvLwRN8QmXijHIyMGxrgTxrmP2c2b7AqdqrRaU4tsNqOUthYSxSa5qYfKcdpEzIZoGgQ8JT7nM2XSRS8qzeJVaYua2WPHw1UTjf1quigD2l2JnK33Y2PKkmhgdj1RbwEdGAkTKdkwDZEgx5wET5OvQdZofRUOUAciXVcpzKCMcrOD6Emk2wkp2iXzqZDQWG9JIPYO9QhKjYAAaWngq",
-                              transaction_id: "4c9d92b9-7450-408a-bd51-bd0ab732d3ff",
-                              private_money_id: "06bae4e6-0051-49f8-8bd2-8a22eb7fabf6",
+                              page: 6073,
+                              per_page: 5583,
+                              shop_id: "036969ee-6ade-41ff-998d-ad2c7e663b0f",
+                              shop_name: "ZXWwwPUfmYGEVrOM4dkj0diMGxwkB",
+                              customer_id: "726760cd-1c46-4bc2-bd4e-1b117e6180cb",
+                              customer_name: "hTrrGkGVnz7dW1L5JRcqWGZoB7J2SLBuVTFPFKYeglUQAESlFenRvUgW2C0Pk55puUaBmR66mDvQf3SzEAz6sFhOXUyleHUBygYLLJFfbbjnOxn1Ii4QyBabDj1sJ7k6dP6L13ja9VovumOj",
+                              transaction_id: "b01bcb4d-a00c-4b09-a63a-3867c4c57002",
+                              private_money_id: "b7f78ec6-f1e6-4119-b30d-ca915ee0bbb8",
                               is_modified: false,
-                              transaction_types: [],
-                              transfer_types: ["transfer"]
+                              transaction_types: ["exchange", "payment", "topup", "transfer"],
+                              transfer_types: ["topup", "transfer", "exchange"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_12
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              to: "2022-07-23T10:37:01.000000+09:00",
-                              page: 7715,
-                              per_page: 7928,
-                              shop_id: "d10da4ce-0e61-4cdf-8ae6-26f5cddba396",
-                              shop_name: "elOU7xCAyi0eUz4xXH5OLhVoB1lIuiOfxpiSD0ualUMr1aiXbRr0Yt6Ont0eqhymEV4KDx3",
-                              customer_id: "d5c460c6-24fd-4b6d-8414-afb931f6216b",
-                              customer_name: "bbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4",
-                              transaction_id: "99b44e59-1a40-4b5a-b846-48c4944eec87",
-                              private_money_id: "fc527984-a5e8-44f2-a31f-4c7f0cdfdd95",
+                              to: "2019-05-24T19:37:29.000000+09:00",
+                              page: 2064,
+                              per_page: 1520,
+                              shop_id: "0554db01-4019-4174-b41b-8dac7bc5a848",
+                              shop_name: "9G2QRAYPymeRfFOHsPVjb9UCbPcYx5YX",
+                              customer_id: "dfb4fe02-c469-4dd9-8fd7-4db0b7ba5b06",
+                              customer_name: "oa5SUOR88F7Ubd6EIlmfbIWBjq1h3aM3MFSn6Z9Xp0dYAIwKPnm62HiK775FUjJKUwWsCFULHC5xu9xwKzEEFrv0p5VC2XFSxIKMXYPxeKc6v3uyZaCEMZ2Ju8UbXHSU9E0Qlg3gebvAwj",
+                              transaction_id: "0aa9c87c-7afa-4891-8738-7e553becd959",
+                              private_money_id: "1f685e87-0e1d-425e-8361-c0ac3b32c0db",
                               is_modified: true,
-                              transaction_types: [],
-                              transfer_types: ["payment"]
+                              transaction_types: ["topup", "exchange", "payment"],
+                              transfer_types: ["transfer", "exchange", "topup", "payment"]
     ))
     assert response.code != "400"
   end
 
   def test_list_transfers_13
     response = $client.send(Pokepay::Request::ListTransfers.new(
-                              from: "2015-10-14T08:48:20.000000+09:00",
-                              to: "2023-02-21T11:28:02.000000+09:00",
-                              page: 4397,
-                              per_page: 1678,
-                              shop_id: "35274747-ec41-4b16-9fa0-e168c224c0bf",
-                              shop_name: "lpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAe",
-                              customer_id: "a6574e53-3204-4d17-88a7-a6fd5bb1e37c",
-                              customer_name: "inr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbFJx9qY9kB8kVDqJMjy6rf4CluMJ3q8UHdGY9c6av2inoQmoszzzj7gjncZRjG49ZyE9dB8fCGfTM2Oyolj4kfEe2uvMtiKxUivt9MIJ97msI3tBe6ti0SO07EXHC5hQ61pWDcVyEH0QvPCR5IiYZhX71qxxCDFjWtGssb86D9XZfo8j2fPJCGzVYdohDRxcepsSsdecspEcH6zAIM8j",
-                              transaction_id: "357205f5-62ac-48b9-94b8-94580dabb826",
-                              private_money_id: "40e6de7b-bee6-48b3-9a28-dde59df89d10",
+                              from: "2024-09-22T13:04:32.000000+09:00",
+                              to: "2021-04-29T09:23:08.000000+09:00",
+                              page: 3002,
+                              per_page: 6960,
+                              shop_id: "1fa4ebae-f121-4e81-8706-d0d0c3a061bc",
+                              shop_name: "QkXqYPn4dGIxCAVXu8wPFdMI0g8RX9GwTm1EaeDH0runisLVA8D7RtvLwRN8QmXijHIyMGxrgTxrmP2c2b7AqdqrRaU4tsNqOUthYSxSa5qYfKcdpEzIZoGgQ8JT7nM2XSRS8qzeJVaYua2WPHw1UTjf1quigD2l2JnK33Y2PKkmhgdj1RbwEdGAkTKdkwDZEgx5wET5OvQdZofRUOUAciXVcpzKCMcrOD6Emk2w",
+                              customer_id: "4adb676b-57af-47f0-b269-ac1035d6eb22",
+                              customer_name: "zqZDQWG9JIPYO9QhKjYAAaWngq9PQfQxKRvEszf3mWAEHwNafuFelOU7xCAyi0eUz4xXH5OLhVoB1lIuiOfxpiSD0",
+                              transaction_id: "5bac03ac-1e0a-4bbb-9f75-21fcdf268c7b",
+                              private_money_id: "0e4bdfe1-c282-44ec-a455-f11348c72bfb",
                               is_modified: true,
-                              transaction_types: ["payment"],
-                              transfer_types: ["payment"]
+                              transaction_types: ["payment", "exchange", "topup", "transfer"],
+                              transfer_types: ["topup", "payment"]
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_0
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com"
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_1
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
-                              contact_name: "Ldw2n2tQfnXr078yWrpzKRIJrBD5D7CpKjeG53Xpalhw5eupOSaoLetupiLJGKA08kULtDXm7mGq20CccqYOFtqhMLy1fSrOZfnZ2mwTeB7HbtOFrcDL7mosyloW0gLyNig5qU771SYwG9bLFfHIbs98VpOgmc8pS7WZiumuB2TNJcJGvSmksA1MuW1A79SIV4QucaCTIuw"
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
+                              contact_name: "B8fCGfTM2Oyolj4kfEe2uvMtiKxUivt9MIJ97msI3tBe6ti0SO07EXHC5hQ61pWDcVyEH0QvPCR5IiYZhX71qxxCDFjWtGssb86D9XZfo8j2fPJCGzVYdohDRxcepsSsdecspEcH6zAIM8ju98Xf3eDqYA5vYg7TRPpd99WNI7yrXSKnnTIb76zTEtm8A"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_2
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
-                              bank_account_holder_name: " ",
-                              contact_name: "p4PaSBE0QhobjzNQVW3hP0Ve0rN3Em7q1SjNjatjjDZX7RIKgDX3b9oA142xLkpis0qy5MfISyoLqEQKhMnAGBrL3KeptreugpuZPDhn3kvKQdinTisU7JGahMN0pspm5VBpWaMfH3OlTb5uoxVylmhf3ESdF0EHZG"
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
+                              bank_account_holder_name: ",",
+                              contact_name: "IiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhAU2LnJOGL09rrRBaBOdWWGJsxArgIuumMVdl31leH5Dl7ZUHzS51rJLdw2n2tQfnXr078yWrpzKRIJrBD5D7CpKjeG53Xpalhw5eupOSaoLetupiLJGKA08kULtDXm7mGq20CccqYOFtqhMLy1fSrOZfnZ2mwTeB7H"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_3
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
-                              bank_account: "5169789",
-                              bank_account_holder_name: "ｦ",
-                              contact_name: "UgV81h6fR4XXAReVSL8MjPf2nDJncUb7prKqWXHoSFTkZLdy8B9WWqNrXVXI1wRTqwqzVsahBGWwps3iARDJTRZkOOEQFC19Wtss23YjQBhHozeYJjV02y90GWowMI3ASCsApxBJptaJJRDQ6YTYkiFEIISprQ3cmpI6bh8YrVsW"
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
+                              bank_account: "30",
+                              bank_account_holder_name: " ",
+                              contact_name: "L7mosyloW0gLyNig5qU771SYwG9bLFfHIbs98VpOgmc8pS7WZiumuB2TNJcJGvSmksA1MuW1A79SIV4QucaCTIuwp4PaSBE0QhobjzNQVW3hP0Ve0rN3Em7q1SjNjatjjDZX7RIKgDX3b9oA142xLkpis0qy5Mf"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_4
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
-                              bank_account_type: "saving",
-                              bank_account: "3714757",
-                              bank_account_holder_name: " ",
-                              contact_name: "naTSFczRAr"
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
+                              bank_account_type: "current",
+                              bank_account: "1845185",
+                              bank_account_holder_name: "ｦ",
+                              contact_name: "nAGBrL3KeptreugpuZPDhn3kvKQdinTisU7JGahMN0pspm5VBpWaMfH3OlTb5uoxVylmhf3ESdF0EHZGgpE19g89rUgV81h6fR4XXAReVSL8MjPf2nDJncUb7prKqWXHoSFTkZLdy8B9WWqNrXVXI1wRTqwqzVsahBGWwps3iARDJTRZkOOEQFC19Wtss23YjQBhHozeYJjV02"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_5
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
                               bank_branch_code: "",
-                              bank_account_type: "saving",
+                              bank_account_type: "current",
                               bank_account: "",
                               bank_account_holder_name: "\\",
-                              contact_name: "SAk3a8TcT02JvhzyAvEGRwH1gqt79bzapcrIrLur4lrAgRY4qmYCDpX8Ny7Ex4zLyYmVuuwRZjnfSOf90ILh1"
+                              contact_name: "WowMI3ASCsApxBJptaJJRDQ6YTYkiFEIISprQ3cmpI6bh8YrVsWGSghDCw1Un7nnaTSFczRArCskatgTSAk3a8TcT02JvhzyAvEGRwH1gqt79bzapcrIrLur4lrAgRY4qmYCDpX8Ny7Ex4zLyYmVuuw"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_6
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
-                              bank_branch_name: "nEv5pCv",
-                              bank_branch_code: "211",
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
+                              bank_branch_name: "RZjnfSOf90ILh1FnEv5pCv1ztILSkt",
+                              bank_branch_code: "711",
                               bank_account_type: "current",
-                              bank_account: "711",
-                              bank_account_holder_name: ")",
-                              contact_name: "cNxb1w0fAXCRcSE6z5QHSLVIT"
+                              bank_account: "378",
+                              bank_account_holder_name: "\\",
+                              contact_name: "b1w0fAXC"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_7
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
-                              bank_code: "3798",
-                              bank_branch_name: "kWwNeThLpKI1N6RIMY7t0u9TuR54ZsbCHGDI",
-                              bank_branch_code: "937",
-                              bank_account_type: "saving",
-                              bank_account: "587",
-                              bank_account_holder_name: ")",
-                              contact_name: "hhkpYWEzZLn5uyvbNkfkqdGOYba42tK1ETZVrimXQx2toEzw7Z1gM6fgx4uEjyIUvTVKqmlOa23scUcryj4GBWTbDzAVeKXVTyNRuvNAUp6ljdawfubjQ03lDRu1dHypEu4pqRk9KXyywxfAsvQQw8eNXwtPfKAW4UwDxtqXzHN"
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
+                              bank_code: "",
+                              bank_branch_name: "RcSE6z5QHSLVI",
+                              bank_branch_code: "",
+                              bank_account_type: "current",
+                              bank_account: "5754",
+                              bank_account_holder_name: " ",
+                              contact_name: "hLpKI1N6RIMY7t0u9TuR"
     ))
     assert response.code != "400"
   end
 
   def test_create_organization_8
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-                              "7TRPpd99",
-                              "NI7yrXSKnnTIb76zTEtm8AaIiuGx9L9HalOMU5vigXX7Icn5jXA5QxJPbbGkUILhTXtRtmknLVk7hQOvzRC9zFhA",
-                              ["bfec9bb2-ee09-454c-aeca-e34f3123de9a", "9aeaa147-8a25-424c-b0b9-3ef2bc2f1781", "73214ef2-5f96-44d2-8a96-b6984431a142", "2e55f025-1ce1-4bc2-8f2d-959a7cbb7ae4", "1cbb7b82-fb8e-4057-97ab-ec04d5ec4512", "276d1b28-6f47-404a-b378-69ac270f32a0"],
-                              "ArgIuumMVd@l31l.com",
-                              "eH5Dl7ZUHz@S51r.com",
-                              bank_name: "dytk1inQrWiktMK0FHLyLnvzTdFf0Y1JODoBhEE",
+                              "aiXbRr",
+                              "0Yt6Ont0eqhymEV4KDx3FmD9kbbli1vOnH69EFivIjA6JEHCCuKlnfNVTWFTkh4YZxFDhr8QjYlB42oGAhylpmFOwCdKPABZdrgh98RslDBuoJSIFUrTRne91u8KmONYXCce6NgXmM6SU8mT9N7YdoyhvIOK96oQgvpt3OE4bGWfPwqWxwC3DU0ZYNIFrYHkTuOzrywGRNkAeSHinr7X7r9y8K62vZdczxzKDF7OzztIRdIBCYTSHrtKwDRbF",
+                              ["e80c519a-fcb9-46be-b15b-ac59df78c0b9", "65bd5f10-38eb-4a42-b86b-24d65cf22ec4", "4c118a3d-7a71-45ca-8588-b5cdc974be07", "5bc1e9ea-1e7e-438b-b936-cef272acfe03", "5426b798-72e6-4e34-ac7c-f4c39f9798a6", "dc15726c-bc2d-4aff-ac75-7b4d06d74f4a", "c7cd82b3-d471-43b8-84d5-4ec8aae4ede4", "cde32aa7-cf27-4dfd-87bd-e6597deb2f39", "09419c63-3336-4d16-a188-d4f62a07d93c"],
+                              "2inoQmoszz@zj7g.com",
+                              "jncZRjG49Z@yE9d.com",
+                              bank_name: "4ZsbCHGDImjW34z4jE8W9hhkpYWEzZLn5uyvbNkfkqdGOYba42tK1E",
                               bank_code: "",
-                              bank_branch_name: "s7RURiJ",
-                              bank_branch_code: "",
+                              bank_branch_name: "ZVrimXQx2toEzw7Z1gM6fgx4",
+                              bank_branch_code: "558",
                               bank_account_type: "other",
-                              bank_account: "7267134",
-                              bank_account_holder_name: " ",
-                              contact_name: "551AWYy2EKxgIvudVQKM3ivlyVYA6f"
+                              bank_account: "461991",
+                              bank_account_holder_name: "｢",
+                              contact_name: "23scUcryj4GBWTbDzAVeKXVTyNRuvNAUp6ljdawfubjQ03lDRu1dHypEu4pqRk9KXyywxfAsvQQw8eNXwtPfKAW4UwDxtqXzHNdytk1inQrWiktMK0FHLyLnvzTdFf0Y"
     ))
     assert response.code != "400"
   end
@@ -1449,390 +1449,390 @@ class PokepayTest < Minitest::Test
 
   def test_list_shops_1
     response = $client.send(Pokepay::Request::ListShops.new(
-                              per_page: 7782
+                              per_page: 7068
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_2
     response = $client.send(Pokepay::Request::ListShops.new(
-                              page: 7261,
-                              per_page: 9527
+                              page: 1483,
+                              per_page: 1744
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_3
     response = $client.send(Pokepay::Request::ListShops.new(
-                              external_id: "m2G7nC3SW8MPeFKTYT7eEYLwvHQFKD",
-                              page: 8462,
-                              per_page: 1042
+                              external_id: "DoBhEEJFs",
+                              page: 7613,
+                              per_page: 9609
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_4
     response = $client.send(Pokepay::Request::ListShops.new(
-                              email: "mV0W8uMWRz@iTXM.com",
-                              external_id: "umFeaEHdh",
-                              page: 5201,
-                              per_page: 3968
+                              email: "7RURiJHf6m@nglg.com",
+                              external_id: "A3t551AWYy2E",
+                              page: 4684,
+                              per_page: 8185
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_5
     response = $client.send(Pokepay::Request::ListShops.new(
-                              tel: "01049-1107",
-                              email: "nAEmuUL6pb@761I.com",
-                              external_id: "WS7zT3jmF3X",
-                              page: 65,
-                              per_page: 4712
+                              tel: "0995484220",
+                              email: "QKM3ivlyVY@A6fe.com",
+                              external_id: "68jtm2G7nC3SW8MPeFKTYT7eEYLwv",
+                              page: 6601,
+                              per_page: 9298
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_6
     response = $client.send(Pokepay::Request::ListShops.new(
-                              address: "DKO5o6UqQsbMF41dYUnemzRdROKbGph7rDrumGN6tQ3vZwFKRF7w7plclcWB9bNRwQ0LABzLS5Ag",
-                              tel: "0936-2730",
-                              email: "N21EzYv53e@8C68.com",
-                              external_id: "L6",
-                              page: 682,
-                              per_page: 6239
+                              address: "FKDImV0W8uMWRziTXMumFeaEHdh8PePoMZwnAEmuUL6pb761IWS7zT3jmF3XMzgKDKO5o6UqQsbMF41dYUnemzRdROKbGph7rDrumGN6tQ3vZwFKRF7w7plclcWB9bNRwQ0LABzLS5AginlSJbgCOpN21EzYv53e8C68gL6nh3h",
+                              tel: "0116113-3497",
+                              email: "H8v5OYX2Bb@7kgj.com",
+                              external_id: "pYtpWxkJ26TN1VktFjJy7P4SbKkoz4u",
+                              page: 7927,
+                              per_page: 1615
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_7
     response = $client.send(Pokepay::Request::ListShops.new(
-                              postal_code: "8832116",
-                              address: "aXQqYz47H8v5OYX2Bb7kgjpYtpWxkJ26TN1VktFjJy7P4SbKkoz4u4vqNtkYjPXUyJ1V0r5CHRNT2ecfLdc33OSn94wpSCBGnb27KI1Ko9Ro9P2UOPHKcZd7kJ0a09BOfpTrIxahzBDxgf0eAPjokEVHRFLghiMn2sJjV2bGnLr",
-                              tel: "023-3677-0457",
-                              email: "iWb08UbIXf@azIW.com",
-                              external_id: "dxJNEfM7ZphEzx62f8FNzaDel7ro4",
-                              page: 7039,
-                              per_page: 8606
+                              postal_code: "1494502",
+                              address: "XUyJ1V0r5CHRNT2ecfLdc33OSn94wpSCBGnb27KI1Ko9Ro9P2UOPHKcZd7kJ0a09BOfpTrIxahzBDxgf0eAPjokEVHRFLghiMn2sJjV2bGnLruRc9c27Gpu7iWb08",
+                              tel: "0989977401",
+                              email: "xJNEfM7Zph@Ezx6.com",
+                              external_id: "2f8FNzaDe",
+                              page: 5357,
+                              per_page: 7962
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_8
     response = $client.send(Pokepay::Request::ListShops.new(
-                              name: "JT6XY3Y33ek4ahxmsrZJPb5B1K9ZLJjlQzrcG4cFx990D5go4dBLdUCSZVd4cTqnNfSRiXLw6IXxof4N3bX72yEerLNEKMYsRf9vriYiP8HndtLKgFWIeB413C8zcpa0a0ipuLt3IQKQQHb6fikVg8U3XB",
-                              postal_code: "916-7293",
-                              address: "ya01cL7edhmrVi5NIsblUeDquiQL8YRreNoLAWMJdywYSICtYcbHl2ktF16gpa54attROZcBbejZS9wdnnNKINI7vj8qEDPsdJ8JkL6K4fbUtzmymsdzvhUXmrc210VozYCz4wR9Gfv1ooHMcqzJF0zVNZ8zHF5mnetJol0g7uhhZVwBBSB9NQuG198o4cE8ye8xiCptr8X3OQSs9cvMVMzYpfEHHq4AVCPhpFJVl2N",
-                              tel: "039-42-863",
-                              email: "ABt92YjeNG@keRy.com",
-                              external_id: "CxDwnyuzPdWfYw482S6oHFsZh9k",
-                              page: 7102,
-                              per_page: 9392
+                              name: "4JT6XY3Y33ek4ahxmsrZJPb5B1K9ZLJjlQzrcG4cFx990D5go4dBLdUCSZVd4cTqnNfSRiXLw6IXxof4N3bX72yEerLNEKMYsRf9vriYiP8HndtL",
+                              postal_code: "766-9592",
+                              address: "13C8zcpa0a0ipuLt3IQKQQHb6fikVg8U3XBigR3jya01cL7edhmrVi5NIsblUeDquiQL8YRreNoLAWMJdywYSICtYcbHl2ktF16gpa54attROZcBbejZS9wdnnNKINI7vj8qEDPsdJ8JkL6K4fbUtzmymsdzvhUXmrc210VozYCz4wR9Gfv1o",
+                              tel: "08-647964",
+                              email: "Z8zHF5mnet@Jol0.com",
+                              external_id: "hhZVwBBSB",
+                              page: 4751,
+                              per_page: 1234
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_9
     response = $client.send(Pokepay::Request::ListShops.new(
-                              private_money_id: "6e364286-d514-45ac-8e73-89ee21638920",
-                              name: "qTSKQYaLtgBF21Mao0iMx72McbAtuQfbwPK5Ol2Udeu5ClBnNsqGtwvAjO8SQrjpTlUKU7ix6vD3BTnNcaIv4Cy2qiGNeSDJueWNAF2iLhkB08mWoSEw4Yfnz5e3bjXKldANGzSZe49qKV1rholLnfH",
-                              postal_code: "170-0432",
-                              address: "JKDDEjuzSmETPUL6TDRxNmjKWPDEzen9VEh9JKwUlzsxb9tQKSZdMATJHlP3s2aiyvcn732KUYpvpwWJTv2DUcmsWBTf3SfgLVNlOhNoRUioebBno3HZhnyNZ5Q77U04aLs4hmy4C28WnCRfz2leovb1R7O6QOgboW2zpcaLxa2QZma6CRo8nyJO9Y3f9djMgk8QSZwJ1udEIb7",
-                              tel: "0748-67-431",
-                              email: "Ek0mDRGqd8@jGih.com",
-                              external_id: "2zo2GN3",
-                              page: 414,
-                              per_page: 8828
+                              private_money_id: "860a6475-dac7-470b-bc7f-963b8a8fd109",
+                              name: "198o4cE8ye8xiCptr8X3OQSs9cvMVMzYpfEHHq4AVCPhpFJVl2NE9OohrFLhvABt92YjeNGkeRyZCxDwnyuzPdWfYw482S6oHFsZh9ksnqTSKQYaLtgBF21Mao0iMx72McbAtuQf",
+                              postal_code: "270-5962",
+                              address: "Udeu5ClBnNsqGtwvAjO8SQrjpTlUKU7ix6vD3BTnNcaIv4Cy2qiGNeSDJueWNAF2iLhkB08mWoSEw4Yfnz5e3bjXKldANGzSZe49qKV1rholLnfHAgpNJKDDEjuzSmETPUL6TDRxNmjKWPDEzen9VEh9JKwUlzsxb9tQKSZdMATJHlP3s2a",
+                              tel: "069375-525",
+                              email: "YpvpwWJTv2@DUcm.com",
+                              external_id: "sWBT",
+                              page: 4618,
+                              per_page: 8116
     ))
     assert response.code != "400"
   end
 
   def test_list_shops_10
     response = $client.send(Pokepay::Request::ListShops.new(
-                              organization_code: "oX5s7gz",
-                              private_money_id: "9990a94f-f2f9-402c-aef4-42cea6e7bfdc",
-                              name: "d3ROmH9nMfAHnX3LOs6P3dxLhDjrt4CF",
-                              postal_code: "563-2056",
-                              address: "CLUxGLtrgoghS3pPHE574eeX1ksH4R2MgyW6z149JBRZmQUgzecqWdDVSstoEtPVoykbtA6l7WDayqQLAKXyhWYdlIHfSBBKI1KQl4cK6HLesoN7AsxjaX4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ix",
-                              tel: "07-35779",
-                              email: "k8zX5Zx6rd@zZ6K.com",
-                              external_id: "KpO7FL",
-                              page: 1841,
-                              per_page: 7197
+                              organization_code: "4f95R---7-LqbqNXr-W",
+                              private_money_id: "7d16d33d-d134-4ce8-adf9-0b34490510c3",
+                              name: "8WnCRfz2leovb1R7O6QOgboW2zpcaLxa2QZma6CRo8nyJO9Y3f9djMgk8QSZwJ1udEIb7zDJ6KZTEk0mDRGqd8jGihF2zo2GN3QYDG6CZS1PVe5LZzi2NmWBluHrzflOytNd3ROmH9nMfAHnX3LOs6P3dxLhDjrt4CFESWJnPCLUxGLtrgo",
+                              postal_code: "708-3300",
+                              address: "HE574eeX1ksH4R2MgyW6z149JBRZmQUgzecqWdDVSstoEtPVoykbtA6l7WDay",
+                              tel: "011-18-4088",
+                              email: "WYdlIHfSBB@KI1K.com",
+                              external_id: "Ql4cK6HLesoN7Asxj",
+                              page: 4905,
+                              per_page: 4572
     ))
     assert response.code != "400"
   end
 
   def test_create_shop_0
     response = $client.send(Pokepay::Request::CreateShop.new(
-                              "ARSiRG2UPRPUxcw9rvtxOfCP20hUm1E2Nlz5V1CO5TSFyNtopqI6bCrDgQTiBz8hopleWuv10dzqDmxXKufPIjjJpzSXKPSRMVYMVxniANdM0yy6srRZNC9bYJUFWp4SJDd9Vw0ghvUwHY4GPMgqa4p3NBV6jnDEmNinmBAkCQlWqd4VgtaT7n"
+                              "X4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ixdWcd35lzGg9k8zX5Zx6rdzZ6Kiw60EKpO7FL05ARSiRG2UPRPUxcw9rvt"
     ))
     assert response.code != "400"
   end
 
   def test_create_shop_1
     response = $client.send(Pokepay::Request::CreateShop.new(
-                              "ARSiRG2UPRPUxcw9rvtxOfCP20hUm1E2Nlz5V1CO5TSFyNtopqI6bCrDgQTiBz8hopleWuv10dzqDmxXKufPIjjJpzSXKPSRMVYMVxniANdM0yy6srRZNC9bYJUFWp4SJDd9Vw0ghvUwHY4GPMgqa4p3NBV6jnDEmNinmBAkCQlWqd4VgtaT7n",
-                              organization_code: "x1t-M"
+                              "X4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ixdWcd35lzGg9k8zX5Zx6rdzZ6Kiw60EKpO7FL05ARSiRG2UPRPUxcw9rvt",
+                              organization_code: "Iit-G5DOu-Q"
     ))
     assert response.code != "400"
   end
 
   def test_create_shop_2
     response = $client.send(Pokepay::Request::CreateShop.new(
-                              "ARSiRG2UPRPUxcw9rvtxOfCP20hUm1E2Nlz5V1CO5TSFyNtopqI6bCrDgQTiBz8hopleWuv10dzqDmxXKufPIjjJpzSXKPSRMVYMVxniANdM0yy6srRZNC9bYJUFWp4SJDd9Vw0ghvUwHY4GPMgqa4p3NBV6jnDEmNinmBAkCQlWqd4VgtaT7n",
-                              shop_external_id: "JM99jV6h5DQ4TL9sXbFiutZ4wFjGxBLsRpox",
-                              organization_code: "Vk-2-3r"
+                              "X4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ixdWcd35lzGg9k8zX5Zx6rdzZ6Kiw60EKpO7FL05ARSiRG2UPRPUxcw9rvt",
+                              shop_external_id: "6bCrDgQTiB",
+                              organization_code: "EEC8Y9--S-GmkK4-0T5lf-2dLNw-ZD68"
     ))
     assert response.code != "400"
   end
 
   def test_create_shop_3
     response = $client.send(Pokepay::Request::CreateShop.new(
-                              "ARSiRG2UPRPUxcw9rvtxOfCP20hUm1E2Nlz5V1CO5TSFyNtopqI6bCrDgQTiBz8hopleWuv10dzqDmxXKufPIjjJpzSXKPSRMVYMVxniANdM0yy6srRZNC9bYJUFWp4SJDd9Vw0ghvUwHY4GPMgqa4p3NBV6jnDEmNinmBAkCQlWqd4VgtaT7n",
-                              shop_email: "6V8dRYSFDi@ggsa.com",
-                              shop_external_id: "m4Pbqn0MLycuAIy",
-                              organization_code: "-VI8EM5yo-z1wH3hNZTn"
+                              "X4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ixdWcd35lzGg9k8zX5Zx6rdzZ6Kiw60EKpO7FL05ARSiRG2UPRPUxcw9rvt",
+                              shop_email: "niANdM0yy6@srRZ.com",
+                              shop_external_id: "C9bYJUFWp4SJDd9",
+                              organization_code: "w45n0O8A---13R7Cu7-aU-"
     ))
     assert response.code != "400"
   end
 
   def test_create_shop_4
     response = $client.send(Pokepay::Request::CreateShop.new(
-                              "ARSiRG2UPRPUxcw9rvtxOfCP20hUm1E2Nlz5V1CO5TSFyNtopqI6bCrDgQTiBz8hopleWuv10dzqDmxXKufPIjjJpzSXKPSRMVYMVxniANdM0yy6srRZNC9bYJUFWp4SJDd9Vw0ghvUwHY4GPMgqa4p3NBV6jnDEmNinmBAkCQlWqd4VgtaT7n",
-                              shop_tel: "0790-9881-086",
-                              shop_email: "orEq6zLZyg@3cEP.com",
-                              shop_external_id: "s9bN7e1DJRmWCvXV5f7NFxRTTWOKh4",
-                              organization_code: "8oPV4X0tsc7ukN-701--7-Wo0"
+                              "X4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ixdWcd35lzGg9k8zX5Zx6rdzZ6Kiw60EKpO7FL05ARSiRG2UPRPUxcw9rvt",
+                              shop_tel: "0589-383377",
+                              shop_email: "YqsqY3PQB7@j8S1.com",
+                              shop_external_id: "LcJM99jV6h5DQ4TL9sXbFiutZ4wFjGx",
+                              organization_code: "--"
     ))
     assert response.code != "400"
   end
 
   def test_create_shop_5
     response = $client.send(Pokepay::Request::CreateShop.new(
-                              "ARSiRG2UPRPUxcw9rvtxOfCP20hUm1E2Nlz5V1CO5TSFyNtopqI6bCrDgQTiBz8hopleWuv10dzqDmxXKufPIjjJpzSXKPSRMVYMVxniANdM0yy6srRZNC9bYJUFWp4SJDd9Vw0ghvUwHY4GPMgqa4p3NBV6jnDEmNinmBAkCQlWqd4VgtaT7n",
-                              shop_address: "Av7oeQjUez1G0bw",
-                              shop_tel: "06851-3496",
-                              shop_email: "HHuXDOcuyc@PW2W.com",
-                              shop_external_id: "YY40yWZt9ZjHKqLir6qmC",
-                              organization_code: "O4Zt9-pi-w-v90l1T-2LOa39"
+                              "X4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ixdWcd35lzGg9k8zX5Zx6rdzZ6Kiw60EKpO7FL05ARSiRG2UPRPUxcw9rvt",
+                              shop_address: "Z8I6AxiybIUdjn2JlMSQ6V8dRYSFDiggsas4Nm4Pbqn0MLycuAIyd8Tc91YrDumA0",
+                              shop_tel: "0565-0186-5988",
+                              shop_email: "quH88gYqQC@45YQ.com",
+                              shop_external_id: "eyms9QyHVorEq6zLZyg3cEPs9bN7e",
+                              organization_code: "--4y-iNzdq1--34uLeiK9ig02e--18o"
     ))
     assert response.code != "400"
   end
 
   def test_create_shop_6
     response = $client.send(Pokepay::Request::CreateShop.new(
-                              "ARSiRG2UPRPUxcw9rvtxOfCP20hUm1E2Nlz5V1CO5TSFyNtopqI6bCrDgQTiBz8hopleWuv10dzqDmxXKufPIjjJpzSXKPSRMVYMVxniANdM0yy6srRZNC9bYJUFWp4SJDd9Vw0ghvUwHY4GPMgqa4p3NBV6jnDEmNinmBAkCQlWqd4VgtaT7n",
-                              shop_postal_code: "2011309",
-                              shop_address: "OvuRswwQSmiJco3KwhjqpMqyENnnotJKNM2DvQSu06",
-                              shop_tel: "06601725",
-                              shop_email: "zeNINZktFZ@U0Jp.com",
-                              shop_external_id: "pSrpNbF8O",
-                              organization_code: "gdSv-X-b7S9D--9--NbusC-"
+                              "X4bkzoW5SSzFCKjOEE829PJZq44v95w5OTBAsM3ixdWcd35lzGg9k8zX5Zx6rdzZ6Kiw60EKpO7FL05ARSiRG2UPRPUxcw9rvt",
+                              shop_postal_code: "5154720",
+                              shop_address: "SRBNNGTP71wcJLJGkIvTZnRNAv7oeQjUez1G0bwCFurxmaLHHuXDOcuycPW2WYY40yWZt9ZjHKqLir6qmCF3zfoEN4hG6jzrPFiN4YTSJ9o4hVc0u6tzaZ3sbYKCNybmAlkaN",
+                              shop_tel: "0965-2243-9713",
+                              shop_email: "miJco3Kwhj@qpMq.com",
+                              shop_external_id: "NnnotJ",
+                              organization_code: "75f95uL6-5-"
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_0
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf"
+  def test_create_shop_v2_0
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy"
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_1
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              can_topup_private_money_ids: ["2473442e-673f-4a46-a683-5eacbebf2731", "81a99899-4042-4c5c-a9eb-fbc802707086"]
+  def test_create_shop_v2_1
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              can_topup_private_money_ids: ["55477e43-986f-4043-aa59-362f8110a1ef"]
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_2
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              private_money_ids: ["fd10e525-c5dc-4ab1-8e05-79c18ccfeb5b", "92f8be38-4137-4f26-b7cc-02d148c8c8a3", "94e550af-71b9-4962-ae4f-23a34f6d7249", "6abc3b14-0288-4dad-aed2-093ff55d3cd3", "7e6d0bb2-bb94-44d7-99c9-f8806240cf3c", "7a86bc35-049c-4d63-9da7-9d7b8f9f38dc", "bd1b720d-0729-466b-93be-1bb85d6a4d08"],
-                              can_topup_private_money_ids: ["a235505e-919f-4edd-9229-ded3911d8915", "42c4f293-6a50-4035-861a-df9075e33e48", "a8696b80-1d77-48b4-a0d5-e65d35030082", "f6f073d8-ceb4-46ac-a781-e374ea3689c7", "3c842d57-37bc-4e69-b4ce-f9af611d5531", "c83d8702-6cc0-4a87-97c0-6287c6cb972a", "56578bfb-267d-4270-b7e8-bd18da719c9f", "8b6812d0-147a-4308-9c88-7e44e4ce58e5"]
+  def test_create_shop_v2_2
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              private_money_ids: ["8fede01a-c46d-4c0c-a128-8094385db7cc", "f679ccf2-2131-4cc2-875f-1edefa6d078b", "4f498ecc-31d9-422d-91e4-e7235301348d", "185f62e7-6e73-4672-94f3-b7ffee18f7c2", "d7c3650e-903c-4a37-8ebb-b46eb003dee6", "d089a704-45b3-4280-bab7-60a75789eafa", "4f734cdd-9a37-45b6-8f59-22713e36354c", "ca14972a-58da-4c29-a8e4-31ab73a6be32", "9008c405-20d6-485d-ad6e-a8f781d92eda", "7d5b37b1-6194-49d9-9188-d3a6caa74dfb"],
+                              can_topup_private_money_ids: []
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_3
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              organization_code: "F",
-                              private_money_ids: ["ee337124-b462-499f-ba72-effba0ad5cb7", "3afedb5c-6c6a-4376-82e0-a49d71537c1b", "61c6a137-a2c5-4b44-bedf-4b6bbb5efb77", "bce293bb-fed8-4bce-b736-0486f8b202ac", "028356c0-708a-4e01-af48-d3793091c01d", "c2a0804b-b8a6-4d14-918d-a6a01b807221", "9c6ec18c-cceb-4308-b1d3-d0c7a066f326", "61630a62-2064-4409-b266-657aa7b16477", "0cedbeb9-2bee-49c2-a9dc-cecbeb4964d8"],
-                              can_topup_private_money_ids: ["4a154305-9d59-47e5-88ce-bfae64117d37", "d0c4d215-6ac3-4334-8c91-12e4d0b0314f"]
+  def test_create_shop_v2_3
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              organization_code: "L",
+                              private_money_ids: ["2c625d61-7c4e-4dac-bb89-d13690bafded", "5d998686-cea7-47e1-93da-b657499bdeaa", "a0225aca-c3ee-429e-abbc-a92f67640787", "ae11e487-1431-4090-ac2a-9fbf0b9e4384", "ff08dda5-3908-44bc-93b2-941169c57607", "88136513-1fff-4137-9d79-6e2d42e973a8", "58c514d6-346a-4159-bd5a-b11ac18065a6", "3be07b7a-0ad3-476b-966a-dd0a4a9ba029"],
+                              can_topup_private_money_ids: ["eb8ae16f-2c11-425c-aa42-3892b10ada34", "e265a650-7926-4a02-ae94-1ad6869f7db9", "144fa3f3-a69d-4921-8207-c5848e4b17a6"]
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_4
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              external_id: "hcXyEVzhZku2OJ",
-                              organization_code: "hl",
-                              private_money_ids: ["95aacebe-b96b-4058-9704-7c7cd001cac3", "47f655b5-d61b-40f4-a9fe-19cca5e1eec6", "653b5bce-5727-43a3-9ee0-cdd5a14ea5e8"],
-                              can_topup_private_money_ids: ["aac2dd93-e210-4c7c-b15c-9ed6b027a8a0", "c67bbd50-ea2a-4643-be5f-39880f55a604", "b45d1d16-fd3a-4179-83dc-1b2cb5b0d607", "8b535aba-0b24-4734-b4ea-16a4c65c82f5", "27aea995-36c3-4c29-9c75-2c1c58475039"]
+  def test_create_shop_v2_4
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              external_id: "fF1BkHf1A87wLQ9bOIRS2WYI5c",
+                              organization_code: "o-Ch-h0-y-iifb-4--EEd-61Ja4-Q",
+                              private_money_ids: ["e2da2758-8c8d-4984-9737-dbb1b95fe508", "6491cc82-8620-4c05-855c-8088ee337124", "d03fb462-699f-423a-b2fb-5cb73afedb5c", "0ca96c6a-b376-4102-a09d-7c1b61c6a137", "c864a2c5-bb44-477e-9f6b-fb77bce293bb", "ec7afed8-5bce-40b7-b686-02ac028356c0"],
+                              can_topup_private_money_ids: ["5e74ce01-95af-4948-b91d-804b3a3ab8a6", "759c6d14-5111-448d-a021-c18c7499cceb", "67b46308-f2b1-4cd3-8726-0a627ae22064", "ecaf1409-8eb2-4c66-ba77-beb964ec2bee", "7ccab9c2-4ce9-4cdc-8bd8-399c77c15eaf", "503616a2-4305-4d59-a5c8-a0ce4be2bfae", "64117d37-d215-4ac3-b40c-e59126ab12e4", "d0b0314f-e70d-4a68-be07-209e09d18fe3", "55fdec18-5758-4d0c-b916-5b4514ed4656", "ba6077fa-945f-41e8-8f5a-d36bddfeeef5"]
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_5
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              email: "OYkti8QhcN@Elbk.com",
-                              external_id: "x",
-                              organization_code: "q9XR--7g5v-80i",
-                              private_money_ids: ["4e7d2429-7029-48af-a766-a010681db711", "4d0bea42-7c9e-4a3b-a711-9fede51210c4", "6badc15b-44d3-4875-b8cf-1e98e554f36d"],
-                              can_topup_private_money_ids: ["51f88d1d-ba70-44e8-ab5b-ec2195d5a2af", "aec6b5fa-9a1e-4493-9017-cd69694f15d4", "f52ac921-b291-46a1-877b-f236ce02e8f0", "7aec80fb-1cb4-4dc8-88ac-8d738644f97e", "7ce8164c-ba65-46c9-9d63-433c9c87de4e", "4e377c19-9089-4c72-862e-8b404ec4ce76", "e1c17413-39de-401d-acd1-e8c206a61486", "88c22d1f-6049-4d0c-9814-b35e3801bfb1", "96edc93f-6bca-4fc2-8be7-b525e401f85d", "67b0e3ee-28f2-4215-84b1-009cceee8c0b"]
+  def test_create_shop_v2_5
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              email: "2OJwUM0ktk@1yse.com",
+                              external_id: "dNhZ",
+                              organization_code: "",
+                              private_money_ids: ["0f55a604-1d16-4d3a-b943-8adce6221b2c", "b5b0d607-5aba-4b24-b4b4-deeaf27216a4", "c65c82f5-a995-46c3-a99c-0575f9bc2c1c", "58475039-db4f-4580-9f80-479c9f764cbf", "10134359-7bab-4bdc-ab2f-16748376be24", "a3480c0d-5b69-4bb8-91a5-1d98caad1985", "5856e5e8-2820-4763-bcce-ef259f03bddd", "457c2ac5-5304-496c-9b3a-8113e1800dfe", "e3304ae2-dfeb-4900-adf8-f98ec2eda93f"],
+                              can_topup_private_money_ids: ["cf7a074b-0db7-4d6f-ad81-30f06d73fe8e", "443c7584-07be-44fd-af1e-219b7cc78474", "67ba05e1-28ca-4396-a0a1-264036402b42", "c3c8c19e-5acc-49fe-88f9-7a0386683abd"]
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_6
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              tel: "06031927",
-                              email: "s6xUgxf5sO@ofYs.com",
-                              external_id: "eOtl3ilNOPpyIVjtUkLTSkOKux630Id9YuK",
-                              organization_code: "x7l2Q9my9P-LdC--xnzt",
-                              private_money_ids: ["37284bc4-5064-4c4b-abe6-9d624d329243", "905a8190-f8a8-4239-af36-7a449d92f240", "aa4a735f-6929-4a8f-bc1d-ac5cd35331c2", "77b7123f-aaa5-4ccd-88f6-6380076747f5"],
-                              can_topup_private_money_ids: ["45dae930-881c-4fd1-945f-0f0ec58d1de6", "4357ffbc-afa2-4317-8078-b982cb6722b8", "10b6a96c-a5b2-45bb-9a9a-9a5a842f42a0"]
+  def test_create_shop_v2_6
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              tel: "0281-6809-1133",
+                              email: "GvU5oJnH6h@OfBg.com",
+                              external_id: "mDSuxOmphkziTG6p4H",
+                              organization_code: "z-gm0-vJ",
+                              private_money_ids: ["943f059c-0ae7-44f3-9c9d-aa205932a2bc", "fa14071e-8236-44a9-b809-435573ed571a", "06776711-635f-41ad-97e7-fb780348e21a"],
+                              can_topup_private_money_ids: ["2e2e6c89-4735-4aa9-94f3-3ccfcbba3e90", "d6b6fa91-29ef-4440-a266-7859500e7b73", "3167a6a2-2de5-4121-8f1b-68f45bda2f80", "659d3e8b-b46c-47b3-bb0d-d4695ff73e81", "cb1448ec-47be-48ce-90cf-602fbbdd04a6", "a8ff59d0-819d-4770-85be-3f1e99a19b79"]
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_7
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              address: "jyQqeO19KhFrkxiVRAQ6FFjz1wnjIRjO9MofqJJncHBCR1qP1zId4mLJCzHpOgkhaas",
-                              tel: "079088-1721",
-                              email: "62Ghe0ne6p@cNR1.com",
-                              external_id: "7JprfFD47gNL9WM6cSeojzO",
-                              organization_code: "hP-O-Co1yy-YNo-0s2krAk--iSH3",
-                              private_money_ids: ["8f05ec2d-a656-4d17-a7d6-e927e10b503b", "38fa4383-9884-4de3-b3b3-640f0591eb4f", "88c39551-104d-46e4-88f1-0e5a0034224c", "e7192092-f56c-4000-b630-63b185dae186"],
-                              can_topup_private_money_ids: ["42b8b147-1196-4ea0-b182-68cf1063889f", "c409ca8c-5d15-44a7-985f-458ae6ae7025", "6162186e-2fb2-4e6a-89f3-8ea976791946", "9be264f3-1157-4907-a2ef-64b7792b9e62", "027386ab-1513-4b0e-b0d1-42928dfba6f1", "2117eeb9-34c0-41e1-ae54-a0b630060b28", "bc62d3d0-bf23-4aa3-8df3-7c7a628a046b"]
+  def test_create_shop_v2_7
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              address: "IVjtUkLTSkOKux630Id9YuKsTGECVvJsAnqjel2la3rWWdK2ybDtXJiikZzBktm983ksDdKfbC96DBMvuC0QTfx8l2ZZBjyQqeO19KhFrkxiVRAQ6FFjz1wnjIRjO9MofqJJncHBCR1qP1zId4",
+                              tel: "0037807811",
+                              email: "sWI8ELqJwR@A62G.com",
+                              external_id: "he0n",
+                              organization_code: "-NWI--R--0g0Ly--xtd-2R--2--HBn",
+                              private_money_ids: ["83e3b2e0-c660-455e-87f5-322f5a2c0dcf", "c46fcb15-bbee-4b73-9d22-047080b75c8e"],
+                              can_topup_private_money_ids: ["012f418c-a7bb-47b8-acb8-7acf2a5f3615"]
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_8
-    response = $client.send(Pokepay::Request::CreateShopV.new(
-                              "LYdgsrsB7nf3z7z76OYqLZhd2VmnwZ1YQAtf2GPfHYeeJWiJLn1TOWVNqKCYgaN6maSZWJn127yVjYZzSkjksojB4PnV9sBf",
-                              postal_code: "673-5951",
-                              address: "4DYsuiE88p3Hog0k8dxuKgCFI0Qv1brn8ATMTNMMEyVApkaDeYuOtBoCZgc4gwc8RSE7B5wsqfAkho5yO5EQGpb9AHk6UF1UjWUyw97H5Wi0UlM5hWRopq8fm3QjwrUJDS6QIEgbGEOQG1PZp7fjd91zgh1RHHtL55R7YEprCJ0U4QnLZWmGvTqLQwaZ9vOnv67spoRoPKUgWvYVa3Gv9xbfzvgScohGvfvszFZKZ0fsirdyb8N5N",
-                              tel: "02-503648",
-                              email: "Z9aq2pYugt@iiL7.com",
-                              external_id: "qWoYElTKmZkEzCv7OK",
-                              organization_code: "-DR-a-r-2ocp8yT-KY-TY",
-                              private_money_ids: ["d7ae48b6-14cb-42fc-807c-d01672445462", "07ec76de-f6cb-4f91-8f21-dcea0009fa55", "979541d1-0a59-4b9e-8c13-56f33d50c53f", "4342a80b-c770-49bd-a8f8-ef4e31b37763"],
-                              can_topup_private_money_ids: ["916b5593-5ad8-4ae3-a51f-cbc4b2c480a9", "e12e0faf-5d55-45fe-8294-69377a76de30", "ebaadccb-9f52-47db-87d5-7830c33465fc", "8ee93087-0432-4245-acd4-247fd326e01c", "5f707595-3cf4-4bcd-a52c-1733ef92329b", "88bf6270-3f35-4cc2-b2a6-f8f59f6e1f8a", "6a716507-a45d-47c6-8c35-f9a3ed1a6116", "d5160dd1-88cf-4bca-b8a4-e09fd7e3707c", "ec4167b8-63fa-4a77-9f86-a5575ba0dcff", "4e9ee0d4-3a99-4b51-bf0a-faf4ae8d2592"]
+  def test_create_shop_v2_8
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
+                              "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
+                              postal_code: "8107026",
+                              address: "8ZQmhXHGSVgVcs3OQMdHqZLlv01wGqOn2jIsFsWbo7bpQq9anT6PszkN335U1t4DYsuiE88p3Hog0k8dxuKgCFI0Qv1brn8ATMTNMMEyVApkaDeYuOtBoCZgc4gwc8RSE7B5wsqfAkho5yO5EQGpb9AHk6UF1UjWUyw97H5Wi0UlM5hWRopq8fm3QjwrUJDS6QI",
+                              tel: "05-226375",
+                              email: "OQG1PZp7fj@d91z.com",
+                              external_id: "g",
+                              organization_code: "p---Ch6uQ-mr-G2W-67-Q-8r--H9-9L-",
+                              private_money_ids: ["f4479705-b513-4cbf-9da0-ea3e828591fe", "d8c6a607-c1e1-49af-9e33-2d475bcac3a7", "1f8645f6-7f8a-46ac-b908-82f844e402e2", "5457f666-f112-447a-82de-e32862f89080", "5408f6f6-a7e7-4112-bf53-11e370863c6f", "2d6e2ae8-741a-46c7-83a0-48297856d1f6", "05e2b9e6-8226-4288-87de-ef3bc4a62d24"],
+                              can_topup_private_money_ids: ["1695c2a3-79f3-4d1e-a1fa-75c61bbc147c", "32b17c9e-383e-4ba1-9a88-cda35ceaf1cb", "095d65da-9330-4b66-b303-8c1824f8d12b", "4788eb69-163a-4072-a702-8a939daff804", "a6206ea9-9564-4b79-8d62-9738331d8e4e", "09ace2b5-6320-484e-b475-493eccc31522"]
     ))
     assert response.code != "400"
   end
 
   def test_get_shop_0
     response = $client.send(Pokepay::Request::GetShop.new(
-                              "8cca5d00-8df7-4c68-bfe7-4697e43b3fa0"
+                              "8d957295-504c-42d8-a570-bd70fda8238f"
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_0
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02"
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39"
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_1
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              can_topup_private_money_ids: ["bb571351-7f72-48af-adf0-069d4b7b6da3", "9f5439db-b392-4e81-bdac-2a71b2d65956", "67491e24-ec98-4af4-99c6-b5491b1adb8c", "ad58d0b2-7cfb-4abf-b08c-e684c50e291c", "01b63fd2-f90c-4ff1-9592-36382955c221"]
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              can_topup_private_money_ids: ["fb16ae71-09a5-4ea9-b2f0-9f5999151ebd"]
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_2
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              private_money_ids: ["17807034-c477-4f5f-8fa5-2dacefa3cd9b", "0a41cfd7-9056-4897-ad8a-d36538ab1589", "6e549005-a6ea-4d16-8137-76cba500397f"],
-                              can_topup_private_money_ids: ["945e0e97-3919-49a7-a024-475d8e932d8d", "cbdbeabf-6c52-4eb7-900b-eb4fd98d0abd", "19694e1a-98fe-4a19-b703-0b21600a65b9", "f339f459-0bcf-4675-be88-fce35c21d623", "8a34cd5c-ca5d-43b2-a205-a4f4561610bc", "d53db47a-8c15-4dc9-b248-47f688835889", "d19a9ec0-494b-4be1-89f9-1e9318333db1", "41bcda64-90de-4a52-8b75-672f8c4d3efa", "b2b90c7c-34cf-4c6c-ad40-b5913fd36d4c", "75eada7d-140e-4d98-a0bd-73a8e125323a"]
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              private_money_ids: ["517d1717-8e5f-4b0c-abe7-327472573387", "6b4bfe23-72e9-43e9-a314-e1cc3244aa82", "d21212a5-6f86-4ffb-9fb7-eb118e0f16fb", "bc7d53f1-7057-461b-af94-5d597db76310", "16763905-b616-4e45-acd4-59cbe30d719a"],
+                              can_topup_private_money_ids: ["27ac2005-7c22-415a-ab8b-d85e7d982b7f", "dc784dc5-eefa-4b1a-8360-6599a3456a3d"]
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_3
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              external_id: "mdBSZr220xtZpZ",
-                              private_money_ids: ["aff80125-a464-4ad1-b928-a00a9e46a589", "04c51173-c60e-4a5d-bc21-c1161f5ecea9", "d02a9573-43bc-4a19-acf5-641137a53c7b"],
-                              can_topup_private_money_ids: []
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              external_id: "v7OKUa8NeEnF41oUMWRj1sxtSyQg",
+                              private_money_ids: ["59263a3f-b900-461f-8cb1-16477d4aca16", "c16e4beb-80d2-4768-8e7c-5be238af9980", "eb949b6f-990a-43d8-8818-9259d0fcc233", "6c22c10f-8439-448a-bdf8-a07b724b1b3d"],
+                              can_topup_private_money_ids: ["08aff801-10de-47be-98f3-48b6203414cb", "bdbca2fc-1e80-497c-9662-76def3b6f6cb", "33928f91-1a4f-4421-aa55-41d1a2ed0a59"]
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_4
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              email: "YJHAlylPpV@6xWx.com",
-                              external_id: "t7f2oLFlgp2lLhVbHghg4lZSVxXqYiDQPFv2",
-                              private_money_ids: ["76280ac9-f0d8-48c0-ad49-d7b43b6569d0", "7e22bd27-81ec-413a-90f6-97a3f91efc79", "32d821e9-d395-4bff-af3f-d5641a164869", "bab85e9c-7003-4d70-9cf9-bdc0de574ccf", "0a34ca93-aee8-4c3d-8e04-4fc279da874c", "c43c18f6-c7ae-4bca-8200-6c643dbfe3b1", "0a1d36b8-4246-46b7-ada7-e27393bdde56", "7fb84543-b9ec-4e59-9149-b55a4a7f4db6"],
-                              can_topup_private_money_ids: ["3a312142-2471-42b4-9a43-99ed29f3b731"]
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              email: "LsphxNcJXc@eDU7.com",
+                              external_id: "RGU02ETtMe3p",
+                              private_money_ids: ["7392fcc2-4ff2-4aa6-b58a-65072e88a45d", "223e67c6-6f8c-4135-a316-0dd1ed3a88cf", "7f197bca-0878-41a4-9f7c-67b81d2863fa", "3ff78a77-71df-4e86-97d4-3a99dc53db51", "9f85817f-2d0a-4af4-9200-8df7200cbc68"],
+                              can_topup_private_money_ids: ["fc784697-3fa0-475b-889f-83c5af1863ad", "61e42d98-6d02-44d5-9172-b8aff999342d", "9d8048f0-069d-4da3-9b92-9e81bd2a1bfd", "6a15dbac-2a71-4956-a498-9af40554e699", "05bc11c6-b549-4b8c-b2fb-babf9d94a630", "80bc1d8c-e684-491c-920c-6ff115293b55", "14bca092-3638-4221-a334-c47722568f5f"]
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_5
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              tel: "001-431670",
-                              email: "hpLhv7NIoq@mlJp.com",
-                              external_id: "OYIsRtFF9xx8",
-                              private_money_ids: ["f5ac7b5f-1240-4c83-9a11-a5c898483ce3", "43f299ac-8faa-4d02-9a3c-6b585fb4d820", "d4f8860b-da9c-484e-9d11-f033b7072658", "35ca89e1-f128-40b7-a530-52a481f10b6f", "a268acb7-5c90-47ee-a28f-c916d6a7d4bc", "e6538980-4946-4dae-98d5-92d23c295619", "29532720-0529-42eb-aa43-6063c65de161"],
-                              can_topup_private_money_ids: ["36b4b5bc-ce03-44e7-b178-97b092594e25", "956c0b12-64a1-4a44-83a6-4804f16088f9", "b85458b4-fb3c-440d-b368-6e5820be4d83", "9ec4b92c-d782-48fc-8bd2-9f601d7b2d0b", "e7b3f1fd-9e06-475d-b7ee-1710155ed8d4", "27061419-c9d7-4dc3-b9c9-427404c109b3", "6c09d447-6e8b-43f2-b6f5-4f8705b0a062"]
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              tel: "076-595177",
+                              email: "R7PO79YOuc@2btz.com",
+                              external_id: "I2HvKaIy1dRKuzOlLMmdBS",
+                              private_money_ids: ["b1fb2ada-c872-4632-a03d-ad32574d26e0", "aff46b5f-c830-4bfe-b874-a5da60833bbf", "058a2170-175a-4113-a564-0ad18621d939", "8df18728-a00a-4589-b30e-aa5dd849f97c", "30b29521-c116-4ea9-b3bc-ba198acc566c", "dbff36f5-6411-4c7b-a017-b35915fbacc0", "a3b2d902-0025-444a-a148-a703081a6d7e", "3260f820-a72c-4213-9dbb-c6c11d272a6c", "f09af209-7f79-48ec-90f0-ca56cda1b13e", "07faf87d-1336-4ff8-9778-f5237b98d5f4"],
+                              can_topup_private_money_ids: ["6ed2a003-4507-4766-b209-212db3572520", "1ae9571d-530c-426f-8c22-19a0013def99", "a44c6e46-8a20-426c-9d67-bd9a630ccb26", "296f1070-60bc-4ab2-aca6-a14ce6234ae8", "5bacc29e-c8bb-41d6-a2c8-657cbb0d7394", "1d9d24de-d27b-4867-a82c-b6c0b210de67", "61a407b4-5c6c-4b5b-a5da-7e0e891a1c53"]
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_6
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              address: "QRiycmsaOa8T2aG0PP6tnqHnuoUILOizvfJbTrh0kbVP56HQVtzlq6MKoBezSZGJZ1h8km3mkAPAZ0UMnnwlo100h7H4BT2IdLeJZDTCEki4ZW2q7YUbIlt759XkPd0Pd9Lm5F7XmpoqfPmIraGVhsLJiqbQ3MQR9CltXlG6ahNcft22PrlsKWxGtQj4OhVmQAfFvVtR4Fr5En7ms3KrOq",
-                              tel: "0550-168676",
-                              email: "wh227cUJMu@Q1t8.com",
-                              external_id: "3oitBAmKCK",
-                              private_money_ids: ["25dbfc9a-2a1b-4e9b-8ef0-36b71a610985", "e8648a5a-040b-48b6-8707-8d4bcbcffb65", "2c947ac8-6d61-4e66-aeef-9a5ce004b34f", "1fdd6405-191d-4c4b-99a9-0bf596d24ede", "c21bb59f-e61d-4fd5-b384-4c82d319c328"],
-                              can_topup_private_money_ids: ["8226458b-4f7a-49e6-b9a6-9be40dec9012", "f3b99dc9-5c3b-4a15-b3e9-ac9cd4aff929", "1e8757f6-05e1-4724-a8b1-adafff222806", "f49c3076-0aae-4cd9-a318-d3ecb920acfa", "a55885b4-ccf3-4d27-8911-fd58c8fc3866", "7f3cbc42-b6b3-4765-95a9-60701c8486bf", "6490e6b9-50bb-47e5-88ee-3bce50e42079"]
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              address: "VxXqYiDQPFv2xIXmI4PlPvyiodipyOhBLvJd18F7msVClYIZ6Bq4ZCm153pAwidsKM1ZphpLhv7NIoqmlJpzKOYIsRtFF9xx8GHcZXN3Xa70o7nFXURkjCcagg1x0DCy4shXKR7nTWCyIt3Gr6ubUQRiycmsaOa8T2aG0PP6tnqHnuo",
+                              tel: "05-296612",
+                              email: "Trh0kbVP56@HQVt.com",
+                              external_id: "lq6MKoBezSZGJZ1h8km3mkAPAZ0",
+                              private_money_ids: ["c6bcf1cd-905c-4afe-915d-999619b2053d", "da55ab3f-30a7-412d-ae6e-ddf7f35c57ec", "23d6005b-896f-4182-a5bc-e31e558dba8c", "d699eeba-ca1b-497b-9b12-39845ce12e25", "8cb4b59a-d631-4630-9c87-a130f267910d"],
+                              can_topup_private_money_ids: ["e76d8206-2ae8-437f-b797-714893b3b834", "7618b7bc-70c2-4b54-b2c9-72e48765ff4c", "b9202a65-7805-4803-bb22-27ca894df6da", "5d21c3c4-51d4-4028-93c3-1e4569e8a3eb"]
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_7
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              postal_code: "5649793",
-                              address: "ZjsWtY1WGlubcf8poH65gFI1eD4xOb3K",
-                              tel: "0829281-1123",
-                              email: "salQh9et3s@JPwG.com",
-                              external_id: "PZVdfeHb6D60qrRKjcydAgQf1kjgy",
-                              private_money_ids: ["015ed26c-db3e-4055-bdc4-fa54fcd87f20", "3608a54b-4e7c-4f3c-b46a-aee85e385b3e", "5370644a-0e48-4912-b06a-c71ad5d09b41", "b04fc66a-26ce-4457-9917-ac8521cf64a9", "e6eece97-2b31-469b-a15a-24c8cd1489df"],
-                              can_topup_private_money_ids: ["5cbacf90-fcb6-4dbc-8191-b6cd5a5c003f", "9d9c63ef-ccad-4ac4-bf44-4092b20e65c0", "da2b9b97-40eb-4f6f-b98f-6a88c4b38e53", "b165779c-2610-4e83-830f-883a0b1db498", "90bca786-33d0-4dbd-8b95-5f2ab54ccb8e", "df0c5882-24ee-4ae3-9c45-b927dac31b90"]
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              postal_code: "947-2179",
+                              address: "bIlt759XkPd0Pd9Lm5F7XmpoqfPmIraGVhsLJiqbQ3MQR9CltXlG6ahNcft22PrlsKWxGtQj4OhVmQAfFvVtR4",
+                              tel: "021-7385241",
+                              email: "6LmEP7tafj@yhKg.com",
+                              external_id: "UJMuQ1t83oitBAmKCKeNp7Z6KeHafoOKYuUs",
+                              private_money_ids: ["2e194c82-c328-4bb7-8b7a-c9e6819f3439", "68b547a6-9be4-4012-893b-0a15e5ca2373", "756351e9-ac9c-4929-b6e1-872470e6dda8", "41b7d7b1-adaf-4806-b6ae-bcd91dc040a3"],
+                              can_topup_private_money_ids: ["f370d3ec-acfa-45b4-b327-42c98f643f11", "4d05fd58-3866-4c42-b365-fb1512ff4ba9", "cd6b6070-86bf-46b9-bbe5-70c898d160ee", "997f3bce-2079-4edc-b506-09b4d3babefa", "99f341b9-3bdb-4107-9983-161f629e095a", "b9b6926a-64f3-4027-9774-229f375810ba", "62b6069e-65d9-4ab1-a8db-238622f4c58b", "eef68857-50a9-492a-9c47-a1ec3e1ce7f5"]
     ))
     assert response.code != "400"
   end
 
   def test_update_shop_8
     response = $client.send(Pokepay::Request::UpdateShop.new(
-                              "d0a5675b-5788-4f9f-85ad-2d984d936d02",
-                              name: "Yebt4RUGRqT3wcuceySCabxrgTXSxZbg1Ud9jBS9CQqv6T7eIQXHJd8SnpNPnO39WNWvjXlHUhCIHkbLQ7KL6y3S",
-                              postal_code: "484-4617",
-                              address: "tpYM1z5XMrmRY7bQCW9sPYWAKIaPAnlgG8mho7qKjeP1Vs1el3tVDmtz0qcHqLIsXtLIzc5kRp3WnRoU2x23XKfAMBShU6I6qbRRo0KsKQjbIFpDLYbMMvlh9JCT1xGcQLRIyKzcfWhCzi",
-                              tel: "0787-031603",
-                              email: "qCpyLyZq50@fssj.com",
-                              external_id: "NHBAUn0qZzCUWIZlu3",
-                              private_money_ids: ["fde3a7c3-26d0-4855-ae48-dc677376abb3", "ccff04c8-09f0-4451-8a1f-5996bb9a51aa", "573d990e-8ca6-4a4f-ab9e-e10adc79f697", "0eb5ce7a-67cb-4cdc-b74c-f3ec0bb1c6af", "6bd58aa7-c87d-4347-9ab5-0bec59b1c8fe", "3e3c82b2-2a63-4e9c-9f3f-f996e5488651"],
-                              can_topup_private_money_ids: ["535c522f-0b58-42c9-88ba-058db9b2844e", "a8f1984a-ba33-4efb-9f15-ab97b35461d9", "789781e4-dcad-43b9-b65f-4a73057ceab5", "0a5d469c-cf3a-4bd2-ae35-d7769da3f599", "64640ad2-00e5-4f94-bfcd-bde28f7ec3a8", "a6f5ace2-bf1a-44bc-96a9-a95859b62d92", "32e78cb8-1129-4fc0-a8c8-02d35f396bdf", "db52067f-e034-4e4a-9d94-f7f7b02ab713", "585a2319-0e11-485f-874b-ddf60f358f11"]
+                              "041cbf93-c696-459a-8458-7ddac8bfcd39",
+                              name: "bcf8poH65gFI1eD4xOb3KkBBLymzX1iKABzsalQh9et3sJPwGPZVdfeHb6D60qrRKjcydAgQf1kjgylUDTK4jhJH0jAjNW1ZH6MoDDkoySCPKncEWYebt4RUGRqT3wcuceySCabxrgTXSxZbg1Ud9jBS9CQqv6T7eIQXHJd8SnpNPnO39WNWvjXlHUhCIHkbLQ7KL6y3Sdoxdn1tpYM1z5XMrmRY7bQCW9sPYWAKIaPAnlgG8mho7qKjeP1Vs1el",
+                              postal_code: "1636845",
+                              address: "tz0qcHqLIsXtLIzc5kRp3WnRoU2x23XKfAMBShU6I6qbRRo0KsKQjbIFpDLYbMMvlh9JCT1xGcQLRIyKzcfWhCzi1Z89pSvPCqCpyLyZq50fssjoNHBAUn0qZzCUWIZlu3nVCPUHg3HpQOkzK7LlGZ5l2cQL9XINJ3Yd9vs5R5vReMbbVX8HS4JwKvfQBXbwG5FfObbKUS2wO8JUS6TcMNwfudd0OcDN26kEZNJtfvLzUT",
+                              tel: "08863876539",
+                              email: "Na5f54YI1P@h3OU.com",
+                              external_id: "AsV",
+                              private_money_ids: ["06234a47-06b6-465c-aa8d-5f54d1c00af8"],
+                              can_topup_private_money_ids: ["e116f53e-42f3-402c-acfb-be5122e303a1", "f63e2e08-9ff7-45bf-b2af-62d6a5e8963d", "f27627f6-bcb1-4e71-bb45-cf8746b2dd6e"]
     ))
     assert response.code != "400"
   end
@@ -1845,262 +1845,262 @@ class PokepayTest < Minitest::Test
 
   def test_get_private_moneys_1
     response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
-                              per_page: 8545
+                              per_page: 8012
     ))
     assert response.code != "400"
   end
 
   def test_get_private_moneys_2
     response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
-                              page: 3303,
-                              per_page: 8018
+                              page: 740,
+                              per_page: 4578
     ))
     assert response.code != "400"
   end
 
   def test_get_private_moneys_3
     response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
-                              organization_code: "-4-",
-                              page: 5285,
-                              per_page: 4871
+                              organization_code: "RAi6-YUMX0-",
+                              page: 3141,
+                              per_page: 6384
     ))
     assert response.code != "400"
   end
 
   def test_get_private_money_organization_summaries_0
     response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                              "96cb29e0-202c-46f5-aae4-6a9acba03964"
+                              "bed18a99-b632-45b8-b605-824416462f73"
     ))
     assert response.code != "400"
   end
 
   def test_get_private_money_organization_summaries_1
     response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                              "96cb29e0-202c-46f5-aae4-6a9acba03964",
-                              page: 8837
+                              "bed18a99-b632-45b8-b605-824416462f73",
+                              page: 1687
     ))
     assert response.code != "400"
   end
 
   def test_get_private_money_organization_summaries_2
     response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                              "96cb29e0-202c-46f5-aae4-6a9acba03964",
-                              per_page: 7325,
-                              page: 1073
+                              "bed18a99-b632-45b8-b605-824416462f73",
+                              per_page: 7898,
+                              page: 9120
     ))
     assert response.code != "400"
   end
 
   def test_get_private_money_organization_summaries_3
     response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                              "96cb29e0-202c-46f5-aae4-6a9acba03964",
-                              from: "2017-06-15T16:11:58.000000+09:00",
-                              to: "2021-11-18T19:56:06.000000+09:00"
+                              "bed18a99-b632-45b8-b605-824416462f73",
+                              from: "2022-11-01T17:15:31.000000+09:00",
+                              to: "2015-10-14T04:30:14.000000+09:00"
     ))
     assert response.code != "400"
   end
 
   def test_get_private_money_organization_summaries_4
     response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                              "96cb29e0-202c-46f5-aae4-6a9acba03964",
-                              from: "2021-11-10T05:05:09.000000+09:00",
-                              to: "2019-12-22T02:56:09.000000+09:00",
-                              page: 606
+                              "bed18a99-b632-45b8-b605-824416462f73",
+                              from: "2017-08-16T16:37:23.000000+09:00",
+                              to: "2025-06-30T05:56:45.000000+09:00",
+                              page: 6148
     ))
     assert response.code != "400"
   end
 
   def test_get_private_money_organization_summaries_5
     response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                              "96cb29e0-202c-46f5-aae4-6a9acba03964",
-                              from: "2018-06-03T10:12:04.000000+09:00",
-                              to: "2021-07-26T08:11:42.000000+09:00",
-                              per_page: 5228,
-                              page: 3547
+                              "bed18a99-b632-45b8-b605-824416462f73",
+                              from: "2024-08-26T09:55:46.000000+09:00",
+                              to: "2022-05-01T05:52:01.000000+09:00",
+                              per_page: 6811,
+                              page: 588
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_0
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6"
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c"
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_1
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
-                              per_page: 1797
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
+                              per_page: 280
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_2
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
-                              page: 2295,
-                              per_page: 5293
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
+                              page: 1243,
+                              per_page: 6527
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_3
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
-                              to: "2024-02-29T23:33:22.000000+09:00",
-                              page: 771,
-                              per_page: 4254
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
+                              to: "2018-05-24T01:20:13.000000+09:00",
+                              page: 622,
+                              per_page: 4868
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_4
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
-                              from: "2016-08-06T07:28:52.000000+09:00",
-                              to: "2023-04-17T18:24:21.000000+09:00",
-                              page: 5763,
-                              per_page: 7423
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
+                              from: "2020-06-09T03:03:26.000000+09:00",
+                              to: "2020-10-10T17:42:15.000000+09:00",
+                              page: 8648,
+                              per_page: 1595
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_5
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
                               is_modified: false,
-                              from: "2021-05-29T19:34:30.000000+09:00",
-                              to: "2020-10-09T23:24:53.000000+09:00",
-                              page: 6649,
-                              per_page: 9917
+                              from: "2023-12-02T13:37:37.000000+09:00",
+                              to: "2023-05-09T11:23:05.000000+09:00",
+                              page: 8917,
+                              per_page: 2538
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_6
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
-                              type: "3INa5f5",
-                              is_modified: true,
-                              from: "2019-12-07T23:46:21.000000+09:00",
-                              to: "2018-10-29T02:06:55.000000+09:00",
-                              page: 8876,
-                              per_page: 5372
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
+                              type: "7OUK0vKQ",
+                              is_modified: false,
+                              from: "2020-02-18T11:43:25.000000+09:00",
+                              to: "2016-03-02T07:20:01.000000+09:00",
+                              page: 1217,
+                              per_page: 3985
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_7
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
-                              receiver_customer_id: "3fc46e91-3568-4e94-b34f-1cd5ebb0a042",
-                              type: "sV",
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
+                              receiver_customer_id: "94b385a8-f766-4987-8fb1-0651a70f5b24",
+                              type: "AIUc",
                               is_modified: false,
-                              from: "2023-12-16T15:10:07.000000+09:00",
-                              to: "2025-02-09T15:29:40.000000+09:00",
-                              page: 5262,
-                              per_page: 8021
+                              from: "2016-06-18T03:01:27.000000+09:00",
+                              to: "2016-10-25T09:18:09.000000+09:00",
+                              page: 2957,
+                              per_page: 2835
     ))
     assert response.code != "400"
   end
 
   def test_list_customer_transactions_8
     response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                              "a04ecb2d-c1ce-4a4a-98f4-e23c74e7b1e6",
-                              sender_customer_id: "d1c00af8-bf4b-41b3-bef3-b02c026e486c",
-                              receiver_customer_id: "5b8035fb-be51-43a1-88f7-25bfae5e32b2",
-                              type: "v1qEnKc",
-                              is_modified: false,
-                              from: "2022-08-30T01:23:31.000000+09:00",
-                              to: "2017-10-16T18:50:18.000000+09:00",
-                              page: 6897,
-                              per_page: 5243
+                              "334c77f0-7cc3-4f70-890a-307a86dc273c",
+                              sender_customer_id: "caece5d3-5a15-4a4c-aa22-33f5ff66369c",
+                              receiver_customer_id: "fce2f748-ea07-4fd9-a17a-f181dd8f4d06",
+                              type: "u2Ra1",
+                              is_modified: true,
+                              from: "2023-08-24T21:59:26.000000+09:00",
+                              to: "2024-01-26T17:56:56.000000+09:00",
+                              page: 4734,
+                              per_page: 7073
     ))
     assert response.code != "400"
   end
 
   def test_get_bulk_transaction_0
     response = $client.send(Pokepay::Request::GetBulkTransaction.new(
-                              "711a0682-33b9-4676-8984-87d8446f701a"
+                              "b7f396e7-d365-451c-a320-d57686929fee"
     ))
     assert response.code != "400"
   end
 
   def test_create_cashtray_0
     response = $client.send(Pokepay::Request::CreateCashtray.new(
-                              "dd02e0b0-fab1-4335-9a24-cd10df13e0a4",
-                              "5557d77f-dc55-433e-8439-72717d099171",
-                              4064
+                              "413e2b45-5e6f-4679-be27-58e609bc9916",
+                              "39689ef0-f241-445c-a041-aabe7c3de7ce",
+                              2067
     ))
     assert response.code != "400"
   end
 
   def test_create_cashtray_1
     response = $client.send(Pokepay::Request::CreateCashtray.new(
-                              "dd02e0b0-fab1-4335-9a24-cd10df13e0a4",
-                              "5557d77f-dc55-433e-8439-72717d099171",
-                              4064,
-                              expires_in: 4099
+                              "413e2b45-5e6f-4679-be27-58e609bc9916",
+                              "39689ef0-f241-445c-a041-aabe7c3de7ce",
+                              2067,
+                              expires_in: 6671
     ))
     assert response.code != "400"
   end
 
   def test_create_cashtray_2
     response = $client.send(Pokepay::Request::CreateCashtray.new(
-                              "dd02e0b0-fab1-4335-9a24-cd10df13e0a4",
-                              "5557d77f-dc55-433e-8439-72717d099171",
-                              4064,
-                              description: "dXnkHVwtuWRPDBo28vDsYr2EOFyjAKpCpIzZXmsoGSwaJTi7OUK0vKQ13gfO1QSAIUcA7AjSSLuHYzu2Ra1BM",
-                              expires_in: 2630
+                              "413e2b45-5e6f-4679-be27-58e609bc9916",
+                              "39689ef0-f241-445c-a041-aabe7c3de7ce",
+                              2067,
+                              description: "koel9aDgdNSfmE5De5bTvMyHpd2S",
+                              expires_in: 817
     ))
     assert response.code != "400"
   end
 
   def test_get_cashtray_0
     response = $client.send(Pokepay::Request::GetCashtray.new(
-                              "0d15e672-5f36-47a2-a0a6-127df1e03db2"
+                              "ccb51edf-52d7-418a-843b-5f9ef04d6625"
     ))
     assert response.code != "400"
   end
 
   def test_cancel_cashtray_0
     response = $client.send(Pokepay::Request::CancelCashtray.new(
-                              "12825ba0-96e7-4365-9c23-70203b87d576"
+                              "977e2e92-00b3-4d46-a1f1-d3020c90da5c"
     ))
     assert response.code != "400"
   end
 
   def test_update_cashtray_0
     response = $client.send(Pokepay::Request::UpdateCashtray.new(
-                              "86929fee-2b45-4e6f-b9fe-8827ee1558e6"
+                              "358737a8-e08e-478a-92a4-e4cb81fc5c82"
     ))
     assert response.code != "400"
   end
 
   def test_update_cashtray_1
     response = $client.send(Pokepay::Request::UpdateCashtray.new(
-                              "86929fee-2b45-4e6f-b9fe-8827ee1558e6",
-                              expires_in: 6423
+                              "358737a8-e08e-478a-92a4-e4cb81fc5c82",
+                              expires_in: 7947
     ))
     assert response.code != "400"
   end
 
   def test_update_cashtray_2
     response = $client.send(Pokepay::Request::UpdateCashtray.new(
-                              "86929fee-2b45-4e6f-b9fe-8827ee1558e6",
-                              description: "ANnkoel9aDgdNSfmE5De5bTvMyHpd2S0WD3FaqRKAgoYEGpNOGzwWmNqL0QHxylFWl",
-                              expires_in: 3237
+                              "358737a8-e08e-478a-92a4-e4cb81fc5c82",
+                              description: "AgoYEGpNOGzwWmNqL0QHxylFW",
+                              expires_in: 6715
     ))
     assert response.code != "400"
   end
 
   def test_update_cashtray_3
     response = $client.send(Pokepay::Request::UpdateCashtray.new(
-                              "86929fee-2b45-4e6f-b9fe-8827ee1558e6",
-                              amount: 2698,
-                              description: "u94S8FVSDMY5BU7ZXRTfnNFoNra90XKkUB3tu",
-                              expires_in: 4655
+                              "358737a8-e08e-478a-92a4-e4cb81fc5c82",
+                              amount: 4994,
+                              description: "u94S8FVSDMY5BU7ZXRTfnNFoNra90XKkUB3tuq1X9Hm0SHBKCUruJxi1ST1WXtfeKSzrq1Zc5Ju53UYOCwl5C8rEq5yNfh8NoRe5rX0rVCmpq",
+                              expires_in: 59
     ))
     assert response.code != "400"
   end
