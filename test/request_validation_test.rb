@@ -1632,23 +1632,23 @@ class PokepayTest < Minitest::Test
     assert response.code != "400"
   end
 
-  def test_create_shop_v_0
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_0
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy"
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_1
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_1
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               can_topup_private_money_ids: ["55477e43-986f-4043-aa59-362f8110a1ef"]
     ))
     assert response.code != "400"
   end
 
-  def test_create_shop_v_2
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_2
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               private_money_ids: ["8fede01a-c46d-4c0c-a128-8094385db7cc", "f679ccf2-2131-4cc2-875f-1edefa6d078b", "4f498ecc-31d9-422d-91e4-e7235301348d", "185f62e7-6e73-4672-94f3-b7ffee18f7c2", "d7c3650e-903c-4a37-8ebb-b46eb003dee6", "d089a704-45b3-4280-bab7-60a75789eafa", "4f734cdd-9a37-45b6-8f59-22713e36354c", "ca14972a-58da-4c29-a8e4-31ab73a6be32", "9008c405-20d6-485d-ad6e-a8f781d92eda", "7d5b37b1-6194-49d9-9188-d3a6caa74dfb"],
                               can_topup_private_money_ids: []
@@ -1656,8 +1656,8 @@ class PokepayTest < Minitest::Test
     assert response.code != "400"
   end
 
-  def test_create_shop_v_3
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_3
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               organization_code: "L",
                               private_money_ids: ["2c625d61-7c4e-4dac-bb89-d13690bafded", "5d998686-cea7-47e1-93da-b657499bdeaa", "a0225aca-c3ee-429e-abbc-a92f67640787", "ae11e487-1431-4090-ac2a-9fbf0b9e4384", "ff08dda5-3908-44bc-93b2-941169c57607", "88136513-1fff-4137-9d79-6e2d42e973a8", "58c514d6-346a-4159-bd5a-b11ac18065a6", "3be07b7a-0ad3-476b-966a-dd0a4a9ba029"],
@@ -1666,8 +1666,8 @@ class PokepayTest < Minitest::Test
     assert response.code != "400"
   end
 
-  def test_create_shop_v_4
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_4
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               external_id: "fF1BkHf1A87wLQ9bOIRS2WYI5c",
                               organization_code: "o-Ch-h0-y-iifb-4--EEd-61Ja4-Q",
@@ -1677,8 +1677,8 @@ class PokepayTest < Minitest::Test
     assert response.code != "400"
   end
 
-  def test_create_shop_v_5
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_5
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               email: "2OJwUM0ktk@1yse.com",
                               external_id: "dNhZ",
@@ -1689,8 +1689,8 @@ class PokepayTest < Minitest::Test
     assert response.code != "400"
   end
 
-  def test_create_shop_v_6
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_6
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               tel: "0281-6809-1133",
                               email: "GvU5oJnH6h@OfBg.com",
@@ -1702,8 +1702,8 @@ class PokepayTest < Minitest::Test
     assert response.code != "400"
   end
 
-  def test_create_shop_v_7
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_7
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               address: "IVjtUkLTSkOKux630Id9YuKsTGECVvJsAnqjel2la3rWWdK2ybDtXJiikZzBktm983ksDdKfbC96DBMvuC0QTfx8l2ZZBjyQqeO19KhFrkxiVRAQ6FFjz1wnjIRjO9MofqJJncHBCR1qP1zId4",
                               tel: "0037807811",
@@ -1716,8 +1716,8 @@ class PokepayTest < Minitest::Test
     assert response.code != "400"
   end
 
-  def test_create_shop_v_8
-    response = $client.send(Pokepay::Request::CreateShopV.new(
+  def test_create_shop_v2_8
+    response = $client.send(Pokepay::Request::CreateShopV2.new(
                               "JpHpSrpNbF8O3WzYFSGY9bWV5jbNBEz14f9BIpTXI2luGWaGy",
                               postal_code: "8107026",
                               address: "8ZQmhXHGSVgVcs3OQMdHqZLlv01wGqOn2jIsFsWbo7bpQq9anT6PszkN335U1t4DYsuiE88p3Hog0k8dxuKgCFI0Qv1brn8ATMTNMMEyVApkaDeYuOtBoCZgc4gwc8RSE7B5wsqfAkho5yO5EQGpb9AHk6UF1UjWUyw97H5Wi0UlM5hWRopq8fm3QjwrUJDS6QI",
