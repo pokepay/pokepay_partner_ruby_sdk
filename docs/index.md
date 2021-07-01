@@ -179,19 +179,19 @@ response.body
 取引一覧を返します。
 ```ruby
 response = $client.send(Pokepay::Request::ListTransactions.new(
-                          from: "2018-02-24T20:24:55.000000+09:00",             # 開始日時
-                          to: "2020-10-22T04:47:28.000000+09:00",               # 終了日時
-                          page: 1,                                              # ページ番号
-                          per_page: 50,                                         # 1ページ分の取引数
-                          shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
-                          customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # エンドユーザーID
-                          customer_name: "太郎",                                  # エンドユーザー名
-                          terminal_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # 端末ID
-                          transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 取引ID
-                          organization_code: "pocketchange",                    # 組織コード
-                          private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
-                          is_modified: true,                                    # キャンセルフラグ
-                          types: ["topup", "payment"]                           # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
+                          from: "2021-03-07T22:47:08.000000+09:00",             # 抽出期間の開始日時です。
+                          to: "2022-03-08T10:30:46.000000+09:00",               # 抽出期間の終了日時です。
+                          page: 1,                                              # 取得したいページ番号です。
+                          per_page: 50,                                         # 1ページ分の取引数です。
+                          shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗IDです。
+                          customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # エンドユーザーIDです。
+                          customer_name: "太郎",                                  # エンドユーザー名です。
+                          terminal_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # 端末IDです。
+                          transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 取引IDです。
+                          organization_code: "pocketchange",                    # 組織コードです。
+                          private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーIDです。
+                          is_modified: true,                                    # キャンセルフラグです。
+                          types: ["topup", "payment"]                           # 取引の種類でフィルターします。
 ))
 ```
 
@@ -292,10 +292,10 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          money_amount: 313,
-                          point_amount: 3912,
-                          point_expires_at: "2023-04-30T21:00:37.000000+09:00", # ポイント有効期限
-                          description: "S"
+                          money_amount: 1421,
+                          point_amount: 2284,
+                          point_expires_at: "2024-09-29T14:09:13.000000+09:00", # ポイントをチャージした場合の、付与されるポイントの有効期限です。
+                          description: "dnW1ooZFRDSiyltrhPzNi7jenj4X3xdXKxR7POl5XLEB6rdcoyFq3Dy2RXyPUAe3PgOIxNaz33MDlMm45c417ClVPZadCz21oTLg0Zh082rSUmgTJgltXUvopMAE6nKVgCC79b4Ei190OQ71CLczodkHUHlo8UiDVjyL"
 ))
 ```
 
@@ -311,14 +311,14 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
 チャージ取引を作成します。
 ```ruby
 response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーのID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          bear_point_shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # ポイント支払時の負担店舗ID
-                          money_amount: 5960,                                   # マネー額
-                          point_amount: 6566,                                   # ポイント額
-                          point_expires_at: "2020-06-09T20:49:01.000000+09:00", # ポイント有効期限
-                          description: "初夏のチャージキャンペーン"                          # 取引履歴に表示する説明文
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗IDです。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーIDです。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーIDです。
+                          bear_point_shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # ポイント支払時の負担店舗IDです。
+                          money_amount: 8760,                                   # マネー額です。
+                          point_amount: 2312,                                   # ポイント額です。
+                          point_expires_at: "2023-08-31T03:26:11.000000+09:00", # ポイントをチャージした場合の、付与されるポイントの有効期限です。
+                          description: "初夏のチャージキャンペーン"                          # 取引説明文です。
 ))
 ```
 
@@ -378,11 +378,11 @@ response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
 
 ```ruby
 response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          5274,                                                 # amount: 支払い額
-                          description: "たい焼き(小倉)"                               # 取引履歴に表示する説明文
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗IDです。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーIDです。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーIDです。
+                          3693,                                                 # amount: マネー額です。
+                          description: "たい焼き(小倉)"                               # 取引説明文です。
 ))
 ```
 
@@ -425,11 +425,11 @@ response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
 
 ```ruby
 response = $client.send(Pokepay::Request::CreateTransferTransaction.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # sender_id: 送金元ユーザーID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # receiver_id: 受取ユーザーID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          9429,                                                 # amount: 送金額
-                          description: "たい焼き(小倉)"                               # 取引履歴に表示する説明文
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # sender_id: エンドユーザーIDです。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # receiver_id: エンドユーザーIDです。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーIDです。
+                          6392,                                                 # amount: マネー額です。
+                          description: "たい焼き(小倉)"                               # 取引説明文です。
 ))
 ```
 
@@ -472,8 +472,8 @@ response = $client.send(Pokepay::Request::CreateExchangeTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          3501,
-                          description: "ruJxi1ST1WXtfeKSzrq1Zc5Ju53UYOCwl5C8rEq5yNfh8NoRe5rX0rVCmpqdlLHNNlbdnW1ooZFRDSiyltrhPzNi7jenj4X3xdXKxR7POl5XLEB6rdcoyFq3Dy2RXyPUA"
+                          9228,
+                          description: "NxSNDBAB21jRDnDfUt4YgIyZaTsiHOmcCShoExxXDzwmu0NmtxroKVUk7sDu4lw8ZxL5ooBCUmbexHlOYPdRDRXfcFEKebPAHiatKRmL7K8IMJIBW1vB1RC8WQ75Zq2CPEph5LyiHrKKZHYeA6K"
 ))
 ```
 成功したときは[Transaction](#transaction)オブジェクトを返します
@@ -482,7 +482,7 @@ response = $client.send(Pokepay::Request::CreateExchangeTransaction.new(
 取引を取得します。
 ```ruby
 response = $client.send(Pokepay::Request::GetTransaction.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # transaction_id: 取引ID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # transaction_id: 取引IDです。
 ))
 ```
 
@@ -498,19 +498,19 @@ response = $client.send(Pokepay::Request::GetTransaction.new(
 #### 
 ```ruby
 response = $client.send(Pokepay::Request::ListTransfers.new(
-                          from: "2017-11-27T11:10:27.000000+09:00",
-                          to: "2022-07-13T10:00:27.000000+09:00",
-                          page: 9517,
-                          per_page: 651,
+                          from: "2017-10-07T19:44:21.000000+09:00",
+                          to: "2018-06-17T19:03:29.000000+09:00",
+                          page: 4180,
+                          per_page: 4035,
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          shop_name: "gOIxNaz33MDlMm45c417ClVPZadCz21oTLg0Zh082rSUmgTJgltXUvopMAE6nKVgCC79b4Ei190OQ71CLczodkHUHlo8UiDVjyL8K2mxNxSNDBAB21jRDnDfUt4YgIyZaTsiHOmcCShoExxXDzwmu0NmtxroKVUk7sDu4lw8ZxL5",
+                          shop_name: "kbfNhFw",
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          customer_name: "oBCUmbexHlOYPdRDRXfcFEKebPAHiatKRmL7K8IMJIBW1vB1RC8WQ75Zq2CPEph5LyiHrKKZHYeA6KMsRSBkbfNhFwjSSUkqouGV2ULftf3KLiOm",
+                          customer_name: "jSSUkqouGV2ULftf3KLiOm0u6OdTYvY1WMa6BMdHbor9Bi8VjYjeAF8N8XvRYyNjj6LzPNoFY0NPc7gW3tdaerbfAUj6MGuDCQRgbbh69IfOOqdFvcvTYHWhMSc2JtDSCuxpXIBKjX0wbEINtuhWyJmxhctiEpL1KlL20SY28CEIpXvCz2lX0WFgkUTJYHHOr63hjnglJCcSZdRjCOwyap0lsb8d4Dc5yMU1TN0yX6wxY6IPoPyEr8klncfG",
                           transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          is_modified: true,
-                          transaction_types: ["topup", "transfer", "exchange"],
-                          transfer_types: ["exchange", "payment"]
+                          is_modified: false,
+                          transaction_types: ["exchange", "transfer", "payment", "topup"],
+                          transfer_types: ["topup", "transfer", "exchange", "payment"]
 ))
 ```
 成功したときは[PaginatedTransfers](#paginated-transfers)オブジェクトを返します
@@ -531,8 +531,8 @@ QRコードを読み取る方法以外にも、このURLリンクを直接スマ
 
 ```ruby
 response = $client.send(Pokepay::Request::CreateTopupTransactionWithCheck.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # check_id: チャージ用QRコードのID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # customer_id: エンドユーザーのID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # check_id: チャージ用QRコードのIDです。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # customer_id: エンドユーザーIDです。
 ))
 ```
 
@@ -557,19 +557,19 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 支払いQRコード一覧を表示します。
 ```ruby
 response = $client.send(Pokepay::Request::ListBills.new(
-                          page: 532,                                            # ページ番号
-                          per_page: 218,                                        # 1ページの表示数
-                          bill_id: "WM",                                        # 支払いQRコードのID
-                          private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
-                          organization_code: "--9",                             # 組織コード
-                          description: "test bill",                             # 取引説明文
-                          created_from: "2016-02-26T19:01:25.000000+09:00",     # 作成日時(起点)
-                          created_to: "2021-01-22T10:47:37.000000+09:00",       # 作成日時(終点)
-                          shop_name: "bill test shop1",                         # 店舗名
-                          shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
-                          lower_limit_amount: 4942,                             # 金額の範囲によるフィルタ(下限)
-                          upper_limit_amount: 1563,                             # 金額の範囲によるフィルタ(上限)
-                          is_disabled: true                                     # 支払いQRコードが無効化されているかどうか
+                          page: 1083,                                           # 取得したいページ番号です。
+                          per_page: 8979,                                       # 1ページに表示する支払いQRコードの数です。
+                          bill_id: "OqOmjPQj",                                  # 支払いQRコードのIDを指定して検索します。IDは前方一致で検索されます。
+                          private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 支払いQRコードの送金元ウォレットのマネーIDでフィルターします。
+                          organization_code: "v-n",                             # 支払いQRコードの送金元店舗が所属する組織の組織コードでフィルターします。
+                          description: "test bill",                             # 支払いQRコードを読み取ることで作られた取引の説明文としてアプリなどに表示されます。
+                          created_from: "2022-01-25T23:24:31.000000+09:00",     # 支払いQRコードの作成日時でフィルターします。
+                          created_to: "2016-11-01T22:58:21.000000+09:00",       # 支払いQRコードの作成日時でフィルターします。
+                          shop_name: "bill test shop1",                         # 支払いQRコードを作成した店舗名でフィルターします。店舗名は部分一致で検索されます。
+                          shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 支払いQRコードを作成した店舗IDでフィルターします。
+                          lower_limit_amount: 5690,                             # 支払いQRコードの金額の下限を指定してフィルターします。
+                          upper_limit_amount: 7721,                             # 支払いQRコードの金額の上限を指定してフィルターします。
+                          is_disabled: true                                     # 支払いQRコードが無効化されているかどうかを表します。デフォルト値は偽(有効)です。
 ))
 ```
 
@@ -636,10 +636,10 @@ response = $client.send(Pokepay::Request::ListBills.new(
 支払いQRコードの内容を更新します。支払い先の店舗ユーザーは指定したマネーのウォレットを持っている必要があります。
 ```ruby
 response = $client.send(Pokepay::Request::CreateBill.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: 支払いマネーのマネーID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 支払い先(受け取り人)の店舗ID
-                          amount: 3512,                                         # 支払い額
-                          description: "test bill"                              # 説明文(アプリ上で取引の説明文として表示される)
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                          amount: 4286,                                         # 支払いQRコードを支払い額を指定します。省略するかnullを渡すと任意金額の支払いQRコードとなり、エンドユーザーがアプリで読み取った際に金額を入力します。
+                          description: "test bill"
 ))
 ```
 
@@ -654,10 +654,10 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 支払いQRコードの内容を更新します。パラメータは全て省略可能で、指定したもののみ更新されます。
 ```ruby
 response = $client.send(Pokepay::Request::UpdateBill.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bill_id: 支払いQRコードのID
-                          amount: 2045,                                         # 支払い額
-                          description: "test bill",                             # 説明文
-                          is_disabled: true                                     # 無効化されているかどうか
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bill_id: 更新対象の支払いQRコードのIDです。
+                          amount: 3562,                                         # 支払いQRコードを支払い額を指定します。nullを渡すと任意金額の支払いQRコードとなり、エンドユーザーがアプリで読み取った際に金額を入力します。
+                          description: "test bill",                             # 支払いQRコードの詳細説明文です。アプリ上で取引の説明文として表示されます。
+                          is_disabled: true                                     # 支払いQRコードが無効化されているかどうかを指定します。真にすると無効化され、偽にすると有効化します。
 ))
 ```
 
@@ -696,11 +696,11 @@ Cashtrayを作成します。
 
 ```ruby
 response = $client.send(Pokepay::Request::CreateCashtray.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ユーザーID
-                          1828,                                                 # amount: 金額
-                          description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
-                          expires_in: 3161                                      # 失効時間(秒)
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: 取引対象のマネーのIDです(必須項目)。
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗のユーザーIDです(必須項目)。
+                          3128,                                                 # amount: マネー額です(必須項目)。
+                          description: "たい焼き(小倉)",                              # Cashtrayを読み取ったときに作られる取引の説明文です(最大200文字、任意項目)。
+                          expires_in: 8103                                      # Cashtrayが失効するまでの時間を秒単位で指定します(任意項目、デフォルト値は1800秒(30分))。
 ))
 ```
 
@@ -788,7 +788,7 @@ if (attempt == null) {
 ```
 ```ruby
 response = $client.send(Pokepay::Request::GetCashtray.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # cashtray_id: CashtrayのID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # cashtray_id: 情報を取得するCashtrayのIDです。
 ))
 ```
 
@@ -806,7 +806,7 @@ Cashtrayを無効化します。
 エンドユーザーが無効化されたQRコードを読み取ると `cashtray_already_canceled` エラーとなり、取引は失敗します。
 ```ruby
 response = $client.send(Pokepay::Request::CancelCashtray.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # cashtray_id: CashtrayのID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # cashtray_id: 無効化するCashtrayのIDです。
 ))
 ```
 
@@ -821,10 +821,10 @@ response = $client.send(Pokepay::Request::CancelCashtray.new(
 Cashtrayの内容を更新します。bodyパラメーターは全て省略可能で、指定したもののみ更新されます。
 ```ruby
 response = $client.send(Pokepay::Request::UpdateCashtray.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # cashtray_id: CashtrayのID
-                          amount: 987,                                          # 金額
-                          description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
-                          expires_in: 5471                                      # 失効時間(秒)
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # cashtray_id: 更新対象のCashtrayのIDです。
+                          amount: 9905,                                         # マネー額です(任意項目)。
+                          description: "たい焼き(小倉)",                              # Cashtrayを読み取ったときに作られる取引の説明文です(最大200文字、任意項目)。
+                          expires_in: 2635                                      # Cashtrayが失効するまでの時間を秒で指定します(任意項目、デフォルト値は1800秒(30分))。
 ))
 ```
 
@@ -854,7 +854,7 @@ Cashtrayが失効するまでの時間を秒で指定します(任意項目、�
 ウォレットを取得します。
 ```ruby
 response = $client.send(Pokepay::Request::GetAccount.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # account_id: ウォレットID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # account_id: ウォレットIDです。
 ))
 ```
 
@@ -871,8 +871,8 @@ response = $client.send(Pokepay::Request::GetAccount.new(
 ウォレットの状態を更新します。現在はウォレットの凍結/凍結解除の切り替えにのみ対応しています。
 ```ruby
 response = $client.send(Pokepay::Request::UpdateAccount.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          is_suspended: false                                   # ウォレットが凍結されているかどうか
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットIDです。
+                          is_suspended: false                                   # ウォレットの凍結状態です。真にするとウォレットが凍結され、そのウォレットでは新規取引ができなくなります。偽にすると凍結解除されます。
 ))
 ```
 
@@ -893,12 +893,12 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 エンドユーザーのウォレット毎の残高を有効期限別のリストとして取得します。
 ```ruby
 response = $client.send(Pokepay::Request::ListAccountBalances.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 2948,                                           # ページ番号
-                          per_page: 4246,                                       # 1ページ分の取引数
-                          expires_at_from: "2024-04-18T03:31:49.000000+09:00",  # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2019-01-11T07:51:31.000000+09:00",    # 有効期限の期間によるフィルター(終了時点)
-                          direction: "desc"                                     # 有効期限によるソート順序
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットIDです。
+                          page: 6492,                                           # 取得したいページ番号です。デフォルト値は1です。
+                          per_page: 8200,                                       # 1ページ分のウォレット残高数です。デフォルト値は30です。
+                          expires_at_from: "2023-02-10T06:31:24.000000+09:00",  # 有効期限の期間によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
+                          expires_at_to: "2015-10-25T22:32:38.000000+09:00",    # 有効期限の期間によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
+                          direction: "asc"                                      # 有効期限によるソートの順序を指定します。デフォルト値はasc (昇順)です。
 ))
 ```
 
@@ -935,12 +935,12 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 エンドユーザーのウォレット毎の失効済みの残高を有効期限別のリストとして取得します。
 ```ruby
 response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 6863,                                           # ページ番号
-                          per_page: 6525,                                       # 1ページ分の取引数
-                          expires_at_from: "2022-09-24T18:44:02.000000+09:00",  # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2017-07-29T15:03:56.000000+09:00",    # 有効期限の期間によるフィルター(終了時点)
-                          direction: "desc"                                     # 有効期限によるソート順序
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットIDです。
+                          page: 6728,                                           # 取得したいページ番号です。デフォルト値は1です。
+                          per_page: 2052,                                       # 1ページ分のウォレット残高数です。デフォルト値は30です。
+                          expires_at_from: "2022-12-01T19:24:55.000000+09:00",  # 有効期限の期間によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
+                          expires_at_to: "2017-01-20T20:17:45.000000+09:00",    # 有効期限の期間によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
+                          direction: "desc"                                     # 有効期限によるソートの順序を指定します。デフォルト値はdesc (降順)です。
 ))
 ```
 
@@ -977,9 +977,9 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 指定したマネーのウォレットを作成し、同時にそのウォレットを保有するユーザも作成します。
 ```ruby
 response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          user_name: "ポケペイ太郎",                                  # ユーザー名
-                          account_name: "ポケペイ太郎のアカウント"                          # アカウント名
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーIDです。
+                          user_name: "ポケペイ太郎",                                  # ウォレットと共に作成するユーザ名です。省略した場合は空文字となります。
+                          account_name: "ポケペイ太郎のアカウント"                          # 作成するウォレット名です。省略した場合は空文字となります。
 ))
 ```
 
@@ -1004,15 +1004,15 @@ response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
 取引一覧を返します。
 ```ruby
 response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          sender_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 送金エンドユーザーID
-                          receiver_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 受取エンドユーザーID
-                          type: "L",                                            # 取引種別、チャージ=topup、支払い=payment、個人間送金=transfer
-                          is_modified: true,                                    # キャンセル済みかどうか
-                          from: "2017-03-01T02:18:01.000000+09:00",             # 開始日時
-                          to: "2021-08-14T21:55:36.000000+09:00",               # 終了日時
-                          page: 1,                                              # ページ番号
-                          per_page: 50                                          # 1ページ分の取引数
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーIDです。
+                          sender_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 送金ユーザーIDです。
+                          receiver_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 受取ユーザーIDです。
+                          type: "Srp",                                          # 取引の種類でフィルターします。
+                          is_modified: false,                                   # キャンセル済みかどうかを判定するフラグです。
+                          from: "2017-07-25T12:50:19.000000+09:00",             # 抽出期間の開始日時です。
+                          to: "2016-03-31T11:27:56.000000+09:00",               # 抽出期間の終了日時です。
+                          page: 1,                                              # 取得したいページ番号です。
+                          per_page: 50                                          # 1ページ分の取引数です。
 ))
 ```
 
@@ -1084,16 +1084,16 @@ falseを指定するとキャンセルされていない取引のみ一覧に表
 #### 店舗一覧を取得する
 ```ruby
 response = $client.send(Pokepay::Request::ListShops.new(
-                          organization_code: "pocketchange",                    # 組織コード
-                          private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
-                          name: "oxスーパー三田店",                                    # 店舗名
-                          postal_code: "624-0001",                              # 店舗の郵便番号
-                          address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "077-41-284",                                    # 店舗の電話番号
-                          email: "fAUj6MGuDC@QRgb.com",                         # 店舗のメールアドレス
-                          external_id: "h69IfOOqdFvcvTYHWhMSc2JtDSCuxpXIBKj",   # 店舗の外部ID
-                          page: 1,                                              # ページ番号
-                          per_page: 50                                          # 1ページ分の取引数
+                          organization_code: "pocketchange",                    # このパラメータを渡すとその組織の店舗のみが返され、省略すると加盟店も含む店舗が返されます。
+                          private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # このパラメータを渡すとそのマネーのウォレットを持つ店舗のみが返されます。
+                          name: "oxスーパー三田店",                                    # このパラメータを渡すとその名前の店舗のみが返されます。
+                          postal_code: "5102030",                               # このパラメータを渡すとその郵便番号が登録された店舗のみが返されます。
+                          address: "東京都港区芝...",                                 # このパラメータを渡すとその住所が登録された店舗のみが返されます。
+                          tel: "02-200-2918",                                   # このパラメータを渡すとその電話番号が登録された店舗のみが返されます。
+                          email: "fbLwdjVaS9@Jydp.com",                         # このパラメータを渡すとそのメールアドレスが登録された店舗のみが返されます。
+                          external_id: "qXjqW7D3u",                             # このパラメータを渡すとその外部IDが登録された店舗のみが返されます。
+                          page: 1,                                              # 取得したいページ番号です。
+                          per_page: 50                                          # 1ページ分の取引数です。
 ))
 ```
 
@@ -1152,13 +1152,13 @@ response = $client.send(Pokepay::Request::ListShops.new(
 新規店舗を追加します。このAPIは廃止予定です。以降は `CreateShopV2` を使用してください。
 ```ruby
 response = $client.send(Pokepay::Request::CreateShop.new(
-                          "oxスーパー三田店",                                          # shop_name: 店舗名
-                          shop_postal_code: "8072594",                          # 店舗の郵便番号
-                          shop_address: "東京都港区芝...",                            # 店舗の住所
-                          shop_tel: "083-7936908",                              # 店舗の電話番号
-                          shop_email: "hctiEpL1Kl@L20S.com",                    # 店舗のメールアドレス
-                          shop_external_id: "Y28CEIpXvCz2lX0WFgkUTJYHHO",       # 店舗の外部ID
-                          organization_code: "ox-supermarket"                   # 組織コード
+                          "oxスーパー三田店",
+                          shop_postal_code: "373-4054",
+                          shop_address: "東京都港区芝...",
+                          shop_tel: "083-779-345",
+                          shop_email: "dPl4JIrQmL@FWJx.com",
+                          shop_external_id: "GB9NLriuIsMTYyCUoOEa9YZaUNPTMagDSPeH",
+                          organization_code: "ox-supermarket"
 ))
 ```
 成功したときは[User](#user)オブジェクトを返します
@@ -1166,15 +1166,15 @@ response = $client.send(Pokepay::Request::CreateShop.new(
 #### 新規店舗を追加する
 ```ruby
 response = $client.send(Pokepay::Request::CreateShopV.new(
-                          "oxスーパー三田店",                                          # name: 店舗名
-                          postal_code: "6626381",                               # 店舗の郵便番号
-                          address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "05763334042",                                   # 店舗の電話番号
-                          email: "jCOwyap0ls@b8d4.com",                         # 店舗のメールアドレス
-                          external_id: "Dc5yMU1TN0yX6wxY6IPoPyEr8klnc",         # 店舗の外部ID
-                          organization_code: "ox-supermarket",                  # 組織コード
-                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列
-                          can_topup_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # 店舗でチャージ可能にするマネーIDの配列
+                          "oxスーパー三田店",                                          # name: 店舗名です。
+                          postal_code: "9873173",
+                          address: "東京都港区芝...",
+                          tel: "0097712-9463",
+                          email: "oPTyGfjAlv@bOwB.com",
+                          external_id: "ftL3mTfJhTjDs9c8QNU",
+                          organization_code: "ox-supermarket",
+                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列を指定します。
+                          can_topup_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # 店舗でチャージ可能にするマネーIDの配列を指定します。
 ))
 ```
 
@@ -1207,7 +1207,7 @@ response = $client.send(Pokepay::Request::CreateShopV.new(
 権限に関わらず自組織の店舗情報は表示可能です。それに加え、発行体は自組織の発行しているマネーの加盟店組織の店舗情報を表示できます。
 ```ruby
 response = $client.send(Pokepay::Request::GetShop.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # shop_id: 店舗ユーザーID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 ))
 ```
 成功したときは[ShopWithAccounts](#shop-with-accounts)オブジェクトを返します
@@ -1216,15 +1216,15 @@ response = $client.send(Pokepay::Request::GetShop.new(
 店舗情報を更新します。bodyパラメーターは全て省略可能で、指定したもののみ更新されます。
 ```ruby
 response = $client.send(Pokepay::Request::UpdateShop.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ユーザーID
-                          name: "oxスーパー三田店",                                    # 店舗名
-                          postal_code: "5576227",                               # 店舗の郵便番号
-                          address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "0904519142",                                    # 店舗の電話番号
-                          email: "uyEzfF4ihE@MnqI.com",                         # 店舗のメールアドレス
-                          external_id: "LL8T5msTmgqj81R",                       # 店舗の外部ID
-                          private_money_ids: [],                                # 店舗で有効にするマネーIDの配列
-                          can_topup_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # 店舗でチャージ可能にするマネーIDの配列
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                          name: "oxスーパー三田店",                                    # 店舗名です。
+                          postal_code: "841-5932",                              # 店舗住所の郵便番号(7桁の数字)です。ハイフンは無視されます。明示的に空の値を設定するにはNULLを指定します。
+                          address: "東京都港区芝...",
+                          tel: "0870057651",                                    # 店舗の電話番号です。ハイフンは無視されます。明示的に空の値を設定するにはNULLを指定します。
+                          email: "6qe5BUa3mr@tCxk.com",                         # 店舗の連絡先メールアドレスです。明示的に空の値を設定するにはNULLを指定します。
+                          external_id: "ktMbdZ0Ff5nebRZC0vDYNEW",               # 店舗の外部IDです(最大36文字)。明示的に空の値を設定するにはNULLを指定します。
+                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列を指定します。
+                          can_topup_private_money_ids: []                       # 店舗でチャージ可能にするマネーIDの配列を指定します。
 ))
 ```
 
@@ -1272,7 +1272,7 @@ response = $client.send(Pokepay::Request::UpdateShop.new(
 ユーザーIDを指定してそのユーザーのウォレット一覧を取得します。
 ```ruby
 response = $client.send(Pokepay::Request::ListUserAccounts.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # user_id: ユーザーID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # user_id: ユーザーIDです。
 ))
 ```
 
@@ -1292,9 +1292,9 @@ response = $client.send(Pokepay::Request::ListUserAccounts.new(
 パートナーキーの管理者が決済加盟店組織に属している場合は、自組織が加盟しているマネーの一覧を返します。
 ```ruby
 response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
-                          organization_code: "ox-supermarket",                  # 組織コード
-                          page: 1,                                              # ページ番号
-                          per_page: 50                                          # 1ページ分の取得数
+                          organization_code: "ox-supermarket",                  # パートナーキーの管理者が発行体組織に属している場合、発行マネーのうち、この組織コードで指定した決済加盟店組織が加盟しているマネーの一覧を返します。決済加盟店組織の管理者は自組織以外を指定することはできません。
+                          page: 1,
+                          per_page: 50
 ))
 ```
 
@@ -1308,11 +1308,11 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 #### 決済加盟店の取引サマリを取得する
 ```ruby
 response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2017-03-23T12:47:17.000000+09:00",             # 開始日時(toと同時に指定する必要有)
-                          to: "2024-06-20T02:27:27.000000+09:00",               # 終了日時(fromと同時に指定する必要有)
-                          page: 1,                                              # ページ番号
-                          per_page: 50                                          # 1ページ分の取引数
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                          from: "2021-10-16T13:57:56.000000+09:00",
+                          to: "2019-06-24T18:12:50.000000+09:00",
+                          page: 1,
+                          per_page: 50
 ))
 ```
 `from`と`to`は同時に指定する必要があります。
@@ -1324,10 +1324,10 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 CSVファイルから一括取引をします。
 ```ruby
 response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
-                          "GFY2SrpQfm9Le0rSPWlrPa8fbLwdjVa",                    # name: 一括取引タスク名
-                          "9Jyd",                                               # content: 取引する情報のCSV
-                          "pHqXjqW7D3uCGCdE3Z7gIcLSudPl4JIrQmLF",               # request_id: リクエストID
-                          description: "JxcGB9NLriuIsMTYyCUoOEa9YZaUNPTMagDSPeHLGCGYvgqbqCIdoPTyGfjAlvbOwBRftL3mTfJhTjDs9c8QNUGv" # 一括取引の説明
+                          "XSVHRY4YZdsEswklf9tWgAr9K",                          # name: 一括取引タスクの管理用の名前です。
+                          "jsUzeefEv",                                          # content: 一括取引する情報を書いたCSVの文字列です。
+                          "U98BI4BdtnYVFOF5IXA6lNw66Yqs62ry4EX0",               # request_id: 重複したリクエストを判断するためのユニークID。ランダムな36字の文字列を生成して渡してください。
+                          description: "5SsjBGi2vt3IVLujfoeXIyA6Ao821XE55hc29pv4sZBooZY5wA4Og2kdAYLVTxSOsaSsUmdY0" # 一括取引タスクの管理用の説明文です。
 ))
 ```
 
@@ -1399,40 +1399,40 @@ response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
 
 <a name="bill"></a>
 ## Bill
-* `id (string)`: 支払いQRコードのID
-* `amount (double)`: 支払い額
-* `max_amount (double)`: 支払い額を範囲指定した場合の上限
-* `min_amount (double)`: 支払い額を範囲指定した場合の下限
-* `description (string)`: 支払いQRコードの説明文(アプリ上で取引の説明文として表示される)
-* `account (AccountWithUser)`: 支払いQRコード発行ウォレット
-* `is_disabled (boolean)`: 無効化されているかどうか
-* `token (string)`: 支払いQRコードを解析したときに出てくるURL
+* `id (string)`: 
+* `amount (double)`: 
+* `max_amount (double)`: 
+* `min_amount (double)`: 
+* `description (string)`: 
+* `account (AccountWithUser)`: 
+* `is_disabled (boolean)`: 
+* `token (string)`: 
 
 `account`は [AccountWithUser](#account-with-user) オブジェクトを返します。
 
 <a name="cashtray"></a>
 ## Cashtray
-* `id (string)`: Cashtray自体のIDです。
-* `amount (double)`: 取引金額
-* `description (string)`: Cashtrayの説明文
-* `account (AccountWithUser)`: 発行店舗のウォレット
-* `expires_at (string)`: Cashtrayの失効日時
-* `canceled_at (string)`: Cashtrayの無効化日時。NULLの場合は無効化されていません
-* `token (string)`: CashtrayのQRコードを解析したときに出てくるURL
+* `id (string)`: 
+* `amount (double)`: 
+* `description (string)`: 
+* `account (AccountWithUser)`: 
+* `expires_at (string)`: 
+* `canceled_at (string)`: 
+* `token (string)`: 
 
 `account`は [AccountWithUser](#account-with-user) オブジェクトを返します。
 
 <a name="cashtray-with-result"></a>
 ## CashtrayWithResult
-* `id (string)`: CashtrayのID
-* `amount (double)`: 取引金額
-* `description (string)`: Cashtrayの説明文(アプリ上で取引の説明文として表示される)
-* `account (AccountWithUser)`: 発行店舗のウォレット
-* `expires_at (string)`: Cashtrayの失効日時
-* `canceled_at (string)`: Cashtrayの無効化日時。NULLの場合は無効化されていません
-* `token (string)`: CashtrayのQRコードを解析したときに出てくるURL
-* `attempt (CashtrayAttempt)`: Cashtray読み取り結果
-* `transaction (Transaction)`: 取引結果
+* `id (string)`: 
+* `amount (double)`: 
+* `description (string)`: 
+* `account (AccountWithUser)`: 
+* `expires_at (string)`: 
+* `canceled_at (string)`: 
+* `token (string)`: 
+* `attempt (CashtrayAttempt)`: 
+* `transaction (Transaction)`: 
 
 `account`は [AccountWithUser](#account-with-user) オブジェクトを返します。
 
@@ -1442,24 +1442,24 @@ response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
 
 <a name="user"></a>
 ## User
-* `id (string)`: ユーザー (または店舗) ID
-* `name (string)`: ユーザー (または店舗) 名
-* `is_merchant (boolean)`: 店舗ユーザーかどうか
+* `id (string)`: 
+* `name (string)`: 
+* `is_merchant (boolean)`: 
 
 <a name="transaction"></a>
 ## Transaction
-* `id (string)`: 取引ID
-* `type (string)`: 取引種別 (チャージ=topup, 支払い=payment)
-* `is_modified (boolean)`: 返金された取引かどうか
-* `sender (User)`: 送金者情報
-* `sender_account (Account)`: 送金ウォレット情報
-* `receiver (User)`: 受取者情報
-* `receiver_account (Account)`: 受取ウォレット情報
-* `amount (double)`: 決済総額 (マネー額 + ポイント額)
-* `money_amount (double)`: 決済マネー額
-* `point_amount (double)`: 決済ポイント額
-* `done_at (string)`: 取引日時
-* `description (string)`: 取引説明文
+* `id (string)`: 
+* `type (string)`: 
+* `is_modified (boolean)`: 
+* `sender (User)`: 
+* `sender_account (Account)`: 
+* `receiver (User)`: 
+* `receiver_account (Account)`: 
+* `amount (double)`: 
+* `money_amount (double)`: 
+* `point_amount (double)`: 
+* `done_at (string)`: 
+* `description (string)`: 
 
 `receiver`と`sender`は [User](#user) オブジェクトを返します。
 
@@ -1467,14 +1467,14 @@ response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
 
 <a name="shop-with-accounts"></a>
 ## ShopWithAccounts
-* `id (string)`: 店舗ID
-* `name (string)`: 店舗名
-* `organization_code (string)`: 組織コード
-* `postal_code (string)`: 店舗の郵便番号
-* `address (string)`: 店舗の住所
-* `tel (string)`: 店舗の電話番号
-* `email (string)`: 店舗のメールアドレス
-* `external_id (string)`: 店舗の外部ID
+* `id (string)`: 
+* `name (string)`: 
+* `organization_code (string)`: 
+* `postal_code (string)`: 
+* `address (string)`: 
+* `tel (string)`: 
+* `email (string)`: 
+* `external_id (string)`: 
 * `accounts (array of ShopAccounts)`: 
 
 `accounts`は [ShopAccount](#shop-account) オブジェクトの配列を返します。
@@ -1482,14 +1482,14 @@ response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
 <a name="bulk-transaction"></a>
 ## BulkTransaction
 * `id (string)`: 
-* `request_id (string)`: リクエストID
-* `name (string)`: バルク取引管理用の名前
-* `description (string)`: バルク取引管理用の説明文
-* `status (string)`: バルク取引の状態
-* `error (string)`: バルク取引のエラー種別
-* `error_lineno (integer)`: バルク取引のエラーが発生した行番号
-* `submitted_at (string)`: バルク取引が登録された日時
-* `updated_at (string)`: バルク取引が更新された日時
+* `request_id (string)`: 
+* `name (string)`: 
+* `description (string)`: 
+* `status (string)`: 
+* `error (string)`: 
+* `error_lineno (integer)`: 
+* `submitted_at (string)`: 
+* `updated_at (string)`: 
 
 <a name="paginated-private-money-organization-summaries"></a>
 ## PaginatedPrivateMoneyOrganizationSummaries
@@ -1573,47 +1573,47 @@ response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
 
 <a name="private-money"></a>
 ## PrivateMoney
-* `id (string)`: マネーID
-* `name (string)`: マネー名
-* `unit (string)`: マネー単位 (例: 円)
-* `is_exclusive (boolean)`: 会員制のマネーかどうか
-* `description (string)`: マネー説明文
-* `oneline_message (string)`: マネーの要約
-* `organization (Organization)`: マネーを発行した組織
-* `max_balance (double)`: ウォレットの上限金額
-* `transfer_limit (double)`: マネーの取引上限額
-* `type (string)`: マネー種別 (自家型=own, 第三者型=third-party)
-* `expiration_type (string)`: 有効期限種別 (チャージ日起算=static, 最終利用日起算=last-update, 最終チャージ日起算=last-topup-update)
-* `enable_topup_by_member (boolean)`: 加盟店によるチャージが有効かどうか
+* `id (string)`: 
+* `name (string)`: 
+* `unit (string)`: 
+* `is_exclusive (boolean)`: 
+* `description (string)`: 
+* `oneline_message (string)`: 
+* `organization (Organization)`: 
+* `max_balance (double)`: 
+* `transfer_limit (double)`: 
+* `type (string)`: 
+* `expiration_type (string)`: 
+* `enable_topup_by_member (boolean)`: 
 
 `organization`は [Organization](#organization) オブジェクトを返します。
 
 <a name="cashtray-attempt"></a>
 ## CashtrayAttempt
-* `account (AccountWithUser)`: エンドユーザーのウォレット
-* `status_code (double)`: ステータスコード
-* `error_type (string)`: エラー型
-* `error_message (string)`: エラーメッセージ
-* `created_at (string)`: Cashtray読み取り記録の作成日時
+* `account (AccountWithUser)`: 
+* `status_code (double)`: 
+* `error_type (string)`: 
+* `error_message (string)`: 
+* `created_at (string)`: 
 
 `account`は [AccountWithUser](#account-with-user) オブジェクトを返します。
 
 <a name="account"></a>
 ## Account
-* `id (string)`: ウォレットID
-* `name (string)`: ウォレット名
-* `is_suspended (boolean)`: ウォレットが凍結されているかどうか
-* `private_money (PrivateMoney)`: 設定マネー情報
+* `id (string)`: 
+* `name (string)`: 
+* `is_suspended (boolean)`: 
+* `private_money (PrivateMoney)`: 
 
 `private_money`は [PrivateMoney](#private-money) オブジェクトを返します。
 
 <a name="shop-account"></a>
 ## ShopAccount
-* `id (string)`: ウォレットID
-* `name (string)`: ウォレット名
-* `is_suspended (boolean)`: ウォレットが凍結されているかどうか
-* `can_transfer_topup (boolean)`: チャージ可能かどうか
-* `private_money (PrivateMoney)`: 設定マネー情報
+* `id (string)`: 
+* `name (string)`: 
+* `is_suspended (boolean)`: 
+* `can_transfer_topup (boolean)`: 
+* `private_money (PrivateMoney)`: 
 
 `private_money`は [PrivateMoney](#private-money) オブジェクトを返します。
 
@@ -1656,11 +1656,11 @@ response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
 
 <a name="shop-with-metadata"></a>
 ## ShopWithMetadata
-* `id (string)`: 店舗ID
-* `name (string)`: 店舗名
-* `organization_code (string)`: 組織コード
-* `postal_code (string)`: 店舗の郵便番号
-* `address (string)`: 店舗の住所
-* `tel (string)`: 店舗の電話番号
-* `email (string)`: 店舗のメールアドレス
-* `external_id (string)`: 店舗の外部ID
+* `id (string)`: 
+* `name (string)`: 
+* `organization_code (string)`: 
+* `postal_code (string)`: 
+* `address (string)`: 
+* `tel (string)`: 
+* `email (string)`: 
+* `external_id (string)`: 
