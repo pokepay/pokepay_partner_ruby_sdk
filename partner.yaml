@@ -757,6 +757,18 @@ components:
           minimum: 0
         pagination:
           $ref: '#/components/schemas/Pagination'
+    PaginatedAccountWithUsers:
+      x-pokepay-schema-type: "response"
+      properties:
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountWithUser'
+        count:
+          type: integer
+          minimum: 0
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     PaginatedAccountBalance:
       x-pokepay-schema-type: "response"
       properties:
@@ -1219,6 +1231,65 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
   /accounts/customers:
+    get:
+      tags:
+        - Customer
+      summary: 'エンドユーザーのウォレット一覧を表示する'
+      description: マネーを指定してエンドユーザーのウォレット一覧を取得します。
+      x-pokepay-operator-name: "GetCustomerAccounts"
+      x-pokepay-allow-server-side: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: ["private_money_id"]
+              properties:
+                private_money_id:
+                  title: 'マネーID'
+                  description: |-
+                    マネーIDです。
+
+                    一覧するウォレットのマネーを指定します。このパラメータは必須です。
+                  type: string
+                  format: uuid
+                page:
+                  type: integer
+                  minimum: 1
+                  title: 'ページ番号'
+                  description: 取得したいページ番号です。デフォルト値は1です。
+                per_page:
+                  type: integer
+                  minimum: 1
+                  title: '1ページ分のウォレット数'
+                  description: 1ページ分のウォレット数です。デフォルト値は30です。
+                created_at_from:
+                  type: string
+                  format: date-time
+                  title: 'ウォレット作成日によるフィルター(開始時点)'
+                  description: ウォレット作成日によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
+                created_at_to:
+                  type: string
+                  format: date-time
+                  title: 'ウォレット作成日によるフィルター(終了時点)'
+                  description: ウォレット作成日によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
+                is_suspended:
+                  type: boolean
+                  title: 'ウォレットが凍結状態かどうかでフィルターする'
+                  description: このパラメータが指定されている場合、ウォレットの凍結状態で結果がフィルターされます。デフォルトでは未指定です。
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountWithUsers'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
     post:
       tags:
         - Customer
@@ -1263,6 +1334,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountWithUser'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /accounts/shops:
+    get:
+      tags:
+        - Customer
+      summary: '店舗ユーザーのウォレット一覧を表示する'
+      description: マネーを指定して店舗ユーザーのウォレット一覧を取得します。
+      x-pokepay-operator-name: "GetShopAccounts"
+      x-pokepay-allow-server-side: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: ["private_money_id"]
+              properties:
+                private_money_id:
+                  title: 'マネーID'
+                  description: |-
+                    マネーIDです。
+
+                    一覧するウォレットのマネーを指定します。このパラメータは必須です。
+                  type: string
+                  format: uuid
+                page:
+                  type: integer
+                  minimum: 1
+                  title: 'ページ番号'
+                  description: 取得したいページ番号です。デフォルト値は1です。
+                per_page:
+                  type: integer
+                  minimum: 1
+                  title: '1ページ分のウォレット数'
+                  description: 1ページ分のウォレット数です。デフォルト値は30です。
+                created_at_from:
+                  type: string
+                  format: date-time
+                  title: 'ウォレット作成日によるフィルター(開始時点)'
+                  description: ウォレット作成日によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
+                created_at_to:
+                  type: string
+                  format: date-time
+                  title: 'ウォレット作成日によるフィルター(終了時点)'
+                  description: ウォレット作成日によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
+                is_suspended:
+                  type: boolean
+                  title: 'ウォレットが凍結状態かどうかでフィルターする'
+                  description: このパラメータが指定されている場合、ウォレットの凍結状態で結果がフィルターされます。デフォルトでは未指定です。
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountWithUsers'
         '400':
           $ref: '#/components/responses/BadRequest'
         '403':
@@ -1675,6 +1806,15 @@ paths:
                   items:
                     type: string
                     enum: [topup, payment, exchange_outflow, exchange_inflow]
+                description:
+                  type: string
+                  maxLength: 200
+                  title: '取引説明文'
+                  description: |-
+                    取引を指定の取引説明文でフィルターします。
+
+                    取引説明文が完全一致する取引のみ抽出されます。取引説明文は最大200文字で記録されています。
+                  example: 店頭QRコードによる支払い
       responses:
         '200':
           description: OK
@@ -2259,6 +2399,15 @@ paths:
                   items:
                     type: string
                     enum: [topup, payment, exchange, transfer]
+                description:
+                  type: string
+                  maxLength: 200
+                  title: '取引詳細説明文'
+                  description: |-
+                    取引詳細を指定の取引詳細説明文でフィルターします。
+
+                    取引詳細説明文が完全一致する取引のみ抽出されます。取引詳細説明文は最大200文字で記録されています。
+                  example: 店頭QRコードによる支払い
       responses:
         '200':
           description: OK
