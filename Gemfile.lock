@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pokepay_partner_ruby_sdk (0.1.10)
+    pokepay_partner_ruby_sdk (0.1.11)
       inifile (~> 3.0.0)
       json (~> 2.3.0)
       openssl (~> 2.1.2)
@@ -10,9 +10,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     inifile (3.0.0)
+    ipaddr (1.2.2)
     json (2.3.1)
     minitest (5.14.4)
     openssl (2.1.2)
+      ipaddr
     rake (13.0.1)
 
 PLATFORMS
