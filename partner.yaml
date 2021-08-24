@@ -279,7 +279,7 @@ components:
           $ref: '#/components/schemas/Transaction'
           nullable: true
         event:
-          $ref: '#/components/schemas/ExternalTransactionEvent'
+          $ref: '#/components/schemas/ExternalTransaction'
           nullable: true
         scopes:
           type: array
