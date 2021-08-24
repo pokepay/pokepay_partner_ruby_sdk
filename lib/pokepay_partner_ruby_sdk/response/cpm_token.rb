@@ -2,7 +2,7 @@
 
 require "pokepay_partner_ruby_sdk/response/account_detail"
 require "pokepay_partner_ruby_sdk/response/transaction"
-require "pokepay_partner_ruby_sdk/response/external_transaction_event"
+require "pokepay_partner_ruby_sdk/response/external_transaction"
 require "pokepay_partner_ruby_sdk/response/cpm_token_attempt"
 
 module Pokepay::Response
@@ -11,7 +11,7 @@ module Pokepay::Response
       @cpm_token = row["cpm_token"]
       @account = AccountDetail.new(row["account"])
       @transaction = Transaction.new(row["transaction"])
-      @event = ExternalTransactionEvent.new(row["event"])
+      @event = ExternalTransaction.new(row["event"])
       @scopes = row["scopes"]
       @expires_at = row["expires_at"]
       @metadata = row["metadata"]
