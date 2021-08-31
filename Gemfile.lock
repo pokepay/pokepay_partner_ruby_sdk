@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pokepay_partner_ruby_sdk (0.1.14)
+    pokepay_partner_ruby_sdk (0.1.13)
       inifile (~> 3.0.0)
       json (~> 2.3.0)
       openssl (~> 2.1.2)
