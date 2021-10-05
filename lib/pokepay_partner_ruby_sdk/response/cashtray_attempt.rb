@@ -5,7 +5,7 @@ require "pokepay_partner_ruby_sdk/response/account_with_user"
 module Pokepay::Response
   class CashtrayAttempt
     def initialize(row)
-      @account = AccountWithUser.new(row["account"])
+      @account = row["account"] and AccountWithUser.new(row["account"])
       @status_code = row["status_code"]
       @error_type = row["error_type"]
       @error_message = row["error_message"]

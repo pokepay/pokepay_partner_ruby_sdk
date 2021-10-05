@@ -14,8 +14,8 @@ module Pokepay::Response
       @expires_at = row["expires_at"]
       @canceled_at = row["canceled_at"]
       @token = row["token"]
-      @attempt = CashtrayAttempt.new(row["attempt"])
-      @transaction = Transaction.new(row["transaction"])
+      @attempt = row["attempt"] and CashtrayAttempt.new(row["attempt"])
+      @transaction = row["transaction"] and Transaction.new(row["transaction"])
     end
     attr_reader :id
     attr_reader :amount
