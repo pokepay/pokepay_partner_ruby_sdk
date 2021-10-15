@@ -57,6 +57,20 @@ SSL_KEY_FILE     = /path/to/key.pem
 SSL_CERT_FILE    = /path/to/cert.pem
 ```
 
+設定はハッシュで渡すこともできます。
+
+```ruby
+client = Pokepay::Client.new(
+  {
+    client_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    client_secret: "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+    api_base_url: "https://partnerapi-sandbox.pokepay.jp",
+    ssl_key_file: "/path/to/key.pem",
+    ssl_cert_file: "/path/to/cert.pem"
+  }
+)
+```
+
 ## Overview
 
 ### APIリクエスト
