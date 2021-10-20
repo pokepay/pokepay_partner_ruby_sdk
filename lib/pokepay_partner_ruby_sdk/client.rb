@@ -12,20 +12,31 @@ require "pokepay_partner_ruby_sdk/crypto"
 
 module Pokepay
   class Client
-    def initialize(path_to_inifile)
-      path = File.expand_path(path_to_inifile)
-      if File.exist?(path)
-        ini = IniFile.load(path)
-      else
-        raise "init file does not exist."
+    def initialize(inifile_or_hash)
+      case inifile_or_hash
+      when String then
+        path = File.expand_path(inifile_or_hash)
+        if File.exist?(path)
+          ini = IniFile.load(path)
+        else
+          raise "init file does not exist."
+        end
+        @client_id = ini['global']['CLIENT_ID']
+        @client_secret = ini['global']['CLIENT_SECRET']
+        @api_base_url = URI.parse(ini['global']['API_BASE_URL'])
+        @ssl_key_file = ini['global']['SSL_KEY_FILE']
+        @ssl_cert_file = ini['global']['SSL_CERT_FILE']
+        @timezone = ini['global']['TIMEZONE']
+        @timeout = ini['global']['TIMEOUT']
+      when Hash then
+        @client_id = inifile_or_hash[:client_id]
+        @client_secret = inifile_or_hash[:client_secret]
+        @api_base_url = URI.parse(inifile_or_hash[:api_base_url])
+        @ssl_key_file = inifile_or_hash[:ssl_key_file]
+        @ssl_cert_file = inifile_or_hash[:ssl_cert_file]
+        @timezone = inifile_or_hash[:timezone]
+        @timeout = inifile_or_hash[:timeout]
       end
-      @client_id = ini['global']['CLIENT_ID']
-      @client_secret = ini['global']['CLIENT_SECRET']
-      @api_base_url = URI.parse(ini['global']['API_BASE_URL'])
-      @ssl_key_file = ini['global']['SSL_KEY_FILE']
-      @ssl_cert_file = ini['global']['SSL_CERT_FILE']
-      @timezone = ini['global']['TIMEZONE']
-      @timeout = ini['global']['TIMEOUT']
       @http = Net::HTTP.new(@api_base_url.host, @api_base_url.port)
       if @api_base_url.scheme == 'https'
         @http.use_ssl = true
