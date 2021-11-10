@@ -4,10 +4,10 @@ require "pokepay_partner_ruby_sdk/response/paginated_account_details"
 
 module Pokepay::Request
   class ListUserAccounts < Request
-    def initialize(user_id)
+    def initialize(user_id, rest_args = {})
       @path = "/users" + "/" + user_id + "/accounts"
       @method = "GET"
-      @body_params = {  }
+      @body_params = {  }.merge(rest_args)
       @response_class = Pokepay::Response::PaginatedAccountDetails
     end
     attr_reader :response_class
