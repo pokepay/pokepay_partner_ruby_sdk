@@ -5,7 +5,7 @@ require "pokepay_partner_ruby_sdk/response/external_transaction"
 module Pokepay::Request
   class RefundExternalTransaction < Request
     def initialize(transaction_id, rest_args = {})
-      @path = "/external-transaction" + "/" + event_id + "/refund"
+      @path = "/external-transactions" + "/" + transaction_id + "/refund"
       @method = "POST"
       @body_params = {  }.merge(rest_args)
       @response_class = Pokepay::Response::ExternalTransaction
