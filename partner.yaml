@@ -96,6 +96,7 @@ components:
           items:
             $ref: '#/components/schemas/PrivateMoney'
     AccountStatus:
+      x-pokepay-schema-type: "response"
       type: string
       enum: [active, suspended, pre-closed]
       title: 'ウォレット状態'
