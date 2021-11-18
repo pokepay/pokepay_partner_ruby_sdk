@@ -95,6 +95,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PrivateMoney'
+    AccountStatus:
+      type: string
+      enum: [active, suspended, pre-closed]
+      title: 'ウォレット状態'
     Account:
       x-pokepay-schema-type: "response"
       properties:
@@ -108,6 +112,8 @@ components:
         is_suspended:
           type: boolean
           title: 'ウォレットが凍結されているかどうか'
+        status:
+          $ref: '#/components/schemas/AccountStatus'
         private_money:
           $ref: '#/components/schemas/PrivateMoney'
           title: '設定マネー情報'
@@ -121,6 +127,8 @@ components:
           type: string
         is_suspended:
           type: boolean
+        status:
+          $ref: '#/components/schemas/AccountStatus'
         private_money:
           $ref: '#/components/schemas/PrivateMoney'
         user:
@@ -135,6 +143,8 @@ components:
           type: string
         is_suspended:
           type: boolean
+        status:
+          $ref: '#/components/schemas/AccountStatus'
         balance:
           type: number
           format: decimal
@@ -679,6 +689,8 @@ components:
           type: string
         is_suspended:
           type: boolean
+        status:
+          $ref: '#/components/schemas/AccountStatus'
         private_money_id:
           type: string
           format: uuid
@@ -1268,6 +1280,15 @@ paths:
                   type: boolean
                   title: 'ウォレットが凍結されているかどうか'
                   description: ウォレットの凍結状態です。真にするとウォレットが凍結され、そのウォレットでは新規取引ができなくなります。偽にすると凍結解除されます。
+                status:
+                  type: string
+                  enum: [active, suspended, pre-closed]
+                  title: 'ウォレット状態'
+                  description: ウォレットの状態です。
+                can_transfer_topup:
+                  type: boolean
+                  title: 'チャージ可能かどうか'
+                  description: 店舗ユーザーがエンドユーザーにチャージ可能かどうかです。真にするとチャージ可能となり、偽にするとチャージ不可能となります。
       responses:
         '200':
           description: OK
@@ -1409,6 +1430,62 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  /accounts/{account_id}/customers:
+    patch:
+      tags:
+        - Customer
+      summary: 'ウォレット情報を更新する'
+      description: ウォレットの状態を更新します。
+      x-pokepay-operator-name: "UpdateCustomerAccount"
+      x-pokepay-allow-server-side: true
+      parameters:
+        - in: path
+          name: account_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: 'ウォレットID'
+          description: |-
+            ウォレットIDです。
+
+            指定したウォレットIDのウォレットの状態を更新します。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                status:
+                  type: string
+                  enum: [active, suspended, pre-closed]
+                  title: 'ウォレット状態'
+                  description: ウォレットの状態です。
+                account_name:
+                  title: 'アカウント名'
+                  type: string
+                  maxLength: 256
+                  description: 変更するウォレット名です。
+                external_id:
+                  title: '外部ID'
+                  type: string
+                  maxLength: 50
+                  description: 変更する外部IDです。
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountWithUser'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
   /accounts/customers:
     get:
       tags:
@@ -1456,6 +1533,11 @@ paths:
                   type: boolean
                   title: 'ウォレットが凍結状態かどうかでフィルターする'
                   description: このパラメータが指定されている場合、ウォレットの凍結状態で結果がフィルターされます。デフォルトでは未指定です。
+                status:
+                  type: string
+                  enum: [active, suspended, pre-closed]
+                  title: 'ウォレット状態'
+                  description: このパラメータが指定されている場合、ウォレットの状態で結果がフィルターされます。デフォルトでは未指定です。
                 external_id:
                   type: string
                   maxLength: 50
@@ -2159,7 +2241,7 @@ paths:
 
                     ポイント支払い時に実際お金を負担する店舗を指定します。
                 money_amount:
-                  type: number
+                  type: integer
                   minimum: 0
                   title: 'マネー額'
                   description: |-
@@ -2167,7 +2249,7 @@ paths:
 
                     送金するマネー額を指定します。
                 point_amount:
-                  type: number
+                  type: integer
                   minimum: 0
                   title: 'ポイント額'
                   description: |-
@@ -2315,7 +2397,7 @@ paths:
 
                     マネーを指定します。
                 amount:
-                  type: number
+                  type: integer
                   minimum: 0
                   title: '支払い額'
                   description: |-
@@ -2925,7 +3007,7 @@ paths:
 
                     マネーを指定します。
                 amount:
-                  type: number
+                  type: integer
                   minimum: 0
                   title: 取引額
                   description: |-
@@ -3011,7 +3093,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-  /external-transaction/{event_id}/refund:
+  /external-transactions/{event_id}/refund:
     post:
       tags:
         - Event
@@ -3027,7 +3109,7 @@ paths:
       x-pokepay-allow-server-side: true
       parameters:
         - in: path
-          name: transaction_id
+          name: event_id
           required: true
           schema:
             type: string
