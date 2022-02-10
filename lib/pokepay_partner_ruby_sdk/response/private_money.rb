@@ -17,6 +17,7 @@ module Pokepay::Response
       @type = row["type"]
       @expiration_type = row["expiration_type"]
       @enable_topup_by_member = row["enable_topup_by_member"]
+      @display_money_and_point = row["display_money_and_point"]
     end
     attr_reader :id
     attr_reader :name
@@ -30,5 +31,6 @@ module Pokepay::Response
     attr_reader :type
     attr_reader :expiration_type
     attr_reader :enable_topup_by_member
+    attr_reader :display_money_and_point
   end
 end
