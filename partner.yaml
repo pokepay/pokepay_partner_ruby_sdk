@@ -2048,6 +2048,7 @@ paths:
         - Check
       summary: 'チャージQRコードの発行'
       x-pokepay-operator-name: "CreateCheck"
+      x-pokepay-allow-server-side: true
       requestBody:
         required: true
         content:
