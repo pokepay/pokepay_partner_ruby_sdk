@@ -52,6 +52,11 @@ module Pokepay
       200 <= code and code < 300
     end
 
+    def is_server_error(res)
+      code = res.code.to_i
+      500 <= code and code < 600
+    end
+
     def request(request_class, path, body_params, response_class)
       encrypt_data = { 'request_data' => body_params,
                        'timestamp' => Time.now.iso8601(6),
@@ -61,6 +66,9 @@ module Pokepay
       req = request_class.new(path)
       req.set_form_data(params)
       res = @http.start { @http.request(req) }
+      if is_server_error(res) then
+        raise format("Server Error (code: %s)", res.code)
+      end
       res_map = JSON.parse(res.body)
       if(res_map["response_data"]) then
         res.body =
