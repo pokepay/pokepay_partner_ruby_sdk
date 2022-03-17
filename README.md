@@ -54,7 +54,7 @@ private_money_id = zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz
 ```
 
 ```
-$ bundle exec ruby test/pokepay_partner_ruby_sdk_test.rb
+$ bundle exec ruby test/request_validation_test.rb
 ```
 
 ## Development

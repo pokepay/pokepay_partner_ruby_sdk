@@ -159,6 +159,7 @@ response.body
 - [GetCpmToken](#get-cpm-token): CPMトークンの状態取得
 - [ListTransactions](#list-transactions): 取引履歴を取得する
 - [CreateTransaction](#create-transaction): チャージする(廃止予定)
+- [ListTransactionsV2](#list-transactions-v2): 取引履歴を取得する
 - [CreateTopupTransaction](#create-topup-transaction): チャージする
 - [CreatePaymentTransaction](#create-payment-transaction): 支払いする
 - [CreateCpmTransaction](#create-cpm-transaction): CPMトークンによる取引作成
@@ -199,13 +200,16 @@ response.body
 - [CreateExternalTransaction](#create-external-transaction): ポケペイ外部取引を作成する
 - [RefundExternalTransaction](#refund-external-transaction): ポケペイ外部取引をキャンセルする
 - [CreateCampaign](#create-campaign): ポイント付与キャンペーンを作る
+- [ListCampaigns](#list-campaigns): キャンペーン一覧を取得する
+- [GetCampaign](#get-campaign): キャンペーンを取得する
+- [UpdateCampaign](#update-campaign): ポイント付与キャンペーンを更新する
 ### Transaction
 <a name="get-cpm-token"></a>
 #### CPMトークンの状態取得
 CPMトークンの現在の状態を取得します。CPMトークンの有効期限やCPM取引の状態を返します。
 ```ruby
 response = $client.send(Pokepay::Request::GetCpmToken.new(
-                          "R1aePdc9fGHLcwyelAg5Jr"                              # cpm_token: CPMトークン
+                          "C0yIYDrOmfZvcfCdES8HHJ"                              # cpm_token: CPMトークン
 ))
 ```
 
@@ -227,8 +231,8 @@ CPM取引時にエンドユーザーが店舗に提示するバーコードを�
 取引一覧を返します。
 ```ruby
 response = $client.send(Pokepay::Request::ListTransactions.new(
-                          from: "2019-03-26T10:40:08.000000+09:00",             # 開始日時
-                          to: "2025-06-28T13:58:26.000000+09:00",               # 終了日時
+                          from: "2023-04-24T17:11:07.000000+09:00",             # 開始日時
+                          to: "2024-11-07T01:32:00.000000+09:00",               # 終了日時
                           page: 1,                                              # ページ番号
                           per_page: 50,                                         # 1ページ分の取引数
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
@@ -442,10 +446,10 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          money_amount: 5259,
-                          point_amount: 8639,
-                          point_expires_at: "2021-12-02T20:12:47.000000+09:00", # ポイント有効期限
-                          description: "qxXj74j643AIOVakyq8QHWKNric3MBQYWsKtvnxoQJLloM94TQVFchkaVLnKXq1JcpZfZ"
+                          money_amount: 1212,
+                          point_amount: 5173,
+                          point_expires_at: "2022-02-09T19:38:20.000000+09:00", # ポイント有効期限
+                          description: "C5y2HNrP34hD1uxIbudPgKcAH4LqtvnYdJrsgVxWy0PirB5ccKSjPsnaJy0xSUaUZ3KYipGveNp11WiSr08uCzB0JSt7hZNL6cvcqBnhGnyRs1ZbgEX46DL0EY9Dfg2K2KSBJ32yceHkpeJS53rQYr"
 ))
 ```
 
@@ -462,6 +466,229 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
 
 ---
 成功したときは[TransactionDetail](#transaction-detail)オブジェクトを返します
+<a name="list-transactions-v2"></a>
+#### 取引履歴を取得する
+取引一覧を返します。
+```ruby
+response = $client.send(Pokepay::Request::ListTransactionsV2.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
+                          organization_code: "pocketchange",                    # 組織コード
+                          shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
+                          terminal_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # 端末ID
+                          customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # エンドユーザーID
+                          customer_name: "太郎",                                  # エンドユーザー名
+                          description: "店頭QRコードによる支払い",                         # 取引説明文
+                          transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 取引ID
+                          is_modified: false,                                   # キャンセルフラグ
+                          types: ["topup", "payment"],                          # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
+                          from: "2019-08-22T02:18:51.000000+09:00",             # 開始日時
+                          to: "2022-04-21T22:06:05.000000+09:00",               # 終了日時
+                          next_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 次のページへ遷移する際に起点となるtransactionのuuid
+                          prev_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 前のページへ遷移する際に起点となるtransactionのuuid
+                          per_page: 50                                          # 1ページ分の取引数
+))
+```
+
+---
+`private_money_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+マネーIDです。
+
+指定したマネーでの取引が一覧に表示されます。
+
+---
+`organization_code`  
+```json
+{
+  "type": "string",
+  "maxLength": 32,
+  "pattern": "^[a-zA-Z0-9-]*$"
+}
+```
+組織コードです。
+
+フィルターとして使われ、指定された組織での取引のみ一覧に表示されます。
+
+---
+`shop_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+店舗IDです。
+
+フィルターとして使われ、指定された店舗での取引のみ一覧に表示されます。
+
+---
+`terminal_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+端末IDです。
+
+フィルターとして使われ、指定された端末での取引のみ一覧に表示されます。
+
+---
+`customer_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+エンドユーザーIDです。
+
+フィルターとして使われ、指定されたエンドユーザーでの取引のみ一覧に表示されます。
+
+---
+`customer_name`  
+```json
+{
+  "type": "string",
+  "maxLength": 256
+}
+```
+エンドユーザー名です。
+
+フィルターとして使われ、入力された名前に部分一致するエンドユーザーでの取引のみ一覧に表示されます。
+
+---
+`description`  
+```json
+{
+  "type": "string",
+  "maxLength": 200
+}
+```
+取引を指定の取引説明文でフィルターします。
+
+取引説明文が完全一致する取引のみ抽出されます。取引説明文は最大200文字で記録されています。
+
+---
+`transaction_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+取引IDです。
+
+フィルターとして使われ、指定された取引のみ一覧に表示されます。
+
+---
+`is_modified`  
+```json
+{ "type": "boolean" }
+```
+キャンセルフラグです。
+
+これにtrueを指定するとキャンセルされた取引のみ一覧に表示されます。
+デフォルト値はfalseで、キャンセルの有無にかかわらず一覧に表示されます。
+
+---
+`types`  
+```json
+{
+  "type": "array",
+  "items": {
+    "type": "string",
+    "enum": [ "topup", "payment", "exchange_outflow", "exchange_inflow", "cashback" ]
+  }
+}
+```
+取引の種類でフィルターします。
+
+以下の種類を指定できます。
+
+1. topup
+   店舗からエンドユーザーへの送金取引(チャージ)
+
+2. payment
+   エンドユーザーから店舗への送金取引(支払い)
+
+3. exchange-outflow
+   他マネーへの流出
+
+4. exchange-inflow
+   他マネーからの流入
+
+5. cashback
+   退会時返金取引
+
+---
+`from`  
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+抽出期間の開始日時です。
+
+フィルターとして使われ、開始日時以降に発生した取引のみ一覧に表示されます。
+
+---
+`to`  
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+抽出期間の終了日時です。
+
+フィルターとして使われ、終了日時以前に発生した取引のみ一覧に表示されます。
+
+---
+`next_page_cursor_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+次のページへ遷移する際に起点となるtransactionのuuid(前のページの末尾の要素のuuid)です。
+
+prev_page_cursor_idのtransaction自体は次のページには含まれない。
+
+---
+`prev_page_cursor_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+前のページへ遷移する際に起点となるtransactionのuuid(次のページの先頭の要素のuuid)です。
+
+next_page_cursor_idのtransaction自体は前のページには含まれない。
+
+---
+`per_page`  
+```json
+{
+  "type": "integer",
+  "minimum": 1,
+  "maximum": 100
+}
+```
+1ページ分の取引数です。
+
+デフォルト値は50です。
+
+---
+成功したときは[PaginatedTransactionV2](#paginated-transaction-v2)オブジェクトを返します
 <a name="create-topup-transaction"></a>
 #### チャージする
 チャージ取引を作成します。
@@ -471,9 +698,9 @@ response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーのID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           bear_point_shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # ポイント支払時の負担店舗ID
-                          money_amount: 8612,                                   # マネー額
-                          point_amount: 5409,                                   # ポイント額
-                          point_expires_at: "2022-04-20T20:45:17.000000+09:00", # ポイント有効期限
+                          money_amount: 3318,                                   # マネー額
+                          point_amount: 9708,                                   # ポイント額
+                          point_expires_at: "2023-10-20T19:24:03.000000+09:00", # ポイント有効期限
                           description: "初夏のチャージキャンペーン",                         # 取引履歴に表示する説明文
                           metadata: "{\"key\":\"value\"}",                      # 取引メタデータ
                           request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
@@ -615,10 +842,15 @@ response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          6066,                                                 # amount: 支払い額
+                          5365,                                                 # amount: 支払い額
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
                           metadata: "{\"key\":\"value\"}",                      # 取引メタデータ
                           products: [{"jan_code":"abc",
+ "name":"name1",
+ "unit_price":100,
+ "price": 100,
+ "is_discounted": false,
+ "other":"{}"}, {"jan_code":"abc",
  "name":"name1",
  "unit_price":100,
  "price": 100,
@@ -746,9 +978,9 @@ CPMトークンに設定されたスコープの取引を作ることができ�
 
 ```ruby
 response = $client.send(Pokepay::Request::CreateCpmTransaction.new(
-                          "sKCxnRcuSoLNAly4QR5kzf",                             # cpm_token: CPMトークン
+                          "lhP5RwfRsdmSnnsKFojcLO",                             # cpm_token: CPMトークン
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
-                          4364,                                                 # amount: 取引金額
+                          3648,                                                 # amount: 取引金額
                           description: "たい焼き(小倉)",                              # 取引説明文
                           metadata: "{\"key\":\"value\"}",                      # 店舗側メタデータ
                           products: [{"jan_code":"abc",
@@ -868,7 +1100,7 @@ response = $client.send(Pokepay::Request::CreateTransferTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # sender_id: 送金元ユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # receiver_id: 受取ユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          6176,                                                 # amount: 送金額
+                          1909,                                                 # amount: 送金額
                           metadata: "{\"key\":\"value\"}",                      # 取引メタデータ
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
                           request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
@@ -970,8 +1202,8 @@ response = $client.send(Pokepay::Request::CreateExchangeTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          2660,
-                          description: "7LZFZwhy5RIJGwbFSZ2qU3L9frpqlrETgz3O9wlyQ0TWfR4Gx21zM7WIQGDsPsJyAShBlCJPjtVj6RA58jW2j8noWbhryHKQAP2bBeZkmIh2UeN",
+                          1214,
+                          description: "rZaaP5zVuitJAWBnMTQrqQLb4F279GcsdDtM3uSEYbuaOy1AtJbZFvX4DTrnYj6rE9HuWGm5xmBEPErYjV24xKSbfZiVFE1mx2zGT1xfUftI30JyBIPqdC",
                           request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
 ))
 ```
@@ -1035,19 +1267,19 @@ response = $client.send(Pokepay::Request::RefundTransaction.new(
 #### 
 ```ruby
 response = $client.send(Pokepay::Request::ListTransfers.new(
-                          from: "2022-09-29T17:26:58.000000+09:00",
-                          to: "2021-08-10T06:43:48.000000+09:00",
-                          page: 4607,
-                          per_page: 4277,
+                          from: "2022-08-08T05:35:45.000000+09:00",
+                          to: "2019-06-03T05:41:38.000000+09:00",
+                          page: 3134,
+                          per_page: 394,
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          shop_name: "7tEp9MnaMKkPTTOh4KlFXKgt",
+                          shop_name: "nTRvriMMqT8Y2wPxWWXEUoqg0zXsuvc8LF4mbP1h",
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          customer_name: "xsqVTYrrSHZ1a0tz4EzkuhUCHWp85qyAYWUJWst1yIlHOt0XiM6Qkur8SbZd3wcuCesxkTgeUlIAlQvL5t780R8L5VrLxzRQlVu0ZdkmHWdPUiVDqeHPcQVtlOjSB31Mxq8SXpxSHJRZi52y7KvoeklIR5ig74Fkbtbb0SlK2KbT8BQ8WxGHxi6f0cuW1ZhxLtCHCm7yUfJm7Fg98YgjSKRGLQpNx8ciNrKweGJtnG",
+                          customer_name: "PDbNVjct5yQNjVn35rDh040vhQYw5VlT5PtGoiFuhhxPNxJedAo6IB1JwI4HtHPlHFEuPGo3GkdygOOVSyzQqeTxBrSdGB4t2pP3KohbOZsA8epkaCTJpPbbkD",
                           transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          is_modified: false,
-                          transaction_types: ["exchange", "topup", "cashback", "transfer", "expire"],
-                          transfer_types: ["coupon", "topup", "cashback", "exchange", "payment", "transfer", "campaign"], # 取引明細の種類でフィルターします。
+                          is_modified: true,
+                          transaction_types: ["payment", "exchange", "topup"],
+                          transfer_types: ["payment", "coupon", "topup", "exchange"], # 取引明細の種類でフィルターします。
                           description: "店頭QRコードによる支払い"                          # 取引詳細説明文
 ))
 ```
@@ -1121,13 +1353,13 @@ QRコードを読み取る方法以外にも、このURLリンクを直接スマ
 ```ruby
 response = $client.send(Pokepay::Request::CreateCheck.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: 送金元の店舗アカウントID
-                          money_amount: 7907,                                   # 付与マネー額
-                          point_amount: 4457,                                   # 付与ポイント額
+                          money_amount: 2773,                                   # 付与マネー額
+                          point_amount: 1358,                                   # 付与ポイント額
                           description: "test check",                            # 説明文(アプリ上で取引の説明文として表示される)
-                          is_onetime: false,                                    # ワンタイムかどうか。真の場合1度読み込まれた時点でそのチャージQRは失効する(デフォルト値は真)
-                          usage_limit: 6907,                                    # ワンタイムでない場合、複数ユーザから読み取られ得る。その場合の最大読み取り回数
-                          expires_at: "2024-10-26T13:29:44.000000+09:00",       # チャージQR自体の失効日時
-                          point_expires_at: "2023-06-12T09:55:16.000000+09:00", # チャージQRによって付与されるポイントの失効日時
+                          is_onetime: true,                                     # ワンタイムかどうか。真の場合1度読み込まれた時点でそのチャージQRは失効する(デフォルト値は真)
+                          usage_limit: 8593,                                    # ワンタイムでない場合、複数ユーザから読み取られ得る。その場合の最大読み取り回数
+                          expires_at: "2019-11-10T13:55:23.000000+09:00",       # チャージQR自体の失効日時
+                          point_expires_at: "2024-02-07T20:52:41.000000+09:00", # チャージQRによって付与されるポイントの失効日時
                           point_expires_in_days: 60,                            # チャージQRによって付与されるポイントの有効期限(相対指定、単位は日)
                           bear_point_account: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # ポイント額を負担する店舗アカウントのID
 ))
@@ -1202,18 +1434,18 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 支払いQRコード一覧を表示します。
 ```ruby
 response = $client.send(Pokepay::Request::ListBills.new(
-                          page: 6577,                                           # ページ番号
-                          per_page: 1765,                                       # 1ページの表示数
-                          bill_id: "d",                                         # 支払いQRコードのID
+                          page: 1152,                                           # ページ番号
+                          per_page: 3474,                                       # 1ページの表示数
+                          bill_id: "wG",                                        # 支払いQRコードのID
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
-                          organization_code: "-ct6-xMB5y4--o-",                 # 組織コード
+                          organization_code: "-sVJ2oS5l",                       # 組織コード
                           description: "test bill",                             # 取引説明文
-                          created_from: "2022-03-20T08:28:32.000000+09:00",     # 作成日時(起点)
-                          created_to: "2017-11-05T16:56:15.000000+09:00",       # 作成日時(終点)
+                          created_from: "2021-08-20T22:07:44.000000+09:00",     # 作成日時(起点)
+                          created_to: "2021-02-13T11:45:02.000000+09:00",       # 作成日時(終点)
                           shop_name: "bill test shop1",                         # 店舗名
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
-                          lower_limit_amount: 7582,                             # 金額の範囲によるフィルタ(下限)
-                          upper_limit_amount: 2572,                             # 金額の範囲によるフィルタ(上限)
+                          lower_limit_amount: 9526,                             # 金額の範囲によるフィルタ(下限)
+                          upper_limit_amount: 4780,                             # 金額の範囲によるフィルタ(上限)
                           is_disabled: true                                     # 支払いQRコードが無効化されているかどうか
 ))
 ```
@@ -1358,7 +1590,7 @@ response = $client.send(Pokepay::Request::ListBills.new(
 response = $client.send(Pokepay::Request::CreateBill.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: 支払いマネーのマネーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 支払い先(受け取り人)の店舗ID
-                          amount: 4674,                                         # 支払い額
+                          amount: 1655,                                         # 支払い額
                           description: "test bill"                              # 説明文(アプリ上で取引の説明文として表示される)
 ))
 ```
@@ -1382,9 +1614,9 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 ```ruby
 response = $client.send(Pokepay::Request::UpdateBill.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bill_id: 支払いQRコードのID
-                          amount: 4185,                                         # 支払い額
+                          amount: 1037,                                         # 支払い額
                           description: "test bill",                             # 説明文
-                          is_disabled: true                                     # 無効化されているかどうか
+                          is_disabled: false                                    # 無効化されているかどうか
 ))
 ```
 
@@ -1447,9 +1679,9 @@ Cashtrayを作成します。
 response = $client.send(Pokepay::Request::CreateCashtray.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ユーザーID
-                          5014,                                                 # amount: 金額
+                          7128,                                                 # amount: 金額
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
-                          expires_in: 2273                                      # 失効時間(秒)
+                          expires_in: 3581                                      # 失効時間(秒)
 ))
 ```
 
@@ -1610,9 +1842,9 @@ Cashtrayの内容を更新します。bodyパラメーターは全て省略可�
 ```ruby
 response = $client.send(Pokepay::Request::UpdateCashtray.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # cashtray_id: CashtrayのID
-                          amount: 7304,                                         # 金額
+                          amount: 3771,                                         # 金額
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
-                          expires_in: 5490                                      # 失効時間(秒)
+                          expires_in: 4448                                      # 失効時間(秒)
 ))
 ```
 
@@ -1688,8 +1920,8 @@ response = $client.send(Pokepay::Request::GetAccount.new(
 response = $client.send(Pokepay::Request::UpdateAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
                           is_suspended: false,                                  # ウォレットが凍結されているかどうか
-                          status: "active",                                     # ウォレット状態
-                          can_transfer_topup: false                             # チャージ可能かどうか
+                          status: "pre-closed",                                 # ウォレット状態
+                          can_transfer_topup: true                              # チャージ可能かどうか
 ))
 ```
 
@@ -1730,7 +1962,7 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 店舗ユーザーがエンドユーザーにチャージ可能かどうかです。真にするとチャージ可能となり、偽にするとチャージ不可能となります。
 
 ---
-成功したときは[Account](#account)オブジェクトを返します
+成功したときは[AccountDetail](#account-detail)オブジェクトを返します
 <a name="delete-account"></a>
 #### ウォレットを退会する
 ウォレットを退会します。一度ウォレットを退会した後は、そのウォレットを再び利用可能な状態に戻すことは出来ません。
@@ -1768,10 +2000,10 @@ response = $client.send(Pokepay::Request::DeleteAccount.new(
 ```ruby
 response = $client.send(Pokepay::Request::ListAccountBalances.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 2391,                                           # ページ番号
-                          per_page: 9946,                                       # 1ページ分の取引数
-                          expires_at_from: "2021-03-24T19:43:55.000000+09:00",  # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2021-12-13T05:47:45.000000+09:00",    # 有効期限の期間によるフィルター(終了時点)
+                          page: 4466,                                           # ページ番号
+                          per_page: 4680,                                       # 1ページ分の取引数
+                          expires_at_from: "2021-06-23T10:51:49.000000+09:00",  # 有効期限の期間によるフィルター(開始時点)
+                          expires_at_to: "2017-07-24T18:09:18.000000+09:00",    # 有効期限の期間によるフィルター(終了時点)
                           direction: "desc"                                     # 有効期限によるソート順序
 ))
 ```
@@ -1846,11 +2078,11 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 ```ruby
 response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 83,                                             # ページ番号
-                          per_page: 7171,                                       # 1ページ分の取引数
-                          expires_at_from: "2019-12-07T11:35:18.000000+09:00",  # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2017-01-08T17:52:45.000000+09:00",    # 有効期限の期間によるフィルター(終了時点)
-                          direction: "asc"                                      # 有効期限によるソート順序
+                          page: 4074,                                           # ページ番号
+                          per_page: 2468,                                       # 1ページ分の取引数
+                          expires_at_from: "2023-10-28T19:16:59.000000+09:00",  # 有効期限の期間によるフィルター(開始時点)
+                          expires_at_to: "2016-05-11T12:44:07.000000+09:00",    # 有効期限の期間によるフィルター(終了時点)
+                          direction: "desc"                                     # 有効期限によるソート順序
 ))
 ```
 
@@ -1924,9 +2156,9 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 ```ruby
 response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          status: "active",                                     # ウォレット状態
-                          account_name: "qoj4yKOsEPCrpQPvSjUDltH",              # アカウント名
-                          external_id: "57ysDpO4lTbJ9d"                         # 外部ID
+                          status: "pre-closed",                                 # ウォレット状態
+                          account_name: "2p9irVNMOOMEypf2sbMz5sG1GgyrO7oaIPGJ7JGBC1o5Rc96", # アカウント名
+                          external_id: "mVrWrKd8ZckndPnp3nLoMele3ppOb8vOALeCaVZ" # 外部ID
 ))
 ```
 
@@ -1980,15 +2212,15 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 ```ruby
 response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          page: 7724,                                           # ページ番号
-                          per_page: 2969,                                       # 1ページ分のウォレット数
-                          created_at_from: "2020-10-14T02:46:28.000000+09:00",  # ウォレット作成日によるフィルター(開始時点)
-                          created_at_to: "2019-02-01T11:03:45.000000+09:00",    # ウォレット作成日によるフィルター(終了時点)
+                          page: 6368,                                           # ページ番号
+                          per_page: 8352,                                       # 1ページ分のウォレット数
+                          created_at_from: "2023-12-24T08:14:10.000000+09:00",  # ウォレット作成日によるフィルター(開始時点)
+                          created_at_to: "2017-12-23T12:19:35.000000+09:00",    # ウォレット作成日によるフィルター(終了時点)
                           is_suspended: false,                                  # ウォレットが凍結状態かどうかでフィルターする
-                          status: "pre-closed",                                 # ウォレット状態
-                          external_id: "N",                                     # 外部ID
-                          tel: "08723-9295",                                    # エンドユーザーの電話番号
-                          email: "CYxA4AjI47@p6qt.com"                          # エンドユーザーのメールアドレス
+                          status: "suspended",                                  # ウォレット状態
+                          external_id: "wh096vY0YkfqArkVOxtHaQbqrekxj6KVFbsIqYgBl99", # 外部ID
+                          tel: "08-750326",                                     # エンドユーザーの電話番号
+                          email: "n3SH7ljqEd@pqCc.com"                          # エンドユーザーのメールアドレス
 ))
 ```
 
@@ -2101,7 +2333,7 @@ response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           user_name: "ポケペイ太郎",                                  # ユーザー名
                           account_name: "ポケペイ太郎のアカウント",                         # アカウント名
-                          external_id: "saCpt80GzH"                             # 外部ID
+                          external_id: "OpWjivoOnvdw0Yvld"                      # 外部ID
 ))
 ```
 
@@ -2155,11 +2387,11 @@ PAPIクライアントシステムから利用するPokepayユーザーのIDで�
 ```ruby
 response = $client.send(Pokepay::Request::GetShopAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          page: 6413,                                           # ページ番号
-                          per_page: 1586,                                       # 1ページ分のウォレット数
-                          created_at_from: "2022-11-13T22:33:50.000000+09:00",  # ウォレット作成日によるフィルター(開始時点)
-                          created_at_to: "2017-09-13T23:45:00.000000+09:00",    # ウォレット作成日によるフィルター(終了時点)
-                          is_suspended: false                                   # ウォレットが凍結状態かどうかでフィルターする
+                          page: 3132,                                           # ページ番号
+                          per_page: 8253,                                       # 1ページ分のウォレット数
+                          created_at_from: "2025-07-27T06:36:29.000000+09:00",  # ウォレット作成日によるフィルター(開始時点)
+                          created_at_to: "2018-11-28T02:50:31.000000+09:00",    # ウォレット作成日によるフィルター(終了時点)
+                          is_suspended: true                                    # ウォレットが凍結状態かどうかでフィルターする
 ))
 ```
 
@@ -2232,10 +2464,10 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           sender_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 送金エンドユーザーID
                           receiver_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 受取エンドユーザーID
-                          type: "exchange",                                     # 取引種別
+                          type: "expire",                                       # 取引種別
                           is_modified: true,                                    # キャンセル済みかどうか
-                          from: "2015-11-09T20:57:13.000000+09:00",             # 開始日時
-                          to: "2022-01-15T17:32:30.000000+09:00",               # 終了日時
+                          from: "2018-09-13T17:32:36.000000+09:00",             # 開始日時
+                          to: "2016-07-29T17:33:26.000000+09:00",               # 終了日時
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -2371,11 +2603,11 @@ response = $client.send(Pokepay::Request::ListShops.new(
                           organization_code: "pocketchange",                    # 組織コード
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
                           name: "oxスーパー三田店",                                    # 店舗名
-                          postal_code: "3815756",                               # 店舗の郵便番号
+                          postal_code: "344-2283",                              # 店舗の郵便番号
                           address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "08108719-5344",                                 # 店舗の電話番号
-                          email: "tQD6SAh41f@Zii8.com",                         # 店舗のメールアドレス
-                          external_id: "4vybd1Jsf0jR3rzbwtxyn2FAh1zUed",        # 店舗の外部ID
+                          tel: "084292628",                                     # 店舗の電話番号
+                          email: "jMmLSHQhe4@tHPd.com",                         # 店舗のメールアドレス
+                          external_id: "v",                                     # 店舗の外部ID
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -2500,11 +2732,11 @@ response = $client.send(Pokepay::Request::ListShops.new(
 ```ruby
 response = $client.send(Pokepay::Request::CreateShop.new(
                           "oxスーパー三田店",                                          # shop_name: 店舗名
-                          shop_postal_code: "7504932",                          # 店舗の郵便番号
+                          shop_postal_code: "083-8015",                         # 店舗の郵便番号
                           shop_address: "東京都港区芝...",                            # 店舗の住所
-                          shop_tel: "0410-88688",                               # 店舗の電話番号
-                          shop_email: "VgjPvTnTRb@AGxJ.com",                    # 店舗のメールアドレス
-                          shop_external_id: "FBzSBdN9rH7Ml90EeuZgaP20pyyEjfyZn", # 店舗の外部ID
+                          shop_tel: "0291516",                                  # 店舗の電話番号
+                          shop_email: "ICt7BPEIsH@w9ia.com",                    # 店舗のメールアドレス
+                          shop_external_id: "xaPzoaDv6U6SXLkHad9cOSRej1Twb2rv", # 店舗の外部ID
                           organization_code: "ox-supermarket"                   # 組織コード
 ))
 ```
@@ -2514,14 +2746,14 @@ response = $client.send(Pokepay::Request::CreateShop.new(
 ```ruby
 response = $client.send(Pokepay::Request::CreateShopV2.new(
                           "oxスーパー三田店",                                          # name: 店舗名
-                          postal_code: "2838156",                               # 店舗の郵便番号
+                          postal_code: "0977783",                               # 店舗の郵便番号
                           address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "06203260",                                      # 店舗の電話番号
-                          email: "Uo9BhqQxq9@FR8V.com",                         # 店舗のメールアドレス
-                          external_id: "F2gH7EAnlFEgMmyi8jmBN0T8",              # 店舗の外部ID
+                          tel: "0197577-543",                                   # 店舗の電話番号
+                          email: "TtkAPfziyB@2HYx.com",                         # 店舗のメールアドレス
+                          external_id: "SuFevcjssU2Qn83gWH7hF0T8Nh7eoO6asj",    # 店舗の外部ID
                           organization_code: "ox-supermarket",                  # 組織コード
-                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列
-                          can_topup_private_money_ids: []                       # 店舗でチャージ可能にするマネーIDの配列
+                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列
+                          can_topup_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # 店舗でチャージ可能にするマネーIDの配列
 ))
 ```
 
@@ -2592,13 +2824,13 @@ response = $client.send(Pokepay::Request::GetShop.new(
 response = $client.send(Pokepay::Request::UpdateShop.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ユーザーID
                           name: "oxスーパー三田店",                                    # 店舗名
-                          postal_code: "7161029",                               # 店舗の郵便番号
+                          postal_code: "0806247",                               # 店舗の郵便番号
                           address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "0970036",                                       # 店舗の電話番号
-                          email: "T4AzeoZEOY@uu1R.com",                         # 店舗のメールアドレス
-                          external_id: "qlWwyCNVezT",                           # 店舗の外部ID
-                          private_money_ids: [],                                # 店舗で有効にするマネーIDの配列
-                          can_topup_private_money_ids: []                       # 店舗でチャージ可能にするマネーIDの配列
+                          tel: "0718180047",                                    # 店舗の電話番号
+                          email: "shIHzbucfD@hID3.com",                         # 店舗のメールアドレス
+                          external_id: "qemlo7JMNmGUe8JtqofMq1TyFcW0Uuc5ug",    # 店舗の外部ID
+                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列
+                          can_topup_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # 店舗でチャージ可能にするマネーIDの配列
 ))
 ```
 
@@ -2699,8 +2931,8 @@ response = $client.send(Pokepay::Request::UpdateShop.new(
 ```ruby
 response = $client.send(Pokepay::Request::ListUserAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_id: ユーザーID
-                          page: 6283,                                           # ページ番号
-                          per_page: 196                                         # 1ページ分の取引数
+                          page: 5526,                                           # ページ番号
+                          per_page: 9523                                        # 1ページ分の取引数
 ))
 ```
 
@@ -2744,8 +2976,8 @@ response = $client.send(Pokepay::Request::ListUserAccounts.new(
 response = $client.send(Pokepay::Request::CreateUserAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_id: ユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          name: "N00F2Vhn3XqmCSMDzeEDKcNHBIUBy90lbfxByyLgJllatyS0exoVZwnX2Y3MjJVkSKFu78PD8Nsi0ghqRiHIikuwLQAi0YorDHLBFs4pFpuxUcIrb43g0nK7tb3btHVGJJQejQb3sdWfi2Z2Wvmx0ZqLEwxwj8U4A4KZBQdvuQb5QYDYt7CyctlhtAXqf6uerXtmVp3iPqRhb6DnnO4ty3", # ウォレット名
-                          external_id: "khtTfaQWLq"                             # 外部ID
+                          name: "pDoeGryI5OQQ9GoRehaS9O2M3fskqX8WbkxbWTp66iGj1lRR9XuMVcs2zeQQbQwb51zUDjfyGpNkIiUDvsd07Li3GyEdt6GGJ1GXo5UPiFJuScrEGcY5I6vYJqEcansSsP2ceIvKP9bgYanQbVQM9Z6RG0kCsPdzwEr5mXGzuLW3FkWi9ZhIojVZoApe0VcAXVJNN81LI44xL3mfrFPu", # ウォレット名
+                          external_id: "EOV"                                    # 外部ID
 ))
 ```
 
@@ -2805,8 +3037,8 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 ```ruby
 response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2017-03-02T22:10:21.000000+09:00",             # 開始日時(toと同時に指定する必要有)
-                          to: "2023-11-05T19:18:54.000000+09:00",               # 終了日時(fromと同時に指定する必要有)
+                          from: "2023-08-27T08:46:48.000000+09:00",             # 開始日時(toと同時に指定する必要有)
+                          to: "2020-08-12T10:28:28.000000+09:00",               # 終了日時(fromと同時に指定する必要有)
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -2820,10 +3052,10 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 CSVファイルから一括取引をします。
 ```ruby
 response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
-                          "FbA6TsT4r",                                          # name: 一括取引タスク名
-                          "SzhCtzrr",                                           # content: 取引する情報のCSV
-                          "QIFeK35Z3EF7SWnLL5qkYPGTd8wILW6Ubji6",               # request_id: リクエストID
-                          description: "nDV"                                    # 一括取引の説明
+                          "DCyUBg3VaVg5lQKirhrBQImBbFT",                        # name: 一括取引タスク名
+                          "Gr24",                                               # content: 取引する情報のCSV
+                          "vRn0V1KmKqNhpuD1AS4IxvpFPGaTF6gXtd3n",               # request_id: リクエストID
+                          description: "JyyNe74Q2bvFtDokudzPS7PJ09whlF6CVlMKFHkTHEGRWUBVUZa1rmAxzFUF6i" # 一括取引の説明
 ))
 ```
 
@@ -2900,20 +3132,10 @@ response = $client.send(Pokepay::Request::CreateExternalTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          95,                                                   # amount: 取引額
+                          104,                                                  # amount: 取引額
                           description: "たい焼き(小倉)",                              # 取引説明文
                           metadata: "{\"key\":\"value\"}",                      # ポケペイ外部取引メタデータ
                           products: [{"jan_code":"abc",
- "name":"name1",
- "unit_price":100,
- "price": 100,
- "is_discounted": false,
- "other":"{}"}, {"jan_code":"abc",
- "name":"name1",
- "unit_price":100,
- "price": 100,
- "is_discounted": false,
- "other":"{}"}, {"jan_code":"abc",
  "name":"name1",
  "unit_price":100,
  "price": 100,
@@ -3049,20 +3271,30 @@ response = $client.send(Pokepay::Request::RefundExternalTransaction.new(
 
 ```ruby
 response = $client.send(Pokepay::Request::CreateCampaign.new(
-                          "wtt0eE996vZBp0zzwPN5DIhcy9tg03Xeu2UN5sKl9fYJxmaO84WKiqpzyFwc0O5qDH6cAdyVZn4o55A5DSTN7FZ8Y8t8MIK7GdyM50XmxAy3ATlXa99m3Ela8zcR94JgHtiXrfi45gdORj3Jla3Pfb8OgNhhqnfBQjVsClPPd45bUBovESo5O7DwwlNZPFf6xG0YeVkLQLhc7hbuv3B8S8pH3eqOx8cOR3TFR9a8hMUM", # name: キャンペーン名
+                          "lI4uoOEnKraNjpsN9SjDxtxrgs7e0dkiAAa8jwX6FLCB1XlvzBazSCE1hEG2EkkP2VIPy7HW7Ee7skB9BB1YNClE0n87A30l6vspNWH9u8x4Yq2mxjIub5W9d4fa79SnOHSfjKkp3QkI11kPUOWIOCC9XRXSkWvgwMdC6YsQVBM615BSLRTB4phpjbt6QHeDKxXdEg3OxGlsZaVSpjoQ6ffYAe6kpXiCTiSBUIe5iqIMOcjyqBKlSFG", # name: キャンペーン名
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          "2018-11-06T20:41:56.000000+09:00",                   # starts_at: キャンペーン開始日時
-                          "2024-06-22T00:29:14.000000+09:00",                   # ends_at: キャンペーン終了日時
-                          1038,                                                 # priority: キャンペーンの適用優先度
-                          "external-transaction",                               # event: イベント種別
+                          "2022-11-13T02:10:12.000000+09:00",                   # starts_at: キャンペーン開始日時
+                          "2021-09-21T12:28:04.000000+09:00",                   # ends_at: キャンペーン終了日時
+                          4029,                                                 # priority: キャンペーンの適用優先度
+                          "topup",                                              # event: イベント種別
                           bear_point_shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # ポイント負担先店舗ID
-                          description: "dIKeKSciqwdkkgvqZQpEwqxxIpXTryBWY7YmTtJYjps5n0FjmTFvO6PZjVX87PLzR29oTCv16fPXjhVlLpKgtr0aXml0I8A7sPYx7KWs9GrfkcGFxlkTYjYgPlxnzpf9XcHDiw8sqMTw9CGMrp", # キャンペーンの説明文
+                          description: "qDn2oMYRFh8cqnV2spFoKb7jYgx3gTJKy6dBb3ykYYVRZ4jdyfDGYQa0QPCC60HT399N8hkxoSQFYDUU0HuG332kYdREQC39nZBUv4F8J7UzyDYEv7bctcmIqdmvTV8RBzp0gixsKZWoUeORL98QDv9TW", # キャンペーンの説明文
                           status: "disabled",                                   # キャンペーン作成時の状態
-                          point_expires_at: "2023-11-04T20:25:42.000000+09:00", # ポイント有効期限(絶対日時指定)
-                          point_expires_in_days: 2215,                          # ポイント有効期限(相対日数指定)
+                          point_expires_at: "2020-08-06T14:45:24.000000+09:00", # ポイント有効期限(絶対日時指定)
+                          point_expires_in_days: 9973,                          # ポイント有効期限(相対日数指定)
                           is_exclusive: false,                                  # キャンペーンの重複設定
-                          subject: "money",                                     # ポイント付与の対象金額の種別
+                          subject: "all",                                       # ポイント付与の対象金額の種別
                           amount_based_point_rules: [{
+  "point_amount": 5,
+  "point_amount_unit": "percent",
+  "subject_more_than_or_equal": 1000,
+  "subject_less_than": 5000
+}, {
+  "point_amount": 5,
+  "point_amount_unit": "percent",
+  "subject_more_than_or_equal": 1000,
+  "subject_less_than": 5000
+}, {
   "point_amount": 5,
   "point_amount_unit": "percent",
   "subject_more_than_or_equal": 1000,
@@ -3087,12 +3319,17 @@ response = $client.send(Pokepay::Request::CreateCampaign.new(
   "is_multiply_by_count": true,
   "required_count": 2
 }],                                                                             # 商品情報ベースのポイント付与ルール
-                          applicable_days_of_week: [6],                         # キャンペーンを適用する曜日 (複数指定)
+                          applicable_days_of_week: [5, 5, 4],                   # キャンペーンを適用する曜日 (複数指定)
                           applicable_time_ranges: [{
   "from": "12:00",
   "to": "23:59"
+}, {
+  "from": "12:00",
+  "to": "23:59"
 }],                                                                             # キャンペーンを適用する時間帯 (複数指定)
-                          applicable_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # キャンペーン適用対象となる店舗IDのリスト
+                          applicable_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # キャンペーン適用対象となる店舗IDのリスト
+                          minimum_number_for_combination_purchase: 7983,        # 複数種類の商品を同時購入するときの商品種別数の下限
+                          dest_private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # ポイント付与先となるマネーID
 ))
 ```
 
@@ -3180,6 +3417,479 @@ response = $client.send(Pokepay::Request::CreateCampaign.new(
 }
 ```
 ポイントを負担する店舗のIDです。デフォルトではマネー発行体の本店が設定されます。
+ポイント負担先店舗は後から更新することはできません。
+
+---
+`description`  
+```json
+{
+  "type": "string",
+  "maxLength": 200
+}
+```
+キャンペーンの内容を記載します。管理画面などでキャンペーンを管理するための説明文になります。
+
+---
+`status`  
+```json
+{
+  "type": "string",
+  "enum": { "enabled": "disabled" }
+}
+```
+キャンペーン作成時の状態を指定します。デフォルトではenabledです。
+
+以下のいずれかを指定できます。
+
+1. enabled
+   有効
+2. disabled
+   無効
+
+---
+`point_expires_at`  
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+キャンペーンによって付与されるポイントの有効期限を絶対日時で指定します。
+省略した場合はマネーに設定された有効期限と同じものがポイントの有効期限となります。
+
+---
+`point_expires_in_days`  
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+キャンペーンによって付与されるポイントの有効期限を相対日数で指定します。
+省略した場合はマネーに設定された有効期限と同じものがポイントの有効期限となります。
+
+---
+`is_exclusive`  
+```json
+{ "type": "boolean" }
+```
+キャンペーンの重ね掛けを行うかどうかのフラグです。
+
+これにtrueを指定すると他のキャンペーンと同時適用されません。デフォルト値はtrueです。
+falseを指定すると次の優先度の重ね掛け可能なキャンペーンの適用判定に進みます。
+
+---
+`subject`  
+```json
+{
+  "type": "string",
+  "enum": { "money": "all" }
+}
+```
+ポイント付与額を計算する対象となる金額の種類を指定します。デフォルト値はallです。
+eventとしてexternal-transactionを指定した場合はポイントとマネーの区別がないためsubjectの指定に関わらず常にallとなります。
+
+以下のいずれかを指定できます。
+
+1. money
+moneyを指定すると決済額の中で「マネー」を使って支払った額を対象にします
+
+2. all
+all を指定すると決済額全体を対象にします (「ポイント」での取引額を含む)
+注意: event を topup にしたときはポイントの付与に対しても適用されます
+
+---
+`amount_based_point_rules`  
+```json
+{
+  "type": "array",
+  "items": { "type": "object" }
+}
+```
+金額をベースとしてポイント付与を行うルールを指定します。
+amount_based_point_rules と product_based_point_rules はどちらか一方しか指定できません。
+各ルールは一つのみ適用され、条件に重複があった場合は先に記載されたものが優先されます。
+
+例:
+```javascript
+[
+  // 1000円以上、5000円未満の決済には 5％
+  {
+    "point_amount": 5,
+    "point_amount_unit": "percent",
+    "subject_more_than_or_equal": 1000,
+    "subject_less_than": 5000
+  },
+  // 5000円以上の決済には 10%
+  {
+    "point_amount": 10,
+    "point_amount_unit": "percent",
+    "subject_more_than_or_equal": 5000
+  },
+]
+```
+
+---
+`product_based_point_rules`  
+```json
+{
+  "type": "array",
+  "items": { "type": "object" }
+}
+```
+商品情報をベースとしてポイント付与を行うルールを指定します。
+ルールは商品ごとに設定可能で、ルールの配列として指定します。
+amount_based_point_rules と product_based_point_rules はどちらか一方しか指定できません。
+event が payment か external-transaction の時のみ有効です。
+各ルールの順序は問わず、適用可能なものは全て適用されます。
+一つの決済の中で複数の商品がキャンペーン適用可能な場合はそれぞれの商品についてのルールが適用され、ポイント付与額はその合算になります。
+
+例:
+```javascript
+[
+  // 対象商品の購入額から5%ポイント付与。複数購入時は単価の5%が付与される。
+  {
+    "point_amount": 5,
+    "point_amount_unit": "percent",
+    "product_code": "4912345678904",
+  },
+  // 対象商品の購入額から5%ポイント付与。複数購入時は購入総額の5%が付与される。
+  {
+    "point_amount": 5,
+    "point_amount_unit": "percent",
+    "product_code": "4912345678904",
+    "is_multiply_by_count": true,
+  },
+  // 対象商品を2つ以上購入したら500ポイント付与(固定額付与)
+  {
+    "point_amount": 500,
+    "point_amount_unit": "absolute",
+    "product_code": "4912345678904",
+    "required_count": 2
+  },
+  // 書籍は10%ポイント付与
+  // ※ISBNの形式はレジがポケペイに送信する形式に準じます
+  {
+    "point_amount": 10,
+    "point_amount_unit": "percent",
+    "product_code": "978-%",
+  },
+  // 一部の出版社の書籍は10%ポイント付与
+  {
+    "point_amount": 10,
+    "point_amount_unit": "percent",
+    "product_code": "978-4-01-%", // 旺文社
+  }
+]
+```
+
+---
+`minimum_number_for_combination_purchase`  
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+複数種別の商品を同時購入したとき、同時購入キャンペーンの対象となる商品種別数の下限です。デフォルトでは未指定で、指定する場合は1以上の整数を指定します。
+
+このパラメータを指定するときは product_based_point_rules で商品毎のルールが指定されている必要があります。
+例えば、A商品とB商品とC商品のうち、キャンペーンの発火のために2商品以上が同時購入される必要があるときは 2 を指定します。
+
+例1: 商品A, Bが同時購入されたときに固定ポイント額(200ポイント)付与
+```javascript
+{
+  minimum_number_for_combination_purchase: 2,
+  product_based_point_rules: [
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Aの商品コード"
+    },
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Bの商品コード"
+    }
+  ]
+}
+```
+
+例2: 商品A, Bが3個ずつ以上同時購入されたときに固定ポイント額(200ポイント)付与
+```javascript
+{
+  minimum_number_for_combination_purchase: 2,
+  product_based_point_rules: [
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Aの商品コード",
+      "required_count": 3
+    },
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Bの商品コード",
+      "required_count": 3
+    }
+  ]
+}
+```
+
+例2: 商品A, B, Cのうち2商品以上が同時購入されたときに総額の10%ポイントが付与
+```javascript
+{
+  minimum_number_for_combination_purchase: 2,
+  product_based_point_rules: [
+    {
+      "point_amount": 10,
+      "point_amount_unit": "percent",
+      "product_code": "商品Aの商品コード",
+      "is_multiply_by_count": true,
+    },
+    {
+      "point_amount": 10,
+      "point_amount_unit": "percent",
+      "product_code": "商品Bの商品コード",
+      "is_multiply_by_count": true,
+    },
+    {
+      "point_amount": 10,
+      "point_amount_unit": "percent",
+      "product_code": "商品Cの商品コード",
+      "is_multiply_by_count": true,
+    }
+  ]
+}
+```
+
+---
+`dest_private_money_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+キャンペーンを駆動するイベントのマネーとは「別のマネー」に対してポイントを付けたいときに、そのマネーIDを指定します。
+
+ポイント付与先のマネーはキャンペーンを駆動するイベントのマネーと同一発行体が発行しているものに限ります。その他のマネーIDが指定された場合は private_money_not_found (422) が返ります。
+エンドユーザー、店舗、ポイント負担先店舗はポイント付与先マネーのウォレットを持っている必要があります。持っていない場合はポイントは付きません。
+元のイベントのマネーと異なる複数のマネーに対して同時にポイントを付与することはできません。重複可能に設定されている複数のキャンペーンで別々のポイント付与先マネーを指定した場合は最も優先度の高いものが処理され、残りは無視されます。
+キャンペーンのポイント付与先マネーは後から更新することはできません。
+デフォルトではポイント付与先はキャンペーンを駆動するイベントのマネー(private_money_idで指定したマネー)になります。
+
+別マネーに対するポイント付与は別のtransactionとなります。 RefundTransaction で元のイベントをキャンセルしたときはポイント付与のtransactionもキャンセルされ、逆にポイント付与のtransactionをキャンセルしたときは連動して元のイベントがキャンセルされます。
+
+---
+成功したときは[Campaign](#campaign)オブジェクトを返します
+<a name="list-campaigns"></a>
+#### キャンペーン一覧を取得する
+マネーIDを指定してキャンペーンを取得します。
+発行体の組織マネージャ権限で、自組織が発行するマネーのキャンペーンについてのみ閲覧可能です。
+閲覧権限がない場合は unpermitted_admin_user エラー(422)が返ります。
+```ruby
+response = $client.send(Pokepay::Request::ListCampaigns.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
+                          page: 1,                                              # ページ番号
+                          per_page: 50                                          # 1ページ分の取得数
+))
+```
+
+---
+`private_money_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+マネーIDです。
+
+フィルターとして使われ、指定したマネーでのキャンペーンのみ一覧に表示されます。
+
+---
+`page`  
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+取得したいページ番号です。
+
+---
+`per_page`  
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+1ページ分の取得数です。デフォルトでは 20 になっています。
+
+---
+成功したときは[PaginatedCampaigns](#paginated-campaigns)オブジェクトを返します
+<a name="get-campaign"></a>
+#### キャンペーンを取得する
+IDを指定してキャンペーンを取得します。
+発行体の組織マネージャ権限で、自組織が発行するマネーのキャンペーンについてのみ閲覧可能です。
+閲覧権限がない場合は unpermitted_admin_user エラー(422)が返ります。
+```ruby
+response = $client.send(Pokepay::Request::GetCampaign.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # campaign_id: キャンペーンID
+))
+```
+
+---
+`campaign_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+キャンペーンIDです。
+
+指定したIDのキャンペーンを取得します。存在しないIDを指定した場合は404エラー(NotFound)が返ります。
+
+---
+成功したときは[Campaign](#campaign)オブジェクトを返します
+<a name="update-campaign"></a>
+#### ポイント付与キャンペーンを更新する
+ポイント付与キャンペーンを更新します。
+
+```ruby
+response = $client.send(Pokepay::Request::UpdateCampaign.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # campaign_id: キャンペーンID
+                          name: "xR1kiR4daTST401zYU9O5bmxo5R8HDeIrg38UDixRQOsOxJyiut30oRsSLi4FAWjvNFlMGhO7MjoFiHLtN9Yqy7R5Sel4rqjqD6mB2gz0FIdNSbIrXOBo1I3rdkLB5vuUQlHHWHdfJKJGJOe4o3A7Ast7GZKKewMQbpvWdRIf0j2NcGpd9kTg7fbzWuGj28bjzoMkUfQZyG6ql9kvIc3ugQfVcwKEOAlMUYblAnOJUw5uYgLUj2LWIHcZ", # キャンペーン名
+                          starts_at: "2016-05-05T15:35:59.000000+09:00",        # キャンペーン開始日時
+                          ends_at: "2019-01-06T08:56:51.000000+09:00",          # キャンペーン終了日時
+                          priority: 4521,                                       # キャンペーンの適用優先度
+                          event: "topup",                                       # イベント種別
+                          description: "h7Upt9fM2ThdFR4ZGmC3lYSdkRdIHlBo7iMGslQeLzTg9FCP6boJkANEWZ0xko5rtXdkjCZ6KXki", # キャンペーンの説明文
+                          status: "disabled",                                   # キャンペーン作成時の状態
+                          point_expires_at: "2019-07-11T08:00:16.000000+09:00", # ポイント有効期限(絶対日時指定)
+                          point_expires_in_days: 9708,                          # ポイント有効期限(相対日数指定)
+                          is_exclusive: false,                                  # キャンペーンの重複設定
+                          subject: "all",                                       # ポイント付与の対象金額の種別
+                          amount_based_point_rules: [{
+  "point_amount": 5,
+  "point_amount_unit": "percent",
+  "subject_more_than_or_equal": 1000,
+  "subject_less_than": 5000
+}],                                                                             # 取引金額ベースのポイント付与ルール
+                          product_based_point_rules: [{
+  "point_amount": 5,
+  "point_amount_unit": "percent",
+  "product_code": "4912345678904",
+  "is_multiply_by_count": true,
+  "required_count": 2
+}, {
+  "point_amount": 5,
+  "point_amount_unit": "percent",
+  "product_code": "4912345678904",
+  "is_multiply_by_count": true,
+  "required_count": 2
+}, {
+  "point_amount": 5,
+  "point_amount_unit": "percent",
+  "product_code": "4912345678904",
+  "is_multiply_by_count": true,
+  "required_count": 2
+}],                                                                             # 商品情報ベースのポイント付与ルール
+                          applicable_days_of_week: [4],                         # キャンペーンを適用する曜日 (複数指定)
+                          applicable_time_ranges: [{
+  "from": "12:00",
+  "to": "23:59"
+}, {
+  "from": "12:00",
+  "to": "23:59"
+}, {
+  "from": "12:00",
+  "to": "23:59"
+}],                                                                             # キャンペーンを適用する時間帯 (複数指定)
+                          applicable_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # キャンペーン適用対象となる店舗IDのリスト
+                          minimum_number_for_combination_purchase: 7047         # 複数種類の商品を同時購入するときの商品種別数の下限
+))
+```
+
+---
+`campaign_id`  
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+キャンペーンIDです。
+
+指定したIDのキャンペーンを更新します。存在しないIDを指定した場合は404エラー(NotFound)が返ります。
+
+---
+`name`  
+```json
+{
+  "type": "string",
+  "maxLength": 256
+}
+```
+キャンペーン名です。
+
+ポイント付与によってできるチャージ取引の説明文に転記されます。取引説明文はエンドユーザーからも確認できます。
+
+---
+`starts_at`  
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+キャンペーン開始日時です。
+キャンペーン期間中のみポイントが付与されます。
+開始日時よりも終了日時が前のときはcampaign_invalid_periodエラー(422)になります。
+
+---
+`ends_at`  
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+キャンペーン終了日時です。
+キャンペーン期間中のみポイントが付与されます。
+開始日時よりも終了日時が前のときはcampaign_invalid_periodエラー(422)になります。
+
+---
+`priority`  
+```json
+{ "type": "integer" }
+```
+キャンペーンの適用優先度です。
+
+優先度が大きいものから順に適用判定されていきます。
+キャンペーン期間が重なっている同一の優先度のキャンペーンが存在するとcampaign_period_overlapsエラー(422)になります。
+
+---
+`event`  
+```json
+{
+  "type": "string",
+  "enum": [ "topup", "payment", "external-transaction" ]
+}
+```
+キャンペーンのトリガーとなるイベントの種類を指定します。
+
+以下のいずれかを指定できます。
+
+1. topup
+   店舗からエンドユーザーへの送金取引(チャージ)
+2. payment
+   エンドユーザーから店舗への送金取引(支払い)
+3. external-transaction
+   ポケペイ外の取引(現金決済など)
 
 ---
 `description`  
@@ -3346,21 +4056,89 @@ event が payment か external-transaction の時のみ有効です。
 ```
 
 ---
+`minimum_number_for_combination_purchase`  
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+複数種別の商品を同時購入したとき、同時購入キャンペーンの対象となる商品種別数の下限です。
+
+このパラメータを指定するときは product_based_point_rules で商品毎のルールが指定されている必要があります。
+例えば、A商品とB商品とC商品のうち、キャンペーンの発火のために2商品以上が同時購入される必要があるときは 2 を指定します。
+
+例1: 商品A, Bが同時購入されたときに固定ポイント額(200ポイント)付与
+```javascript
+{
+  minimum_number_for_combination_purchase: 2,
+  product_based_point_rules: [
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Aの商品コード"
+    },
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Bの商品コード"
+    }
+  ]
+}
+```
+
+例2: 商品A, Bが3個ずつ以上同時購入されたときに固定ポイント額(200ポイント)付与
+```javascript
+{
+  minimum_number_for_combination_purchase: 2,
+  product_based_point_rules: [
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Aの商品コード",
+      "required_count": 3
+    },
+    {
+      "point_amount": 100,
+      "point_amount_unit": "absolute",
+      "product_code": "商品Bの商品コード",
+      "required_count": 3
+    }
+  ]
+}
+```
+
+例2: 商品A, B, Cのうち2商品以上が同時購入されたときに総額の10%ポイントが付与
+```javascript
+{
+  minimum_number_for_combination_purchase: 2,
+  product_based_point_rules: [
+    {
+      "point_amount": 10,
+      "point_amount_unit": "percent",
+      "product_code": "商品Aの商品コード",
+      "is_multiply_by_count": true,
+    },
+    {
+      "point_amount": 10,
+      "point_amount_unit": "percent",
+      "product_code": "商品Bの商品コード",
+      "is_multiply_by_count": true,
+    },
+    {
+      "point_amount": 10,
+      "point_amount_unit": "percent",
+      "product_code": "商品Cの商品コード",
+      "is_multiply_by_count": true,
+    }
+  ]
+}
+```
+
+---
 成功したときは[Campaign](#campaign)オブジェクトを返します
 ## Responses
 
-
-<a name="account"></a>
-## Account
-* `id (string)`: ウォレットID
-* `name (string)`: ウォレット名
-* `is_suspended (boolean)`: ウォレットが凍結されているかどうか
-* `status (AccountStatus)`: 
-* `private_money (PrivateMoney)`: 設定マネー情報
-
-`status`は [AccountStatus](#account-status) オブジェクトを返します。
-
-`private_money`は [PrivateMoney](#private-money) オブジェクトを返します。
 
 <a name="account-with-user"></a>
 ## AccountWithUser
@@ -3388,6 +4166,7 @@ event が payment か external-transaction の時のみ有効です。
 * `point_balance (double)`: 
 * `private_money (PrivateMoney)`: 
 * `user (User)`: 
+* `external_id (string)`: 
 
 `status`は [AccountStatus](#account-status) オブジェクトを返します。
 
@@ -3567,6 +4346,16 @@ event が payment か external-transaction の時のみ有効です。
 
 `pagination`は [Pagination](#pagination) オブジェクトを返します。
 
+<a name="paginated-transaction-v2"></a>
+## PaginatedTransactionV2
+* `rows (array of Transactions)`: 
+* `per_page (integer)`: 
+* `count (integer)`: 
+* `next_page_cursor_id (string)`: 
+* `prev_page_cursor_id (string)`: 
+
+`rows`は [Transaction](#transaction) オブジェクトの配列を返します。
+
 <a name="paginated-transfers"></a>
 ## PaginatedTransfers
 * `rows (array of Transfers)`: 
@@ -3651,6 +4440,7 @@ event が payment か external-transaction の時のみ有効です。
 * `description (string)`: キャンペーン説明文
 * `bear_point_shop (User)`: ポイントを負担する店舗
 * `private_money (PrivateMoney)`: キャンペーンを適用するマネー
+* `dest_private_money (PrivateMoney)`: ポイントを付与するマネー
 * `point_calculation_rule (string)`: ポイント計算ルール (banklisp表記)
 * `point_calculation_rule_object (string)`: ポイント計算ルール (JSON文字列による表記)
 * `status (string)`: キャンペーンの現在の状態
@@ -3659,7 +4449,17 @@ event が payment か external-transaction の時のみ有効です。
 
 `bear_point_shop`は [User](#user) オブジェクトを返します。
 
-`private_money`は [PrivateMoney](#private-money) オブジェクトを返します。
+`dest_private_money`と`private_money`は [PrivateMoney](#private-money) オブジェクトを返します。
+
+<a name="paginated-campaigns"></a>
+## PaginatedCampaigns
+* `rows (array of Campaigns)`: 
+* `count (integer)`: 
+* `pagination (Pagination)`: 
+
+`rows`は [Campaign](#campaign) オブジェクトの配列を返します。
+
+`pagination`は [Pagination](#pagination) オブジェクトを返します。
 
 <a name="account-status"></a>
 ## AccountStatus
@@ -3710,6 +4510,18 @@ event が payment か external-transaction の時のみ有効です。
 * `created_at (string)`: Cashtray読み取り記録の作成日時
 
 `account`は [AccountWithUser](#account-with-user) オブジェクトを返します。
+
+<a name="account"></a>
+## Account
+* `id (string)`: ウォレットID
+* `name (string)`: ウォレット名
+* `is_suspended (boolean)`: ウォレットが凍結されているかどうか
+* `status (AccountStatus)`: 
+* `private_money (PrivateMoney)`: 設定マネー情報
+
+`status`は [AccountStatus](#account-status) オブジェクトを返します。
+
+`private_money`は [PrivateMoney](#private-money) オブジェクトを返します。
 
 <a name="transfer"></a>
 ## Transfer
