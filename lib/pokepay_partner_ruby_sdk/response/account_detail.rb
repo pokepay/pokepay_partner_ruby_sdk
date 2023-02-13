@@ -13,6 +13,7 @@ module Pokepay::Response
       @balance = row["balance"]
       @money_balance = row["money_balance"]
       @point_balance = row["point_balance"]
+      @point_debt = row["point_debt"]
       @private_money = PrivateMoney.new(row["private_money"])
       @user = User.new(row["user"])
       @external_id = row["external_id"]
@@ -24,6 +25,7 @@ module Pokepay::Response
     attr_reader :balance
     attr_reader :money_balance
     attr_reader :point_balance
+    attr_reader :point_debt
     attr_reader :private_money
     attr_reader :user
     attr_reader :external_id

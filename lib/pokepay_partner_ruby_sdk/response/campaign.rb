@@ -20,6 +20,7 @@ module Pokepay::Response
       @bear_point_shop = User.new(row["bear_point_shop"])
       @private_money = PrivateMoney.new(row["private_money"])
       @dest_private_money = PrivateMoney.new(row["dest_private_money"])
+      @max_total_point_amount = row["max_total_point_amount"]
       @point_calculation_rule = row["point_calculation_rule"]
       @point_calculation_rule_object = row["point_calculation_rule_object"]
       @status = row["status"]
@@ -37,6 +38,7 @@ module Pokepay::Response
     attr_reader :bear_point_shop
     attr_reader :private_money
     attr_reader :dest_private_money
+    attr_reader :max_total_point_amount
     attr_reader :point_calculation_rule
     attr_reader :point_calculation_rule_object
     attr_reader :status

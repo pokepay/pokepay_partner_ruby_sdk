@@ -7,6 +7,7 @@ module Pokepay::Response
   class Check
     def initialize(row)
       @id = row["id"]
+      @created_at = row["created_at"]
       @amount = row["amount"]
       @money_amount = row["money_amount"]
       @point_amount = row["point_amount"]
@@ -18,9 +19,12 @@ module Pokepay::Response
       @private_money = PrivateMoney.new(row["private_money"])
       @usage_limit = row["usage_limit"]
       @usage_count = row["usage_count"]
+      @point_expires_at = row["point_expires_at"]
+      @point_expires_in_days = row["point_expires_in_days"]
       @token = row["token"]
     end
     attr_reader :id
+    attr_reader :created_at
     attr_reader :amount
     attr_reader :money_amount
     attr_reader :point_amount
@@ -32,6 +36,8 @@ module Pokepay::Response
     attr_reader :private_money
     attr_reader :usage_limit
     attr_reader :usage_count
+    attr_reader :point_expires_at
+    attr_reader :point_expires_in_days
     attr_reader :token
   end
 end
