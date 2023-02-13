@@ -1972,7 +1972,7 @@ class PokepayTest < Minitest::Test
                               "ae07df37-1016-4837-8fd5-90abd67b2b98",
                               "29fa1a30-bbb4-47e1-acde-b890bc290525",
                               "89ee572d-fda9-4a17-8c11-9273ef9d6201",
-                              2327.0
+                              2327
     ))
     assert response.code != "400"
   end
@@ -1982,7 +1982,7 @@ class PokepayTest < Minitest::Test
                               "ae07df37-1016-4837-8fd5-90abd67b2b98",
                               "29fa1a30-bbb4-47e1-acde-b890bc290525",
                               "89ee572d-fda9-4a17-8c11-9273ef9d6201",
-                              2327.0,
+                              2327,
                               request_id: "7d16d33d-d134-4ce8-adf9-0b34490510c3"
     ))
     assert response.code != "400"
@@ -1993,7 +1993,7 @@ class PokepayTest < Minitest::Test
                               "ae07df37-1016-4837-8fd5-90abd67b2b98",
                               "29fa1a30-bbb4-47e1-acde-b890bc290525",
                               "89ee572d-fda9-4a17-8c11-9273ef9d6201",
-                              2327.0,
+                              2327,
                               description: "8WnCRfz2leovb1R7O6QOgboW2zpcaLxa2QZma6CRo8nyJO9Y3f9djMgk8QSZwJ1udEIb7zDJ6KZTEk0mDRGqd8jGihF2zo2GN3QYDG6CZS1PVe5LZzi2NmWBluHrzflOytNd3ROmH9nMfAHnX3LOs6P3dxLhDjrt4CFESWJnPCLUxGLtrgo",
                               request_id: "8a923867-9a5b-4090-a807-84d3e08fe0b3"
     ))
@@ -6044,8 +6044,8 @@ class PokepayTest < Minitest::Test
 
   def test_request_user_stats_0
     response = $client.send(Pokepay::Request::RequestUserStats.new(
-                              "2025-03-02T12:34:19.000000+09:00",
-                              "2024-12-07T19:59:33.000000+09:00"
+                              "2022-03-02T12:34:19.000000+09:00",
+                              "2022-04-07T19:59:33.000000+09:00"
     ))
     assert response.code != "400"
   end
