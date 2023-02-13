@@ -44,6 +44,7 @@ module Pokepay
         @http.key = OpenSSL::PKey::RSA.new(File.read(@ssl_key_file))
         @http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       end
+      @http.start()
       @crypto = Pokepay::Crypto.new(@client_secret)
     end
 
@@ -65,7 +66,10 @@ module Pokepay
                 "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data))).tr("=", "")}
       req = request_class.new(path)
       req.set_form_data(params)
-      res = @http.start { @http.request(req) }
+      if not @http.active?
+        @http.start()
+      end
+      res =  @http.request(req)
       if is_server_error(res) then
         raise format("Server Error (code: %s)", res.code)
       end
@@ -115,6 +119,12 @@ module Pokepay
                        else raise "Wrong method"
                        end
       request(request_class, request.path, request.body_params, request.response_class)
+    end
+
+    def terminate()
+      if @http.active?
+        @http.finish
+      end
     end
   end
 end
