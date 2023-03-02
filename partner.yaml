@@ -5041,7 +5041,7 @@ paths:
   /bulk-transactions/{bulk_transaction_id}/jobs:
     get:
       summary: バルク取引ジョブの詳細情報一覧を取得する
-      x-pokepay-operator-name: "GetBulkTransaction"
+      x-pokepay-operator-name: "ListBulkTransactionJobs"
       x-pokepay-allow-server-side: true
       requestBody:
         required: true
@@ -5597,7 +5597,17 @@ paths:
                         description: |-
                           対象の製品コード (JANコードやISBNコードなど) を指定します。(必須項目)
 
-                          SQLのLIKE文のようにワイルドカードを使った製品コードのパターンを指定することもできます (例: 978-% でISBNコード)
+                          SQLのLIKE文のようにワイルドカードを使った製品コードのパターンを指定することもできます (_ で任意の1文字にマッチし、 % で任意文字列にマッチします。 例: 978-% でISBNコード)
+                        items:
+                          type: string
+                      classification_code:
+                        type: string
+                        maxLength: 64
+                        title: '対象の商品分類コード'
+                        description: |-
+                          対象の商品分類コード (書籍のCコードなど) を指定します。(任意項目)
+
+                          SQLのLIKE文のようにワイルドカードを使った製品コードのパターンを指定することもできます (_ で任意の1文字にマッチし、 % で任意文字列にマッチします。 例: 978-% でISBNコード)
                         items:
                           type: string
                       required_count:
@@ -6343,6 +6353,16 @@ paths:
                           対象の製品コード (JANコードやISBNコードなど) を指定します。(必須項目)
 
                           SQLのLIKE文のようにワイルドカードを使った製品コードのパターンを指定することもできます (例: 978-% でISBNコード)
+                        items:
+                          type: string
+                      classification_code:
+                        type: string
+                        maxLength: 64
+                        title: '対象の商品分類コード'
+                        description: |-
+                          対象の商品分類コード (書籍のCコードなど) を指定します。(任意項目)
+
+                          SQLのLIKE文のようにワイルドカードを使った製品コードのパターンを指定することもできます (_ で任意の1文字にマッチし、 % で任意文字列にマッチします。 例: 978-% でISBNコード)
                         items:
                           type: string
                       required_count:
