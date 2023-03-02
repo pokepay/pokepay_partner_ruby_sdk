@@ -53,7 +53,7 @@ require "pokepay_partner_ruby_sdk/request/get_private_money_organization_summari
 require "pokepay_partner_ruby_sdk/request/get_private_money_summary"
 require "pokepay_partner_ruby_sdk/request/list_customer_transactions"
 require "pokepay_partner_ruby_sdk/request/get_bulk_transaction"
-require "pokepay_partner_ruby_sdk/request/get_bulk_transaction"
+require "pokepay_partner_ruby_sdk/request/list_bulk_transaction_jobs"
 require "pokepay_partner_ruby_sdk/request/create_cashtray"
 require "pokepay_partner_ruby_sdk/request/get_cashtray"
 require "pokepay_partner_ruby_sdk/request/cancel_cashtray"
