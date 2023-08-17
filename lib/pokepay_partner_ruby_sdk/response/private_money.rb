@@ -14,6 +14,7 @@ module Pokepay::Response
       @organization = Organization.new(row["organization"])
       @max_balance = row["max_balance"]
       @transfer_limit = row["transfer_limit"]
+      @money_topup_transfer_limit = row["money_topup_transfer_limit"]
       @type = row["type"]
       @expiration_type = row["expiration_type"]
       @enable_topup_by_member = row["enable_topup_by_member"]
@@ -28,6 +29,7 @@ module Pokepay::Response
     attr_reader :organization
     attr_reader :max_balance
     attr_reader :transfer_limit
+    attr_reader :money_topup_transfer_limit
     attr_reader :type
     attr_reader :expiration_type
     attr_reader :enable_topup_by_member

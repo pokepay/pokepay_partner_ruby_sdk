@@ -18,6 +18,8 @@ module Pokepay::Response
       @amount = row["amount"]
       @money_amount = row["money_amount"]
       @point_amount = row["point_amount"]
+      @raw_point_amount = row["raw_point_amount"]
+      @campaign_point_amount = row["campaign_point_amount"]
       @done_at = row["done_at"]
       @description = row["description"]
     end
@@ -31,6 +33,8 @@ module Pokepay::Response
     attr_reader :amount
     attr_reader :money_amount
     attr_reader :point_amount
+    attr_reader :raw_point_amount
+    attr_reader :campaign_point_amount
     attr_reader :done_at
     attr_reader :description
   end
