@@ -8,12 +8,16 @@ module Pokepay::Response
       @money_amount = row["money_amount"]
       @money_count = row["money_count"]
       @point_amount = row["point_amount"]
+      @raw_point_amount = row["raw_point_amount"]
+      @campaign_point_amount = row["campaign_point_amount"]
       @point_count = row["point_count"]
     end
     attr_reader :count
     attr_reader :money_amount
     attr_reader :money_count
     attr_reader :point_amount
+    attr_reader :raw_point_amount
+    attr_reader :campaign_point_amount
     attr_reader :point_count
   end
 end
