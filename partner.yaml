@@ -4232,6 +4232,7 @@ paths:
       tags:
         - Transaction
       x-pokepay-allow-server-side: true
+      x-pokepay-operator-name: "CreateExchangeTransaction"
       requestBody:
         required: true
         content:
@@ -4249,7 +4250,7 @@ paths:
                   type: string
                   format: uuid
                 amount:
-                  type: number
+                  type: integer
                   minimum: 1
                 description:
                   type: string
