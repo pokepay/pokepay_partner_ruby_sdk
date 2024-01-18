@@ -12,7 +12,7 @@ $inifile = IniFile.load(File.expand_path("~/.pokepay/test-config.ini"))
 class SendEchoTest < Minitest::Test
   def simpleTest
     response = $client.send(Pokepay::Request::SendEcho.new(
-        "Hello"
+      "Hello"
     ))
     assert_equal("ok", response.status)
     assert_equal("Hello", response.message)

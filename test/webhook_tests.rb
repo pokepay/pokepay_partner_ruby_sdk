@@ -14,12 +14,12 @@ class WebhookTests < Minitest::Test
     list = $client.send(Pokepay::Request::ListWebhooks.new())
     for row in list.rows do 
       $client.send(Pokepay::Request::DeleteWebhook.new(
-          row.id
+        row.id
       ))
     end
     webhook1 = $client.send(Pokepay::Request::CreateWebhook.new(
-        "bulk_shops",
-        "http://localhost/bulk_shops"
+      "bulk_shops",
+      "http://localhost/bulk_shops"
     ))
     assert_equal("coilinc", webhook1.organization_code)
     assert_equal("bulk_shops", webhook1.task)
@@ -27,8 +27,8 @@ class WebhookTests < Minitest::Test
     assert_equal(true, webhook1.is_active)
     assert_equal("application/json", webhook1.content_type)
     webhook2 = $client.send(Pokepay::Request::CreateWebhook.new(
-        "process_user_stats_operation",
-        "http://localhost/process_user_stats_operation"
+      "process_user_stats_operation",
+      "http://localhost/process_user_stats_operation"
     ))
     assert_equal("coilinc", webhook2.organization_code)
     assert_equal("process_user_stats_operation", webhook2.task)
@@ -40,9 +40,9 @@ class WebhookTests < Minitest::Test
     assert_equal(webhook2.id, list2.rows[0].id)
     assert_equal(webhook1.id, list2.rows[1].id)
     update_response = $client.send(Pokepay::Request::UpdateWebhook.new(
-        webhook1.id
-
-      is_active: false))
+      webhook1.id,
+      is_active: false
+    ))
     assert_equal(webhook1.id, update_response.id)
     assert_equal(webhook1.organization_code, update_response.organization_code)
     assert_equal(webhook1.task, update_response.task)

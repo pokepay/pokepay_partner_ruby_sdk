@@ -17,11 +17,11 @@ class CreateOrganizationTest < Minitest::Test
     issuer_admin_user_email = SecureRandom.base64(6) + "@pokepay-tests.jp"
     member_admin_user_email = SecureRandom.base64(6) + "@pokepay-tests.jp"
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-        code,
-        name,
-        private_money_ids,
-        issuer_admin_user_email,
-        member_admin_user_email
+      code,
+      name,
+      private_money_ids,
+      issuer_admin_user_email,
+      member_admin_user_email
     ))
     assert_equal(code, response.code)
     assert_equal(name, response.name)
@@ -41,12 +41,11 @@ class CreateOrganizationTest < Minitest::Test
     bank_account_holder_name = "ﾌｸｻﾞﾜﾕｷﾁ"
     contact_name = "佐藤清"
     response = $client.send(Pokepay::Request::CreateOrganization.new(
-        code,
-        name,
-        private_money_ids,
-        issuer_admin_user_email,
-        member_admin_user_email
-
+      code,
+      name,
+      private_money_ids,
+      issuer_admin_user_email,
+      member_admin_user_email,
       bank_code: bank_code,
       bank_name: bank_name,
       bank_branch_code: bank_branch_code,
@@ -54,7 +53,8 @@ class CreateOrganizationTest < Minitest::Test
       bank_account_type: bank_account_type,
       bank_account: bank_account,
       bank_account_holder_name: bank_account_holder_name,
-      contact_name: contact_name))
+      contact_name: contact_name
+    ))
     assert_equal(code, response.code)
     assert_equal(name, response.name)
   end
