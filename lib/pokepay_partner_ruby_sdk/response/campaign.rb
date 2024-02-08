@@ -24,6 +24,9 @@ module Pokepay::Response
       @point_calculation_rule = row["point_calculation_rule"]
       @point_calculation_rule_object = row["point_calculation_rule_object"]
       @status = row["status"]
+      @budget_caps_amount = row["budget_caps_amount"]
+      @budget_current_amount = row["budget_current_amount"]
+      @budget_current_time = row["budget_current_time"]
     end
     attr_reader :id
     attr_reader :name
@@ -42,5 +45,8 @@ module Pokepay::Response
     attr_reader :point_calculation_rule
     attr_reader :point_calculation_rule_object
     attr_reader :status
+    attr_reader :budget_caps_amount
+    attr_reader :budget_current_amount
+    attr_reader :budget_current_time
   end
 end
