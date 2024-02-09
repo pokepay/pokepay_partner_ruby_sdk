@@ -9,6 +9,8 @@ module Pokepay::Response
       @payment_amount = row["payment_amount"]
       @refunded_payment_amount = row["refunded_payment_amount"]
       @added_point_amount = row["added_point_amount"]
+      @topup_point_amount = row["topup_point_amount"]
+      @campaign_point_amount = row["campaign_point_amount"]
       @refunded_added_point_amount = row["refunded_added_point_amount"]
       @exchange_inflow_amount = row["exchange_inflow_amount"]
       @exchange_outflow_amount = row["exchange_outflow_amount"]
@@ -19,6 +21,8 @@ module Pokepay::Response
     attr_reader :payment_amount
     attr_reader :refunded_payment_amount
     attr_reader :added_point_amount
+    attr_reader :topup_point_amount
+    attr_reader :campaign_point_amount
     attr_reader :refunded_added_point_amount
     attr_reader :exchange_inflow_amount
     attr_reader :exchange_outflow_amount
