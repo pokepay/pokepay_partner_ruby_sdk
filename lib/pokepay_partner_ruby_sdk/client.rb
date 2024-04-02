@@ -65,7 +65,7 @@ module Pokepay
       params = {"partner_client_id" => @client_id,
                 "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data))).tr("=", "")}
       req = request_class.new(path)
-      req['user-agent'] = 'pokepay_partner_ruby_sdk ' + Pokepay::VERSION
+      req['user-agent'] = 'pokepay_partner_ruby_sdk/' + Pokepay::VERSION
       req.set_form_data(params)
       if not @http.active?
         @http.start()
