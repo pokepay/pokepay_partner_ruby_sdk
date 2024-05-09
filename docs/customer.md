@@ -1,5 +1,55 @@
 # Customer
 
+<a name="delete-account"></a>
+## DeleteAccount: ウォレットを退会する
+ウォレットを退会します。一度ウォレットを退会した後は、そのウォレットを再び利用可能な状態に戻すことは出来ません。
+
+```RUBY
+response = $client.send(Pokepay::Request::DeleteAccount.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
+                          cashback: true                                        # 返金有無
+))
+```
+
+
+
+### Parameters
+**`account_id`** 
+  
+
+ウォレットIDです。
+
+指定したウォレットIDのウォレットを退会します。
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+**`cashback`** 
+  
+
+退会時の返金有無です。エンドユーザに返金を行う場合、真を指定して下さい。現在のマネー残高を全て現金で返金したものとして記録されます。
+
+```json
+{
+  "type": "boolean"
+}
+```
+
+
+
+成功したときは
+[AccountDeleted](./responses.md#account-deleted)
+を返します
+
+
+
+---
+
+
 <a name="get-account"></a>
 ## GetAccount: ウォレット情報を表示する
 ウォレットを取得します。
@@ -34,6 +84,7 @@ response = $client.send(Pokepay::Request::GetAccount.new(
 を返します
 
 
+
 ---
 
 
@@ -51,8 +102,8 @@ response = $client.send(Pokepay::Request::GetAccount.new(
 response = $client.send(Pokepay::Request::UpdateAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
                           is_suspended: true,                                   # ウォレットが凍結されているかどうか
-                          status: "active",                                     # ウォレット状態
-                          can_transfer_topup: true                              # チャージ可能かどうか
+                          status: "suspended",                                  # ウォレット状態
+                          can_transfer_topup: false                             # チャージ可能かどうか
 ))
 ```
 
@@ -118,54 +169,6 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 を返します
 
 
----
-
-
-<a name="delete-account"></a>
-## DeleteAccount: ウォレットを退会する
-ウォレットを退会します。一度ウォレットを退会した後は、そのウォレットを再び利用可能な状態に戻すことは出来ません。
-
-```RUBY
-response = $client.send(Pokepay::Request::DeleteAccount.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          cashback: false                                       # 返金有無
-))
-```
-
-
-
-### Parameters
-**`account_id`** 
-  
-
-ウォレットIDです。
-
-指定したウォレットIDのウォレットを退会します。
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-**`cashback`** 
-  
-
-退会時の返金有無です。エンドユーザに返金を行う場合、真を指定して下さい。現在のマネー残高を全て現金で返金したものとして記録されます。
-
-```json
-{
-  "type": "boolean"
-}
-```
-
-
-
-成功したときは
-[AccountDeleted](./responses.md#account-deleted)
-を返します
-
 
 ---
 
@@ -177,10 +180,10 @@ response = $client.send(Pokepay::Request::DeleteAccount.new(
 ```RUBY
 response = $client.send(Pokepay::Request::ListAccountBalances.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 4864,                                           # ページ番号
-                          per_page: 2363,                                       # 1ページ分の取引数
-                          expires_at_from: "2022-10-29T13:58:49.000000Z",       # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2022-12-20T05:38:25.000000Z",         # 有効期限の期間によるフィルター(終了時点)
+                          page: 2551,                                           # ページ番号
+                          per_page: 6034,                                       # 1ページ分の取引数
+                          expires_at_from: "2020-03-19T11:40:52.000000Z",       # 有効期限の期間によるフィルター(開始時点)
+                          expires_at_to: "2021-04-16T05:15:38.000000Z",         # 有効期限の期間によるフィルター(終了時点)
                           direction: "desc"                                     # 有効期限によるソート順序
 ))
 ```
@@ -272,6 +275,7 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 を返します
 
 
+
 ---
 
 
@@ -282,11 +286,11 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 ```RUBY
 response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 9610,                                           # ページ番号
-                          per_page: 2603,                                       # 1ページ分の取引数
-                          expires_at_from: "2020-05-11T07:12:37.000000Z",       # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2022-01-18T11:04:15.000000Z",         # 有効期限の期間によるフィルター(終了時点)
-                          direction: "asc"                                      # 有効期限によるソート順序
+                          page: 2650,                                           # ページ番号
+                          per_page: 5536,                                       # 1ページ分の取引数
+                          expires_at_from: "2020-01-02T20:37:11.000000Z",       # 有効期限の期間によるフィルター(開始時点)
+                          expires_at_to: "2022-05-20T13:22:30.000000Z",         # 有効期限の期間によるフィルター(終了時点)
+                          direction: "desc"                                     # 有効期限によるソート順序
 ))
 ```
 
@@ -377,6 +381,7 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 を返します
 
 
+
 ---
 
 
@@ -387,9 +392,9 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          status: "pre-closed",                                 # ウォレット状態
-                          account_name: "kLnY7y5P2vTc2kTDF85U9g31HpRLtjhMxgRT9FEddBtVan5HyW6Uan9MoYMbee", # アカウント名
-                          external_id: "KUX",                                   # 外部ID
+                          status: "suspended",                                  # ウォレット状態
+                          account_name: "tEksQWSl6Am3gCBrhM35EfmrtOFWMml5EKRiDsWg9ZcujQMFmb4vZ2HzNm8wdK6sB9HsuClaKx3AfzVa9lboQsNDBH1uzKMqlEF94aThPURq2Q4ZM2ZH2d8EggWOOiiO67HWQCePWkLnY7y5", # アカウント名
+                          external_id: "P2vTc2kTDF85U9g31HpRLtjhMxgRT9FEd",     # 外部ID
                           metadata: "{\"key1\":\"foo\",\"key2\":\"bar\"}"       # ウォレットに付加するメタデータ
 ))
 ```
@@ -485,6 +490,7 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 を返します
 
 
+
 ---
 
 
@@ -495,15 +501,15 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 ```RUBY
 response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          page: 8901,                                           # ページ番号
-                          per_page: 9982,                                       # 1ページ分のウォレット数
-                          created_at_from: "2022-05-12T14:01:20.000000Z",       # ウォレット作成日によるフィルター(開始時点)
-                          created_at_to: "2021-08-01T07:54:25.000000Z",         # ウォレット作成日によるフィルター(終了時点)
+                          page: 5126,                                           # ページ番号
+                          per_page: 7269,                                       # 1ページ分のウォレット数
+                          created_at_from: "2023-11-24T20:16:17.000000Z",       # ウォレット作成日によるフィルター(開始時点)
+                          created_at_to: "2022-04-02T23:46:10.000000Z",         # ウォレット作成日によるフィルター(終了時点)
                           is_suspended: true,                                   # ウォレットが凍結状態かどうかでフィルターする
-                          status: "active",                                     # ウォレット状態
-                          external_id: "vqgIch5W6XuTL0vlIdvd",                  # 外部ID
-                          tel: "072777-896",                                    # エンドユーザーの電話番号
-                          email: "BXoKUl0tR0@7369.com"                          # エンドユーザーのメールアドレス
+                          status: "suspended",                                  # ウォレット状態
+                          external_id: "an5HyW6Uan9MoYMbeeBKUXD",               # 外部ID
+                          tel: "00-43077938",                                   # エンドユーザーの電話番号
+                          email: "5W6XuTL0vl@Idvd.com"                          # エンドユーザーのメールアドレス
 ))
 ```
 
@@ -641,6 +647,13 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 [PaginatedAccountWithUsers](./responses.md#paginated-account-with-users)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|private_money_not_found||Private money not found|
+
+
 
 ---
 
@@ -657,7 +670,7 @@ response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           user_name: "ポケペイ太郎",                                  # ユーザー名
                           account_name: "ポケペイ太郎のアカウント",                         # アカウント名
-                          external_id: "BiPR32MXZafz3jf"                        # 外部ID
+                          external_id: "Mbz7wUi6BX"                             # 外部ID
 ))
 ```
 
@@ -720,6 +733,19 @@ PAPIクライアントシステムから利用するPokepayユーザーのIDで�
 [AccountWithUser](./responses.md#account-with-user)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|user_not_found||The user is not found|
+|422|private_money_not_found||Private money not found|
+|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
+|422|user_attributes_external_id_not_match|ユーザー属性情報の外部IDが一致しません|Not match external id of user attributes|
+|422|user_attributes_not_found|ユーザー属性情報が存在しません|Not found the user attrubtes|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|account_can_not_create|このマネーに新規アカウントを作る事は出来ません|Can not create an account with this money|
+
+
 
 ---
 
@@ -731,11 +757,11 @@ PAPIクライアントシステムから利用するPokepayユーザーのIDで�
 ```RUBY
 response = $client.send(Pokepay::Request::GetShopAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          page: 5375,                                           # ページ番号
-                          per_page: 7186,                                       # 1ページ分のウォレット数
-                          created_at_from: "2020-02-09T06:31:25.000000Z",       # ウォレット作成日によるフィルター(開始時点)
-                          created_at_to: "2020-04-03T10:25:10.000000Z",         # ウォレット作成日によるフィルター(終了時点)
-                          is_suspended: false                                   # ウォレットが凍結状態かどうかでフィルターする
+                          page: 5675,                                           # ページ番号
+                          per_page: 5616,                                       # 1ページ分のウォレット数
+                          created_at_from: "2023-07-03T03:04:43.000000Z",       # ウォレット作成日によるフィルター(開始時点)
+                          created_at_to: "2021-06-30T21:36:21.000000Z",         # ウォレット作成日によるフィルター(終了時点)
+                          is_suspended: true                                    # ウォレットが凍結状態かどうかでフィルターする
 ))
 ```
 
@@ -821,6 +847,13 @@ response = $client.send(Pokepay::Request::GetShopAccounts.new(
 [PaginatedAccountWithUsers](./responses.md#paginated-account-with-users)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|private_money_not_found||Private money not found|
+
+
 
 ---
 
@@ -835,9 +868,9 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
                           sender_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 送金エンドユーザーID
                           receiver_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 受取エンドユーザーID
                           type: "topup",                                        # 取引種別
-                          is_modified: false,                                   # キャンセル済みかどうか
-                          from: "2021-06-10T14:16:07.000000Z",                  # 開始日時
-                          to: "2022-04-02T20:02:52.000000Z",                    # 終了日時
+                          is_modified: true,                                    # キャンセル済みかどうか
+                          from: "2021-04-20T18:50:28.000000Z",                  # 開始日時
+                          to: "2023-12-17T07:40:02.000000Z",                    # 終了日時
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -993,6 +1026,14 @@ falseを指定するとキャンセルされていない取引のみ一覧に表
 成功したときは
 [PaginatedTransaction](./responses.md#paginated-transaction)
 を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|customer_user_not_found||The customer user is not found|
+|422|private_money_not_found||Private money not found|
+
 
 
 ---

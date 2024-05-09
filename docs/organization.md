@@ -8,8 +8,8 @@ response = $client.send(Pokepay::Request::ListOrganizations.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           page: 1,                                              # ページ番号
                           per_page: 50,                                         # 1ページ分の取引数
-                          name: "GERnFdcW",                                     # 組織名
-                          code: "SdaJfJ60D"                                     # 組織コード
+                          name: "7",                                            # 組織名
+                          code: "69wB"                                          # 組織コード
 ))
 ```
 
@@ -79,6 +79,14 @@ response = $client.send(Pokepay::Request::ListOrganizations.new(
 [PaginatedOrganizations](./responses.md#paginated-organizations)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|private_money_not_found||Private money not found|
+
+
 
 ---
 
@@ -90,14 +98,14 @@ response = $client.send(Pokepay::Request::ListOrganizations.new(
 response = $client.send(Pokepay::Request::CreateOrganization.new(
                           "ox-supermarket",                                     # code: 新規組織コード
                           "oxスーパー",                                             # name: 新規組織名
-                          ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"],             # private_money_ids: 加盟店組織で有効にするマネーIDの配列
-                          "H2T0aKhnL3@FlnA.com",                                # issuer_admin_user_email: 発行体担当者メールアドレス
-                          "D82QrpYaKu@slNr.com",                                # member_admin_user_email: 新規組織担当者メールアドレス
+                          ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # private_money_ids: 加盟店組織で有効にするマネーIDの配列
+                          "PR32MXZafz@3jff.com",                                # issuer_admin_user_email: 発行体担当者メールアドレス
+                          "pT8lgGERnF@dcWh.com",                                # member_admin_user_email: 新規組織担当者メールアドレス
                           bank_name: "XYZ銀行",                                   # 銀行名
                           bank_code: "1234",                                    # 銀行金融機関コード
                           bank_branch_name: "ABC支店",                            # 銀行支店名
                           bank_branch_code: "123",                              # 銀行支店コード
-                          bank_account_type: "current",                         # 銀行口座種別 (普通=saving, 当座=current, その他=other)
+                          bank_account_type: "saving",                          # 銀行口座種別 (普通=saving, 当座=current, その他=other)
                           bank_account: "1234567",                              # 銀行口座番号
                           bank_account_holder_name: "ﾌｸｻﾞﾜﾕｷﾁ",                 # 口座名義人名
                           contact_name: "佐藤清"                                   # 担当者名
@@ -265,6 +273,17 @@ response = $client.send(Pokepay::Request::CreateOrganization.new(
 成功したときは
 [Organization](./responses.md#organization)
 を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|NULL|NULL|NULL|
+|409|organization_conflict||The organization code is already used|
+|409|shop_name_conflict||The shop name is already used|
+|422|organization_private_money_not_found||Issuer organization does not have private-money|
+|422|unavailable_private_money||Given private money(s) is/are not available|
+|503|failed_to_send_email||Failed to send an E-mail.|
+
 
 
 ---

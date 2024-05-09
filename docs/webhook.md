@@ -4,58 +4,6 @@ WebHookにはURLとタスク名、有効化されているかを設定するこ�
 通知はタスク完了時、事前に設定したURLにPOSTリクエストを行います。
 
 
-<a name="create-webhook"></a>
-## CreateWebhook: webhookの作成
-ワーカータスクの処理が終了したことを通知するためのWebhookを登録します
-このAPIにより指定したタスクの終了時に、指定したURLにPOSTリクエストを送信します。
-このとき、リクエストボディは `{"task": <タスク名>}` という値になります。
-
-```RUBY
-response = $client.send(Pokepay::Request::CreateWebhook.new(
-                          "bulk_shops",                                         # task: タスク名
-                          "Bgm1"                                                # url: URL
-))
-```
-
-
-
-### Parameters
-**`task`** 
-  
-
-ワーカータスク名を指定します
-
-```json
-{
-  "type": "string",
-  "enum": [
-    "bulk_shops",
-    "process_user_stats_operation"
-  ]
-}
-```
-
-**`url`** 
-  
-
-通知先のURLを指定します
-
-```json
-{
-  "type": "string"
-}
-```
-
-
-
-成功したときは
-[OrganizationWorkerTaskWebhook](./responses.md#organization-worker-task-webhook)
-を返します
-
-
----
-
-
 <a name="list-webhooks"></a>
 ## ListWebhooks: 作成したWebhookの一覧を返す
 
@@ -99,6 +47,107 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 [PaginatedOrganizationWorkerTaskWebhook](./responses.md#paginated-organization-worker-task-webhook)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+
+
+
+---
+
+
+<a name="create-webhook"></a>
+## CreateWebhook: webhookの作成
+ワーカータスクの処理が終了したことを通知するためのWebhookを登録します
+このAPIにより指定したタスクの終了時に、指定したURLにPOSTリクエストを送信します。
+このとき、リクエストボディは `{"task": <タスク名>}` という値になります。
+
+```RUBY
+response = $client.send(Pokepay::Request::CreateWebhook.new(
+                          "process_user_stats_operation",                       # task: タスク名
+                          "m4tM4"                                               # url: URL
+))
+```
+
+
+
+### Parameters
+**`task`** 
+  
+
+ワーカータスク名を指定します
+
+```json
+{
+  "type": "string",
+  "enum": [
+    "bulk_shops",
+    "process_user_stats_operation"
+  ]
+}
+```
+
+**`url`** 
+  
+
+通知先のURLを指定します
+
+```json
+{
+  "type": "string"
+}
+```
+
+
+
+成功したときは
+[OrganizationWorkerTaskWebhook](./responses.md#organization-worker-task-webhook)
+を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|409|organization_worker_task_finish_webhook_conflict|そのwebhookは既に登録されています|The webhook is already registered|
+
+
+
+---
+
+
+<a name="delete-webhook"></a>
+## DeleteWebhook: Webhookの削除
+指定したWebhookを削除します
+
+```RUBY
+response = $client.send(Pokepay::Request::DeleteWebhook.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # webhook_id: Webhook ID
+))
+```
+
+
+
+### Parameters
+**`webhook_id`** 
+  
+
+削除するWebhookのIDです。
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+
+
+成功したときは
+[OrganizationWorkerTaskWebhook](./responses.md#organization-worker-task-webhook)
+を返します
+
+
 
 ---
 
@@ -110,8 +159,8 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateWebhook.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # webhook_id: Webhook ID
-                          url: "b",                                             # URL
-                          is_active: false,                                     # 有効/無効
+                          url: "rQ7TMW",                                        # URL
+                          is_active: true,                                      # 有効/無効
                           task: "bulk_shops"                                    # タスク名
 ))
 ```
@@ -174,40 +223,6 @@ trueならWebhookによる通知が有効になり、falseなら無効になり�
 [OrganizationWorkerTaskWebhook](./responses.md#organization-worker-task-webhook)
 を返します
 
-
----
-
-
-<a name="delete-webhook"></a>
-## DeleteWebhook: Webhookの削除
-指定したWebhookを削除します
-
-```RUBY
-response = $client.send(Pokepay::Request::DeleteWebhook.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # webhook_id: Webhook ID
-))
-```
-
-
-
-### Parameters
-**`webhook_id`** 
-  
-
-削除するWebhookのIDです。
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-
-
-成功したときは
-[OrganizationWorkerTaskWebhook](./responses.md#organization-worker-task-webhook)
-を返します
 
 
 ---

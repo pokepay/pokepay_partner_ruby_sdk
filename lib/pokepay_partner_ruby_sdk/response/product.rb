@@ -8,6 +8,7 @@ module Pokepay::Response
       @name = row["name"]
       @unit_price = row["unit_price"]
       @price = row["price"]
+      @quantity = row["quantity"]
       @is_discounted = row["is_discounted"]
       @other = row["other"]
     end
@@ -15,6 +16,7 @@ module Pokepay::Response
     attr_reader :name
     attr_reader :unit_price
     attr_reader :price
+    attr_reader :quantity
     attr_reader :is_discounted
     attr_reader :other
   end

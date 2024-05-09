@@ -6,7 +6,7 @@ CPMトークンの現在の状態を取得します。CPMトークンの有効�
 
 ```RUBY
 response = $client.send(Pokepay::Request::GetCpmToken.new(
-                          "zroFJfg0zCih9qHu842U5S"                              # cpm_token: CPMトークン
+                          "xlKwOlCibtq2e0nqtXLNIT"                              # cpm_token: CPMトークン
 ))
 ```
 
@@ -33,6 +33,7 @@ CPM取引時にエンドユーザーが店舗に提示するバーコードを�
 を返します
 
 
+
 ---
 
 
@@ -42,15 +43,15 @@ CPM取引時にエンドユーザーが店舗に提示するバーコードを�
 
 ```RUBY
 response = $client.send(Pokepay::Request::ListTransactions.new(
-                          from: "2021-06-05T21:00:30.000000Z",                  # 開始日時
-                          to: "2020-10-02T07:49:29.000000Z",                    # 終了日時
+                          from: "2023-05-04T13:08:23.000000Z",                  # 開始日時
+                          to: "2022-11-02T13:06:01.000000Z",                    # 終了日時
                           page: 1,                                              # ページ番号
                           per_page: 50,                                         # 1ページ分の取引数
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # エンドユーザーID
                           customer_name: "太郎",                                  # エンドユーザー名
                           terminal_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # 端末ID
-                          transaction_id: "NqipKVsII",                          # 取引ID
+                          transaction_id: "ffmmox8h",                           # 取引ID
                           organization_code: "pocketchange",                    # 組織コード
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
                           is_modified: false,                                   # キャンセルフラグ
@@ -288,6 +289,12 @@ response = $client.send(Pokepay::Request::ListTransactions.new(
 [PaginatedTransaction](./responses.md#paginated-transaction)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|NULL|NULL|NULL|
+
+
 
 ---
 
@@ -301,10 +308,10 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          money_amount: 362,
-                          point_amount: 3542,
-                          point_expires_at: "2024-03-01T17:10:50.000000Z",      # ポイント有効期限
-                          description: "x3ZiMVPZEq0xgguEtAXJ6WozfUGo1oVR"
+                          money_amount: 2545,
+                          point_amount: 6648,
+                          point_expires_at: "2022-02-08T18:32:21.000000Z",      # ポイント有効期限
+                          description: "x7fQZGPMXFo6oIvZGxUJAAeHeUyg78eCpqwfbVaGI8MUg6pkTJeF4LA5VGWmlO55tLRhXfPthFrTbvP80JDs4TLAvvWwguBec41EmwzzFrgc709a7P9KtTHr3zG8NnPjRfIRrqy3FohrRiHbftN77E9sKP2LWTH"
 ))
 ```
 
@@ -398,6 +405,47 @@ response = $client.send(Pokepay::Request::CreateTransaction.new(
 [TransactionDetail](./responses.md#transaction-detail)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameter_both_point_and_money_are_zero||One of 'money_amount' or 'point_amount' must be a positive (>0) number|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|403|NULL|NULL|NULL|
+|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
+|422|customer_user_not_found||The customer user is not found|
+|422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
+|422|private_money_not_found||Private money not found|
+|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
+|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
+|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
+|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
+|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
+|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
+|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
+|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
+|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
+|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
+|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
+|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|customer_account_not_found||The customer account is not found|
+|422|shop_account_not_found||The shop account is not found|
+|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
+|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
+|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
+|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
+|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|503|temporarily_unavailable||Service Unavailable|
+
+
 
 ---
 
@@ -415,11 +463,11 @@ response = $client.send(Pokepay::Request::ListTransactionsV2.new(
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # エンドユーザーID
                           customer_name: "太郎",                                  # エンドユーザー名
                           description: "店頭QRコードによる支払い",                         # 取引説明文
-                          transaction_id: "1P",                                 # 取引ID
+                          transaction_id: "kv",                                 # 取引ID
                           is_modified: true,                                    # キャンセルフラグ
                           types: ["topup", "payment"],                          # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
-                          from: "2024-02-04T04:47:18.000000Z",                  # 開始日時
-                          to: "2020-03-06T03:10:42.000000Z",                    # 終了日時
+                          from: "2021-07-19T23:53:06.000000Z",                  # 開始日時
+                          to: "2021-01-10T00:16:17.000000Z",                    # 終了日時
                           next_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 次ページへ遷移する際に起点となるtransactionのID
                           prev_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 前ページへ遷移する際に起点となるtransactionのID
                           per_page: 50                                          # 1ページ分の取引数
@@ -683,6 +731,12 @@ prev_page_cursor_idのtransaction自体は前のページには含まれませ�
 [PaginatedTransactionV2](./responses.md#paginated-transaction-v2)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+
+
 
 ---
 
@@ -697,9 +751,9 @@ response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーのID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           bear_point_shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # ポイント支払時の負担店舗ID
-                          money_amount: 4236,                                   # マネー額
-                          point_amount: 5322,                                   # ポイント額
-                          point_expires_at: "2021-02-02T23:32:54.000000Z",      # ポイント有効期限
+                          money_amount: 3094,                                   # マネー額
+                          point_amount: 4032,                                   # ポイント額
+                          point_expires_at: "2023-05-22T22:55:16.000000Z",      # ポイント有効期限
                           description: "初夏のチャージキャンペーン",                         # 取引履歴に表示する説明文
                           metadata: "{\"key\":\"value\"}",                      # 取引メタデータ
                           request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
@@ -858,6 +912,46 @@ response = $client.send(Pokepay::Request::CreateTopupTransaction.new(
 [TransactionDetail](./responses.md#transaction-detail)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameter_both_point_and_money_are_zero||One of 'money_amount' or 'point_amount' must be a positive (>0) number|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
+|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
+|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
+|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
+|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
+|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
+|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
+|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
+|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
+|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
+|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
+|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
+|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
+|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
+|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
+|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
+|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
+|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|422|customer_account_not_found||The customer account is not found|
+|422|shop_account_not_found||The shop account is not found|
+|422|private_money_not_found||Private money not found|
+|503|temporarily_unavailable||Service Unavailable|
+
+
 
 ---
 
@@ -873,16 +967,24 @@ response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          8608,                                                 # amount: 支払い額
+                          9195,                                                 # amount: 支払い額
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
                           metadata: "{\"key\":\"value\"}",                      # 取引メタデータ
                           products: [{"jan_code":"abc",
  "name":"name1",
  "unit_price":100,
  "price": 100,
+ "quantity": 1,
+ "is_discounted": false,
+ "other":"{}"}, {"jan_code":"abc",
+ "name":"name1",
+ "unit_price":100,
+ "price": 100,
+ "quantity": 1,
  "is_discounted": false,
  "other":"{}"}],                                                                # 商品情報データ
-                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
+                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # リクエストID
+                          strategy: "point-preferred"                           # 支払い時の残高消費方式
 ))
 ```
 
@@ -983,6 +1085,7 @@ response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
 - `name`: 商品名。256字以下の文字列
 - `unit_price`: 商品単価。0以上の数値
 - `price`: 全体の金額(例: 商品単価 × 個数)。0以上の数値
+- `quantity`: 商品の個数。この値が指定された場合、priceから算出される個数よりも優先されます。
 - `is_discounted`: 賞味期限が近いなどの理由で商品が値引きされているかどうかのフラグ。boolean
 - `other`: その他商品に関する情報。JSONオブジェクトで指定します。
 
@@ -1011,11 +1114,71 @@ response = $client.send(Pokepay::Request::CreatePaymentTransaction.new(
 }
 ```
 
+**`strategy`** 
+  
+
+支払い時に残高がどのように消費されるかを指定します。
+デフォルトでは point-preferred (ポイント優先)が採用されます。
+
+- point-preferred: ポイント残高が優先的に消費され、ポイントがなくなり次第マネー残高から消費されていきます(デフォルト動作)
+- money-only: マネー残高のみから消費され、ポイント残高は使われません
+
+マネー設定でポイント残高のみの利用に設定されている場合(display_money_and_point が point-only の場合)、 strategy の指定に関わらずポイント優先になります。
+
+```json
+{
+  "type": "string",
+  "enum": [
+    "point-preferred",
+    "money-only"
+  ]
+}
+```
+
 
 
 成功したときは
 [TransactionDetail](./responses.md#transaction-detail)
 を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
+|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
+|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
+|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
+|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
+|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
+|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
+|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
+|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
+|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
+|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
+|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
+|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
+|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
+|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
+|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
+|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
+|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|422|customer_account_not_found||The customer account is not found|
+|422|shop_account_not_found||The shop account is not found|
+|422|private_money_not_found||Private money not found|
+|503|temporarily_unavailable||Service Unavailable|
+
 
 
 ---
@@ -1029,28 +1192,20 @@ CPMトークンに設定されたスコープの取引を作ることができ�
 
 ```RUBY
 response = $client.send(Pokepay::Request::CreateCpmTransaction.new(
-                          "5SjzUvS2Jlq6P89tC2Mi1P",                             # cpm_token: CPMトークン
+                          "fSmGSFmTTeLGAy7h6m0Yya",                             # cpm_token: CPMトークン
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
-                          7208.0,                                               # amount: 取引金額
+                          1318.0,                                               # amount: 取引金額
                           description: "たい焼き(小倉)",                              # 取引説明文
                           metadata: "{\"key\":\"value\"}",                      # 店舗側メタデータ
                           products: [{"jan_code":"abc",
  "name":"name1",
  "unit_price":100,
  "price": 100,
- "is_discounted": false,
- "other":"{}"}, {"jan_code":"abc",
- "name":"name1",
- "unit_price":100,
- "price": 100,
- "is_discounted": false,
- "other":"{}"}, {"jan_code":"abc",
- "name":"name1",
- "unit_price":100,
- "price": 100,
+ "quantity": 1,
  "is_discounted": false,
  "other":"{}"}],                                                                # 商品情報データ
-                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
+                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # リクエストID
+                          strategy: "point-preferred"                           # 支払い時の残高消費方式
 ))
 ```
 
@@ -1137,6 +1292,7 @@ response = $client.send(Pokepay::Request::CreateCpmTransaction.new(
 - `name`: 商品名。256字以下の文字列
 - `unit_price`: 商品単価。0以上の数値
 - `price`: 全体の金額(例: 商品単価 × 個数)。0以上の数値
+- `quantity`: 商品の個数。この値が指定された場合、priceから算出される個数よりも優先されます。
 - `is_discounted`: 賞味期限が近いなどの理由で商品が値引きされているかどうかのフラグ。boolean
 - `other`: その他商品に関する情報。JSONオブジェクトで指定します。
 
@@ -1165,11 +1321,76 @@ response = $client.send(Pokepay::Request::CreateCpmTransaction.new(
 }
 ```
 
+**`strategy`** 
+  
+
+支払い時に残高がどのように消費されるかを指定します。
+デフォルトでは point-preferred (ポイント優先)が採用されます。
+
+- point-preferred: ポイント残高が優先的に消費され、ポイントがなくなり次第マネー残高から消費されていきます(デフォルト動作)
+- money-only: マネー残高のみから消費され、ポイント残高は使われません
+
+マネー設定でポイント残高のみの利用に設定されている場合(display_money_and_point が point-only の場合)、 strategy の指定に関わらずポイント優先になります。
+
+```json
+{
+  "type": "string",
+  "enum": [
+    "point-preferred",
+    "money-only"
+  ]
+}
+```
+
 
 
 成功したときは
 [TransactionDetail](./responses.md#transaction-detail)
 を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|403|cpm_unacceptable_amount|このCPMトークンに対して許可されていない金額です。|The amount is unacceptable for the CPM token|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
+|422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
+|422|private_money_not_found||Private money not found|
+|422|cpm_token_already_proceed|このCPMトークンは既に処理されています。|The CPM token is already proceed|
+|422|cpm_token_already_expired|このCPMトークンは既に失効しています。|The CPM token is already expired|
+|422|cpm_token_not_found|CPMトークンが見つかりませんでした。|The CPM token is not found.|
+|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
+|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
+|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
+|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
+|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
+|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
+|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
+|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
+|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
+|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
+|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
+|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
+|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|customer_account_not_found||The customer account is not found|
+|422|shop_account_not_found||The shop account is not found|
+|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
+|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
+|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
+|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
+|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|503|temporarily_unavailable||Service Unavailable|
+
 
 
 ---
@@ -1186,7 +1407,7 @@ response = $client.send(Pokepay::Request::CreateTransferTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # sender_id: 送金元ユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # receiver_id: 受取ユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          686.0,                                                # amount: 送金額
+                          1859.0,                                               # amount: 送金額
                           metadata: "{\"key\":\"value\"}",                      # 取引メタデータ
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
                           request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
@@ -1302,6 +1523,46 @@ response = $client.send(Pokepay::Request::CreateTransferTransaction.new(
 [TransactionDetail](./responses.md#transaction-detail)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
+|422|customer_user_not_found||The customer user is not found|
+|422|private_money_not_found||Private money not found|
+|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
+|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
+|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
+|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
+|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
+|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
+|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
+|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
+|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
+|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
+|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
+|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
+|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|customer_account_not_found||The customer account is not found|
+|422|shop_account_not_found||The shop account is not found|
+|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
+|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
+|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
+|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
+|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|503|temporarily_unavailable||Service Unavailable|
+
+
 
 ---
 
@@ -1314,8 +1575,8 @@ response = $client.send(Pokepay::Request::CreateExchangeTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          5541,
-                          description: "Re6ex8zQnoMXPxIs0d6X24reGHeQvAPqGMsA1rgfPu4olvC1KDDE1G2mGU9YeDH5Tysjz5v4HW6eqkSknjWS4aW80Xp5YCo9TXEMx6Q3N4lydCpBzThmgOIjIatpE7508LaYMNkxpSQqkfWLu8WbqqwjfwNPVeBo88egFulBO0tWJ9",
+                          1951,
+                          description: "0Ij3N9K7EVH4f0IDf80jI5hMMqGagepFcb0C3pMehBLw9uhZslxpk65zsLMOaWLvqiZty5Zp232IvDDPPtMusem1WSPOdAkWLCHhP7q7jyjEo8V3Di9DtzhzAGKUtsDdhPal5eEvQkTNVI1DbDv2ICSa1fLqeRzwnNnU8Hy7seU6TP",
                           request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
 ))
 ```
@@ -1400,6 +1661,44 @@ response = $client.send(Pokepay::Request::CreateExchangeTransaction.new(
 [TransactionDetail](./responses.md#transaction-detail)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
+|422|account_not_found|アカウントが見つかりません|The account is not found|
+|422|transaction_restricted||Transaction is not allowed|
+|422|can_not_exchange_between_same_private_money|同じマネーとの交換はできません||
+|422|can_not_exchange_between_users|異なるユーザー間での交換は出来ません||
+|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
+|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
+|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
+|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
+|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
+|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
+|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
+|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
+|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
+|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
+|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
+|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
+|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
+|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
+|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
+|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
+|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|503|temporarily_unavailable||Service Unavailable|
+
+
 
 ---
 
@@ -1438,6 +1737,7 @@ response = $client.send(Pokepay::Request::GetTransaction.new(
 を返します
 
 
+
 ---
 
 
@@ -1455,7 +1755,7 @@ response = $client.send(Pokepay::Request::GetTransaction.new(
 response = $client.send(Pokepay::Request::RefundTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # transaction_id: 取引ID
                           description: "返品対応のため",                               # 取引履歴に表示する返金事由
-                          returning_point_expires_at: "2023-04-11T16:40:53.000000Z" # 返却ポイントの有効期限
+                          returning_point_expires_at: "2021-07-22T02:45:40.000000Z" # 返却ポイントの有効期限
 ))
 ```
 
@@ -1503,6 +1803,7 @@ response = $client.send(Pokepay::Request::RefundTransaction.new(
 を返します
 
 
+
 ---
 
 
@@ -1540,6 +1841,7 @@ response = $client.send(Pokepay::Request::GetTransactionByRequestId.new(
 を返します
 
 
+
 ---
 
 
@@ -1573,6 +1875,7 @@ response = $client.send(Pokepay::Request::GetBulkTransaction.new(
 成功したときは
 [BulkTransaction](./responses.md#bulk-transaction)
 を返します
+
 
 
 ---
@@ -1634,6 +1937,7 @@ response = $client.send(Pokepay::Request::ListBulkTransactionJobs.new(
 成功したときは
 [PaginatedBulkTransactionJob](./responses.md#paginated-bulk-transaction-job)
 を返します
+
 
 
 ---
@@ -1699,6 +2003,16 @@ response = $client.send(Pokepay::Request::RequestUserStats.new(
 成功したときは
 [UserStatsOperation](./responses.md#user-stats-operation)
 を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|invalid_promotional_operation_user|ユーザーの指定に不正な値が含まれています|Invalid user data is specified|
+|422|invalid_promotional_operation_status|不正な処理ステータスです|Invalid operation status is specified|
+|503|user_stats_operation_service_unavailable|一時的にユーザー統計サービスが利用不能です|User stats service is temporarily unavailable|
+
 
 
 ---

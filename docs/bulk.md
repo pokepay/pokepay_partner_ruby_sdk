@@ -6,10 +6,10 @@ CSVファイルから一括取引をします。
 
 ```RUBY
 response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
-                          "skU0m8hSr1melepO9LnwIsUc",                           # name: 一括取引タスク名
-                          "mvb4",                                               # content: 取引する情報のCSV
-                          "GOUqCz9cGDIhlPt52zP7YS2DWusWLcKpd2P3",               # request_id: リクエストID
-                          description: "35Nv6jpCTg7cI",                         # 一括取引の説明
+                          "vOJkxhc8IPvtQD4QxNm6tX",                             # name: 一括取引タスク名
+                          "3Guvbo",                                             # content: 取引する情報のCSV
+                          "2vDNfvQpElqxJKgNyOMeXS2rUoCJ5iHqorIs",               # request_id: リクエストID
+                          description: "Pc2cBsLEwskU0m8hSr1melepO9LnwIsUcSmvb4GOUqCz9cGDIhlPt52zP7YS2DWusWLcKpd2P335Nv6jpCTg7cImjgcPmkAEumRe3ajMg8VGC0KZL7VMaMEG", # 一括取引の説明
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # マネーID
 ))
 ```
@@ -103,6 +103,16 @@ response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
 成功したときは
 [BulkTransaction](./responses.md#bulk-transaction)
 を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|403|organization_not_issuer|発行体以外に許可されていない操作です|Unpermitted operation except for issuer organizations.|
+|409|NULL|NULL|NULL|
+|422|private_money_not_found||Private money not found|
+|422|bulk_transaction_invalid_csv_format|入力されたCSVデータに誤りがあります|Invalid csv format|
+
 
 
 ---
