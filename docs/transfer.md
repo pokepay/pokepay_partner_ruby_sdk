@@ -7,8 +7,8 @@
 ```RUBY
 response = $client.send(Pokepay::Request::GetAccountTransferSummary.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          from: "2020-05-19T10:22:23.000000Z",                  # 集計期間の開始時刻
-                          to: "2022-09-30T14:05:52.000000Z",                    # 集計期間の終了時刻
+                          from: "2023-06-23T21:17:23.000000Z",                  # 集計期間の開始時刻
+                          to: "2023-06-14T19:07:49.000000Z",                    # 集計期間の終了時刻
                           transfer_types: ["topup", "payment"]                  # 取引明細種別 (複数指定可)
 ))
 ```
@@ -113,6 +113,7 @@ response = $client.send(Pokepay::Request::GetAccountTransferSummary.new(
 を返します
 
 
+
 ---
 
 
@@ -121,19 +122,19 @@ response = $client.send(Pokepay::Request::GetAccountTransferSummary.new(
 
 ```RUBY
 response = $client.send(Pokepay::Request::ListTransfers.new(
-                          from: "2023-09-04T06:29:07.000000Z",
-                          to: "2024-01-13T03:24:09.000000Z",
-                          page: 4884,
-                          per_page: 6195,
+                          from: "2021-03-22T20:29:34.000000Z",
+                          to: "2024-01-28T16:06:14.000000Z",
+                          page: 776,
+                          per_page: 7651,
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          shop_name: "C590AS7UiB0DiDGREmImyJDbbC2wEGBfcAGc0EsTxqnb80BRFYcLTC4xCABLekowD1pN0MSUSSu62wEl3iPUkIv4a2NsBAg7OoWmbOWXvcqkH6OCG8bjnFs6Wxag7k",
+                          shop_name: "uWQvyjmdKhWFzroFJfg0zCih9qHu842U5SnXNqipKVsIIUjVYx3ZiMVPZEq0xgguEtAXJ6WozfUGo1oVRA1PV2JD5SjzUvS2Jlq6P89tC2Mi1P",
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          customer_name: "VTYLZtj",
+                          customer_name: "Re6ex8zQnoMXPxIs0d6X24reGHeQvAPqGMsA1rgfPu4olvC1KDDE1G2mGU9YeDH5Tysjz5v4HW6eqkSknjWS4aW80Xp5YCo9TXEMx6Q3N4lydCpBzThmgOIjIatpE7508LaYMNkxpSQqkfWLu8WbqqwjfwNPVeBo88egFulBO0tWJ93Y52C590AS7UiB0DiDGREmImyJDbbC2wEGBfcAGc0EsTxq",
                           transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           is_modified: true,
-                          transaction_types: ["payment", "topup", "cashback"],
-                          transfer_types: ["coupon", "cashback", "campaign", "payment", "topup", "transfer", "expire", "exchange"], # 取引明細の種類でフィルターします。
+                          transaction_types: ["exchange"],
+                          transfer_types: ["exchange", "payment", "coupon", "campaign"], # 取引明細の種類でフィルターします。
                           description: "店頭QRコードによる支払い"                          # 取引詳細説明文
 ))
 ```
@@ -349,6 +350,12 @@ response = $client.send(Pokepay::Request::ListTransfers.new(
 [PaginatedTransfers](./responses.md#paginated-transfers)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|NULL|NULL|NULL|
+
+
 
 ---
 
@@ -359,20 +366,20 @@ response = $client.send(Pokepay::Request::ListTransfers.new(
 ```RUBY
 response = $client.send(Pokepay::Request::ListTransfersV2.new(
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
-                          shop_name: "xB23NKDv8dBki6rCZ5MRu3n3kWR611LhXRF1WjDXemYssWVQAa0S9OWEqIPoWhsZ81p0D8THD4dpuhxNvhxjPfdLCMpGSOhV764tKT9oHgjnPne51YZOU0zGq4PpZBc0rJPOstD7C9IM7suB5w40dZFTsuKZGsFElmQpA4RSTaT", # 店舗名
+                          shop_name: "FYcLTC4xCABLekowD1pN0MSUSS",              # 店舗名
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # エンドユーザーID
-                          customer_name: "lLaqlkU49OXmcM1eYLCIvDzYzwAtEksQWSl6Am3gCBrhM35EfmrtOFWMml5EK", # エンドユーザー名
+                          customer_name: "62wEl3iPUkIv4a2NsBAg7OoWmbOWXvcqkH6OCG8bjnFs6Wxag7kVTYLZtjqA6blCNXCxB23NKDv8dBki6rCZ5MRu3n3kWR611LhXRF1WjDXemYssWVQAa0", # エンドユーザー名
                           transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 取引ID
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
                           is_modified: false,                                   # キャンセルフラグ
-                          transaction_types: ["cashback"],                      # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
+                          transaction_types: ["exchange", "payment"],           # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
                           next_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 次ページへ遷移する際に起点となるtransferのID
                           prev_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 前ページへ遷移する際に起点となるtransferのID
                           per_page: 50,                                         # 1ページ分の取引数
-                          transfer_types: ["transfer", "exchange"],             # 取引明細種別 (複数指定可)
+                          transfer_types: ["expire", "cashback"],               # 取引明細種別 (複数指定可)
                           description: "店頭QRコードによる支払い",                         # 取引詳細説明文
-                          from: "2020-07-02T11:27:30.000000Z",                  # 開始日時
-                          to: "2020-07-24T15:07:42.000000Z"                     # 終了日時
+                          from: "2022-05-13T03:08:57.000000Z",                  # 開始日時
+                          to: "2020-08-03T21:57:14.000000Z"                     # 終了日時
 ))
 ```
 
@@ -665,6 +672,12 @@ prev_page_cursor_idのtransfer自体は前のページには含まれません�
 成功したときは
 [PaginatedTransfersV2](./responses.md#paginated-transfers-v2)
 を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+
 
 
 ---

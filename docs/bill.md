@@ -7,18 +7,18 @@
 
 ```RUBY
 response = $client.send(Pokepay::Request::ListBills.new(
-                          page: 8308,                                           # ページ番号
-                          per_page: 5622,                                       # 1ページの表示数
-                          bill_id: "laKx",                                      # 支払いQRコードのID
+                          page: 6224,                                           # ページ番号
+                          per_page: 8406,                                       # 1ページの表示数
+                          bill_id: "0zGq4PpZBc",                                # 支払いQRコードのID
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
-                          organization_code: "CMf-9Tbr-uA-3dv2K1u-t2aU848H--",  # 組織コード
+                          organization_code: "V-ld6at5-L7-g-FnGpUsttbam6-RlUA", # 組織コード
                           description: "test bill",                             # 取引説明文
-                          created_from: "2020-01-14T03:21:13.000000Z",          # 作成日時(起点)
-                          created_to: "2020-09-03T11:53:51.000000Z",            # 作成日時(終点)
+                          created_from: "2023-04-03T07:59:20.000000Z",          # 作成日時(起点)
+                          created_to: "2020-07-16T05:37:27.000000Z",            # 作成日時(終点)
                           shop_name: "bill test shop1",                         # 店舗名
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
-                          lower_limit_amount: 3745,                             # 金額の範囲によるフィルタ(下限)
-                          upper_limit_amount: 6172,                             # 金額の範囲によるフィルタ(上限)
+                          lower_limit_amount: 2765,                             # 金額の範囲によるフィルタ(下限)
+                          upper_limit_amount: 5851,                             # 金額の範囲によるフィルタ(上限)
                           is_disabled: true                                     # 支払いQRコードが無効化されているかどうか
 ))
 ```
@@ -193,6 +193,12 @@ response = $client.send(Pokepay::Request::ListBills.new(
 [PaginatedBills](./responses.md#paginated-bills)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+
+
 
 ---
 
@@ -205,7 +211,7 @@ response = $client.send(Pokepay::Request::ListBills.new(
 response = $client.send(Pokepay::Request::CreateBill.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: 支払いマネーのマネーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 支払い先(受け取り人)の店舗ID
-                          amount: 6991.0,                                       # 支払い額
+                          amount: 8753.0,                                       # 支払い額
                           description: "test bill"                              # 説明文(アプリ上で取引の説明文として表示される)
 ))
 ```
@@ -265,6 +271,18 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 [Bill](./responses.md#bill)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|shop_account_not_found||The shop account is not found|
+|422|private_money_not_found||Private money not found|
+|422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+
+
 
 ---
 
@@ -276,9 +294,9 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateBill.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bill_id: 支払いQRコードのID
-                          amount: 3919.0,                                       # 支払い額
+                          amount: 3844.0,                                       # 支払い額
                           description: "test bill",                             # 説明文
-                          is_disabled: true                                     # 無効化されているかどうか
+                          is_disabled: false                                    # 無効化されているかどうか
 ))
 ```
 
@@ -338,6 +356,7 @@ response = $client.send(Pokepay::Request::UpdateBill.new(
 成功したときは
 [Bill](./responses.md#bill)
 を返します
+
 
 
 ---

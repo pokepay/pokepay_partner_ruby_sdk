@@ -49,6 +49,13 @@ response = $client.send(Pokepay::Request::CreateUserDevice.new(
 [UserDevice](./responses.md#user-device)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|user_not_found||The user is not found|
+
+
 
 ---
 
@@ -84,6 +91,7 @@ response = $client.send(Pokepay::Request::GetUserDevice.new(
 を返します
 
 
+
 ---
 
 
@@ -117,6 +125,7 @@ response = $client.send(Pokepay::Request::ActivateUserDevice.new(
 成功したときは
 [UserDevice](./responses.md#user-device)
 を返します
+
 
 
 ---

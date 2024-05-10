@@ -58,6 +58,13 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 [PaginatedPrivateMoneys](./responses.md#paginated-private-moneys)
 を返します
 
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|organization_not_found||Organization not found|
+
+
 
 ---
 
@@ -68,8 +75,8 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 ```RUBY
 response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2020-03-27T12:54:11.000000Z",                  # 開始日時(toと同時に指定する必要有)
-                          to: "2020-05-10T02:22:04.000000Z",                    # 終了日時(fromと同時に指定する必要有)
+                          from: "2021-11-30T18:21:25.000000Z",                  # 開始日時(toと同時に指定する必要有)
+                          to: "2020-10-18T01:48:22.000000Z",                    # 終了日時(fromと同時に指定する必要有)
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -141,6 +148,7 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 を返します
 
 
+
 ---
 
 
@@ -150,8 +158,8 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 ```RUBY
 response = $client.send(Pokepay::Request::GetPrivateMoneySummary.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2020-04-17T04:38:29.000000Z",                  # 開始日時
-                          to: "2022-03-25T04:16:14.000000Z"                     # 終了日時
+                          from: "2020-12-07T17:39:18.000000Z",                  # 開始日時
+                          to: "2022-05-26T23:51:41.000000Z"                     # 終了日時
 ))
 ```
 
@@ -196,6 +204,7 @@ response = $client.send(Pokepay::Request::GetPrivateMoneySummary.new(
 成功したときは
 [PrivateMoneySummary](./responses.md#private-money-summary)
 を返します
+
 
 
 ---
