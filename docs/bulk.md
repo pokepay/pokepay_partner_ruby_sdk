@@ -6,10 +6,10 @@ CSVファイルから一括取引をします。
 
 ```RUBY
 response = $client.send(Pokepay::Request::BulkCreateTransaction.new(
-                          "vOJkxhc8IPvtQD4QxNm6tX",                             # name: 一括取引タスク名
-                          "3Guvbo",                                             # content: 取引する情報のCSV
-                          "2vDNfvQpElqxJKgNyOMeXS2rUoCJ5iHqorIs",               # request_id: リクエストID
-                          description: "Pc2cBsLEwskU0m8hSr1melepO9LnwIsUcSmvb4GOUqCz9cGDIhlPt52zP7YS2DWusWLcKpd2P335Nv6jpCTg7cImjgcPmkAEumRe3ajMg8VGC0KZL7VMaMEG", # 一括取引の説明
+                          "Yy85d5RKAlbrP",                                      # name: 一括取引タスク名
+                          "Q0st",                                               # content: 取引する情報のCSV
+                          "0t7yJcv8GqBqgGEHafl1jNP9k7uydClg9A7a",               # request_id: リクエストID
+                          description: "n27PrVxBqiE9YW",                        # 一括取引の説明
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # マネーID
 ))
 ```

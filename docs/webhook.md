@@ -65,8 +65,8 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 
 ```RUBY
 response = $client.send(Pokepay::Request::CreateWebhook.new(
-                          "process_user_stats_operation",                       # task: タスク名
-                          "m4tM4"                                               # url: URL
+                          "bulk_shops",                                         # task: タスク名
+                          "aBwAHAu"                                             # url: URL
 ))
 ```
 
@@ -159,8 +159,8 @@ response = $client.send(Pokepay::Request::DeleteWebhook.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateWebhook.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # webhook_id: Webhook ID
-                          url: "rQ7TMW",                                        # URL
-                          is_active: true,                                      # 有効/無効
+                          url: "bJ1KgmPI",                                      # URL
+                          is_active: false,                                     # 有効/無効
                           task: "bulk_shops"                                    # タスク名
 ))
 ```

@@ -7,8 +7,8 @@
 ```RUBY
 response = $client.send(Pokepay::Request::GetAccountTransferSummary.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          from: "2023-06-23T21:17:23.000000Z",                  # 集計期間の開始時刻
-                          to: "2023-06-14T19:07:49.000000Z",                    # 集計期間の終了時刻
+                          from: "2021-05-09T01:58:52.000000Z",                  # 集計期間の開始時刻
+                          to: "2023-05-07T01:59:42.000000Z",                    # 集計期間の終了時刻
                           transfer_types: ["topup", "payment"]                  # 取引明細種別 (複数指定可)
 ))
 ```
@@ -122,19 +122,19 @@ response = $client.send(Pokepay::Request::GetAccountTransferSummary.new(
 
 ```RUBY
 response = $client.send(Pokepay::Request::ListTransfers.new(
-                          from: "2021-03-22T20:29:34.000000Z",
-                          to: "2024-01-28T16:06:14.000000Z",
-                          page: 776,
-                          per_page: 7651,
+                          from: "2023-06-21T19:34:51.000000Z",
+                          to: "2021-01-30T20:46:41.000000Z",
+                          page: 5857,
+                          per_page: 7442,
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          shop_name: "uWQvyjmdKhWFzroFJfg0zCih9qHu842U5SnXNqipKVsIIUjVYx3ZiMVPZEq0xgguEtAXJ6WozfUGo1oVRA1PV2JD5SjzUvS2Jlq6P89tC2Mi1P",
+                          shop_name: "GVpuNthlN8cTNxtClPPAh3ydu7juMaO7kqGjaASQkqyw2Q45pim16jWY8Li2yJuAILC9WmiQzTAP0hsvYk94ECXfwyrT6FNWSeiPJDkaNGUUFy37fVBCxguWkgEaSRxikajDhky1e9MUM8ZY9eEBDTjFI18oRpgCoDiEOfsuO3LMtzPm5pmHiztzTLcjSeNyveotr1SbLY9f9RM3h2SXQaAm6iMSYVoPQWfV62UhTGJS1L9KLOsA2Q2Z23Mwd98i",
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          customer_name: "Re6ex8zQnoMXPxIs0d6X24reGHeQvAPqGMsA1rgfPu4olvC1KDDE1G2mGU9YeDH5Tysjz5v4HW6eqkSknjWS4aW80Xp5YCo9TXEMx6Q3N4lydCpBzThmgOIjIatpE7508LaYMNkxpSQqkfWLu8WbqqwjfwNPVeBo88egFulBO0tWJ93Y52C590AS7UiB0DiDGREmImyJDbbC2wEGBfcAGc0EsTxq",
+                          customer_name: "pOldTUQCXPcZtLDZ6t1d7NhS3tIbiaQ9UqJHQZFkEmVia7WMZwoONY9mYcjUD",
                           transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          is_modified: true,
-                          transaction_types: ["exchange"],
-                          transfer_types: ["exchange", "payment", "coupon", "campaign"], # 取引明細の種類でフィルターします。
+                          is_modified: false,
+                          transaction_types: ["transfer", "expire", "cashback", "payment", "topup"],
+                          transfer_types: ["cashback", "exchange", "campaign", "transfer", "expire", "payment", "coupon", "topup"], # 取引明細の種類でフィルターします。
                           description: "店頭QRコードによる支払い"                          # 取引詳細説明文
 ))
 ```
@@ -354,6 +354,7 @@ response = $client.send(Pokepay::Request::ListTransfers.new(
 |status|type|ja|en|
 |---|---|---|---|
 |403|NULL|NULL|NULL|
+|503|temporarily_unavailable||Service Unavailable|
 
 
 
@@ -366,20 +367,20 @@ response = $client.send(Pokepay::Request::ListTransfers.new(
 ```RUBY
 response = $client.send(Pokepay::Request::ListTransfersV2.new(
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
-                          shop_name: "FYcLTC4xCABLekowD1pN0MSUSS",              # 店舗名
+                          shop_name: "Bbd0WPCuqh90wnUEefdvvGn56xgqcINC0MaOVTzOYUS4YiFzadS1dG4VhCAXdvLcusNkP92lEHAtBr5uMSg7mI2h9L5UgNjF9pGXPoR6V6EH9oG2E8mJwg74tJdyJ5Llab29gfUQ6hTQL306GhITMLHDmfb2965KcWooPsLAa0LofoeILq2j1JbokM11iel9SifEKQQKEl5jTOYEn550ChTMJy5Ri4zQipR", # 店舗名
                           customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  # エンドユーザーID
-                          customer_name: "62wEl3iPUkIv4a2NsBAg7OoWmbOWXvcqkH6OCG8bjnFs6Wxag7kVTYLZtjqA6blCNXCxB23NKDv8dBki6rCZ5MRu3n3kWR611LhXRF1WjDXemYssWVQAa0", # エンドユーザー名
+                          customer_name: "66DYXbWwtCBK4yI7b7ruIn1DQefV0LKmn0D6u1aqXUgLXLPq2aRw08aQ0rfHosccmXhG1yeE5aq4GKVSCfP0aoPIG5NuiBMU7rfLf6FhpORYw57l88LjJn33RIRSOmlXSQfzzTwn3Dxt4Xew7Y", # エンドユーザー名
                           transaction_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 取引ID
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
                           is_modified: false,                                   # キャンセルフラグ
-                          transaction_types: ["exchange", "payment"],           # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
+                          transaction_types: ["transfer", "expire", "topup", "payment"], # 取引種別 (複数指定可)、チャージ=topup、支払い=payment
                           next_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 次ページへ遷移する際に起点となるtransferのID
                           prev_page_cursor_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 前ページへ遷移する際に起点となるtransferのID
                           per_page: 50,                                         # 1ページ分の取引数
-                          transfer_types: ["expire", "cashback"],               # 取引明細種別 (複数指定可)
+                          transfer_types: ["exchange", "coupon", "topup", "payment", "cashback", "transfer", "campaign"], # 取引明細種別 (複数指定可)
                           description: "店頭QRコードによる支払い",                         # 取引詳細説明文
-                          from: "2022-05-13T03:08:57.000000Z",                  # 開始日時
-                          to: "2020-08-03T21:57:14.000000Z"                     # 終了日時
+                          from: "2024-02-11T11:31:15.000000Z",                  # 開始日時
+                          to: "2021-11-29T21:00:51.000000Z"                     # 終了日時
 ))
 ```
 
@@ -677,6 +678,7 @@ prev_page_cursor_idのtransfer自体は前のページには含まれません�
 |status|type|ja|en|
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|503|temporarily_unavailable||Service Unavailable|
 
 
 
