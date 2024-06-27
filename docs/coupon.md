@@ -10,12 +10,12 @@ Couponは特定店舗で利用できるものや利用可能期間、配信条�
 ```RUBY
 response = $client.send(Pokepay::Request::ListCoupons.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: 対象クーポンのマネーID
-                          coupon_id: "wQQegAi",                                 # クーポンID
-                          coupon_name: "W5",                                    # クーポン名
-                          issued_shop_name: "Gh",                               # 発行店舗名
-                          available_shop_name: "EedI",                          # 利用可能店舗名
-                          available_from: "2022-06-23T05:43:23.000000Z",        # 利用可能期間 (開始日時)
-                          available_to: "2023-10-18T23:09:00.000000Z",          # 利用可能期間 (終了日時)
+                          coupon_id: "aTBcNwqa",                                # クーポンID
+                          coupon_name: "eR",                                    # クーポン名
+                          issued_shop_name: "H16a",                             # 発行店舗名
+                          available_shop_name: "zzUqrHd",                       # 利用可能店舗名
+                          available_from: "2022-10-31T12:14:13.000000Z",        # 利用可能期間 (開始日時)
+                          available_to: "2020-11-15T19:09:39.000000Z",          # 利用可能期間 (終了日時)
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取得数
 ))
@@ -162,23 +162,23 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 ```RUBY
 response = $client.send(Pokepay::Request::CreateCoupon.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          "oAN4R6PBgm1b",
-                          "2022-10-24T17:40:16.000000Z",
-                          "2024-02-23T20:37:41.000000Z",
+                          "dbmLywqukvEUDGTtuu5mLHhGQ9yekqoyNLKN2h7BNq3rRMob2yqEgXsKX0DNjA5LloLW2ZGwT",
+                          "2024-01-10T12:48:58.000000Z",
+                          "2024-04-05T18:04:49.000000Z",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # issued_shop_id: 発行元の店舗ID
-                          description: "bkQVRY8MuhwDykulFo5mDyJw8V3XaTOkFDFDXkJRYuzmNrD0IPFMYcPpoEqcZqYNWKYupHW3vkZPbupwOmpLyfcnvR24ekndSEuijqLz34cJjz9WzSXV2waIpnDEjnPuGDOLqsy",
-                          discount_amount: 5664,
-                          discount_percentage: 831.0,
-                          discount_upper_limit: 5300,
-                          display_starts_at: "2022-06-11T06:33:09.000000Z",     # クーポンの掲載期間(開始日時)
-                          display_ends_at: "2024-03-10T06:14:25.000000Z",       # クーポンの掲載期間(終了日時)
+                          description: "g0EGo2tY0BvAArU4c3Hcr3rYtMZs1YhEQlphw1DkmThPoIdPA7X1r8JTPyIk7mw82VAIRkHcNMgqN77FQwuiGtQW4pnFSkfz0ZAYuHKErS89ga8rAwXpAiqwTxt1HL4wWzmkMDA4SVfWD13Zj3L9DQPYajb0tVdWEdtL2ujHbA770c9iXi2Q1VWdznJovLhT0BrHH",
+                          discount_amount: 7287,
+                          discount_percentage: 2972.0,
+                          discount_upper_limit: 307,
+                          display_starts_at: "2022-12-23T11:36:32.000000Z",     # クーポンの掲載期間(開始日時)
+                          display_ends_at: "2023-07-14T10:35:16.000000Z",       # クーポンの掲載期間(終了日時)
                           is_disabled: true,                                    # 無効化フラグ
                           is_hidden: false,                                     # クーポン一覧に掲載されるかどうか
-                          is_public: false,                                     # アプリ配信なしで受け取れるかどうか
-                          code: "6hyzJ",                                        # クーポン受け取りコード
-                          usage_limit: 1003,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
-                          min_amount: 4620,                                     # クーポン適用可能な最小取引額
-                          is_shop_specified: false,                             # 特定店舗限定のクーポンかどうか
+                          is_public: true,                                      # アプリ配信なしで受け取れるかどうか
+                          code: "OJ",                                           # クーポン受け取りコード
+                          usage_limit: 6618,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
+                          min_amount: 99,                                       # クーポン適用可能な最小取引額
+                          is_shop_specified: true,                              # 特定店舗限定のクーポンかどうか
                           available_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 利用可能店舗リスト
                           storage_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # ストレージID
 ))
@@ -474,23 +474,23 @@ UUIDv4フォーマットである必要があり、フォーマットが異な�
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateCoupon.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # coupon_id: クーポンID
-                          name: "v4Vr2ADhNnBQ2AhJrtrRhEmEhncAz9T8Jn6tKv842hmKtJWGe0W2JoBVxOBG6QSEaMM6DcJjfAtdrmKAg3KBKDu0vlbYdVC6n9nVL",
-                          description: "o43cE33CQPF6kxIlI0uguDnziraNYM7VX5YLnlD8HOOCDlP4GZ7jbmXMO5zVMwfk3fyCehTHNb57OPgysrQCIrNbKg5EGtS1CRG8HTOfVnvp3qGXZFBsOSpPHbliv7UIdhUMzObVJ",
-                          discount_amount: 5374,
-                          discount_percentage: 9031.0,
-                          discount_upper_limit: 6197,
-                          starts_at: "2021-02-18T11:09:22.000000Z",
-                          ends_at: "2022-09-29T15:41:10.000000Z",
-                          display_starts_at: "2022-01-29T04:18:14.000000Z",     # クーポンの掲載期間(開始日時)
-                          display_ends_at: "2022-07-12T21:07:00.000000Z",       # クーポンの掲載期間(終了日時)
-                          is_disabled: true,                                    # 無効化フラグ
-                          is_hidden: false,                                     # クーポン一覧に掲載されるかどうか
-                          is_public: false,                                     # アプリ配信なしで受け取れるかどうか
-                          code: "H5",                                           # クーポン受け取りコード
-                          usage_limit: 7026,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
-                          min_amount: 7775,                                     # クーポン適用可能な最小取引額
+                          name: "FBg2EP1IMpzVlOR0ZjHbJ4pIYeH1mIjK91BovJNiyan2Rg9xEgMUhIRyB0Lq7z8Ljil9JSMA7r",
+                          description: "7mkLLtmKfguDK2IgQjODYIDOJbPEulQIvNSkQALktsxpQNr6y6a28m0nRuldHpSuEU",
+                          discount_amount: 2688,
+                          discount_percentage: 2032.0,
+                          discount_upper_limit: 219,
+                          starts_at: "2020-07-25T20:38:40.000000Z",
+                          ends_at: "2022-09-15T12:17:45.000000Z",
+                          display_starts_at: "2023-08-29T04:46:18.000000Z",     # クーポンの掲載期間(開始日時)
+                          display_ends_at: "2021-09-01T09:25:27.000000Z",       # クーポンの掲載期間(終了日時)
+                          is_disabled: false,                                   # 無効化フラグ
+                          is_hidden: true,                                      # クーポン一覧に掲載されるかどうか
+                          is_public: true,                                      # アプリ配信なしで受け取れるかどうか
+                          code: "qQ2GFfC0at",                                   # クーポン受け取りコード
+                          usage_limit: 5945,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
+                          min_amount: 4970,                                     # クーポン適用可能な最小取引額
                           is_shop_specified: false,                             # 特定店舗限定のクーポンかどうか
-                          available_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 利用可能店舗リスト
+                          available_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 利用可能店舗リスト
                           storage_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # ストレージID
 ))
 ```

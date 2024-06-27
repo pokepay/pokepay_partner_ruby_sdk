@@ -63,7 +63,7 @@ response = $client.send(Pokepay::Request::CreateBank.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           "<Deep Link>",                                        # callback_url: コールバックURL
                           "ポケペイタロウ",                                            # kana: ユーザーの氏名 (片仮名で指定)
-                          email: "7GsubMGTjI@cOXK.com",                         # ユーザーのメールアドレス
+                          email: "n8DwInc5YW@bNc2.com",                         # ユーザーのメールアドレス
                           birthdate: "19901142"                                 # 生年月日
 ))
 ```
@@ -157,7 +157,7 @@ response = $client.send(Pokepay::Request::CreateBank.new(
 response = $client.send(Pokepay::Request::CreateBankTopupTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_device_id: デバイスID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          3269,                                                 # amount: チャージ金額
+                          3841,                                                 # amount: チャージ金額
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bank_id: 銀行ID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # request_id: リクエストID
 ))

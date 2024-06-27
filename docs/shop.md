@@ -8,12 +8,12 @@ response = $client.send(Pokepay::Request::ListShops.new(
                           organization_code: "pocketchange",                    # 組織コード
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
                           name: "oxスーパー三田店",                                    # 店舗名
-                          postal_code: "341-4166",                              # 店舗の郵便番号
+                          postal_code: "167-4556",                              # 店舗の郵便番号
                           address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "04032440-9862",                                 # 店舗の電話番号
-                          email: "L3FlnAD82Q@rpYa.com",                         # 店舗のメールアドレス
-                          external_id: "uslNraOesyAi",                          # 店舗の外部ID
-                          with_disabled: true,                                  # 無効な店舗を含める
+                          tel: "09870572416",                                   # 店舗の電話番号
+                          email: "nnKPkjJzRb@GyuQ.com",                         # 店舗のメールアドレス
+                          external_id: "yb8948tP6VkRaNaNdjmk2wkclk",            # 店舗の外部ID
+                          with_disabled: false,                                 # 無効な店舗を含める
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -177,6 +177,7 @@ response = $client.send(Pokepay::Request::ListShops.new(
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
 |422|private_money_not_found||Private money not found|
 |422|organization_not_found||Organization not found|
+|503|temporarily_unavailable||Service Unavailable|
 
 
 
@@ -190,11 +191,11 @@ response = $client.send(Pokepay::Request::ListShops.new(
 ```RUBY
 response = $client.send(Pokepay::Request::CreateShop.new(
                           "oxスーパー三田店",                                          # shop_name: 店舗名
-                          shop_postal_code: "171-0997",                         # 店舗の郵便番号
+                          shop_postal_code: "3799267",                          # 店舗の郵便番号
                           shop_address: "東京都港区芝...",                            # 店舗の住所
-                          shop_tel: "036-4341-7488",                            # 店舗の電話番号
-                          shop_email: "Fx3P67yxFm@xWAZ.com",                    # 店舗のメールアドレス
-                          shop_external_id: "SoiVrIFnb7w6ZClkoqVajv",           # 店舗の外部ID
+                          shop_tel: "06-54-048",                                # 店舗の電話番号
+                          shop_email: "LKYfd3JbJX@5Qcd.com",                    # 店舗のメールアドレス
+                          shop_external_id: "yJ1DmsToKu4w",                     # 店舗の外部ID
                           organization_code: "ox-supermarket"                   # 組織コード
 ))
 ```
@@ -309,13 +310,13 @@ response = $client.send(Pokepay::Request::CreateShop.new(
 ```RUBY
 response = $client.send(Pokepay::Request::CreateShopV2.new(
                           "oxスーパー三田店",                                          # name: 店舗名
-                          postal_code: "575-3795",                              # 店舗の郵便番号
+                          postal_code: "1482051",                               # 店舗の郵便番号
                           address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "0705771-0721",                                  # 店舗の電話番号
-                          email: "wSB8bfxMId@7hFK.com",                         # 店舗のメールアドレス
-                          external_id: "RGvYa7",                                # 店舗の外部ID
+                          tel: "007-7001747",                                   # 店舗の電話番号
+                          email: "bWysOyzqkB@rGaM.com",                         # 店舗のメールアドレス
+                          external_id: "b1sugqjEeek3DeI",                       # 店舗の外部ID
                           organization_code: "ox-supermarket",                  # 組織コード
-                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列
+                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列
                           can_topup_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # 店舗でチャージ可能にするマネーIDの配列
 ))
 ```
@@ -511,13 +512,13 @@ response = $client.send(Pokepay::Request::GetShop.new(
 response = $client.send(Pokepay::Request::UpdateShop.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ユーザーID
                           name: "oxスーパー三田店",                                    # 店舗名
-                          postal_code: "204-1399",                              # 店舗の郵便番号
+                          postal_code: "633-2312",                              # 店舗の郵便番号
                           address: "東京都港区芝...",                                 # 店舗の住所
-                          tel: "008833-5983",                                   # 店舗の電話番号
-                          email: "AVKuKRC5FL@AIRi.com",                         # 店舗のメールアドレス
-                          external_id: "GKuI8CNBTqLCZ99AjVbK3l31",              # 店舗の外部ID
-                          private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗で有効にするマネーIDの配列
-                          can_topup_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 店舗でチャージ可能にするマネーIDの配列
+                          tel: "094689201",                                     # 店舗の電話番号
+                          email: "GFPReFsmxa@xT8X.com",                         # 店舗のメールアドレス
+                          external_id: "wuc649dznjsqwxML0aHpiMuF",              # 店舗の外部ID
+                          private_money_ids: [],                                # 店舗で有効にするマネーIDの配列
+                          can_topup_private_money_ids: [],                      # 店舗でチャージ可能にするマネーIDの配列
                           status: "disabled"                                    # 店舗の状態
 ))
 ```

@@ -12,7 +12,7 @@ response = $client.send(Pokepay::Request::CreateExternalTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          6907,                                                 # amount: 取引額
+                          5389,                                                 # amount: 取引額
                           description: "たい焼き(小倉)",                              # 取引説明文
                           metadata: "{\"key\":\"value\"}",                      # ポケペイ外部取引メタデータ
                           products: [{"jan_code":"abc",
@@ -21,9 +21,15 @@ response = $client.send(Pokepay::Request::CreateExternalTransaction.new(
  "price": 100,
  "quantity": 1,
  "is_discounted": false,
+ "other":"{}"}, {"jan_code":"abc",
+ "name":"name1",
+ "unit_price":100,
+ "price": 100,
+ "quantity": 1,
+ "is_discounted": false,
  "other":"{}"}],                                                                # 商品情報データ
                           request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # リクエストID
-                          done_at: "2023-08-17T17:06:58.000000Z"                # ポケペイ外部取引の実施時間
+                          done_at: "2023-12-22T04:30:39.000000Z"                # ポケペイ外部取引の実施時間
 ))
 ```
 
@@ -176,7 +182,6 @@ response = $client.send(Pokepay::Request::CreateExternalTransaction.new(
 |---|---|---|---|
 |400|invalid_parameters|項目が無効です|Invalid parameters|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
 |422|customer_user_not_found||The customer user is not found|
 |422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
 |422|private_money_not_found||Private money not found|
