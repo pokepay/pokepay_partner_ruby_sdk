@@ -5,6 +5,104 @@ Cashtrayはワンタイムで、一度読み取りに成功するか、取引エ
 また、Cashtrayには有効期限があり、デフォルトでは30分で失効します。
 
 
+<a name="create-transaction-with-cashtray"></a>
+## CreateTransactionWithCashtray: CashtrayQRコードを読み取ることで取引する
+エンドユーザーから受け取ったCashtray用QRコードのIDをエンドユーザーIDと共に渡すことで支払いあるいはチャージ取引が作られます。
+
+通常CashtrayQRコードはエンドユーザーのアプリによって読み取られ、アプリとポケペイサーバとの直接通信によって取引が作られます。
+もしエンドユーザーとの通信をパートナーのサーバのみに限定したい場合、パートナーのサーバがCashtrayQRの情報をエンドユーザーから代理受けして、サーバ間連携APIによって実際のチャージ取引をリクエストすることになります。
+
+
+```RUBY
+response = $client.send(Pokepay::Request::CreateTransactionWithCashtray.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # cashtray_id: Cashtray用QRコードのID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーのID
+                          strategy: "point-preferred",                          # 支払い時の残高消費方式
+                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
+))
+```
+
+
+
+### Parameters
+**`cashtray_id`** 
+  
+
+Cashtray用QRコードのIDです。
+
+QRコード生成時に送金元店舗のウォレット情報や、金額などが登録されています。
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+**`customer_id`** 
+  
+
+エンドユーザーIDです。
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+**`strategy`** 
+  
+
+支払い時に残高がどのように消費されるかを指定します。
+チャージの場合は無効です。
+デフォルトでは point-preferred (ポイント優先)が採用されます。
+
+- point-preferred: ポイント残高が優先的に消費され、ポイントがなくなり次第マネー残高から消費されていきます(デフォルト動作)
+- money-only: マネー残高のみから消費され、ポイント残高は使われません
+
+マネー設定でポイント残高のみの利用に設定されている場合(display_money_and_point が point-only の場合)、 strategy の指定に関わらずポイント優先になります。
+
+```json
+{
+  "type": "string",
+  "enum": [
+    "point-preferred",
+    "money-only"
+  ]
+}
+```
+
+**`request_id`** 
+  
+
+取引作成APIの羃等性を担保するためのリクエスト固有のIDです。
+
+取引作成APIで結果が受け取れなかったなどの理由で再試行する際に、二重に取引が作られてしまうことを防ぐために、クライアント側から指定されます。
+指定は任意で、UUID V4フォーマットでランダム生成した文字列です。リクエストIDは一定期間で削除されます。
+
+リクエストIDを指定したとき、まだそのリクエストIDに対する取引がない場合、新規に取引が作られレスポンスとして返されます。
+もしそのリクエストIDに対する取引が既にある場合、既存の取引がレスポンスとして返されます。
+既に存在する、別のユーザによる取引とリクエストIDが衝突した場合、request_id_conflictが返ります。
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+
+
+成功したときは
+[TransactionDetail](./responses.md#transaction-detail)
+を返します
+
+
+
+---
+
+
 <a name="create-cashtray"></a>
 ## CreateCashtray: Cashtrayを作る
 Cashtrayを作成します。
@@ -19,9 +117,9 @@ Cashtrayを作成します。
 response = $client.send(Pokepay::Request::CreateCashtray.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 店舗ユーザーID
-                          7977.0,                                               # amount: 金額
+                          5032.0,                                               # amount: 金額
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
-                          expires_in: 9574                                      # 失効時間(秒)
+                          expires_in: 9929                                      # 失効時間(秒)
 ))
 ```
 
@@ -94,13 +192,6 @@ Cashtrayが失効するまでの時間を秒単位で指定します(任意項�
 成功したときは
 [Cashtray](./responses.md#cashtray)
 を返します
-
-### Error Responses
-|status|type|ja|en|
-|---|---|---|---|
-|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|422|account_not_found|アカウントが見つかりません|The account is not found|
-|422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
 
 
 
@@ -246,9 +337,9 @@ Cashtrayの内容を更新します。bodyパラメーターは全て省略可�
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateCashtray.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # cashtray_id: CashtrayのID
-                          amount: 4481.0,                                       # 金額
+                          amount: 2951.0,                                       # 金額
                           description: "たい焼き(小倉)",                              # 取引履歴に表示する説明文
-                          expires_in: 1626                                      # 失効時間(秒)
+                          expires_in: 7112                                      # 失効時間(秒)
 ))
 ```
 

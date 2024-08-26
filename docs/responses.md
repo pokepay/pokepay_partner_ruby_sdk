@@ -488,6 +488,23 @@
 
 `pagination`は [Pagination](#pagination) オブジェクトを返します。
 
+<a name="seven-bank-atm-session"></a>
+## SevenBankATMSession
+* `qr_info (string)`: 
+* `account (AccountDetail)`: 
+* `amount (integer)`: 
+* `transaction (Transaction)`: 
+* `seven_bank_customer_number (string)`: 
+* `atm_id (string)`: 
+* `audi_id (string)`: 
+* `issuer_code (string)`: 
+* `issuer_name (string)`: 
+* `money_name (string)`: 
+
+`account`は [AccountDetail](#account-detail) オブジェクトを返します。
+
+`transaction`は [Transaction](#transaction) オブジェクトを返します。
+
 <a name="private-money"></a>
 ## PrivateMoney
 * `id (string)`: マネーID
