@@ -47,11 +47,6 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 [PaginatedOrganizationWorkerTaskWebhook](./responses.md#paginated-organization-worker-task-webhook)
 を返します
 
-### Error Responses
-|status|type|ja|en|
-|---|---|---|---|
-|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-
 
 
 ---
@@ -65,8 +60,8 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 
 ```RUBY
 response = $client.send(Pokepay::Request::CreateWebhook.new(
-                          "process_user_stats_operation",                       # task: タスク名
-                          "m4tM4"                                               # url: URL
+                          "bulk_shops",                                         # task: タスク名
+                          "L4w"                                                 # url: URL
 ))
 ```
 
@@ -104,12 +99,6 @@ response = $client.send(Pokepay::Request::CreateWebhook.new(
 成功したときは
 [OrganizationWorkerTaskWebhook](./responses.md#organization-worker-task-webhook)
 を返します
-
-### Error Responses
-|status|type|ja|en|
-|---|---|---|---|
-|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|409|organization_worker_task_finish_webhook_conflict|そのwebhookは既に登録されています|The webhook is already registered|
 
 
 
@@ -159,7 +148,7 @@ response = $client.send(Pokepay::Request::DeleteWebhook.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateWebhook.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # webhook_id: Webhook ID
-                          url: "rQ7TMW",                                        # URL
+                          url: "W",                                             # URL
                           is_active: true,                                      # 有効/無効
                           task: "bulk_shops"                                    # タスク名
 ))

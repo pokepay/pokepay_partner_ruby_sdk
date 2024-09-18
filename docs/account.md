@@ -7,8 +7,8 @@
 ```RUBY
 response = $client.send(Pokepay::Request::ListUserAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_id: ユーザーID
-                          page: 3778,                                           # ページ番号
-                          per_page: 7882                                        # 1ページ分の取引数
+                          page: 4209,                                           # ページ番号
+                          per_page: 5282                                        # 1ページ分の取引数
 ))
 ```
 
@@ -72,8 +72,8 @@ response = $client.send(Pokepay::Request::ListUserAccounts.new(
 response = $client.send(Pokepay::Request::CreateUserAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_id: ユーザーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          name: "CSoLJdEVZoJB0H5I2jNmYRtpCMs9TezTj3A085y5hWQ3gdeDOWFExGORRYNLJdsZ6n3IGoF44i0499bTqwmusaHN4dAo0kcMwrj6lsuth9pSzmqVAxW3BZh2UFG0NdobuyCqKAyF8XBloHn7nUM7l934bPMQ7DIwFMXGuP", # ウォレット名
-                          external_id: "CrmdUDxKggDF",                          # 外部ID
+                          name: "NPGQTdAXKNGuLNgDO4Ma1ptA22IkyjkgPuZUMAq2NjJocNYKTrm2m1ssPqyT3XyCFCrR8uZnHFgU1ZOwuoeukDxIIOg9CcbCgtxt4qQAP06TDLYKBc2zPf6wToG8lTKcMPiFJX3LNKTomMc8wnROYRP673oHx5N3DOO7AdxANDE2ea2N2bsCqxQk", # ウォレット名
+                          external_id: "2AG5TTqX05IlCZ5tUdSwXVRIVCnlZj6NtOwX2FI8Wr13", # 外部ID
                           metadata: "{\"key1\":\"foo\",\"key2\":\"bar\"}"       # ウォレットに付加するメタデータ
 ))
 ```

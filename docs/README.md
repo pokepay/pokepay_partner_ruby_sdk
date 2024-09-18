@@ -184,7 +184,6 @@ response.body
 - [GetCheck](./check.md#get-check): チャージQRコードの表示
 - [UpdateCheck](./check.md#update-check): チャージQRコードの更新
 - [CreateTopupTransactionWithCheck](./check.md#create-topup-transaction-with-check): チャージQRコードを読み取ることでチャージする
-- [CreateTransactionWithCashtray](./check.md#create-transaction-with-cashtray): CashtrayQRコードを読み取ることで取引する
 
 ### Bill
 - [ListBills](./bill.md#list-bills): 支払いQRコード一覧を表示する
@@ -192,6 +191,7 @@ response.body
 - [UpdateBill](./bill.md#update-bill): 支払いQRコードの更新
 
 ### Cashtray
+- [CreateTransactionWithCashtray](./cashtray.md#create-transaction-with-cashtray): CashtrayQRコードを読み取ることで取引する
 - [CreateCashtray](./cashtray.md#create-cashtray): Cashtrayを作る
 - [CancelCashtray](./cashtray.md#cancel-cashtray): Cashtrayを無効化する
 - [GetCashtray](./cashtray.md#get-cashtray): Cashtrayの情報を取得する
@@ -266,4 +266,7 @@ response.body
 - [ListBanks](./bank_pay.md#list-banks): 登録した銀行の一覧
 - [CreateBank](./bank_pay.md#create-bank): 銀行口座の登録
 - [CreateBankTopupTransaction](./bank_pay.md#create-bank-topup-transaction): 銀行からのチャージ
+
+### SevenBankATMSession
+- [GetSevenBankATMSession](./seven_bank_atm_session.md#get-seven-bank-atm-session): セブン銀行ATMセッションの取得
 

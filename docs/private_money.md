@@ -58,12 +58,6 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 [PaginatedPrivateMoneys](./responses.md#paginated-private-moneys)
 を返します
 
-### Error Responses
-|status|type|ja|en|
-|---|---|---|---|
-|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|422|organization_not_found||Organization not found|
-
 
 
 ---
@@ -75,8 +69,8 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 ```RUBY
 response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2021-11-30T18:21:25.000000Z",                  # 開始日時(toと同時に指定する必要有)
-                          to: "2020-10-18T01:48:22.000000Z",                    # 終了日時(fromと同時に指定する必要有)
+                          from: "2022-04-26T03:04:13.000000Z",                  # 開始日時(toと同時に指定する必要有)
+                          to: "2020-11-04T20:04:09.000000Z",                    # 終了日時(fromと同時に指定する必要有)
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -158,8 +152,8 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 ```RUBY
 response = $client.send(Pokepay::Request::GetPrivateMoneySummary.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2020-12-07T17:39:18.000000Z",                  # 開始日時
-                          to: "2022-05-26T23:51:41.000000Z"                     # 終了日時
+                          from: "2023-12-10T00:20:12.000000Z",                  # 開始日時
+                          to: "2023-11-11T20:13:41.000000Z"                     # 終了日時
 ))
 ```
 

@@ -11,6 +11,8 @@ require "inifile"
 require "pokepay_partner_ruby_sdk/crypto"
 
 module Pokepay
+  class HttpRequestError < StandardError
+  end
   class Client
     def initialize(inifile_or_hash)
       case inifile_or_hash
@@ -28,6 +30,7 @@ module Pokepay
         @ssl_cert_file = ini['global']['SSL_CERT_FILE']
         @timezone = ini['global']['TIMEZONE']
         @timeout = ini['global']['TIMEOUT']
+        @max_retries = ini['global']['MAX_RETRIES'] || 2
       when Hash then
         @client_id = inifile_or_hash[:client_id]
         @client_secret = inifile_or_hash[:client_secret]
@@ -36,6 +39,7 @@ module Pokepay
         @ssl_cert_file = inifile_or_hash[:ssl_cert_file]
         @timezone = inifile_or_hash[:timezone]
         @timeout = inifile_or_hash[:timeout]
+        @max_retries = inifile_or_hash[:max_retries] || 2
       end
       @http = Net::HTTP.new(@api_base_url.host, @api_base_url.port)
       if @api_base_url.scheme == 'https'
@@ -44,7 +48,6 @@ module Pokepay
         @http.key = OpenSSL::PKey::RSA.new(File.read(@ssl_key_file))
         @http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       end
-      @http.start()
       @crypto = Pokepay::Crypto.new(@client_secret)
     end
 
@@ -53,8 +56,7 @@ module Pokepay
       200 <= code and code < 300
     end
 
-    def is_server_error(res)
-      code = res.code.to_i
+    def is_server_error(code)
       500 <= code and code < 600
     end
 
@@ -62,16 +64,37 @@ module Pokepay
       encrypt_data = { 'request_data' => body_params,
                        'timestamp' => Time.now.iso8601(6),
                        'partner_call_id' => SecureRandom.uuid }
-      params = {"partner_client_id" => @client_id,
-                "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data))).tr("=", "")}
+      retry_count = 0
       req = request_class.new(path)
-      req.set_form_data(params)
-      if not @http.active?
-        @http.start()
-      end
-      res =  @http.request(req)
-      if is_server_error(res) then
-        raise format("Server Error (code: %s)", res.code)
+      res = nil
+      while true
+        if not @http.active?
+          @http.start()
+        end
+        params = {"partner_client_id" => @client_id,
+                  "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data))).tr("=", "")}
+        req.set_form_data(params)
+        begin
+          Timeout.timeout(@timeout, Timeout::Error) {
+            res =  @http.request(req)
+          }
+          code = res.code.to_i
+          if code == 503 then
+            raise HttpRequestError.new
+          elsif is_server_error(code) then
+            raise format("Server Error (code: %s)", res.code)
+          end
+        rescue Timeout::Error, Errno::EHOSTUNREACH, Errno::ECONNRESET, EOFError, HttpRequestError => e
+          if @max_retries <= retry_count then
+            raise format("Server Error (code: %s)", res.code)
+          end
+          ++retry_count
+          if e.instance_of?(HttpRequestError) then
+            sleep(3)
+          end
+          encrypt_data.partner_call_id = SecureRandom.uuid
+        end
+        break
       end
       res_map = JSON.parse(res.body)
       if(res_map["response_data"]) then
