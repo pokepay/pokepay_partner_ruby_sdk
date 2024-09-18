@@ -12,7 +12,7 @@ module Pokepay::Request
     attr_reader :response_class
 
     def retriable?()
-      @method != 'POST' || @body_params && @body_params.key?('request_id')
+      ['GET', 'PATCH'].include?(@method) || @body_params && @body_params.key?('request_id')
     end
   end
 end
