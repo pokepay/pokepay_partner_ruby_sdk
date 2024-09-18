@@ -11,7 +11,7 @@ require "inifile"
 require "pokepay_partner_ruby_sdk/crypto"
 
 module Pokepay
-  class ConnectionError < StandardError
+  class HttpRequestError < StandardError
   end
   class Client
     def initialize(inifile_or_hash)
@@ -75,28 +75,23 @@ module Pokepay
                   "data" => Base64.urlsafe_encode64(@crypto.encrypt(JSON.generate(encrypt_data))).tr("=", "")}
         req.set_form_data(params)
         begin
-          begin
-            Timeout.timeout(@timeout, Timeout::Error) {
-              res =  @http.request(req)
-            }
-          rescue Timeout::Error => e
-            if @max_retries <= retry_count then
-              raise ConnectionError.new
-            end
-            raise e
-          end
+          Timeout.timeout(@timeout, Timeout::Error) {
+            res =  @http.request(req)
+          }
           code = res.code.to_i
           if code == 503 then
-            raise ConnectionError.new
+            raise HttpRequestError.new
           elsif is_server_error(code) then
             raise format("Server Error (code: %s)", res.code)
           end
-        rescue ConnectionError
+        rescue Timeout::Error, Errno::EHOSTUNREACH, Errno::ECONNRESET, EOFError, HttpRequestError => e
           if @max_retries <= retry_count then
             raise format("Server Error (code: %s)", res.code)
           end
           ++retry_count
-          sleep(3)
+          if e.instance_of?(HttpRequestError) then
+            sleep(3)
+          end
           encrypt_data.partner_call_id = SecureRandom.uuid
         end
         break
