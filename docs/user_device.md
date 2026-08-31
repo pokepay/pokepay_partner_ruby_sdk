@@ -3,7 +3,6 @@ UserDeviceはユーザー毎のデバイスを管理します。
 あるユーザーが使っている端末を区別する必要がある場合に用いられます。
 これが必要な理由はBank Payを用いたチャージを行う場合は端末を区別できることが要件としてあるためです。
 
-
 <a name="create-user-device"></a>
 ## CreateUserDevice: ユーザーのデバイス登録
 ユーザーのデバイスを新規に登録します
@@ -18,9 +17,10 @@ response = $client.send(Pokepay::Request::CreateUserDevice.new(
 
 
 ### Parameters
-**`user_id`** 
-  
+#### `user_id`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -29,12 +29,14 @@ response = $client.send(Pokepay::Request::CreateUserDevice.new(
 }
 ```
 
-**`metadata`** 
-  
+</details>
 
+#### `metadata`
 ユーザーのデバイス用の情報をメタデータを保持するために用います。
 例: 端末の固有情報やブラウザのUser-Agent
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -42,6 +44,8 @@ response = $client.send(Pokepay::Request::CreateUserDevice.new(
   "format": "json"
 }
 ```
+
+</details>
 
 
 
@@ -53,7 +57,7 @@ response = $client.send(Pokepay::Request::CreateUserDevice.new(
 |status|type|ja|en|
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|422|user_not_found||The user is not found|
+|422|user_not_found|ユーザーが見つかりません|The user is not found|
 
 
 
@@ -73,9 +77,10 @@ response = $client.send(Pokepay::Request::GetUserDevice.new(
 
 
 ### Parameters
-**`user_device_id`** 
-  
+#### `user_device_id`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -83,6 +88,8 @@ response = $client.send(Pokepay::Request::GetUserDevice.new(
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 
@@ -99,7 +106,6 @@ response = $client.send(Pokepay::Request::GetUserDevice.new(
 ## ActivateUserDevice: デバイスの有効化
 指定のデバイスを有効化し、それ以外の同一ユーザーのデバイスを無効化します。
 
-
 ```RUBY
 response = $client.send(Pokepay::Request::ActivateUserDevice.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # user_device_id: ユーザーデバイスID
@@ -109,9 +115,10 @@ response = $client.send(Pokepay::Request::ActivateUserDevice.new(
 
 
 ### Parameters
-**`user_device_id`** 
-  
+#### `user_device_id`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -119,6 +126,8 @@ response = $client.send(Pokepay::Request::ActivateUserDevice.new(
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 

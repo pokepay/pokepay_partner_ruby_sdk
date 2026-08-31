@@ -4,13 +4,13 @@ require "pokepay_partner_ruby_sdk/response/transaction_detail"
 
 module Pokepay::Request
   class CreateBankTopupTransaction < Request
-    def initialize(user_device_id, private_money_id, amount, bank_id, request_id)
+    def initialize(user_device_id, private_money_id, amount, bank_id, request_id, rest_args = {})
       @path = "/user-devices" + "/" + user_device_id + "/banks" + "/topup"
       @method = "POST"
       @body_params = { "private_money_id" => private_money_id,
                        "amount" => amount,
                        "bank_id" => bank_id,
-                       "request_id" => request_id }
+                       "request_id" => request_id }.merge(rest_args)
       @response_class = Pokepay::Response::TransactionDetail
     end
     attr_reader :response_class

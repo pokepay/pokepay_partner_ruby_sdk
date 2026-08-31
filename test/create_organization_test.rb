@@ -14,8 +14,8 @@ class CreateOrganizationTest < Minitest::Test
     code = "test-org" + SecureRandom.base64(6)
     name = "テスト組織" + SecureRandom.base64(4)
     private_money_ids = ["4b138a4c-8944-4f98-a5c4-96d3c1c415eb"]
-    issuer_admin_user_email = SecureRandom.base64(6) + "@pokepay-tests.jp"
-    member_admin_user_email = SecureRandom.base64(6) + "@pokepay-tests.jp"
+    issuer_admin_user_email = "blackhole@pokepay.jp"
+    member_admin_user_email = "blackhole@pokepay.jp"
     response = $client.send(Pokepay::Request::CreateOrganization.new(
       code,
       name,
@@ -30,8 +30,8 @@ class CreateOrganizationTest < Minitest::Test
     code = "test-org" + SecureRandom.base64(6)
     name = "テスト組織" + SecureRandom.base64(4)
     private_money_ids = ["4b138a4c-8944-4f98-a5c4-96d3c1c415eb"]
-    issuer_admin_user_email = SecureRandom.base64(6) + "@pokepay-tests.jp"
-    member_admin_user_email = SecureRandom.base64(6) + "@pokepay-tests.jp"
+    issuer_admin_user_email = "blackhole@pokepay.jp"
+    member_admin_user_email = "blackhole@pokepay.jp"
     bank_code = "1234"
     bank_name = SecureRandom.base64(4) + "銀行"
     bank_branch_code = "123"

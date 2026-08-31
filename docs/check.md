@@ -5,35 +5,38 @@
 
 `https://www-sandbox.pokepay.jp/checks/xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx`
 
-QRコードを読み取る方法以外にも、このURLリンクを直接スマートフォン(iOS/Android)上で開くことによりアプリが起動して取引が行われます。(注意: 上記URLはsandbox環境であるため、アプリもsandbox環境のものである必要があります) 上記URL中の `xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx` の部分がチャージQRコードのIDです。
-
+QRコードを読み取る方法以外にも、このURLリンクを直接スマートフォン(iOS/Android)上で開くことによりアプリが起動して取引が行われます。(注: 上記URLはsandbox環境であるため、アプリもsandbox環境のものである必要があります)
+上記URL中の `xxxxxxxx-xxxx-xxxxxxxxx-xxxxxxxxxxxx` の部分がチャージQRコードのIDです。
 
 <a name="list-checks"></a>
 ## ListChecks: チャージQRコード一覧の取得
 
 ```RUBY
 response = $client.send(Pokepay::Request::ListChecks.new(
-                          page: 4561,                                           # ページ番号
+                          page: 6957,                                           # ページ番号
                           per_page: 50,                                         # 1ページの表示数
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
-                          organization_code: "oWhsZ81p0D8THD4dpuhxNvhxjPfdLCM", # 組織コード
-                          expires_from: "2021-06-04T07:32:54.000000Z",          # 有効期限の期間によるフィルター(開始時点)
-                          expires_to: "2022-05-22T18:27:54.000000Z",            # 有効期限の期間によるフィルター(終了時点)
-                          created_from: "2020-02-09T19:52:16.000000Z",          # 作成日時の期間によるフィルター(開始時点)
-                          created_to: "2024-03-20T18:36:22.000000Z",            # 作成日時の期間によるフィルター(終了時点)
+                          organization_code: "fnKUDaFnoOELVFIliGUkzDwrt",       # 組織コード
+                          expires_from: "2020-08-15T15:07:48.000000Z",          # 有効期限の期間によるフィルター(開始時点)
+                          expires_to: "2023-10-26T07:38:14.000000Z",            # 有効期限の期間によるフィルター(終了時点)
+                          starts_from: "2025-12-03T09:38:56.000000Z",           # 有効開始日時の期間によるフィルター(開始時点)
+                          starts_to: "2026-03-01T10:28:29.000000Z",             # 有効開始日時の期間によるフィルター(終了時点)
+                          created_from: "2025-10-17T01:40:23.000000Z",          # 作成日時の期間によるフィルター(開始時点)
+                          created_to: "2020-11-22T19:13:28.000000Z",            # 作成日時の期間によるフィルター(終了時点)
                           issuer_shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 発行店舗ID
-                          description: "SOhV764t",                              # チャージQRコードの説明文
+                          description: "CLc",                                   # チャージQRコードの説明文
                           is_onetime: false,                                    # ワンタイムのチャージQRコードかどうか
-                          is_disabled: true                                     # 無効化されたチャージQRコードかどうか
+                          is_disabled: false                                    # 無効化されたチャージQRコードかどうか
 ))
 ```
 
 
 
 ### Parameters
-**`page`** 
-  
+#### `page`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -42,11 +45,14 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ当たり表示数です。デフォルト値は50です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -54,11 +60,13 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`private_money_id`** 
-  
+</details>
 
+#### `private_money_id`
 チャージQRコードのチャージ対象のマネーIDで結果をフィルターします。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -67,11 +75,14 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`organization_code`** 
-  
+</details>
 
+#### `organization_code`
 チャージQRコードの発行店舗の所属組織の組織コードで結果をフィルターします。
 デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -80,12 +91,14 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`expires_from`** 
-  
+</details>
 
+#### `expires_from`
 有効期限の期間によるフィルターの開始時点のタイムスタンプです。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -94,12 +107,14 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`expires_to`** 
-  
+</details>
 
+#### `expires_to`
 有効期限の期間によるフィルターの終了時点のタイムスタンプです。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -108,12 +123,46 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`created_from`** 
-  
+</details>
 
+#### `starts_from`
+有効開始日時の期間によるフィルターの開始時点のタイムスタンプです。
+デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `starts_to`
+有効開始日時の期間によるフィルターの終了時点のタイムスタンプです。
+デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `created_from`
 作成日時の期間によるフィルターの開始時点のタイムスタンプです。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -122,12 +171,14 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`created_to`** 
-  
+</details>
 
+#### `created_to`
 作成日時の期間によるフィルターの終了時点のタイムスタンプです。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -136,12 +187,14 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`issuer_shop_id`** 
-  
+</details>
 
+#### `issuer_shop_id`
 チャージQRコードを発行した店舗IDによってフィルターします。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -150,13 +203,15 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `description`
 チャージQRコードの説明文(description)によってフィルターします。
 部分一致(前方一致)したものを表示します。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -164,14 +219,16 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`is_onetime`** 
-  
+</details>
 
+#### `is_onetime`
 チャージQRコードがワンタイムに設定されているかどうかでフィルターします。
 `true` の場合はワンタイムかどうかでフィルターし、`false`の場合はワンタイムでないものをフィルターします。
 未指定の場合はフィルターしません。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -179,20 +236,24 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 }
 ```
 
-**`is_disabled`** 
-  
+</details>
 
+#### `is_disabled`
 チャージQRコードが無効化されているかどうかでフィルターします。
 `true` の場合は無効なものをフィルターし、`false`の場合は有効なものをフィルターします。
 未指定の場合はフィルターしません。
 デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
   "type": "boolean"
 }
 ```
+
+</details>
 
 
 
@@ -205,7 +266,8 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
 |422|organization_not_found||Organization not found|
-|422|private_money_not_found||Private money not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
+|503|temporarily_unavailable||Service Unavailable|
 
 
 
@@ -218,13 +280,14 @@ response = $client.send(Pokepay::Request::ListChecks.new(
 ```RUBY
 response = $client.send(Pokepay::Request::CreateCheck.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: 送金元の店舗アカウントID
-                          money_amount: 7227.0,                                 # 付与マネー額
-                          point_amount: 2376.0,                                 # 付与ポイント額
+                          money_amount: 7238.0,                                 # 付与マネー額
+                          point_amount: 3476.0,                                 # 付与ポイント額
                           description: "test check",                            # 説明文(アプリ上で取引の説明文として表示される)
                           is_onetime: false,                                    # ワンタイムかどうかのフラグ
-                          usage_limit: 4143,                                    # ワンタイムでない場合の最大読み取り回数
-                          expires_at: "2022-06-25T23:11:28.000000Z",            # チャージQRコード自体の失効日時
-                          point_expires_at: "2020-07-19T01:57:02.000000Z",      # チャージQRコードによって付与されるポイント残高の有効期限
+                          usage_limit: 3504,                                    # ワンタイムでない場合の最大読み取り回数
+                          expires_at: "2026-08-15T13:51:03.000000Z",            # チャージQRコード自体の失効日時
+                          starts_at: "2020-05-27T10:16:27.000000Z",             # チャージQRコード有効開始日時
+                          point_expires_at: "2021-10-24T13:31:24.000000Z",      # チャージQRコードによって付与されるポイント残高の有効期限
                           point_expires_in_days: 60,                            # チャージQRコードによって付与されるポイント残高の有効期限(相対日数指定)
                           bear_point_account: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # ポイント額を負担する店舗のウォレットID
 ))
@@ -236,12 +299,12 @@ response = $client.send(Pokepay::Request::CreateCheck.new(
 
 
 ### Parameters
-**`money_amount`** 
-  
-
+#### `money_amount`
 チャージQRコードによって付与されるマネー額です。
 `money_amount`と`point_amount`の少なくともどちらかは指定する必要があります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -251,12 +314,14 @@ response = $client.send(Pokepay::Request::CreateCheck.new(
 }
 ```
 
-**`point_amount`** 
-  
+</details>
 
+#### `point_amount`
 チャージQRコードによって付与されるポイント額です。
 `money_amount`と`point_amount`の少なくともどちらかは指定する必要があります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -266,9 +331,12 @@ response = $client.send(Pokepay::Request::CreateCheck.new(
 }
 ```
 
-**`account_id`** 
-  
+</details>
 
+#### `account_id`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -277,9 +345,12 @@ response = $client.send(Pokepay::Request::CreateCheck.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `description`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -288,13 +359,15 @@ response = $client.send(Pokepay::Request::CreateCheck.new(
 }
 ```
 
-**`is_onetime`** 
-  
+</details>
 
+#### `is_onetime`
 チャージQRコードが一度の読み取りで失効するときに`true`にします。デフォルト値は`true`です。
 `false`の場合、複数ユーザによって読み取り可能なQRコードになります。
 ただし、その場合も1ユーザにつき1回のみしか読み取れません。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -302,14 +375,16 @@ response = $client.send(Pokepay::Request::CreateCheck.new(
 }
 ```
 
-**`usage_limit`** 
-  
+</details>
 
+#### `usage_limit`
 複数ユーザによって読み取り可能なチャージQRコードの最大読み取り回数を指定します。
 NULLに設定すると無制限に読み取り可能なチャージQRコードになります。
 デフォルト値はNULLです。
 ワンタイム指定(`is_onetime`)がされているときは、本パラメータはNULLである必要があります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -317,13 +392,15 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`expires_at`** 
-  
+</details>
 
+#### `expires_at`
 チャージQRコード自体の失効日時を指定します。この日時以降はチャージQRコードを読み取れなくなります。デフォルトでは作成日時から3ヶ月後になります。
 
 チャージQRコード自体の失効日時であって、チャージQRコードによって付与されるマネー残高の有効期限とは異なることに注意してください。マネー残高の有効期限はマネー設定で指定されているものになります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -332,13 +409,32 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`point_expires_at`** 
-  
+</details>
 
+#### `starts_at`
+チャージQRコードの有効開始日時を指定します。この日時を過ぎるまではチャージQRコードを読み取ることができません。
+NULL（デフォルト）の場合は作成直後から有効になります。
+`starts_at`は`expires_at`より前である必要があります。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `point_expires_at`
 チャージQRコードによって付与されるポイント残高の有効起源を指定します。デフォルトではマネー残高の有効期限と同じものが指定されます。
 
 チャージQRコードにより付与されるマネー残高の有効期限はQRコード毎には指定できませんが、ポイント残高の有効期限は本パラメータにより、QRコード毎に個別に指定することができます。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -347,13 +443,15 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`point_expires_in_days`** 
-  
+</details>
 
+#### `point_expires_in_days`
 チャージQRコードによって付与されるポイント残高の有効期限を相対日数で指定します。
 1を指定すると、チャージQRコード作成日の当日中に失効します(翌日0時に失効)。
 `point_expires_at`と`point_expires_in_days`が両方指定されている場合は、チャージQRコードによるチャージ取引ができた時点からより近い方が採用されます。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -362,12 +460,14 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`bear_point_account`** 
-  
+</details>
 
+#### `bear_point_account`
 ポイントチャージをする場合、ポイント額を負担する店舗のウォレットIDを指定することができます。
 デフォルトではマネー発行体のデフォルト店舗(本店)がポイント負担先となります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -375,6 +475,8 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 
@@ -387,16 +489,17 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 |---|---|---|---|
 |400|invalid_parameter_both_point_and_money_are_zero||One of 'money_amount' or 'point_amount' must be a positive (>0) number|
 |400|invalid_parameter_only_merchants_can_attach_points_to_check||Only merchants can attach points to check|
-|400|invalid_parameter_bear_point_account_identification_item_not_unique|ポイントを負担する店舗アカウントを指定するリクエストパラメータには、アカウントID、またはユーザIDのどちらかを含めることができます|Request parameters include either bear_point_account or bear_point_shop_id.|
 |400|invalid_parameter_combination_usage_limit_and_is_onetime||'usage_limit' can not be specified if 'is_onetime' is true.|
-|400|invalid_parameters|項目が無効です|Invalid parameters|
+|400|invalid_parameter_starts_at_after_expires_at|「starts_at」は「expires_at」より前の日時を指定してください|'starts_at' must be earlier than 'expires_at'|
 |400|invalid_parameter_expires_at||'expires_at' must be in the future|
+|400|invalid_parameters|項目が無効です|Invalid parameters|
+|400|invalid_parameter_bear_point_account_identification_item_not_unique|ポイントを負担する店舗アカウントを指定するリクエストパラメータには、アカウントID、またはユーザIDのどちらかを含めることができます|Request parameters include either bear_point_account or bear_point_shop_id.|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
 |422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
 |422|account_private_money_is_not_issued_by_organization||The account's private money is not issued by this organization|
-|422|shop_account_not_found||The shop account is not found|
-|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|shop_account_not_found|店舗アカウントが見つかりません|The shop account is not found|
 |422|bear_point_account_not_found|ポイントを負担する店舗アカウントが見つかりません|Bear point account not found.|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
 
 
 
@@ -415,10 +518,11 @@ response = $client.send(Pokepay::Request::GetCheck.new(
 
 
 ### Parameters
-**`check_id`** 
-  
-
+#### `check_id`
 表示対象のチャージQRコードのIDです。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -426,6 +530,8 @@ response = $client.send(Pokepay::Request::GetCheck.new(
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 
@@ -444,13 +550,14 @@ response = $client.send(Pokepay::Request::GetCheck.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateCheck.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # check_id: チャージQRコードのID
-                          money_amount: 6096.0,                                 # 付与マネー額
-                          point_amount: 8933.0,                                 # 付与ポイント額
+                          money_amount: 2915.0,                                 # 付与マネー額
+                          point_amount: 2971.0,                                 # 付与ポイント額
                           description: "test check",                            # チャージQRコードの説明文
-                          is_onetime: false,                                    # ワンタイムかどうかのフラグ
-                          usage_limit: 1926,                                    # ワンタイムでない場合の最大読み取り回数
-                          expires_at: "2020-10-03T18:38:41.000000Z",            # チャージQRコード自体の失効日時
-                          point_expires_at: "2022-04-09T15:16:41.000000Z",      # チャージQRコードによって付与されるポイント残高の有効期限
+                          is_onetime: true,                                     # ワンタイムかどうかのフラグ
+                          usage_limit: 7841,                                    # ワンタイムでない場合の最大読み取り回数
+                          expires_at: "2023-02-21T04:19:03.000000Z",            # チャージQRコード自体の失効日時
+                          starts_at: "2020-04-08T01:45:37.000000Z",             # チャージQRコード有効開始日時
+                          point_expires_at: "2023-06-11T01:09:20.000000Z",      # チャージQRコードによって付与されるポイント残高の有効期限
                           point_expires_in_days: 60,                            # チャージQRコードによって付与されるポイント残高の有効期限(相対日数指定)
                           bear_point_account: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # ポイント額を負担する店舗のウォレットID
                           is_disabled: true                                     # 無効化されているかどうかのフラグ
@@ -460,10 +567,11 @@ response = $client.send(Pokepay::Request::UpdateCheck.new(
 
 
 ### Parameters
-**`check_id`** 
-  
-
+#### `check_id`
 更新対象のチャージQRコードのIDです。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -472,12 +580,14 @@ response = $client.send(Pokepay::Request::UpdateCheck.new(
 }
 ```
 
-**`money_amount`** 
-  
+</details>
 
+#### `money_amount`
 チャージQRコードによって付与されるマネー額です。
 `money_amount`と`point_amount`が両方0になるような更新リクエストはエラーになります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -487,12 +597,14 @@ response = $client.send(Pokepay::Request::UpdateCheck.new(
 }
 ```
 
-**`point_amount`** 
-  
+</details>
 
+#### `point_amount`
 チャージQRコードによって付与されるポイント額です。
 `money_amount`と`point_amount`が両方0になるような更新リクエストはエラーになります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -502,12 +614,14 @@ response = $client.send(Pokepay::Request::UpdateCheck.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `description`
 チャージQRコードの説明文です。
 チャージ取引後は、取引の説明文に転記され、取引履歴などに表示されます。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -516,13 +630,15 @@ response = $client.send(Pokepay::Request::UpdateCheck.new(
 }
 ```
 
-**`is_onetime`** 
-  
+</details>
 
+#### `is_onetime`
 チャージQRコードが一度の読み取りで失効するときに`true`にします。
 `false`の場合、複数ユーザによって読み取り可能なQRコードになります。
 ただし、その場合も1ユーザにつき1回のみしか読み取れません。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -530,13 +646,15 @@ response = $client.send(Pokepay::Request::UpdateCheck.new(
 }
 ```
 
-**`usage_limit`** 
-  
+</details>
 
+#### `usage_limit`
 複数ユーザによって読み取り可能なチャージQRコードの最大読み取り回数を指定します。
 NULLに設定すると無制限に読み取り可能なチャージQRコードになります。
 ワンタイム指定(`is_onetime`)がされているときは、本パラメータはNULLである必要があります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -544,13 +662,15 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`expires_at`** 
-  
+</details>
 
+#### `expires_at`
 チャージQRコード自体の失効日時を指定します。この日時以降はチャージQRコードを読み取れなくなります。
 
 チャージQRコード自体の失効日時であって、チャージQRコードによって付与されるマネー残高の有効期限とは異なることに注意してください。マネー残高の有効期限はマネー設定で指定されているものになります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -559,13 +679,33 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`point_expires_at`** 
-  
+</details>
 
+#### `starts_at`
+チャージQRコードの有効開始日時を指定します。この日時を過ぎるまではチャージQRコードを読み取ることができません。
+NULLに設定すると、作成直後から有効になります。
+過去の日時を指定した場合は現在日時に補正されます。
+`starts_at`は`expires_at`より前である必要があります。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `point_expires_at`
 チャージQRコードによって付与されるポイント残高の有効起源を指定します。
 
 チャージQRコードにより付与されるマネー残高の有効期限はQRコード毎には指定できませんが、ポイント残高の有効期限は本パラメータにより、QRコード毎に個別に指定することができます。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -574,14 +714,16 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`point_expires_in_days`** 
-  
+</details>
 
+#### `point_expires_in_days`
 チャージQRコードによって付与されるポイント残高の有効期限を相対日数で指定します。
 1を指定すると、チャージQRコード作成日の当日中に失効します(翌日0時に失効)。
 `point_expires_at`と`point_expires_in_days`が両方指定されている場合は、チャージQRコードによるチャージ取引ができた時点からより近い方が採用されます。
 `point_expires_at`と`point_expires_in_days`が両方NULLに設定されている場合は、マネーに設定されている残高の有効期限と同じになります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -590,11 +732,13 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`bear_point_account`** 
-  
+</details>
 
+#### `bear_point_account`
 ポイントチャージをする場合、ポイント額を負担する店舗のウォレットIDを指定することができます。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -603,18 +747,22 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 }
 ```
 
-**`is_disabled`** 
-  
+</details>
 
+#### `is_disabled`
 チャージQRコードを無効化するときに`true`にします。
 `false`の場合は無効化されているチャージQRコードを再有効化します。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
   "type": "boolean"
 }
 ```
+
+</details>
 
 
 
@@ -633,7 +781,6 @@ NULLに設定すると無制限に読み取り可能なチャージQRコード�
 
 エンドユーザーから受け取ったチャージ用QRコードのIDをエンドユーザーIDと共に渡すことでチャージ取引が作られます。
 
-
 ```RUBY
 response = $client.send(Pokepay::Request::CreateTopupTransactionWithCheck.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # check_id: チャージ用QRコードのID
@@ -645,13 +792,14 @@ response = $client.send(Pokepay::Request::CreateTopupTransactionWithCheck.new(
 
 
 ### Parameters
-**`check_id`** 
-  
-
+#### `check_id`
 チャージ用QRコードのIDです。
 
 QRコード生成時に送金元店舗のウォレット情報や、送金額などが登録されています。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -659,13 +807,16 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 }
 ```
 
-**`customer_id`** 
-  
+</details>
 
+#### `customer_id`
 エンドユーザーIDです。
 
 送金先のエンドユーザーを指定します。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -673,14 +824,18 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 }
 ```
 
-**`request_id`** 
-  
+</details>
 
+#### `request_id`
 取引作成APIの羃等性を担保するためのリクエスト固有のIDです。
 
 取引作成APIで結果が受け取れなかったなどの理由で再試行する際に、二重に取引が作られてしまうことを防ぐために、クライアント側から指定されます。指定は任意で、UUID V4フォーマットでランダム生成した文字列です。リクエストIDは一定期間で削除されます。
 
 リクエストIDを指定したとき、まだそのリクエストIDに対する取引がない場合、新規に取引が作られレスポンスとして返されます。もしそのリクエストIDに対する取引が既にある場合、既存の取引がレスポンスとして返されます。
+既に存在する、別のユーザによる取引とリクエストIDが衝突した場合、request_id_conflictが返ります。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -688,6 +843,8 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 
@@ -698,13 +855,17 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 ### Error Responses
 |status|type|ja|en|
 |---|---|---|---|
-|400|invalid_parameters|項目が無効です|Invalid parameters|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
 |422|customer_user_not_found||The customer user is not found|
 |422|check_not_found|これはチャージQRコードではありません|This is not a topup QR code|
-|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
+|422|coupon_not_found|クーポンが見つかりませんでした。|The coupon is not found.|
+|422|credit_session_money_topup_requires_credit_card|オーソリチャージ用マネーではクレジットカードによるチャージのみ許可されています|Credit card is required for topup on credit-session enabled money|
+|422|cannot_topup_during_cvs_authorization_pending|コンビニ決済の予約中はチャージできません|You cannot topup your account while a convenience store payment is pending.|
+|422|credit_session_not_found|オーソリセッションが見つかりません|Credit session not found|
+|422|not_applicable_transaction_type_for_account_topup_quota|チャージ取引以外の取引種別ではチャージ可能枠を使用できません|Account topup quota is not applicable to transaction types other than topup.|
+|422|private_money_topup_quota_not_available|このマネーにはチャージ可能枠の設定がありません|Topup quota is not available with this private money.|
 |422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|private_money_closed|このマネーは解約されています|This money was closed|
 |422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
 |422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
 |422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
@@ -712,8 +873,13 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 |422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
 |422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
 |422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
-|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
-|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
+|422|account_topup_quota_not_splittable|このチャージ可能枠は設定された金額未満の金額には使用できません|This topup quota is only applicable to its designated money amount.|
+|422|topup_amount_exceeding_topup_quota_usable_amount|チャージ金額がチャージ可能枠の利用可能金額を超えています|Topup amount is exceeding the topup quota's usable amount|
+|422|account_topup_quota_inactive|指定されたチャージ可能枠は有効ではありません|Topup quota is inactive|
+|422|account_topup_quota_not_within_applicable_period|指定されたチャージ可能枠の利用可能期間外です|Topup quota is not applicable at this time|
+|422|account_topup_quota_not_found|ウォレットにチャージ可能枠がありません|Topup quota is not found with this account|
+|422|account_total_topup_limit_range|合計チャージ額がマネーで指定された期間内での上限を超えています|The topup exceeds the total amount within the period defined by the money.|
+|422|account_total_topup_limit_entire_period|合計チャージ額がマネーで指定された期間内での上限を超えています|The topup exceeds the total amount defined by the money.|
 |422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
 |422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
 |422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
@@ -723,8 +889,8 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 |422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
 |422|account_suspended|アカウントは停止されています|The account is suspended|
 |422|account_closed|アカウントは退会しています|The account is closed|
-|422|customer_account_not_found||The customer account is not found|
-|422|shop_account_not_found||The shop account is not found|
+|422|customer_account_not_found|ユーザアカウントが見つかりません|The customer account is not found|
+|422|shop_account_not_found|店舗アカウントが見つかりません|The shop account is not found|
 |422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
 |422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
 |422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
@@ -732,147 +898,12 @@ QRコード生成時に送金元店舗のウォレット情報や、送金額な
 |422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
 |422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
 |422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|422|request_id_conflict|このリクエストIDは他の取引ですでに使用されています。お手数ですが、別のリクエストIDで最初からやり直してください。|The request_id is already used by another transaction. Try again with new request id|
+|422|reserved_word_can_not_specify_to_metadata|取引メタデータに予約語は指定出来ません|Reserved word can not specify to metadata|
+|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
 |422|check_already_received|このチャージQRコードは既に受取済みの為、チャージ出来ませんでした|Check is already received|
+|422|check_not_started_yet|このチャージQRコードはまだ使用できません|Check is not usable yet|
 |422|check_unavailable|このチャージQRコードは利用できません|The topup QR code is not available|
-|503|temporarily_unavailable||Service Unavailable|
-
-
-
----
-
-
-<a name="create-transaction-with-cashtray"></a>
-## CreateTransactionWithCashtray: CashtrayQRコードを読み取ることで取引する
-エンドユーザーから受け取ったCashtray用QRコードのIDをエンドユーザーIDと共に渡すことで支払いあるいはチャージ取引が作られます。
-
-通常CashtrayQRコードはエンドユーザーのアプリによって読み取られ、アプリとポケペイサーバとの直接通信によって取引が作られます。
-もしエンドユーザーとの通信をパートナーのサーバのみに限定したい場合、パートナーのサーバがCashtrayQRの情報をエンドユーザーから代理受けして、サーバ間連携APIによって実際のチャージ取引をリクエストすることになります。
-
-
-```RUBY
-response = $client.send(Pokepay::Request::CreateTransactionWithCashtray.new(
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # cashtray_id: Cashtray用QRコードのID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーのID
-                          strategy: "money-only",                               # 支払い時の残高消費方式
-                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # リクエストID
-))
-```
-
-
-
-### Parameters
-**`cashtray_id`** 
-  
-
-Cashtray用QRコードのIDです。
-
-QRコード生成時に送金元店舗のウォレット情報や、金額などが登録されています。
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-**`customer_id`** 
-  
-
-エンドユーザーIDです。
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-**`strategy`** 
-  
-
-支払い時に残高がどのように消費されるかを指定します。
-チャージの場合は無効です。
-デフォルトでは point-preferred (ポイント優先)が採用されます。
-
-- point-preferred: ポイント残高が優先的に消費され、ポイントがなくなり次第マネー残高から消費されていきます(デフォルト動作)
-- money-only: マネー残高のみから消費され、ポイント残高は使われません
-
-マネー設定でポイント残高のみの利用に設定されている場合(display_money_and_point が point-only の場合)、 strategy の指定に関わらずポイント優先になります。
-
-```json
-{
-  "type": "string",
-  "enum": [
-    "point-preferred",
-    "money-only"
-  ]
-}
-```
-
-**`request_id`** 
-  
-
-取引作成APIの羃等性を担保するためのリクエスト固有のIDです。
-
-取引作成APIで結果が受け取れなかったなどの理由で再試行する際に、二重に取引が作られてしまうことを防ぐために、クライアント側から指定されます。
-指定は任意で、UUID V4フォーマットでランダム生成した文字列です。リクエストIDは一定期間で削除されます。
-
-リクエストIDを指定したとき、まだそのリクエストIDに対する取引がない場合、新規に取引が作られレスポンスとして返されます。
-もしそのリクエストIDに対する取引が既にある場合、既存の取引がレスポンスとして返されます。
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-
-
-成功したときは
-[TransactionDetail](./responses.md#transaction-detail)
-を返します
-
-### Error Responses
-|status|type|ja|en|
-|---|---|---|---|
-|400|invalid_parameters|項目が無効です|Invalid parameters|
-|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|410|transaction_canceled|取引がキャンセルされました|Transaction was canceled|
-|422|account_not_found|アカウントが見つかりません|The account is not found|
-|422|cashtray_not_found|決済QRコードが見つかりません|Cashtray is not found|
-|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
-|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
-|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
-|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
-|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
-|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
-|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
-|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
-|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
-|422|account_total_topup_limit_range|期間内での合計チャージ額上限に達しました|Entire period topup limit reached|
-|422|account_total_topup_limit_entire_period|全期間での合計チャージ額上限に達しました|Entire period topup limit reached|
-|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
-|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
-|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
-|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
-|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
-|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
-|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
-|422|account_suspended|アカウントは停止されています|The account is suspended|
-|422|account_closed|アカウントは退会しています|The account is closed|
-|422|customer_account_not_found||The customer account is not found|
-|422|shop_account_not_found||The shop account is not found|
-|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
-|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
-|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
-|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
-|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
-|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
-|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
-|422|cashtray_already_proceed|この決済QRコードは既に処理されています|Cashtray is already proceed|
-|422|cashtray_expired|この決済QRコードは有効期限が切れています|Cashtray is expired|
-|422|cashtray_already_canceled|この決済QRコードは既に無効化されています|Cashtray is already canceled|
 |503|temporarily_unavailable||Service Unavailable|
 
 

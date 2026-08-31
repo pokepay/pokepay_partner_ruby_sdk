@@ -1,6 +1,9 @@
 # Coupon
-Couponは支払い時に指定し、支払い処理の前にCouponに指定の方法で値引き処理を行います。
-Couponは特定店舗で利用できるものや利用可能期間、配信条件などを設定できます。
+割引クーポンを表すデータです。
+クーポンをユーザが明示的に利用することによって支払い決済時の割引(固定金額 or 割引率)が適用されます。
+クーポンは支払い時に指定し、支払い処理の前にクーポンに指定の方法で値引き処理を行います。
+クーポン原資を負担する発行店舗を設定したり、配布先を指定することも可能です。
+また、特定店舗で利用できるものや利用可能期間、配信条件などを設定できます。
 
 
 <a name="list-coupons"></a>
@@ -10,12 +13,12 @@ Couponは特定店舗で利用できるものや利用可能期間、配信条�
 ```RUBY
 response = $client.send(Pokepay::Request::ListCoupons.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: 対象クーポンのマネーID
-                          coupon_id: "wQQegAi",                                 # クーポンID
-                          coupon_name: "W5",                                    # クーポン名
-                          issued_shop_name: "Gh",                               # 発行店舗名
-                          available_shop_name: "EedI",                          # 利用可能店舗名
-                          available_from: "2022-06-23T05:43:23.000000Z",        # 利用可能期間 (開始日時)
-                          available_to: "2023-10-18T23:09:00.000000Z",          # 利用可能期間 (終了日時)
+                          coupon_id: "VMpSWKVi5",                               # クーポンID
+                          coupon_name: "N7y3SPx9Uv",                            # クーポン名
+                          issued_shop_name: "ns7",                              # 発行店舗名
+                          available_shop_name: "LOU5JmSx",                      # 利用可能店舗名
+                          available_from: "2022-05-11T23:28:33.000000Z",        # 利用可能期間 (開始日時)
+                          available_to: "2022-12-12T03:00:56.000000Z",          # 利用可能期間 (終了日時)
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取得数
 ))
@@ -24,12 +27,12 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 
 
 ### Parameters
-**`private_money_id`** 
-  
-
+#### `private_money_id`
 対象クーポンのマネーIDです(必須項目)。
 存在しないマネーIDを指定した場合はprivate_money_not_foundエラー(422)が返ります。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -38,12 +41,14 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`coupon_id`** 
-  
+</details>
 
+#### `coupon_id`
 指定されたクーポンIDで結果をフィルターします。
 部分一致(前方一致)します。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -51,11 +56,13 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`coupon_name`** 
-  
+</details>
 
+#### `coupon_name`
 指定されたクーポン名で結果をフィルターします。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -63,11 +70,13 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`issued_shop_name`** 
-  
+</details>
 
+#### `issued_shop_name`
 指定された発行店舗で結果をフィルターします。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -75,11 +84,13 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`available_shop_name`** 
-  
+</details>
 
+#### `available_shop_name`
 指定された利用可能店舗で結果をフィルターします。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -87,11 +98,13 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`available_from`** 
-  
+</details>
 
+#### `available_from`
 利用可能期間でフィルターします。フィルターの開始日時をISO8601形式で指定します。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -100,11 +113,13 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`available_to`** 
-  
+</details>
 
+#### `available_to`
 利用可能期間でフィルターします。フィルターの終了日時をISO8601形式で指定します。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -113,11 +128,14 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `page`
 取得したいページ番号です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -125,17 +143,22 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ分の取得数です。デフォルトでは 50 になっています。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
   "minimum": 1
 }
 ```
+
+</details>
 
 
 
@@ -148,7 +171,7 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
 |422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
-|422|private_money_not_found||Private money not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
 
 
 
@@ -162,25 +185,26 @@ response = $client.send(Pokepay::Request::ListCoupons.new(
 ```RUBY
 response = $client.send(Pokepay::Request::CreateCoupon.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                          "oAN4R6PBgm1b",
-                          "2022-10-24T17:40:16.000000Z",
-                          "2024-02-23T20:37:41.000000Z",
+                          "TmL5CoRyGeNp0HxXnZXSXNgckUAwWayJKCRYX3YIcgcnowGfiwKDxXVuCnD6rOBTI27AIAV5JepzVqh",
+                          "2025-04-27T12:03:04.000000Z",
+                          "2020-08-16T02:06:30.000000Z",
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # issued_shop_id: 発行元の店舗ID
-                          description: "bkQVRY8MuhwDykulFo5mDyJw8V3XaTOkFDFDXkJRYuzmNrD0IPFMYcPpoEqcZqYNWKYupHW3vkZPbupwOmpLyfcnvR24ekndSEuijqLz34cJjz9WzSXV2waIpnDEjnPuGDOLqsy",
-                          discount_amount: 5664,
-                          discount_percentage: 831.0,
-                          discount_upper_limit: 5300,
-                          display_starts_at: "2022-06-11T06:33:09.000000Z",     # クーポンの掲載期間(開始日時)
-                          display_ends_at: "2024-03-10T06:14:25.000000Z",       # クーポンの掲載期間(終了日時)
-                          is_disabled: true,                                    # 無効化フラグ
+                          description: "y4RP0gQPVohOKO497LqBx5st33IycobYifawLoyomWOOMozo5jpKaGDznlAnGQMpbxQAiLohSPUwUYCUJg68uA2AmnfrLs0DzubTwACwZ7ZhzXL6GQDOebU5xROJsENJO2NqdySldX94xlSRqnAPOZUjwSd4H43FQ8gVS6TmMl7klMt3C13MqnL5qq1u02f7XAIyZQ65mKbppT1wZa5Ul9NliFarXnpuT0KKlK0tskfw",
+                          discount_amount: 4141,
+                          discount_percentage: 8495.0,
+                          discount_upper_limit: 4989,
+                          display_starts_at: "2025-05-11T19:48:24.000000Z",     # クーポンの掲載期間(開始日時)
+                          display_ends_at: "2022-01-14T18:20:25.000000Z",       # クーポンの掲載期間(終了日時)
+                          is_disabled: false,                                   # 無効化フラグ
                           is_hidden: false,                                     # クーポン一覧に掲載されるかどうか
                           is_public: false,                                     # アプリ配信なしで受け取れるかどうか
-                          code: "6hyzJ",                                        # クーポン受け取りコード
-                          usage_limit: 1003,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
-                          min_amount: 4620,                                     # クーポン適用可能な最小取引額
-                          is_shop_specified: false,                             # 特定店舗限定のクーポンかどうか
-                          available_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 利用可能店舗リスト
-                          storage_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # ストレージID
+                          code: "tzv0",                                         # クーポン受け取りコード
+                          usage_limit: 1979,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
+                          min_amount: 2213,                                     # クーポン適用可能な最小取引額
+                          is_shop_specified: true,                              # 特定店舗限定のクーポンかどうか
+                          available_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 利用可能店舗リスト
+                          storage_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # ストレージID
+                          num_recipients_cap: 9255                              # クーポンを受け取ることができるユーザ数上限
 ))
 ```
 
@@ -188,9 +212,10 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 
 
 ### Parameters
-**`private_money_id`** 
-  
+#### `private_money_id`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -199,9 +224,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`name`** 
-  
+</details>
 
+#### `name`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -210,9 +238,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `description`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -221,9 +252,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`discount_amount`** 
-  
+</details>
 
+#### `discount_amount`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -232,9 +266,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`discount_percentage`** 
-  
+</details>
 
+#### `discount_percentage`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -243,9 +280,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`discount_upper_limit`** 
-  
+</details>
 
+#### `discount_upper_limit`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -254,20 +294,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`starts_at`** 
-  
+</details>
 
+#### `starts_at`
 
-```json
-{
-  "type": "string",
-  "format": "date-time"
-}
-```
-
-**`ends_at`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -276,20 +308,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`display_starts_at`** 
-  
+</details>
 
+#### `ends_at`
 
-```json
-{
-  "type": "string",
-  "format": "date-time"
-}
-```
-
-**`display_ends_at`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -298,9 +322,40 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`is_disabled`** 
-  
+</details>
 
+#### `display_starts_at`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `display_ends_at`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `is_disabled`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -308,12 +363,14 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`is_hidden`** 
-  
+</details>
 
+#### `is_hidden`
 アプリに表示されるクーポン一覧に掲載されるかどうか。
 主に一時的に掲載から外したいときに用いられる。そのためis_publicの設定よりも優先される。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -321,9 +378,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`is_public`** 
-  
+</details>
 
+#### `is_public`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -331,9 +391,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`code`** 
-  
+</details>
 
+#### `code`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -341,19 +404,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`usage_limit`** 
-  
+</details>
 
+#### `usage_limit`
 
-```json
-{
-  "type": "integer"
-}
-```
-
-**`min_amount`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -361,9 +417,25 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`issued_shop_id`** 
-  
+</details>
 
+#### `min_amount`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer"
+}
+```
+
+</details>
+
+#### `issued_shop_id`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -372,9 +444,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`is_shop_specified`** 
-  
+</details>
 
+#### `is_shop_specified`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -382,9 +457,12 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`available_shop_ids`** 
-  
+</details>
 
+#### `available_shop_ids`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -396,10 +474,13 @@ response = $client.send(Pokepay::Request::CreateCoupon.new(
 }
 ```
 
-**`storage_id`** 
-  
+</details>
 
+#### `storage_id`
 Storage APIでアップロードしたクーポン画像のStorage IDを指定します
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -407,6 +488,22 @@ Storage APIでアップロードしたクーポン画像のStorage IDを指定�
   "format": "uuid"
 }
 ```
+
+</details>
+
+#### `num_recipients_cap`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+
+</details>
 
 
 
@@ -421,7 +518,7 @@ Storage APIでアップロードしたクーポン画像のStorage IDを指定�
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
 |404|partner_storage_not_found|指定したIDのデータは保存されていません|Not found by storage_id|
 |422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
-|422|private_money_not_found||Private money not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
 |422|coupon_image_storage_conflict|クーポン画像のストレージIDは既に存在します|The coupon image storage_id is already exists|
 
 
@@ -442,12 +539,13 @@ response = $client.send(Pokepay::Request::GetCoupon.new(
 
 
 ### Parameters
-**`coupon_id`** 
-  
-
+#### `coupon_id`
 取得するクーポンのIDです。
 UUIDv4フォーマットである必要があり、フォーマットが異なる場合は InvalidParametersエラー(400)が返ります。
 指定したIDのクーポンが存在しない場合はCouponNotFoundエラー(422)が返ります。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -455,6 +553,8 @@ UUIDv4フォーマットである必要があり、フォーマットが異な�
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 
@@ -474,24 +574,25 @@ UUIDv4フォーマットである必要があり、フォーマットが異な�
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateCoupon.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # coupon_id: クーポンID
-                          name: "v4Vr2ADhNnBQ2AhJrtrRhEmEhncAz9T8Jn6tKv842hmKtJWGe0W2JoBVxOBG6QSEaMM6DcJjfAtdrmKAg3KBKDu0vlbYdVC6n9nVL",
-                          description: "o43cE33CQPF6kxIlI0uguDnziraNYM7VX5YLnlD8HOOCDlP4GZ7jbmXMO5zVMwfk3fyCehTHNb57OPgysrQCIrNbKg5EGtS1CRG8HTOfVnvp3qGXZFBsOSpPHbliv7UIdhUMzObVJ",
-                          discount_amount: 5374,
-                          discount_percentage: 9031.0,
-                          discount_upper_limit: 6197,
-                          starts_at: "2021-02-18T11:09:22.000000Z",
-                          ends_at: "2022-09-29T15:41:10.000000Z",
-                          display_starts_at: "2022-01-29T04:18:14.000000Z",     # クーポンの掲載期間(開始日時)
-                          display_ends_at: "2022-07-12T21:07:00.000000Z",       # クーポンの掲載期間(終了日時)
-                          is_disabled: true,                                    # 無効化フラグ
+                          name: "OHu7kauWEG06SgCTer9oFRJ4RuLmQ0Lm0BujxjuGzP64zEajyqhONnTNJefr2TiFsY9hewfsBiByfrEZOyxfKfoQGupNHaPUWIAEdiNMDugLuPAj9l5d8AynsLeqsG",
+                          description: "dglo4RznM6xq8a41fGu54mYbxoNTpwSF7lLeXEgHqdJbSYvAjEwhC3hwMP5cgQTpj98oXR8pOFi9g2w6AFQtTwKA2dNvAhM3isQf3EbT9n4bNXT5kpK8LD20g1iwKbDSOY8Obvi4UJC9R4UvEHmyGnNqQFSIcOK9wFQbyZ9b8R7gO8vV0TOwj3sRQx2",
+                          discount_amount: 3371,
+                          discount_percentage: 6772.0,
+                          discount_upper_limit: 4698,
+                          starts_at: "2022-04-30T07:10:27.000000Z",
+                          ends_at: "2025-07-21T01:00:07.000000Z",
+                          display_starts_at: "2025-06-11T14:22:40.000000Z",     # クーポンの掲載期間(開始日時)
+                          display_ends_at: "2021-09-01T21:45:17.000000Z",       # クーポンの掲載期間(終了日時)
+                          is_disabled: false,                                   # 無効化フラグ
                           is_hidden: false,                                     # クーポン一覧に掲載されるかどうか
                           is_public: false,                                     # アプリ配信なしで受け取れるかどうか
-                          code: "H5",                                           # クーポン受け取りコード
-                          usage_limit: 7026,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
-                          min_amount: 7775,                                     # クーポン適用可能な最小取引額
+                          code: "UcwyM",                                        # クーポン受け取りコード
+                          usage_limit: 5091,                                    # ユーザごとの利用可能回数(NULLの場合は無制限)
+                          min_amount: 914,                                      # クーポン適用可能な最小取引額
                           is_shop_specified: false,                             # 特定店舗限定のクーポンかどうか
-                          available_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 利用可能店舗リスト
-                          storage_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"    # ストレージID
+                          available_shop_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 利用可能店舗リスト
+                          storage_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # ストレージID
+                          num_recipients_cap: 1107                              # クーポンを受け取ることができるユーザ数上限
 ))
 ```
 
@@ -501,9 +602,10 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 
 
 ### Parameters
-**`coupon_id`** 
-  
+#### `coupon_id`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -512,9 +614,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`name`** 
-  
+</details>
 
+#### `name`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -523,9 +628,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `description`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -534,9 +642,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`discount_amount`** 
-  
+</details>
 
+#### `discount_amount`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -545,9 +656,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`discount_percentage`** 
-  
+</details>
 
+#### `discount_percentage`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -556,9 +670,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`discount_upper_limit`** 
-  
+</details>
 
+#### `discount_upper_limit`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -567,20 +684,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`starts_at`** 
-  
+</details>
 
+#### `starts_at`
 
-```json
-{
-  "type": "string",
-  "format": "date-time"
-}
-```
-
-**`ends_at`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -589,20 +698,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`display_starts_at`** 
-  
+</details>
 
+#### `ends_at`
 
-```json
-{
-  "type": "string",
-  "format": "date-time"
-}
-```
-
-**`display_ends_at`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -611,9 +712,40 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`is_disabled`** 
-  
+</details>
 
+#### `display_starts_at`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `display_ends_at`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `is_disabled`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -621,12 +753,14 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`is_hidden`** 
-  
+</details>
 
+#### `is_hidden`
 アプリに表示されるクーポン一覧に掲載されるかどうか。
 主に一時的に掲載から外したいときに用いられる。そのためis_publicの設定よりも優先される。
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -634,9 +768,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`is_public`** 
-  
+</details>
 
+#### `is_public`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -644,9 +781,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`code`** 
-  
+</details>
 
+#### `code`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -654,19 +794,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`usage_limit`** 
-  
+</details>
 
+#### `usage_limit`
 
-```json
-{
-  "type": "integer"
-}
-```
-
-**`min_amount`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -674,9 +807,25 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`is_shop_specified`** 
-  
+</details>
 
+#### `min_amount`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer"
+}
+```
+
+</details>
+
+#### `is_shop_specified`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -684,9 +833,12 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`available_shop_ids`** 
-  
+</details>
 
+#### `available_shop_ids`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -698,10 +850,13 @@ response = $client.send(Pokepay::Request::UpdateCoupon.new(
 }
 ```
 
-**`storage_id`** 
-  
+</details>
 
+#### `storage_id`
 Storage APIでアップロードしたクーポン画像のStorage IDを指定します
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -709,6 +864,22 @@ Storage APIでアップロードしたクーポン画像のStorage IDを指定�
   "format": "uuid"
 }
 ```
+
+</details>
+
+#### `num_recipients_cap`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+
+</details>
 
 
 
