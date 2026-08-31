@@ -1,4 +1,10 @@
 # Private Money
+Pokepay上で発行する電子マネーを表すデータです。
+電子マネーは１つの発行体(Organization)によって発行されます。
+電子マネーはCustomerやMerchantが所有するウォレット間を送金されます。
+電子マネー残高はユーザが有償で購入するマネーと無償で付与されるポイントの2種類のバリューで構成され、
+それぞれ有効期限決定ロジックは電子マネーの設定に依存します。
+
 
 <a name="get-private-moneys"></a>
 ## GetPrivateMoneys: マネー一覧を取得する
@@ -17,10 +23,11 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 
 
 ### Parameters
-**`organization_code`** 
-  
-
+#### `organization_code`
 パートナーキーの管理者が発行体組織に属している場合、発行マネーのうち、この組織コードで指定した決済加盟店組織が加盟しているマネーの一覧を返します。決済加盟店組織の管理者は自組織以外を指定することはできません。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -30,9 +37,26 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `page`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+
+</details>
+
+#### `per_page`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -41,16 +65,7 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 }
 ```
 
-**`per_page`** 
-  
-
-
-```json
-{
-  "type": "integer",
-  "minimum": 1
-}
-```
+</details>
 
 
 
@@ -75,8 +90,8 @@ response = $client.send(Pokepay::Request::GetPrivateMoneys.new(
 ```RUBY
 response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2021-11-30T18:21:25.000000Z",                  # 開始日時(toと同時に指定する必要有)
-                          to: "2020-10-18T01:48:22.000000Z",                    # 終了日時(fromと同時に指定する必要有)
+                          from: "2024-08-04T13:52:59.000000Z",                  # 開始日時(toと同時に指定する必要有)
+                          to: "2021-06-13T17:13:32.000000Z",                    # 終了日時(fromと同時に指定する必要有)
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -86,9 +101,10 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 
 
 ### Parameters
-**`private_money_id`** 
-  
+#### `private_money_id`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -97,20 +113,12 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 }
 ```
 
-**`from`** 
-  
+</details>
 
+#### `from`
 
-```json
-{
-  "type": "string",
-  "format": "date-time"
-}
-```
-
-**`to`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -119,9 +127,26 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `to`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `page`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -130,9 +155,12 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -140,6 +168,8 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
   "minimum": 1
 }
 ```
+
+</details>
 
 
 
@@ -158,17 +188,18 @@ response = $client.send(Pokepay::Request::GetPrivateMoneyOrganizationSummaries.n
 ```RUBY
 response = $client.send(Pokepay::Request::GetPrivateMoneySummary.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          from: "2020-12-07T17:39:18.000000Z",                  # 開始日時
-                          to: "2022-05-26T23:51:41.000000Z"                     # 終了日時
+                          from: "2025-12-05T09:12:09.000000Z",                  # 開始日時
+                          to: "2026-07-15T20:22:28.000000Z"                     # 終了日時
 ))
 ```
 
 
 
 ### Parameters
-**`private_money_id`** 
-  
+#### `private_money_id`
 
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -177,9 +208,26 @@ response = $client.send(Pokepay::Request::GetPrivateMoneySummary.new(
 }
 ```
 
-**`from`** 
-  
+</details>
 
+#### `from`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "date-time"
+}
+```
+
+</details>
+
+#### `to`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -188,16 +236,7 @@ response = $client.send(Pokepay::Request::GetPrivateMoneySummary.new(
 }
 ```
 
-**`to`** 
-  
-
-
-```json
-{
-  "type": "string",
-  "format": "date-time"
-}
-```
+</details>
 
 
 

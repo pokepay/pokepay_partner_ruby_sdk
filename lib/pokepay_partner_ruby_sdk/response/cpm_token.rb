@@ -14,6 +14,8 @@ module Pokepay::Response
       @scopes = row["scopes"]
       @expires_at = row["expires_at"]
       @metadata = row["metadata"]
+      @strategy = row["strategy"]
+      @coupon_id = row["coupon_id"]
     end
     attr_reader :cpm_token
     attr_reader :account
@@ -22,5 +24,7 @@ module Pokepay::Response
     attr_reader :scopes
     attr_reader :expires_at
     attr_reader :metadata
+    attr_reader :strategy
+    attr_reader :coupon_id
   end
 end

@@ -1,5 +1,16 @@
 # Bill
-支払いQRコード
+支払いQRコード(トークン)を表すデータです。
+URL文字列のまま利用されるケースとQR画像化して利用されるケースがあります。
+ログイン済みユーザアプリで読込むことで、支払い取引を作成します。
+設定される支払い金額(amount)は、固定値とユーザによる自由入力の2パターンがあります。
+amountが空の場合は、ユーザによる自由入力で受け付けた金額で支払いを行います。
+有効期限は比較的長命で利用される事例が多いです。
+
+複数マネー対応支払いQRコードについて:
+オプショナルで複数のマネーを１つの支払いQRコードに設定可能です。
+その場合ユーザ側でどのマネーで支払うか指定可能です。
+複数マネー対応支払いQRコードにはデフォルトのマネーウォレットを設定する必要があり、ユーザがマネーを明示的に選択しなかった場合はデフォルトのマネーによる支払いになります。
+
 
 <a name="list-bills"></a>
 ## ListBills: 支払いQRコード一覧を表示する
@@ -7,30 +18,31 @@
 
 ```RUBY
 response = $client.send(Pokepay::Request::ListBills.new(
-                          page: 6224,                                           # ページ番号
-                          per_page: 8406,                                       # 1ページの表示数
-                          bill_id: "0zGq4PpZBc",                                # 支払いQRコードのID
+                          page: 2157,                                           # ページ番号
+                          per_page: 6055,                                       # 1ページの表示数
+                          bill_id: "e",                                         # 支払いQRコードのID
                           private_money_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # マネーID
-                          organization_code: "V-ld6at5-L7-g-FnGpUsttbam6-RlUA", # 組織コード
+                          organization_code: "-D54e-F6XEN",                     # 組織コード
                           description: "test bill",                             # 取引説明文
-                          created_from: "2023-04-03T07:59:20.000000Z",          # 作成日時(起点)
-                          created_to: "2020-07-16T05:37:27.000000Z",            # 作成日時(終点)
+                          created_from: "2021-07-29T10:08:23.000000Z",          # 作成日時(起点)
+                          created_to: "2024-03-20T17:44:56.000000Z",            # 作成日時(終点)
                           shop_name: "bill test shop1",                         # 店舗名
                           shop_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",      # 店舗ID
-                          lower_limit_amount: 2765,                             # 金額の範囲によるフィルタ(下限)
-                          upper_limit_amount: 5851,                             # 金額の範囲によるフィルタ(上限)
-                          is_disabled: true                                     # 支払いQRコードが無効化されているかどうか
+                          lower_limit_amount: 9779,                             # 金額の範囲によるフィルタ(下限)
+                          upper_limit_amount: 1699,                             # 金額の範囲によるフィルタ(上限)
+                          is_disabled: false                                    # 支払いQRコードが無効化されているかどうか
 ))
 ```
 
 
 
 ### Parameters
-**`page`** 
-  
-
+#### `page`
 取得したいページ番号です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -38,11 +50,14 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページに表示する支払いQRコードの数です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -50,10 +65,13 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`bill_id`** 
-  
+</details>
 
+#### `bill_id`
 支払いQRコードのIDを指定して検索します。IDは前方一致で検索されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -61,10 +79,13 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`private_money_id`** 
-  
+</details>
 
+#### `private_money_id`
 支払いQRコードの送金元ウォレットのマネーIDでフィルターします。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -73,10 +94,13 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`organization_code`** 
-  
+</details>
 
+#### `organization_code`
 支払いQRコードの送金元店舗が所属する組織の組織コードでフィルターします。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -86,10 +110,13 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `description`
 支払いQRコードを読み取ることで作られた取引の説明文としてアプリなどに表示されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -98,13 +125,16 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`created_from`** 
-  
+</details>
 
+#### `created_from`
 支払いQRコードの作成日時でフィルターします。
 
 これ以降に作成された支払いQRコードのみ一覧に表示されます。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -112,13 +142,16 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`created_to`** 
-  
+</details>
 
+#### `created_to`
 支払いQRコードの作成日時でフィルターします。
 
 これ以前に作成された支払いQRコードのみ一覧に表示されます。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -126,10 +159,13 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`shop_name`** 
-  
+</details>
 
+#### `shop_name`
 支払いQRコードを作成した店舗名でフィルターします。店舗名は部分一致で検索されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -138,10 +174,13 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`shop_id`** 
-  
+</details>
 
+#### `shop_id`
 支払いQRコードを作成した店舗IDでフィルターします。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -150,11 +189,14 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`lower_limit_amount`** 
-  
+</details>
 
+#### `lower_limit_amount`
 支払いQRコードの金額の下限を指定してフィルターします。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -163,11 +205,14 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`upper_limit_amount`** 
-  
+</details>
 
+#### `upper_limit_amount`
 支払いQRコードの金額の上限を指定してフィルターします。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -176,16 +221,21 @@ response = $client.send(Pokepay::Request::ListBills.new(
 }
 ```
 
-**`is_disabled`** 
-  
+</details>
 
+#### `is_disabled`
 支払いQRコードが無効化されているかどうかを表します。デフォルト値は偽(有効)です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
   "type": "boolean"
 }
 ```
+
+</details>
 
 
 
@@ -205,13 +255,14 @@ response = $client.send(Pokepay::Request::ListBills.new(
 
 <a name="create-bill"></a>
 ## CreateBill: 支払いQRコードの発行
-支払いQRコードの内容を更新します。支払い先の店舗ユーザーは指定したマネーのウォレットを持っている必要があります。
+支払いQRコードを作成します。支払い先の店舗ユーザーは指定したマネーのウォレットを持っている必要があります。
 
 ```RUBY
 response = $client.send(Pokepay::Request::CreateBill.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: 支払いマネーのマネーID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # shop_id: 支払い先(受け取り人)の店舗ID
-                          amount: 8753.0,                                       # 支払い額
+                          amount: 6474.0,                                       # 支払い額
+                          additional_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"], # 追加の支払いマネーのマネーID
                           description: "test bill"                              # 説明文(アプリ上で取引の説明文として表示される)
 ))
 ```
@@ -219,10 +270,12 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 
 
 ### Parameters
-**`amount`** 
-  
-
+#### `amount`
 支払いQRコードを支払い額を指定します。省略するかnullを渡すと任意金額の支払いQRコードとなり、エンドユーザーがアプリで読み取った際に金額を入力します。
+また、金額を指定する場合の上限額は支払いをするマネーの取引上限額です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -232,20 +285,12 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 }
 ```
 
-**`private_money_id`** 
-  
+</details>
 
+#### `private_money_id`
 
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-**`shop_id`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -254,9 +299,49 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `additional_private_money_ids`
+複数マネー対応支払いQRコードにするために、`private_money_id` 以外に支払いに使えるマネーのマネーIDを指定します。
+エンドユーザはアプリでの読み取り時に、ここで指定したマネーを含む中から支払うマネーを選択できます。
+マネーを明示的に選択しなかった場合は `private_money_id` で指定したマネーによる支払いになります。
+
+支払い先の店舗ユーザは、ここで指定した全てのマネーのウォレットを持っている必要があります。
+また `amount` を指定する場合の上限額は、`private_money_id` と合わせた全マネーの取引上限額のうち最小のものです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "array",
+  "items": {
+    "type": "string",
+    "format": "uuid"
+  }
+}
+```
+
+</details>
+
+#### `shop_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `description`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -265,22 +350,64 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 }
 ```
 
+</details>
+
 
 
 成功したときは
-[Bill](./responses.md#bill)
+[BillWithAdditionalPrivateMoneys](./responses.md#bill-with-additional-private-moneys)
 を返します
 
 ### Error Responses
 |status|type|ja|en|
 |---|---|---|---|
+|400|invalid_parameter_bill_amount_or_range_exceeding_transfer_limit|支払いQRコードの金額がマネーの取引可能金額の上限を超えています|The input amount is exceeding the private money's limit for transfer|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|422|shop_account_not_found||The shop account is not found|
-|422|private_money_not_found||Private money not found|
 |422|shop_user_not_found|店舗が見つかりません|The shop user is not found|
+|422|shop_account_not_found|店舗アカウントが見つかりません|The shop account is not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
 |422|account_closed|アカウントは退会しています|The account is closed|
 |422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
 |422|account_suspended|アカウントは停止されています|The account is suspended|
+
+
+
+---
+
+
+<a name="get-bill"></a>
+## GetBill: 支払いQRコードの表示
+支払いQRコードの内容を表示します。
+
+```RUBY
+response = $client.send(Pokepay::Request::GetBill.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # bill_id: 支払いQRコードのID
+))
+```
+
+
+
+### Parameters
+#### `bill_id`
+表示する支払いQRコードのIDです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+
+
+成功したときは
+[BillWithAdditionalPrivateMoneys](./responses.md#bill-with-additional-private-moneys)
+を返します
 
 
 
@@ -294,19 +421,21 @@ response = $client.send(Pokepay::Request::CreateBill.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateBill.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bill_id: 支払いQRコードのID
-                          amount: 3844.0,                                       # 支払い額
+                          amount: 959.0,                                        # 支払い額
                           description: "test bill",                             # 説明文
-                          is_disabled: false                                    # 無効化されているかどうか
+                          is_disabled: true,                                    # 無効化されているかどうか
+                          additional_private_money_ids: ["xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"] # 追加の支払いマネーのマネーID
 ))
 ```
 
 
 
 ### Parameters
-**`bill_id`** 
-  
-
+#### `bill_id`
 更新対象の支払いQRコードのIDです。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -315,10 +444,13 @@ response = $client.send(Pokepay::Request::UpdateBill.new(
 }
 ```
 
-**`amount`** 
-  
+</details>
 
-支払いQRコードを支払い額を指定します。nullを渡すと任意金額の支払いQRコードとなり、エンドユーザーがアプリで読み取った際に金額を入力します。
+#### `amount`
+支払いQRコードを支払い額を指定します。nullを渡すと任意金額の支払いQRコードとなり、エンドユーザーがアプリで読み取った際に金額を入力します。また、金額を指定する場合の上限額は支払いをするマネーの取引上限額です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -328,10 +460,13 @@ response = $client.send(Pokepay::Request::UpdateBill.new(
 }
 ```
 
-**`description`** 
-  
+</details>
 
+#### `description`
 支払いQRコードの詳細説明文です。アプリ上で取引の説明文として表示されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -340,10 +475,13 @@ response = $client.send(Pokepay::Request::UpdateBill.new(
 }
 ```
 
-**`is_disabled`** 
-  
+</details>
 
+#### `is_disabled`
 支払いQRコードが無効化されているかどうかを指定します。真にすると無効化され、偽にすると有効化します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -351,11 +489,215 @@ response = $client.send(Pokepay::Request::UpdateBill.new(
 }
 ```
 
+</details>
+
+#### `additional_private_money_ids`
+複数マネー対応支払いQRコードの、デフォルトマネー以外に支払いに使えるマネーを指定し直します。
+ここで渡した内容で置き換えられるため、既存の追加マネーを残したい場合は残したいマネーIDも含めて渡してください。
+空配列を渡すと追加マネーが全て外れ、デフォルトマネーのみの支払いQRコードになります。
+このパラメータ自体を省略した場合、追加マネーの設定は変更されません。
+
+支払い先の店舗ユーザは、ここで指定した全てのマネーのウォレットを持っている必要があります。
+デフォルトマネーは変更できません。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "array",
+  "items": {
+    "type": "string",
+    "format": "uuid"
+  }
+}
+```
+
+</details>
+
 
 
 成功したときは
-[Bill](./responses.md#bill)
+[BillWithAdditionalPrivateMoneys](./responses.md#bill-with-additional-private-moneys)
 を返します
+
+
+
+---
+
+
+<a name="create-payment-transaction-with-bill"></a>
+## CreatePaymentTransactionWithBill: 支払いQRコードを読み取ることで支払いをする
+通常支払いQRコードはエンドユーザーのアプリによって読み取られ、アプリとポケペイサーバとの直接通信によって取引が作られます。 もしエンドユーザーとの通信をパートナーのサーバのみに限定したい場合、パートナーのサーバが支払いQRの情報をエンドユーザーから代理受けして、サーバ間連携APIによって実際の支払い取引をリクエストすることになります。
+
+エンドユーザーから受け取った支払いQRコードのIDをエンドユーザーIDと共に渡すことで支払い取引が作られます。
+支払い時には、エンドユーザーの残高のうち、ポイント残高から優先的に消費されます。
+
+```RUBY
+response = $client.send(Pokepay::Request::CreatePaymentTransactionWithBill.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bill_id: 支払いQRコードのID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーのID
+                          metadata: "{\"key\":\"value\"}",                      # 取引メタデータ
+                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # リクエストID
+                          strategy: "point-preferred"                           # 支払い時の残高消費方式
+))
+```
+
+
+
+### Parameters
+#### `bill_id`
+支払いQRコードのIDです。
+
+QRコード生成時に送金先店舗のウォレット情報や、支払い金額などが登録されています。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `customer_id`
+エンドユーザーIDです。
+
+支払いを行うエンドユーザーを指定します。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `metadata`
+取引作成時に指定されるメタデータです。
+
+任意入力で、全てのkeyとvalueが文字列であるようなフラットな構造のJSON文字列で指定します。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "json"
+}
+```
+
+</details>
+
+#### `request_id`
+取引作成APIの羃等性を担保するためのリクエスト固有のIDです。
+
+取引作成APIで結果が受け取れなかったなどの理由で再試行する際に、二重に取引が作られてしまうことを防ぐために、クライアント側から指定されます。指定は任意で、UUID V4フォーマットでランダム生成した文字列です。リクエストIDは一定期間で削除されます。
+
+リクエストIDを指定したとき、まだそのリクエストIDに対する取引がない場合、新規に取引が作られレスポンスとして返されます。もしそのリクエストIDに対する取引が既にある場合、既存の取引がレスポンスとして返されます。
+既に存在する、別のユーザによる取引とリクエストIDが衝突した場合、request_id_conflictが返ります。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `strategy`
+支払い時に残高がどのように消費されるかを指定します。
+デフォルトでは point-preferred (ポイント優先)が採用されます。
+
+- point-preferred: ポイント残高が優先的に消費され、ポイントがなくなり次第マネー残高から消費されていきます(デフォルト動作)
+- money-only: マネー残高のみから消費され、ポイント残高は使われません
+
+マネー設定でポイント残高のみの利用に設定されている場合(display_money_and_point が point-only の場合)、 strategy の指定に関わらずポイント優先になります。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "enum": [
+    "point-preferred",
+    "money-only"
+  ]
+}
+```
+
+</details>
+
+
+
+成功したときは
+[TransactionDetail](./responses.md#transaction-detail)
+を返します
+
+### Error Responses
+|status|type|ja|en|
+|---|---|---|---|
+|403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
+|422|disabled_bill|支払いQRコードが無効です|Bill is disabled|
+|422|customer_user_not_found||The customer user is not found|
+|422|bill_not_found|支払いQRコードが見つかりません|Bill not found|
+|422|coupon_not_found|クーポンが見つかりませんでした。|The coupon is not found.|
+|422|credit_session_money_topup_requires_credit_card|オーソリチャージ用マネーではクレジットカードによるチャージのみ許可されています|Credit card is required for topup on credit-session enabled money|
+|422|cannot_topup_during_cvs_authorization_pending|コンビニ決済の予約中はチャージできません|You cannot topup your account while a convenience store payment is pending.|
+|422|credit_session_not_found|オーソリセッションが見つかりません|Credit session not found|
+|422|not_applicable_transaction_type_for_account_topup_quota|チャージ取引以外の取引種別ではチャージ可能枠を使用できません|Account topup quota is not applicable to transaction types other than topup.|
+|422|private_money_topup_quota_not_available|このマネーにはチャージ可能枠の設定がありません|Topup quota is not available with this private money.|
+|422|account_can_not_topup|この店舗からはチャージできません|account can not topup|
+|422|private_money_closed|このマネーは解約されています|This money was closed|
+|422|transaction_has_done|取引は完了しており、キャンセルすることはできません|Transaction has been copmpleted and cannot be canceled|
+|422|account_restricted|特定のアカウントの支払いに制限されています|The account is restricted to pay for a specific account|
+|422|account_balance_not_enough|口座残高が不足してます|The account balance is not enough|
+|422|c2c_transfer_not_allowed|このマネーではユーザ間マネー譲渡は利用できません|Customer to customer transfer is not available for this money|
+|422|account_transfer_limit_exceeded|取引金額が上限を超えました|Too much amount to transfer|
+|422|account_balance_exceeded|口座残高が上限を超えました|The account balance exceeded the limit|
+|422|account_money_topup_transfer_limit_exceeded|マネーチャージ金額が上限を超えました|Too much amount to money topup transfer|
+|422|account_topup_quota_not_splittable|このチャージ可能枠は設定された金額未満の金額には使用できません|This topup quota is only applicable to its designated money amount.|
+|422|topup_amount_exceeding_topup_quota_usable_amount|チャージ金額がチャージ可能枠の利用可能金額を超えています|Topup amount is exceeding the topup quota's usable amount|
+|422|account_topup_quota_inactive|指定されたチャージ可能枠は有効ではありません|Topup quota is inactive|
+|422|account_topup_quota_not_within_applicable_period|指定されたチャージ可能枠の利用可能期間外です|Topup quota is not applicable at this time|
+|422|account_topup_quota_not_found|ウォレットにチャージ可能枠がありません|Topup quota is not found with this account|
+|422|account_total_topup_limit_range|合計チャージ額がマネーで指定された期間内での上限を超えています|The topup exceeds the total amount within the period defined by the money.|
+|422|account_total_topup_limit_entire_period|合計チャージ額がマネーで指定された期間内での上限を超えています|The topup exceeds the total amount defined by the money.|
+|422|coupon_unavailable_shop|このクーポンはこの店舗では使用できません。|This coupon is unavailable for this shop.|
+|422|coupon_already_used|このクーポンは既に使用済みです。|This coupon is already used.|
+|422|coupon_not_received|このクーポンは受け取られていません。|This coupon is not received.|
+|422|coupon_not_sent|このウォレットに対して配信されていないクーポンです。|This coupon is not sent to this account yet.|
+|422|coupon_amount_not_enough|このクーポンを使用するには支払い額が足りません。|The payment amount not enough to use this coupon.|
+|422|coupon_not_payment|クーポンは支払いにのみ使用できます。|Coupons can only be used for payment.|
+|422|coupon_unavailable|このクーポンは使用できません。|This coupon is unavailable.|
+|422|account_suspended|アカウントは停止されています|The account is suspended|
+|422|account_closed|アカウントは退会しています|The account is closed|
+|422|customer_account_not_found|ユーザアカウントが見つかりません|The customer account is not found|
+|422|shop_account_not_found|店舗アカウントが見つかりません|The shop account is not found|
+|422|account_currency_mismatch|アカウント間で通貨が異なっています|Currency mismatch between accounts|
+|422|account_pre_closed|アカウントは退会準備中です|The account is pre-closed|
+|422|account_not_accessible|アカウントにアクセスできません|The account is not accessible by this user|
+|422|terminal_is_invalidated|端末は無効化されています|The terminal is already invalidated|
+|422|same_account_transaction|同じアカウントに送信しています|Sending to the same account|
+|422|transaction_invalid_done_at|取引完了日が無効です|Transaction completion date is invalid|
+|422|transaction_invalid_amount|取引金額が数値ではないか、受け入れられない桁数です|Transaction amount is not a number or cannot be accepted for this currency|
+|422|request_id_conflict|このリクエストIDは他の取引ですでに使用されています。お手数ですが、別のリクエストIDで最初からやり直してください。|The request_id is already used by another transaction. Try again with new request id|
+|422|reserved_word_can_not_specify_to_metadata|取引メタデータに予約語は指定出来ません|Reserved word can not specify to metadata|
+|422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
+|503|temporarily_unavailable||Service Unavailable|
 
 
 

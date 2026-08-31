@@ -1,6 +1,58 @@
 # BankPay
 BankPayを用いた銀行からのチャージ取引などのAPIを提供しています。
 
+<a name="delete-bank"></a>
+## DeleteBank: 銀行口座の削除
+銀行口座を削除します
+
+```RUBY
+response = $client.send(Pokepay::Request::DeleteBank.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_device_id: デバイスID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+))
+```
+
+
+
+### Parameters
+#### `user_device_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `bank_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+
+
+成功したときは
+[BankDeleted](./responses.md#bank-deleted)
+を返します
+
+
+
+---
+
 
 <a name="list-banks"></a>
 ## ListBanks: 登録した銀行の一覧
@@ -16,9 +68,24 @@ response = $client.send(Pokepay::Request::ListBanks.new(
 
 
 ### Parameters
-**`user_device_id`** 
-  
+#### `user_device_id`
 
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `private_money_id`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -27,16 +94,7 @@ response = $client.send(Pokepay::Request::ListBanks.new(
 }
 ```
 
-**`private_money_id`** 
-  
-
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
+</details>
 
 
 
@@ -56,14 +114,13 @@ response = $client.send(Pokepay::Request::ListBanks.new(
 ユーザーが銀行口座の登録に成功すると、callback_urlにリクエストが行われます。
 アプリの場合はDeep Linkを使うことを想定しています。
 
-
 ```RUBY
 response = $client.send(Pokepay::Request::CreateBank.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_device_id: デバイスID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           "<Deep Link>",                                        # callback_url: コールバックURL
                           "ポケペイタロウ",                                            # kana: ユーザーの氏名 (片仮名で指定)
-                          email: "7GsubMGTjI@cOXK.com",                         # ユーザーのメールアドレス
+                          email: "T8anSF4797@Isvv.com",                         # ユーザーのメールアドレス
                           birthdate: "19901142"                                 # 生年月日
 ))
 ```
@@ -71,20 +128,10 @@ response = $client.send(Pokepay::Request::CreateBank.new(
 
 
 ### Parameters
-**`user_device_id`** 
-  
+#### `user_device_id`
 
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-**`private_money_id`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -93,9 +140,26 @@ response = $client.send(Pokepay::Request::CreateBank.new(
 }
 ```
 
-**`callback_url`** 
-  
+</details>
 
+#### `private_money_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `callback_url`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -104,9 +168,12 @@ response = $client.send(Pokepay::Request::CreateBank.new(
 }
 ```
 
-**`kana`** 
-  
+</details>
 
+#### `kana`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -115,9 +182,12 @@ response = $client.send(Pokepay::Request::CreateBank.new(
 }
 ```
 
-**`email`** 
-  
+</details>
 
+#### `email`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -127,9 +197,12 @@ response = $client.send(Pokepay::Request::CreateBank.new(
 }
 ```
 
-**`birthdate`** 
-  
+</details>
 
+#### `birthdate`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -137,6 +210,8 @@ response = $client.send(Pokepay::Request::CreateBank.new(
   "maxLength": 8
 }
 ```
+
+</details>
 
 
 
@@ -157,29 +232,20 @@ response = $client.send(Pokepay::Request::CreateBank.new(
 response = $client.send(Pokepay::Request::CreateBankTopupTransaction.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # user_device_id: デバイスID
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          3269,                                                 # amount: チャージ金額
+                          6699,                                                 # amount: チャージ金額
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # bank_id: 銀行ID
-                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # request_id: リクエストID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # request_id: リクエストID
+                          receiver_user_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 受け取りユーザーID (デフォルトは自身)
 ))
 ```
 
 
 
 ### Parameters
-**`user_device_id`** 
-  
+#### `user_device_id`
 
-
-```json
-{
-  "type": "string",
-  "format": "uuid"
-}
-```
-
-**`private_money_id`** 
-  
-
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -188,9 +254,26 @@ response = $client.send(Pokepay::Request::CreateBankTopupTransaction.new(
 }
 ```
 
-**`amount`** 
-  
+</details>
 
+#### `private_money_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `amount`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -199,9 +282,26 @@ response = $client.send(Pokepay::Request::CreateBankTopupTransaction.new(
 }
 ```
 
-**`bank_id`** 
-  
+</details>
 
+#### `bank_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `receiver_user_id`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -210,9 +310,12 @@ response = $client.send(Pokepay::Request::CreateBankTopupTransaction.new(
 }
 ```
 
-**`request_id`** 
-  
+</details>
 
+#### `request_id`
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -220,6 +323,8 @@ response = $client.send(Pokepay::Request::CreateBankTopupTransaction.new(
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 

@@ -1,4 +1,10 @@
 # Customer
+エンドユーザー（顧客）のウォレット情報を管理するためのAPIです。
+エンドユーザーのウォレット（アカウント）の作成・更新・取得を行います。
+ウォレットにはマネー残高（有償バリュー）とポイント残高（無償バリュー）があり、
+有効期限別に金額が管理されています。
+また、外部システム連携用のexternal_idやメタデータを設定することも可能です。
+
 
 <a name="delete-account"></a>
 ## DeleteAccount: ウォレットを退会する
@@ -14,12 +20,13 @@ response = $client.send(Pokepay::Request::DeleteAccount.new(
 
 
 ### Parameters
-**`account_id`** 
-  
-
+#### `account_id`
 ウォレットIDです。
 
 指定したウォレットIDのウォレットを退会します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -28,16 +35,21 @@ response = $client.send(Pokepay::Request::DeleteAccount.new(
 }
 ```
 
-**`cashback`** 
-  
+</details>
 
+#### `cashback`
 退会時の返金有無です。エンドユーザに返金を行う場合、真を指定して下さい。現在のマネー残高を全て現金で返金したものとして記録されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
   "type": "boolean"
 }
 ```
+
+</details>
 
 
 
@@ -63,12 +75,13 @@ response = $client.send(Pokepay::Request::GetAccount.new(
 
 
 ### Parameters
-**`account_id`** 
-  
-
+#### `account_id`
 ウォレットIDです。
 
 フィルターとして使われ、指定したウォレットIDのウォレットを取得します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -76,6 +89,8 @@ response = $client.send(Pokepay::Request::GetAccount.new(
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 
@@ -102,7 +117,7 @@ response = $client.send(Pokepay::Request::GetAccount.new(
 response = $client.send(Pokepay::Request::UpdateAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
                           is_suspended: true,                                   # ウォレットが凍結されているかどうか
-                          status: "suspended",                                  # ウォレット状態
+                          status: "active",                                     # ウォレット状態
                           can_transfer_topup: false                             # チャージ可能かどうか
 ))
 ```
@@ -110,12 +125,13 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 
 
 ### Parameters
-**`account_id`** 
-  
-
+#### `account_id`
 ウォレットIDです。
 
 指定したウォレットIDのウォレットの状態を更新します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -124,10 +140,13 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 }
 ```
 
-**`is_suspended`** 
-  
+</details>
 
+#### `is_suspended`
 ウォレットの凍結状態です。真にするとウォレットが凍結され、そのウォレットでは新規取引ができなくなります。偽にすると凍結解除されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -135,10 +154,13 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 }
 ```
 
-**`status`** 
-  
+</details>
 
+#### `status`
 ウォレットの状態です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -151,16 +173,21 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 }
 ```
 
-**`can_transfer_topup`** 
-  
+</details>
 
+#### `can_transfer_topup`
 店舗ユーザーがエンドユーザーにチャージ可能かどうかです。真にするとチャージ可能となり、偽にするとチャージ不可能となります。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
   "type": "boolean"
 }
 ```
+
+</details>
 
 
 
@@ -180,23 +207,24 @@ response = $client.send(Pokepay::Request::UpdateAccount.new(
 ```RUBY
 response = $client.send(Pokepay::Request::ListAccountBalances.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 2551,                                           # ページ番号
-                          per_page: 6034,                                       # 1ページ分の取引数
-                          expires_at_from: "2020-03-19T11:40:52.000000Z",       # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2021-04-16T05:15:38.000000Z",         # 有効期限の期間によるフィルター(終了時点)
-                          direction: "desc"                                     # 有効期限によるソート順序
+                          page: 7198,                                           # ページ番号
+                          per_page: 1119,                                       # 1ページ分の取引数
+                          expires_at_from: "2026-04-09T16:37:04.000000Z",       # 有効期限の期間によるフィルター(開始時点)
+                          expires_at_to: "2024-10-17T05:05:19.000000Z",         # 有効期限の期間によるフィルター(終了時点)
+                          direction: "asc"                                      # 有効期限によるソート順序
 ))
 ```
 
 
 
 ### Parameters
-**`account_id`** 
-  
-
+#### `account_id`
 ウォレットIDです。
 
 フィルターとして使われ、指定したウォレットIDのウォレット残高を取得します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -205,11 +233,14 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `page`
 取得したいページ番号です。デフォルト値は1です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -217,11 +248,14 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ分のウォレット残高数です。デフォルト値は30です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -229,11 +263,14 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 }
 ```
 
-**`expires_at_from`** 
-  
+</details>
 
+#### `expires_at_from`
 有効期限の期間によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -241,11 +278,14 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 }
 ```
 
-**`expires_at_to`** 
-  
+</details>
 
+#### `expires_at_to`
 有効期限の期間によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -253,10 +293,13 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 }
 ```
 
-**`direction`** 
-  
+</details>
 
+#### `direction`
 有効期限によるソートの順序を指定します。デフォルト値はasc (昇順)です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -267,6 +310,8 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
   ]
 }
 ```
+
+</details>
 
 
 
@@ -286,10 +331,10 @@ response = $client.send(Pokepay::Request::ListAccountBalances.new(
 ```RUBY
 response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
-                          page: 2650,                                           # ページ番号
-                          per_page: 5536,                                       # 1ページ分の取引数
-                          expires_at_from: "2020-01-02T20:37:11.000000Z",       # 有効期限の期間によるフィルター(開始時点)
-                          expires_at_to: "2022-05-20T13:22:30.000000Z",         # 有効期限の期間によるフィルター(終了時点)
+                          page: 9961,                                           # ページ番号
+                          per_page: 4376,                                       # 1ページ分の取引数
+                          expires_at_from: "2025-01-21T09:55:15.000000Z",       # 有効期限の期間によるフィルター(開始時点)
+                          expires_at_to: "2026-01-18T01:13:39.000000Z",         # 有効期限の期間によるフィルター(終了時点)
                           direction: "desc"                                     # 有効期限によるソート順序
 ))
 ```
@@ -297,12 +342,13 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 
 
 ### Parameters
-**`account_id`** 
-  
-
+#### `account_id`
 ウォレットIDです。
 
 フィルターとして使われ、指定したウォレットIDのウォレット残高を取得します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -311,11 +357,14 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `page`
 取得したいページ番号です。デフォルト値は1です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -323,11 +372,14 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ分のウォレット残高数です。デフォルト値は30です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -335,11 +387,14 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 }
 ```
 
-**`expires_at_from`** 
-  
+</details>
 
+#### `expires_at_from`
 有効期限の期間によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -347,11 +402,14 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 }
 ```
 
-**`expires_at_to`** 
-  
+</details>
 
+#### `expires_at_to`
 有効期限の期間によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -359,10 +417,13 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 }
 ```
 
-**`direction`** 
-  
+</details>
 
+#### `direction`
 有効期限によるソートの順序を指定します。デフォルト値はdesc (降順)です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -373,6 +434,8 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
   ]
 }
 ```
+
+</details>
 
 
 
@@ -393,8 +456,8 @@ response = $client.send(Pokepay::Request::ListAccountExpiredBalances.new(
 response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # account_id: ウォレットID
                           status: "suspended",                                  # ウォレット状態
-                          account_name: "tEksQWSl6Am3gCBrhM35EfmrtOFWMml5EKRiDsWg9ZcujQMFmb4vZ2HzNm8wdK6sB9HsuClaKx3AfzVa9lboQsNDBH1uzKMqlEF94aThPURq2Q4ZM2ZH2d8EggWOOiiO67HWQCePWkLnY7y5", # アカウント名
-                          external_id: "P2vTc2kTDF85U9g31HpRLtjhMxgRT9FEd",     # 外部ID
+                          account_name: "bEAm8DDmMv6OU8xPn5JSHVJXh8Q94B643G49hiuGz9Mf8rtHhq6vTBJC14vJa23qnBx2rVMt", # アカウント名
+                          external_id: "QpLPCeP9dzLx5t2lgWoJQYoOSmAcuLVq3Dp4kCeEF", # 外部ID
                           metadata: "{\"key1\":\"foo\",\"key2\":\"bar\"}"       # ウォレットに付加するメタデータ
 ))
 ```
@@ -402,12 +465,13 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 
 
 ### Parameters
-**`account_id`** 
-  
-
+#### `account_id`
 ウォレットIDです。
 
 指定したウォレットIDのウォレットの状態を更新します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -416,10 +480,13 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 }
 ```
 
-**`status`** 
-  
+</details>
 
+#### `status`
 ウォレットの状態です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -432,10 +499,13 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 }
 ```
 
-**`account_name`** 
-  
+</details>
 
+#### `account_name`
 変更するウォレット名です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -444,10 +514,13 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 }
 ```
 
-**`external_id`** 
-  
+</details>
 
+#### `external_id`
 変更する外部IDです。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -456,9 +529,9 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 }
 ```
 
-**`metadata`** 
-  
+</details>
 
+#### `metadata`
 ウォレットに付加するメタデータをJSON文字列で指定します。
 指定できるJSON文字列には以下のような制約があります。
 - フラットな構造のJSONを文字列化したものであること。
@@ -476,12 +549,17 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 
 このときkey1はfooからbazに更新され、key2に対するデータは消去されます。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
   "format": "json"
 }
 ```
+
+</details>
 
 
 
@@ -501,27 +579,28 @@ response = $client.send(Pokepay::Request::UpdateCustomerAccount.new(
 ```RUBY
 response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          page: 5126,                                           # ページ番号
-                          per_page: 7269,                                       # 1ページ分のウォレット数
-                          created_at_from: "2023-11-24T20:16:17.000000Z",       # ウォレット作成日によるフィルター(開始時点)
-                          created_at_to: "2022-04-02T23:46:10.000000Z",         # ウォレット作成日によるフィルター(終了時点)
-                          is_suspended: true,                                   # ウォレットが凍結状態かどうかでフィルターする
+                          page: 8635,                                           # ページ番号
+                          per_page: 3429,                                       # 1ページ分のウォレット数
+                          created_at_from: "2024-06-20T10:01:03.000000Z",       # ウォレット作成日によるフィルター(開始時点)
+                          created_at_to: "2023-11-11T09:53:13.000000Z",         # ウォレット作成日によるフィルター(終了時点)
+                          is_suspended: false,                                  # ウォレットが凍結状態かどうかでフィルターする
                           status: "suspended",                                  # ウォレット状態
-                          external_id: "an5HyW6Uan9MoYMbeeBKUXD",               # 外部ID
-                          tel: "00-43077938",                                   # エンドユーザーの電話番号
-                          email: "5W6XuTL0vl@Idvd.com"                          # エンドユーザーのメールアドレス
+                          external_id: "oD1k2yoz92oXPFICS0jn7hXy",              # 外部ID
+                          tel: "02234012",                                      # エンドユーザーの電話番号
+                          email: "3jLO2pXiaE@fX6c.com"                          # エンドユーザーのメールアドレス
 ))
 ```
 
 
 
 ### Parameters
-**`private_money_id`** 
-  
-
+#### `private_money_id`
 マネーIDです。
 
 一覧するウォレットのマネーを指定します。このパラメータは必須です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -530,11 +609,14 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `page`
 取得したいページ番号です。デフォルト値は1です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -542,11 +624,14 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ分のウォレット数です。デフォルト値は30です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -554,11 +639,14 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`created_at_from`** 
-  
+</details>
 
+#### `created_at_from`
 ウォレット作成日によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -566,11 +654,14 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`created_at_to`** 
-  
+</details>
 
+#### `created_at_to`
 ウォレット作成日によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -578,10 +669,13 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`is_suspended`** 
-  
+</details>
 
+#### `is_suspended`
 このパラメータが指定されている場合、ウォレットの凍結状態で結果がフィルターされます。デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -589,10 +683,13 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`status`** 
-  
+</details>
 
+#### `status`
 このパラメータが指定されている場合、ウォレットの状態で結果がフィルターされます。デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -605,10 +702,13 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`external_id`** 
-  
+</details>
 
+#### `external_id`
 外部IDでのフィルタリングです。デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -617,10 +717,13 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`tel`** 
-  
+</details>
 
+#### `tel`
 エンドユーザーの電話番号でのフィルタリングです。デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -629,10 +732,13 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 }
 ```
 
-**`email`** 
-  
+</details>
 
+#### `email`
 エンドユーザーのメールアドレスでのフィルタリングです。デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -640,6 +746,8 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
   "format": "email"
 }
 ```
+
+</details>
 
 
 
@@ -651,7 +759,7 @@ response = $client.send(Pokepay::Request::GetCustomerAccounts.new(
 |status|type|ja|en|
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|422|private_money_not_found||Private money not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
 
 
 
@@ -670,19 +778,20 @@ response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           user_name: "ポケペイ太郎",                                  # ユーザー名
                           account_name: "ポケペイ太郎のアカウント",                         # アカウント名
-                          external_id: "Mbz7wUi6BX"                             # 外部ID
+                          external_id: "9g0DX8Wq75NNOSKErJuxzhPvCMr0kZtscw8OT2IA" # 外部ID
 ))
 ```
 
 
 
 ### Parameters
-**`private_money_id`** 
-  
-
+#### `private_money_id`
 マネーIDです。
 
 これによって作成するウォレットのマネーを指定します。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -691,11 +800,14 @@ response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
 }
 ```
 
-**`user_name`** 
-  
+</details>
 
+#### `user_name`
 ウォレットと共に作成するユーザ名です。省略した場合は空文字となります。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -703,11 +815,14 @@ response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
 }
 ```
 
-**`account_name`** 
-  
+</details>
 
+#### `account_name`
 作成するウォレット名です。省略した場合は空文字となります。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -715,10 +830,13 @@ response = $client.send(Pokepay::Request::CreateCustomerAccount.new(
 }
 ```
 
-**`external_id`** 
-  
+</details>
 
+#### `external_id`
 PAPIクライアントシステムから利用するPokepayユーザーのIDです。デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -726,6 +844,8 @@ PAPIクライアントシステムから利用するPokepayユーザーのIDで�
   "maxLength": 50
 }
 ```
+
+</details>
 
 
 
@@ -737,8 +857,8 @@ PAPIクライアントシステムから利用するPokepayユーザーのIDで�
 |status|type|ja|en|
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|422|user_not_found||The user is not found|
-|422|private_money_not_found||Private money not found|
+|422|user_not_found|ユーザーが見つかりません|The user is not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
 |422|invalid_metadata|メタデータの形式が不正です|Invalid metadata format|
 |422|user_attributes_external_id_not_match|ユーザー属性情報の外部IDが一致しません|Not match external id of user attributes|
 |422|user_attributes_not_found|ユーザー属性情報が存在しません|Not found the user attrubtes|
@@ -757,23 +877,24 @@ PAPIクライアントシステムから利用するPokepayユーザーのIDで�
 ```RUBY
 response = $client.send(Pokepay::Request::GetShopAccounts.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
-                          page: 5675,                                           # ページ番号
-                          per_page: 5616,                                       # 1ページ分のウォレット数
-                          created_at_from: "2023-07-03T03:04:43.000000Z",       # ウォレット作成日によるフィルター(開始時点)
-                          created_at_to: "2021-06-30T21:36:21.000000Z",         # ウォレット作成日によるフィルター(終了時点)
-                          is_suspended: true                                    # ウォレットが凍結状態かどうかでフィルターする
+                          page: 9949,                                           # ページ番号
+                          per_page: 1246,                                       # 1ページ分のウォレット数
+                          created_at_from: "2024-12-07T18:29:48.000000Z",       # ウォレット作成日によるフィルター(開始時点)
+                          created_at_to: "2025-03-14T20:30:15.000000Z",         # ウォレット作成日によるフィルター(終了時点)
+                          is_suspended: false                                   # ウォレットが凍結状態かどうかでフィルターする
 ))
 ```
 
 
 
 ### Parameters
-**`private_money_id`** 
-  
-
+#### `private_money_id`
 マネーIDです。
 
 一覧するウォレットのマネーを指定します。このパラメータは必須です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -782,11 +903,14 @@ response = $client.send(Pokepay::Request::GetShopAccounts.new(
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `page`
 取得したいページ番号です。デフォルト値は1です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -794,11 +918,14 @@ response = $client.send(Pokepay::Request::GetShopAccounts.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ分のウォレット数です。デフォルト値は30です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -806,11 +933,14 @@ response = $client.send(Pokepay::Request::GetShopAccounts.new(
 }
 ```
 
-**`created_at_from`** 
-  
+</details>
 
+#### `created_at_from`
 ウォレット作成日によるフィルターの開始時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -818,11 +948,14 @@ response = $client.send(Pokepay::Request::GetShopAccounts.new(
 }
 ```
 
-**`created_at_to`** 
-  
+</details>
 
+#### `created_at_to`
 ウォレット作成日によるフィルターの終了時点のタイムスタンプです。デフォルトでは未指定です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -830,16 +963,21 @@ response = $client.send(Pokepay::Request::GetShopAccounts.new(
 }
 ```
 
-**`is_suspended`** 
-  
+</details>
 
+#### `is_suspended`
 このパラメータが指定されている場合、ウォレットの凍結状態で結果がフィルターされます。デフォルトでは未指定です。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
   "type": "boolean"
 }
 ```
+
+</details>
 
 
 
@@ -851,7 +989,751 @@ response = $client.send(Pokepay::Request::GetShopAccounts.new(
 |status|type|ja|en|
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
-|422|private_money_not_found||Private money not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
+
+
+
+---
+
+
+<a name="get-customer-cards"></a>
+## GetCustomerCards: エンドユーザーのクレジットカード一覧を取得する
+エンドユーザーのクレジットカード一覧を取得します。
+3D Secure認証済みのカードのみが返されます。
+idはcredit-sessions作成時に使用できます。
+
+```RUBY
+response = $client.send(Pokepay::Request::GetCustomerCards.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
+                          page: 6103,                                           # ページ番号
+                          per_page: 15                                          # 1ページ分の要素数
+))
+```
+
+
+
+### Parameters
+#### `customer_id`
+エンドユーザーのIDです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `page`
+取得したいページ番号です。デフォルト値は1です。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+
+</details>
+
+#### `per_page`
+1ページ当たりの要素数です。デフォルト値は30です。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer",
+  "minimum": 1,
+  "maximum": 100
+}
+```
+
+</details>
+
+
+
+成功したときは
+[PaginatedUserCards](./responses.md#paginated-user-cards)
+を返します
+
+
+
+---
+
+
+<a name="create-customer-card"></a>
+## CreateCustomerCard: エンドユーザーのクレジットカードを登録する
+エンドユーザーのクレジットカードを登録します。
+会員登録がまだの場合は同時に会員登録も行います。
+
+```RUBY
+response = $client.send(Pokepay::Request::CreateCustomerCard.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
+                          "28S",                                                # token: MDKトークン
+                          is_cardholder_name_specified: false                   # カード名義人指定フラグ
+))
+```
+
+
+
+### Parameters
+#### `customer_id`
+カード保持者であるエンドユーザーのIDです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `token`
+カード情報に紐付くMDKトークンです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string"
+}
+```
+
+</details>
+
+#### `is_cardholder_name_specified`
+MDKトークン作成時にカード名義人を指定したかどうかのフラグです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "boolean"
+}
+```
+
+</details>
+
+
+
+成功したときは
+[UserCard](./responses.md#user-card)
+を返します
+
+
+
+---
+
+
+<a name="delete-customer-card"></a>
+## DeleteCustomerCard: エンドユーザーのクレジットカードを削除する
+エンドユーザーの登録済みクレジットカードを削除します。
+対象カードにアクティブなクレジットセッションがある場合は削除できません。
+
+```RUBY
+response = $client.send(Pokepay::Request::DeleteCustomerCard.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: エンドユーザーID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"                # card_uuid: カード識別子
+))
+```
+
+
+
+### Parameters
+#### `customer_id`
+カード保持者であるエンドユーザーのIDです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `card_uuid`
+削除対象カードのUUID（カード一覧の id）です。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+
+
+成功したときは
+[CustomerCardDeleted](./responses.md#customer-card-deleted)
+を返します
+
+
+
+---
+
+
+<a name="credit-card-topup-with-membership"></a>
+## CreditCardTopupWithMembership: 登録済みクレジットカードでチャージする（3Dセキュア）
+エンドユーザーの登録済みクレジットカードを使い、3Dセキュア認証付きでチャージします。
+レスポンスの authentication_html をエンドユーザーのブラウザに出力し認証を行ってください。
+receiver_user_id を指定すると、カード保持者と異なるユーザーの口座にチャージできます。
+
+```RUBY
+response = $client.send(Pokepay::Request::CreditCardTopupWithMembership.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: カード保持者のエンドユーザーID
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # card_uuid: カード識別子
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
+                          2760,                                                 # amount: チャージ金額
+                          receiver_user_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # チャージ先ユーザーID
+                          delete_card_if_auth_fail: true,                       # 認証失敗時にカードを削除するか
+                          description: "クレジットカードチャージ",                          # 取引履歴に表示する説明文
+                          return_url: "https://example.com/charge/complete?session=abc", # 3Dセキュア完了画面の戻り先URL
+                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # リクエストID
+                          topup_quota_id: 1976,                                 # チャージ可能枠ID
+                          memo1: "campaign2026summer",                          # 取引メモ1
+                          memo2: "JS15mGFl3fiK2FnP8l34G4oC97Xi2VAQRLi357c40zqzOK2p7RHrWnesZ9R75995lD2P99Sd561M705163Vp6Q89F4bE", # 取引メモ2
+                          memo3: "Pr6RDFv3S48O9qUWSjKtH7GWFK1NeAI2927",         # 取引メモ3
+                          freekey: "order20260803001"                           # キー情報
+))
+```
+
+
+
+### Parameters
+#### `customer_id`
+クレジットカードを保持するエンドユーザーのIDです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `card_uuid`
+使用する登録済みカードのUUID（カード一覧の id）です。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `private_money_id`
+チャージ先口座のマネーIDです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `receiver_user_id`
+チャージ先のエンドユーザーIDです。
+省略時はカード保持者本人にチャージします。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `amount`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+
+</details>
+
+#### `delete_card_if_auth_fail`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "boolean"
+}
+```
+
+</details>
+
+#### `description`
+取引説明文です。
+
+任意入力で、3Dセキュア認証成功後に作成されるチャージ取引の取引履歴に表示されます。
+省略した場合、および空文字列を指定した場合は既定の説明文が使われます
+(取引説明文を空にすることはできません)。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 200
+}
+```
+
+</details>
+
+#### `return_url`
+3Dセキュア完了画面(成功・失敗いずれも)に表示する「戻る」ボタンの遷移先URLです。
+
+任意入力です。指定した場合のみボタンが表示され、エンドユーザーが押すと
+このURLへ遷移します。省略した場合、および空文字列を指定した場合は
+ボタンを表示しません。
+
+スキームは http または https のみ受け付けます。それ以外の値、および
+2048文字を超える値は invalid_parameters エラー
+(invalid: ["return_url"]、エラーコード400) になります。
+ポケペイ側でクエリパラメータの付与は行いません。取引を識別したい場合は
+URL自体にパラメータを含めてください。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 2048
+}
+```
+
+</details>
+
+#### `request_id`
+冪等性のためのリクエストIDです。省略時はサーバーが生成します。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `topup_quota_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer"
+}
+```
+
+</details>
+
+#### `memo1`
+Veritransの取引に付与する取引メモです。
+
+任意入力で、半角英数字100文字以内で指定します。
+Veritransの取引検索で参照できます。ポケペイの取引履歴には表示されません。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 100,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+#### `memo2`
+Veritransの取引に付与する取引メモです。
+
+任意入力で、半角英数字100文字以内で指定します。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 100,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+#### `memo3`
+Veritransの取引に付与する取引メモです。
+
+任意入力で、半角英数字100文字以内で指定します。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 100,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+#### `freekey`
+Veritransの取引に付与するキー情報です。
+
+任意入力で、半角英数字256桁以内で指定します。
+加盟店システムで管理しているIDとVeritransの取引を紐付ける用途に使えます。
+ハイフンやアンダースコアは使用できないため、UUIDをそのまま指定することはできません。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 256,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+
+
+成功したときは
+[CardAuthorizeResult](./responses.md#card-authorize-result)
+を返します
+
+
+
+---
+
+
+<a name="credit-card-topup-with-mdk-token"></a>
+## CreditCardTopupWithMdkToken: 未登録クレジットカード（MDKトークン）でチャージする（3Dセキュア）
+MDKトークンで表されるクレジットカードを使い、カード登録なしで3Dセキュア認証付きチャージを行います。
+レスポンスの authentication_html をエンドユーザーのブラウザに出力し認証を行ってください。
+receiver_user_id を指定すると、カード保持者と異なるユーザーの口座にチャージできます。
+
+```RUBY
+response = $client.send(Pokepay::Request::CreditCardTopupWithMdkToken.new(
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # customer_id: カード保持者のエンドユーザーID
+                          "83wn",                                               # token: MDKトークン
+                          "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
+                          5373,                                                 # amount: チャージ金額
+                          receiver_user_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # チャージ先ユーザーID
+                          is_cardholder_name_specified: false,                  # カード名義人指定フラグ
+                          description: "クレジットカードチャージ",                          # 取引履歴に表示する説明文
+                          return_url: "https://example.com/charge/complete?session=abc", # 3Dセキュア完了画面の戻り先URL
+                          request_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",   # リクエストID
+                          topup_quota_id: 1126,                                 # チャージ可能枠ID
+                          memo1: "campaign2026summer",                          # 取引メモ1
+                          memo2: "6lrYzVNP054AWsnmM2q6dI419Tg8z7jBH",           # 取引メモ2
+                          memo3: "1zup0734v1Jw462bo0a842Y6adZo208uQdTK381Bb3foS7PTn4J70yHbrOUfwq2om8Ec3lztncx7MSp0CsWekk7pq208Ym5Q0g", # 取引メモ3
+                          freekey: "order20260803001"                           # キー情報
+))
+```
+
+
+
+### Parameters
+#### `customer_id`
+クレジットカードを保持するエンドユーザーのIDです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `token`
+VeritransのMDKトークンです。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string"
+}
+```
+
+</details>
+
+#### `private_money_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `receiver_user_id`
+省略時はカード保持者本人にチャージします。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `amount`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer",
+  "minimum": 1
+}
+```
+
+</details>
+
+#### `is_cardholder_name_specified`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "boolean"
+}
+```
+
+</details>
+
+#### `description`
+取引説明文です。
+
+任意入力で、3Dセキュア認証成功後に作成されるチャージ取引の取引履歴に表示されます。
+省略した場合、および空文字列を指定した場合は既定の説明文が使われます
+(取引説明文を空にすることはできません)。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 200
+}
+```
+
+</details>
+
+#### `return_url`
+3Dセキュア完了画面(成功・失敗いずれも)に表示する「戻る」ボタンの遷移先URLです。
+
+任意入力です。指定した場合のみボタンが表示され、エンドユーザーが押すと
+このURLへ遷移します。省略した場合、および空文字列を指定した場合は
+ボタンを表示しません。
+
+スキームは http または https のみ受け付けます。それ以外の値、および
+2048文字を超える値は invalid_parameters エラー
+(invalid: ["return_url"]、エラーコード400) になります。
+ポケペイ側でクエリパラメータの付与は行いません。取引を識別したい場合は
+URL自体にパラメータを含めてください。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 2048
+}
+```
+
+</details>
+
+#### `request_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "format": "uuid"
+}
+```
+
+</details>
+
+#### `topup_quota_id`
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "integer"
+}
+```
+
+</details>
+
+#### `memo1`
+Veritransの取引に付与する取引メモです。
+
+任意入力で、半角英数字100文字以内で指定します。
+Veritransの取引検索で参照できます。ポケペイの取引履歴には表示されません。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 100,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+#### `memo2`
+Veritransの取引に付与する取引メモです。
+
+任意入力で、半角英数字100文字以内で指定します。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 100,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+#### `memo3`
+Veritransの取引に付与する取引メモです。
+
+任意入力で、半角英数字100文字以内で指定します。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 100,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+#### `freekey`
+Veritransの取引に付与するキー情報です。
+
+任意入力で、半角英数字256桁以内で指定します。
+加盟店システムで管理しているIDとVeritransの取引を紐付ける用途に使えます。
+ハイフンやアンダースコアは使用できないため、UUIDをそのまま指定することはできません。
+
+<details>
+<summary>スキーマ</summary>
+
+```json
+{
+  "type": "string",
+  "maxLength": 256,
+  "pattern": "^[0-9A-Za-z]*$"
+}
+```
+
+</details>
+
+
+
+成功したときは
+[CardAuthorizeResult](./responses.md#card-authorize-result)
+を返します
 
 
 
@@ -867,10 +1749,10 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # private_money_id: マネーID
                           sender_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 送金エンドユーザーID
                           receiver_customer_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", # 受取エンドユーザーID
-                          type: "topup",                                        # 取引種別
-                          is_modified: true,                                    # キャンセル済みかどうか
-                          from: "2021-04-20T18:50:28.000000Z",                  # 開始日時
-                          to: "2023-12-17T07:40:02.000000Z",                    # 終了日時
+                          type: "transfer",                                     # 取引種別
+                          is_modified: false,                                   # キャンセル済みかどうか
+                          from: "2021-03-13T14:48:29.000000Z",                  # 開始日時
+                          to: "2024-02-14T19:52:59.000000Z",                    # 終了日時
                           page: 1,                                              # ページ番号
                           per_page: 50                                          # 1ページ分の取引数
 ))
@@ -879,11 +1761,12 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
 
 
 ### Parameters
-**`private_money_id`** 
-  
-
+#### `private_money_id`
 マネーIDです。
 フィルターとして使われ、指定したマネーでの取引のみ一覧に表示されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -892,13 +1775,16 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
 }
 ```
 
-**`sender_customer_id`** 
-  
+</details>
 
+#### `sender_customer_id`
 送金ユーザーIDです。
 
 フィルターとして使われ、指定された送金ユーザーでの取引のみ一覧に表示されます。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -906,13 +1792,16 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
 }
 ```
 
-**`receiver_customer_id`** 
-  
+</details>
 
+#### `receiver_customer_id`
 受取ユーザーIDです。
 
 フィルターとして使われ、指定された受取ユーザーでの取引のみ一覧に表示されます。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -920,9 +1809,9 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
 }
 ```
 
-**`type`** 
-  
+</details>
 
+#### `type`
 取引の種類でフィルターします。
 
 以下の種類を指定できます。
@@ -940,6 +1829,9 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
 6. expire
    ウォレット退会時失効
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -954,14 +1846,17 @@ response = $client.send(Pokepay::Request::ListCustomerTransactions.new(
 }
 ```
 
-**`is_modified`** 
-  
+</details>
 
+#### `is_modified`
 キャンセル済みかどうかを判定するフラグです。
 
 これにtrueを指定するとキャンセルされた取引のみ一覧に表示されます。
 falseを指定するとキャンセルされていない取引のみ一覧に表示されます
 何も指定しなければキャンセルの有無にかかわらず一覧に表示されます。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -969,13 +1864,16 @@ falseを指定するとキャンセルされていない取引のみ一覧に表
 }
 ```
 
-**`from`** 
-  
+</details>
 
+#### `from`
 抽出期間の開始日時です。
 
 フィルターとして使われ、開始日時以降に発生した取引のみ一覧に表示されます。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -983,13 +1881,16 @@ falseを指定するとキャンセルされていない取引のみ一覧に表
 }
 ```
 
-**`to`** 
-  
+</details>
 
+#### `to`
 抽出期間の終了日時です。
 
 フィルターとして使われ、終了日時以前に発生した取引のみ一覧に表示されます。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "string",
@@ -997,11 +1898,14 @@ falseを指定するとキャンセルされていない取引のみ一覧に表
 }
 ```
 
-**`page`** 
-  
+</details>
 
+#### `page`
 取得したいページ番号です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -1009,17 +1913,22 @@ falseを指定するとキャンセルされていない取引のみ一覧に表
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ分の取引数です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
   "minimum": 1
 }
 ```
+
+</details>
 
 
 
@@ -1032,7 +1941,8 @@ falseを指定するとキャンセルされていない取引のみ一覧に表
 |---|---|---|---|
 |403|unpermitted_admin_user|この管理ユーザには権限がありません|Admin does not have permission|
 |422|customer_user_not_found||The customer user is not found|
-|422|private_money_not_found||Private money not found|
+|422|private_money_not_found|マネーが見つかりません|Private money not found|
+|503|temporarily_unavailable||Service Unavailable|
 
 
 

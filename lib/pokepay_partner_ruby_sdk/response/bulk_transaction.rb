@@ -13,6 +13,7 @@ module Pokepay::Response
       @error_lineno = row["error_lineno"]
       @submitted_at = row["submitted_at"]
       @updated_at = row["updated_at"]
+      @scheduled_at = row["scheduled_at"]
     end
     attr_reader :id
     attr_reader :request_id
@@ -23,5 +24,6 @@ module Pokepay::Response
     attr_reader :error_lineno
     attr_reader :submitted_at
     attr_reader :updated_at
+    attr_reader :scheduled_at
   end
 end

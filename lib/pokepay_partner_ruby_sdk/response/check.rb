@@ -16,6 +16,7 @@ module Pokepay::Response
       @is_onetime = row["is_onetime"]
       @is_disabled = row["is_disabled"]
       @expires_at = row["expires_at"]
+      @starts_at = row["starts_at"]
       @last_used_at = row["last_used_at"]
       @private_money = PrivateMoney.new(row["private_money"])
       @usage_limit = row["usage_limit"]
@@ -34,6 +35,7 @@ module Pokepay::Response
     attr_reader :is_onetime
     attr_reader :is_disabled
     attr_reader :expires_at
+    attr_reader :starts_at
     attr_reader :last_used_at
     attr_reader :private_money
     attr_reader :usage_limit

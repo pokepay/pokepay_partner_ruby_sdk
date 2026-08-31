@@ -3,7 +3,6 @@ Webhookは特定のワーカータスクでの処理が完了した事を通知�
 WebHookにはURLとタスク名、有効化されているかを設定することが出来ます。
 通知はタスク完了時、事前に設定したURLにPOSTリクエストを行います。
 
-
 <a name="list-webhooks"></a>
 ## ListWebhooks: 作成したWebhookの一覧を返す
 
@@ -17,11 +16,12 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 
 
 ### Parameters
-**`page`** 
-  
-
+#### `page`
 取得したいページ番号です。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
@@ -29,17 +29,22 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 }
 ```
 
-**`per_page`** 
-  
+</details>
 
+#### `per_page`
 1ページ分の取得数です。デフォルトでは 50 になっています。
 
+<details>
+<summary>スキーマ</summary>
+
 ```json
 {
   "type": "integer",
   "minimum": 1
 }
 ```
+
+</details>
 
 
 
@@ -66,17 +71,18 @@ response = $client.send(Pokepay::Request::ListWebhooks.new(
 ```RUBY
 response = $client.send(Pokepay::Request::CreateWebhook.new(
                           "process_user_stats_operation",                       # task: タスク名
-                          "m4tM4"                                               # url: URL
+                          "1nu1YMp"                                             # url: URL
 ))
 ```
 
 
 
 ### Parameters
-**`task`** 
-  
-
+#### `task`
 ワーカータスク名を指定します
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -88,16 +94,21 @@ response = $client.send(Pokepay::Request::CreateWebhook.new(
 }
 ```
 
-**`url`** 
-  
+</details>
 
+#### `url`
 通知先のURLを指定します
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
   "type": "string"
 }
 ```
+
+</details>
 
 
 
@@ -129,10 +140,11 @@ response = $client.send(Pokepay::Request::DeleteWebhook.new(
 
 
 ### Parameters
-**`webhook_id`** 
-  
-
+#### `webhook_id`
 削除するWebhookのIDです。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -140,6 +152,8 @@ response = $client.send(Pokepay::Request::DeleteWebhook.new(
   "format": "uuid"
 }
 ```
+
+</details>
 
 
 
@@ -159,7 +173,7 @@ response = $client.send(Pokepay::Request::DeleteWebhook.new(
 ```RUBY
 response = $client.send(Pokepay::Request::UpdateWebhook.new(
                           "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",               # webhook_id: Webhook ID
-                          url: "rQ7TMW",                                        # URL
+                          url: "ChC",                                           # URL
                           is_active: true,                                      # 有効/無効
                           task: "bulk_shops"                                    # タスク名
 ))
@@ -168,10 +182,11 @@ response = $client.send(Pokepay::Request::UpdateWebhook.new(
 
 
 ### Parameters
-**`webhook_id`** 
-  
-
+#### `webhook_id`
 更新するWebhookのIDです。
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -180,10 +195,13 @@ response = $client.send(Pokepay::Request::UpdateWebhook.new(
 }
 ```
 
-**`url`** 
-  
+</details>
 
+#### `url`
 変更するURLを指定します
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -191,10 +209,13 @@ response = $client.send(Pokepay::Request::UpdateWebhook.new(
 }
 ```
 
-**`is_active`** 
-  
+</details>
 
+#### `is_active`
 trueならWebhookによる通知が有効になり、falseなら無効になります
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -202,10 +223,13 @@ trueならWebhookによる通知が有効になり、falseなら無効になり�
 }
 ```
 
-**`task`** 
-  
+</details>
 
+#### `task`
 指定したタスクが終了したときにWebhookによる通知がされます
+
+<details>
+<summary>スキーマ</summary>
 
 ```json
 {
@@ -216,6 +240,8 @@ trueならWebhookによる通知が有効になり、falseなら無効になり�
   ]
 }
 ```
+
+</details>
 
 
 
