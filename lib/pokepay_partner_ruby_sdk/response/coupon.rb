@@ -24,6 +24,8 @@ module Pokepay::Response
       @code = row["code"]
       @is_disabled = row["is_disabled"]
       @token = row["token"]
+      @num_recipients_cap = row["num_recipients_cap"]
+      @num_recipients = row["num_recipients"]
     end
     attr_reader :id
     attr_reader :name
@@ -44,5 +46,7 @@ module Pokepay::Response
     attr_reader :code
     attr_reader :is_disabled
     attr_reader :token
+    attr_reader :num_recipients_cap
+    attr_reader :num_recipients
   end
 end

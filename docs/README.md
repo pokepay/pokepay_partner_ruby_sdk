@@ -160,7 +160,10 @@ response.body
 - [GetCpmToken](./transaction.md#get-cpm-token): CPMトークンの状態取得
 - [ListTransactions](./transaction.md#list-transactions): 【廃止】取引履歴を取得する
 - [CreateTransaction](./transaction.md#create-transaction): 【廃止】チャージする
+- [CreateTransactionGroup](./transaction.md#create-transaction-group): トランザクショングループを作成する
+- [ShowTransactionGroup](./transaction.md#show-transaction-group): トランザクショングループを取得する
 - [ListTransactionsV2](./transaction.md#list-transactions-v2): 取引履歴を取得する
+- [ListBillTransactions](./transaction.md#list-bill-transactions): 支払い取引履歴を取得する
 - [CreateTopupTransaction](./transaction.md#create-topup-transaction): チャージする
 - [CreatePaymentTransaction](./transaction.md#create-payment-transaction): 支払いする
 - [CreateCpmTransaction](./transaction.md#create-cpm-transaction): CPMトークンによる取引作成
@@ -171,7 +174,10 @@ response.body
 - [GetTransactionByRequestId](./transaction.md#get-transaction-by-request-id): リクエストIDから取引情報を取得する
 - [GetBulkTransaction](./transaction.md#get-bulk-transaction): バルク取引ジョブの実行状況を取得する
 - [ListBulkTransactionJobs](./transaction.md#list-bulk-transaction-jobs): バルク取引ジョブの詳細情報一覧を取得する
+- [CancelBulkTransaction](./transaction.md#cancel-bulk-transaction): バルク取引をキャンセルする
+- [ResumeBulkTransaction](./transaction.md#resume-bulk-transaction): バルク取引を再開する
 - [RequestUserStats](./transaction.md#request-user-stats): 指定期間内の顧客が行った取引の統計情報をCSVでダウンロードする
+- [TerminateUserStats](./transaction.md#terminate-user-stats): RequestUserStatsのタスクを強制終了する
 
 ### Transfer
 - [GetAccountTransferSummary](./transfer.md#get-account-transfer-summary): 
@@ -184,14 +190,16 @@ response.body
 - [GetCheck](./check.md#get-check): チャージQRコードの表示
 - [UpdateCheck](./check.md#update-check): チャージQRコードの更新
 - [CreateTopupTransactionWithCheck](./check.md#create-topup-transaction-with-check): チャージQRコードを読み取ることでチャージする
-- [CreateTransactionWithCashtray](./check.md#create-transaction-with-cashtray): CashtrayQRコードを読み取ることで取引する
 
 ### Bill
 - [ListBills](./bill.md#list-bills): 支払いQRコード一覧を表示する
 - [CreateBill](./bill.md#create-bill): 支払いQRコードの発行
+- [GetBill](./bill.md#get-bill): 支払いQRコードの表示
 - [UpdateBill](./bill.md#update-bill): 支払いQRコードの更新
+- [CreatePaymentTransactionWithBill](./bill.md#create-payment-transaction-with-bill): 支払いQRコードを読み取ることで支払いをする
 
 ### Cashtray
+- [CreateTransactionWithCashtray](./cashtray.md#create-transaction-with-cashtray): CashtrayQRコードを読み取ることで取引する
 - [CreateCashtray](./cashtray.md#create-cashtray): Cashtrayを作る
 - [CancelCashtray](./cashtray.md#cancel-cashtray): Cashtrayを無効化する
 - [GetCashtray](./cashtray.md#get-cashtray): Cashtrayの情報を取得する
@@ -207,7 +215,23 @@ response.body
 - [GetCustomerAccounts](./customer.md#get-customer-accounts): エンドユーザーのウォレット一覧を表示する
 - [CreateCustomerAccount](./customer.md#create-customer-account): 新規エンドユーザーをウォレットと共に追加する
 - [GetShopAccounts](./customer.md#get-shop-accounts): 店舗ユーザーのウォレット一覧を表示する
+- [GetCustomerCards](./customer.md#get-customer-cards): エンドユーザーのクレジットカード一覧を取得する
+- [CreateCustomerCard](./customer.md#create-customer-card): エンドユーザーのクレジットカードを登録する
+- [DeleteCustomerCard](./customer.md#delete-customer-card): エンドユーザーのクレジットカードを削除する
+- [CreditCardTopupWithMembership](./customer.md#credit-card-topup-with-membership): 登録済みクレジットカードでチャージする（3Dセキュア）
+- [CreditCardTopupWithMdkToken](./customer.md#credit-card-topup-with-mdk-token): 未登録クレジットカード（MDKトークン）でチャージする（3Dセキュア）
 - [ListCustomerTransactions](./customer.md#list-customer-transactions): 取引履歴を取得する
+
+### CreditSession
+- [PostCreditSession](./credit_session.md#post-credit-session): Create credit session
+- [CreateCreditSessionTransaction](./credit_session.md#create-credit-session-transaction): Create transaction with credit session
+- [CaptureCreditSession](./credit_session.md#capture-credit-session): Capture credit session
+
+### CVS
+- [GetCvsAuthorizations](./cvs.md#get-cvs-authorizations): コンビニ決済の申し込み情報一覧取得
+- [CreateCvsAuthorization](./cvs.md#create-cvs-authorization): コンビニ決済申込
+- [CancelCvsAuthorization](./cvs.md#cancel-cvs-authorization): コンビニ決済の申し込みキャンセル
+- [GetCvsAuthorization](./cvs.md#get-cvs-authorization): コンビニ決済の申し込み情報取得
 
 ### Organization
 - [ListOrganizations](./organization.md#list-organizations): 加盟店組織の一覧を取得する
@@ -263,7 +287,11 @@ response.body
 - [ActivateUserDevice](./user_device.md#activate-user-device): デバイスの有効化
 
 ### BankPay
+- [DeleteBank](./bank_pay.md#delete-bank): 銀行口座の削除
 - [ListBanks](./bank_pay.md#list-banks): 登録した銀行の一覧
 - [CreateBank](./bank_pay.md#create-bank): 銀行口座の登録
 - [CreateBankTopupTransaction](./bank_pay.md#create-bank-topup-transaction): 銀行からのチャージ
+
+### SevenBankATMSession
+- [GetSevenBankATMSession](./seven_bank_atm_session.md#get-seven-bank-atm-session): セブン銀行ATMセッションの取得
 
