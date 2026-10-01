@@ -13,6 +13,7 @@ module Pokepay::Response
       @account = AccountWithUser.new(row["account"])
       @is_disabled = row["is_disabled"]
       @token = row["token"]
+      @created_at = row["created_at"]
     end
     attr_reader :id
     attr_reader :amount
@@ -22,5 +23,6 @@ module Pokepay::Response
     attr_reader :account
     attr_reader :is_disabled
     attr_reader :token
+    attr_reader :created_at
   end
 end
