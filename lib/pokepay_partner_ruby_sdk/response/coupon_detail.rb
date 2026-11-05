@@ -28,6 +28,8 @@ module Pokepay::Response
       @coupon_image = row["coupon_image"]
       @available_shops = row["available_shops"]
       @private_money = PrivateMoney.new(row["private_money"])
+      @num_recipients_cap = row["num_recipients_cap"]
+      @num_recipients = row["num_recipients"]
     end
     attr_reader :id
     attr_reader :name
@@ -51,5 +53,7 @@ module Pokepay::Response
     attr_reader :coupon_image
     attr_reader :available_shops
     attr_reader :private_money
+    attr_reader :num_recipients_cap
+    attr_reader :num_recipients
   end
 end
