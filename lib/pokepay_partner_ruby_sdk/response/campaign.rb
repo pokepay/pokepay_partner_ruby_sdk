@@ -10,7 +10,9 @@ module Pokepay::Response
       @id = row["id"]
       @name = row["name"]
       @applicable_shops = row["applicable_shops"]
+      @applicable_shop_labels = row["applicable_shop_labels"]
       @is_exclusive = row["is_exclusive"]
+      @is_locked = row["is_locked"]
       @starts_at = row["starts_at"]
       @ends_at = row["ends_at"]
       @point_expires_at = row["point_expires_at"]
@@ -31,7 +33,9 @@ module Pokepay::Response
     attr_reader :id
     attr_reader :name
     attr_reader :applicable_shops
+    attr_reader :applicable_shop_labels
     attr_reader :is_exclusive
+    attr_reader :is_locked
     attr_reader :starts_at
     attr_reader :ends_at
     attr_reader :point_expires_at
